@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
 
 import { OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  imports:[RouterLink]
 })
-export class HomeComponent implements OnInit {
-  ngOnInit() {
-    const myCarousel: any = document.querySelector("#myCarousel");
-    interval:3000
-  };
+export class HomeComponent  {
+
+
+
+
+
+
+
 }
 
 
