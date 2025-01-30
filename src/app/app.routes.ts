@@ -12,6 +12,7 @@ import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
 
 
+
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
 {path:"home",component:HomeComponent},

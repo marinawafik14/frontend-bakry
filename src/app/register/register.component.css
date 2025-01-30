@@ -1,0 +1,70 @@
+/* styles.css or registration.component.css */
+
+
+.image_register{
+  background: url('../../../public/assets/images/oatmeal-cookies-with-jar-milk.jpg') ;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0.9;
+}
+.container {
+  max-width: 600px;
+}
+
+.shadow-lg {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+h3 {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control, .form-select {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-dark {
+  background-color: #343a40;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+}
+
+.form-check-label {
+  font-size: 14px;
+}
+
+a.text-dark {
+  font-weight: bold;
+}
+
+a.text-dark:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+
+.btn{
+  background-color: rgb(193, 134, 56);
+}
