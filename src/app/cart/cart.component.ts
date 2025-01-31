@@ -47,8 +47,7 @@ export class CartComponent implements OnInit{
       item.quantity += quantityCase;
       
       if(item.quantity == -1) item.quantity = 0;
-      console.log(this.cartItems);
-      
+      this.updateCartQuantities();      
       
   }
 
@@ -77,7 +76,6 @@ export class CartComponent implements OnInit{
             }
           })
       }
-      this.refreshPage();
   }
 
   refreshPage() {
