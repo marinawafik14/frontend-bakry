@@ -31,4 +31,7 @@ export class CartApiService {
       }
         return this.httpClient.put(`${environment.BASE_URL}/api/cart/update/${productId}`, requestBody)
   }
+  clearCart(userId:string):Observable<any>{
+    return this.httpClient.delete(`${environment.BASE_URL}/api/cart/clear/${userId}`)
+  }
 }

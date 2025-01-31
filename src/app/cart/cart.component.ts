@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -12,41 +13,21 @@ export class CartComponent implements OnInit{
   userId:string = "679cb88e6228c2c41f8d3c6a"
   cartItems:any[] = []
   total:number = 0
+  errorMessage:boolean = false;
   constructor(public cartServiceApi:CartApiService, public router:Router){
 
   }
   ngOnInit(): void {
-      this.cartServiceApi.getCartForUser(this.userId).subscribe({
-        next: (res)=>{
-          this.userId = res.data.userId
-          this.cartItems = res.data.items;
-          this.total = res.data.total
-          for(let item of this.cartItems){
-            this.cartServiceApi.getProuctById(item.productId).subscribe({
-              next: (data)=>{
-                  item.name = data.name;
-                  item.category = data.category;
-              },
-              error: (err)=>{
-                console.log(err);
-              }
-            })
-          }
-                    
-        },
-        error: (err)=>{
-          console.log(err);
-        }
-      })
+     this.getCartData();
   }
 
 
   //functions
   updateQuantity(item:any, quantityCase:number){
-      console.log(item);
+
       item.quantity += quantityCase;
       
-      if(item.quantity == -1) item.quantity = 0;
+      if(item.quantity == 0) item.quantity = 1;
       this.updateCartQuantities();      
       
   }
@@ -55,7 +36,7 @@ export class CartComponent implements OnInit{
       this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
           next: (res)=>{
             console.log(res);
-            this.refreshPage()
+           this.getCartData();
           },
           error: (err)=>{
             console.log(err);
@@ -78,7 +59,52 @@ export class CartComponent implements OnInit{
       }
   }
 
-  refreshPage() {
-    window.location.reload();
+  getCartData(){
+    this.cartServiceApi.getCartForUser(this.userId).subscribe({
+      next: (res)=>{
+        this.userId = res.data.userId
+        this.cartItems = res.data.items;
+        this.total = res.data.total     
+        this.fetchProductData()   
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+  fetchProductData(){
+    for(let item of this.cartItems){
+      this.cartServiceApi.getProuctById(item.productId).subscribe({
+        next: (data)=>{
+            item.name = data.name;
+            item.category = data.category;
+        },
+        error: (err)=>{
+          console.log(err);
+        }
+      })
+    }
+  }
+
+  checkInput(quantity:number){
+      if(quantity<1){
+        this.errorMessage = true;
+      return
+      }
+      this.errorMessage = false;
+  }
+
+  clearCart(){
+    console.log('clear cart');
+    this.cartServiceApi.clearCart(this.userId).subscribe({
+        next:(res)=>{
+          console.log(res);
+          this.getCartData()
+        },
+        error:(err)=>{
+            console.log(err);
+        }
+    })
   }
 }
