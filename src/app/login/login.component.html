@@ -1,1 +1,63 @@
-<p>login works!</p>
+
+
+<div class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center mt-5">
+  <div class="row w-100 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card p-4 shadow-lg">
+        <h2 class="text-center mb-4  fw-bold">Sign In</h2>
+       
+        <form [formGroup]="Userloginform" (Submit)="login()" >
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control input-field"
+              placeholder="Email"
+              formControlName="email"
+            />
+            @if(  Userloginform.get('email')?.touched && Userloginform.get('email')?.invalid){
+              <div class="text-danger" >
+                @if(Userloginform.get('email')?.errors?.['required']){
+                  <p>Email is Required</p>
+                }
+              </div>
+            }
+
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label fw-semibold">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control input-field"
+             formControlName="password"
+              placeholder="Password"
+            />
+            @if( Userloginform.get('password')?.touched && Userloginform.get('password')?.invalid){
+              <div class="text-danger">
+                @if(Userloginform.get('password')?.errors?.['required']){
+                  <p>Password is Required</p>
+                }
+              </div>
+            }
+
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary w-100 py-2 rounded-pill"
+            [disabled]="Userloginform.invalid"
+          >
+            Sign In
+          </button>
+        </form>
+        <div class="mt-2 text-center">
+          <span>Not a member? </span>
+          <a class="text-dark text-decoration-none" routerLink="/register">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
