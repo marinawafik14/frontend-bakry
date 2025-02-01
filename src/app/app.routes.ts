@@ -10,6 +10,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CookiesComponent } from './category/cookies/cookies.component';
 import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 export const routes: Routes = [
@@ -21,10 +23,8 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileComponent},
 {path:"cart",component:CartComponent},
-{path:"category/cookies",component:CookiesComponent},
-{path:"category/cakes",component:CakesComponent},
-{path:"category/cupcakes",component:CupcakesComponent},
+{path:"category/:name",component:ProductsComponent},
+{path:"products/:id", component:ProductDetailsComponent},
 {path:"**",component:NotFoundComponent},
-
 
 ];
