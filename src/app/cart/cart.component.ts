@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-cart',
-  imports: [FormsModule],
+  imports: [FormsModule, TabsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
