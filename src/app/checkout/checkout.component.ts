@@ -1,9 +1,12 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { Order } from '../models/order';
+import { OrdersService } from '../services/order.service';
+import { NgForm } from '@angular/forms';
+import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, RouterOutlet],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
@@ -100,4 +103,22 @@ export class CheckoutComponent implements AfterViewInit {
       });
     }
   }
+  constructor(public orderservice: OrdersService) {}
+  order: Order = new Order('', '', '', '', '', '', '', '');
+
+  // method submit to add a new order
+
+  // need first to check if have a token in session or cookies or not if not having will reserveurl to login page 
+  submitOrder(): void {
+    this.orderservice.addOrder(this.order).subscribe(
+      (response) => {
+        console.log('Order added successfully:', response);
+      },
+      (error) => {
+        console.error('Error adding order:', error);
+      }
+    );
+  }
+
+
 }

@@ -10,6 +10,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CookiesComponent } from './category/cookies/cookies.component';
 import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileComponent},
 {path:"cart",component:CartComponent},
+{path:"Checkout" , component:CheckoutComponent},
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},
