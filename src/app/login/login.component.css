@@ -1,0 +1,42 @@
+/* Background Image */
+.container-fluid {
+  background: url('../../../public/assets/images/chocolate-cookies.jpg') ;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0.9;
+}
+
+.card {
+  background: rgba(193, 190, 190, 0.85);
+  border-radius: 15px;
+  border: none;
+  padding: 30px;
+}
+
+
+
+/* Input Fields */
+.input-field {
+  border-radius: 8px;
+  padding: 10px;
+  border: none;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #323639;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #2d3034;
+  transform: translateY(-1px);
+}
