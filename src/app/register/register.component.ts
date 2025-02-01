@@ -156,6 +156,7 @@ export class RegisterComponent {
   //     });
   //   }}
 
+  
   register() {
     if (this.Userregisterform.valid) {
       // Populate the user object with form values
