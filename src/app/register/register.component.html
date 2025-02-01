@@ -1,1 +1,102 @@
-<p>register works!</p>
+<div class="d-flex align-items-center justify-content-center mt-5 mb-3 vh-100">
+  <div class="col d-lg-flex image_register"></div>
+  <div class="col p-5">
+    <h3 class="text-center">Create an Account</h3>
+    <form [formGroup]="Userregisterform" (ngSubmit)="register()">
+      <!-- First Name and Last Name -->
+      <div class="mb-4 d-flex">
+        <input class="form-control me-1" type="text" name="firstName"  placeholder="First Name" formControlName="firstName" required>
+        <input class="form-control" type="text" name="lastName" placeholder="Last Name"  formControlName="lastName" required>
+      </div>
+
+      <!-- Validation for First Name -->
+      @if (Userregisterform.get('firstName')?.touched && Userregisterform.get('firstName')?.invalid) {
+        <div class="text-danger">
+          @if (Userregisterform.get('firstName')?.errors?.['required']) {
+            <p>First Name is required</p>
+          }
+          @if (Userregisterform.get('firstName')?.errors?.['minlength'] || Userregisterform.get('firstName')?.errors?.['maxlength']) {
+            <p>First Name must be between 3 to 10 characters</p>
+          }
+        </div>
+      }
+
+      <!-- Validation for Last Name -->
+      @if (Userregisterform.get('lastName')?.touched && Userregisterform.get('lastName')?.invalid) {
+        <div class="text-danger">
+          @if (Userregisterform.get('lastName')?.errors?.['required']) {
+            <p>Last Name is required</p>
+          }
+          @if (Userregisterform.get('lastName')?.errors?.['minlength'] || Userregisterform.get('lastName')?.errors?.['maxlength']) {
+            <p>Last Name must be between 3 to 10 characters</p>
+          }
+        </div>
+      }
+
+      <!-- Email -->
+      <div class="mb-3">
+        <input class="form-control" type="email" name="email" placeholder="Email" formControlName="email" required>
+      </div>
+
+      <!-- Validation for Email -->
+      @if (Userregisterform.get('email')?.touched && Userregisterform.get('email')?.invalid) {
+        <div class="text-danger">
+          @if (Userregisterform.get('email')?.errors?.['required']) {
+            <p>Email is required</p>
+          }
+          @if (Userregisterform.get('email')?.errors?.['pattern']) {
+            <p>Email must be a valid email address</p>
+          }
+        </div>
+      }
+
+      <!-- Password and Confirm Password -->
+      <div class="mb-4 d-flex">
+        <input class="form-control me-1" type="password"  name="password" placeholder="Password" formControlName="password" required minlength="6">
+        <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" required minlength="6">
+      </div>
+
+      <!-- Validation for Password -->
+      @if (Userregisterform.get('password')?.touched && Userregisterform.get('password')?.invalid) {
+        <div class="text-danger">
+          @if (Userregisterform.get('password')?.errors?.['required']) {
+            <p>Password is required</p>
+          }
+          @if (Userregisterform.get('password')?.errors?.['minlength']) {
+            <p>Password must be at least 6 characters</p>
+          }
+        </div>
+      }
+
+      <!-- Validation for Confirm Password -->
+      @if (Userregisterform.get('confirmPassword')?.touched && Userregisterform.get('confirmPassword')?.invalid) {
+        <div class="text-danger">
+          @if (Userregisterform.get('confirmPassword')?.errors?.['required']) {
+            <p>Confirm Password is required</p>
+          }
+          @if (Userregisterform.get('confirmPassword')?.errors?.['minlength']) {
+            <p>Confirm Password must be at least 6 characters</p>
+          }
+        </div>
+      }
+
+      <!-- Validation for Password Mismatch -->
+      @if (Userregisterform.errors?.['passwordMismatch'] && Userregisterform.get('confirmPassword')?.touched) {
+        <div class="text-danger">
+          <p>Passwords do not match</p>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <div class="mb-4">
+        <button class="btn w-100" type="submit" [disabled]="Userregisterform.invalid || Userregisterform.errors?.['passwordMismatch']">Create Account</button>
+      </div>
+    </form>
+
+    <!-- Login Link -->
+    <div class="mb-4 text-center text-dark">
+      Already have an account?
+      <a class="text-dark text-decoration-none" routerLink="/login">Log in</a>
+    </div>
+  </div>
+</div>
