@@ -30,12 +30,15 @@ export const routes: Routes = [
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},
-{path:"dashboard",component:DashbordSellerComponent},
 {path:"profile",children:[
   {path:"admin",component:AdminProfileComponent},
   {path:"customer",component:CustomerProfileComponent},
   {path:"seller",component:SellerProfileComponent},
 ]},
+{
+  path: 'dashboard',
+  loadChildren: () => import('./seller/seller.routes').then((m) => m.routes),
+},
 {path:"**",component:NotFoundComponent},
 
 
