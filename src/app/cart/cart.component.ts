@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-cart',
-  imports: [FormsModule, TabsModule],
+  imports:[FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -27,10 +27,10 @@ export class CartComponent implements OnInit{
   updateQuantity(item:any, quantityCase:number){
 
       item.quantity += quantityCase;
-      
+
       if(item.quantity == 0) item.quantity = 1;
-      this.updateCartQuantities();      
-      
+      this.updateCartQuantities();
+
   }
 
   removeCartItem(productId:string){
@@ -43,7 +43,7 @@ export class CartComponent implements OnInit{
             console.log(err);
           }
       })
-      
+
   }
 
   updateCartQuantities(){
@@ -65,8 +65,8 @@ export class CartComponent implements OnInit{
       next: (res)=>{
         this.userId = res.data.userId
         this.cartItems = res.data.items;
-        this.total = res.data.total     
-        this.fetchProductData()   
+        this.total = res.data.total
+        this.fetchProductData()
       },
       error: (err)=>{
         console.log(err);

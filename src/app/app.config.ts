@@ -24,9 +24,9 @@ export const appConfig: ApplicationConfig = {
     // provideToastr(),
     // provideAnimations(),
     providePrimeNG({
-        theme: {
-            preset: Aura
-        }
+      theme: {
+        preset: Aura
+      }
     })
   ]
 };

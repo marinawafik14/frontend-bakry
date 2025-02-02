@@ -10,12 +10,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CookiesComponent } from './category/cookies/cookies.component';
 import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
+import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-seller.component';
 
-import { ProductsComponent } from './products/products.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
 
-import { CheckoutComponent } from './checkout/checkout.component';
-
+import { canloginGuard } from './guard/canlogin.guard';
 
 
 
@@ -23,20 +21,16 @@ export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
 {path:"home",component:HomeComponent},
 {path:"about",component:AboutComponent},
-{path:"contact",component:ContactUsComponent},
+{path:"contact",component:ContactUsComponent,canActivate:[canloginGuard]},
 {path:"login",component:LoginComponent},
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileFormComponent},
 {path:"cart",component:CartComponent},
-
-{path:"category/:name",component:ProductsComponent},
-{path:"products/:id", component:ProductDetailsComponent},
-
-{path:"Checkout" , component:CheckoutComponent},
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},
-
+{path:"dashboard",component:DashbordSellerComponent},
 {path:"**",component:NotFoundComponent},
+
 
 ];
