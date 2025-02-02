@@ -1,54 +1,11 @@
-// import { CommonModule } from '@angular/common';
-// import { Component } from '@angular/core';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { RouterLink } from '@angular/router';
-// import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-// @Component({
-//   selector: 'app-register',
-//   imports: [FormsModule,RouterLink,ReactiveFormsModule,CommonModule],
-//   templateUrl: './register.component.html',
-//   styleUrl: './register.component.css'
-// })
-// export class RegisterComponent {
-//   Userregisterform:FormGroup  //crate membervariable from FormGroup
-
-//   constructor(){
-//     this.Userregisterform = new FormGroup({
-//        firstname:new FormControl('',[Validators.required,Validators.minLength(3)]),
-//         lastname:new FormControl('',[Validators.required,Validators.minLength(3)]),
-//         email:new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
-//         password:new FormControl('',[Validators.required,Validators.minLength(6)]),
-//         confirmpassword:new FormControl('',[Validators.required,Validators.minLength(6)]),
-
-//     }) //intiallize the formgroup
-//   }
-
-//   register(){
-//     alert("register success")
-//   }
-//    get firstname(){
-//     return this.Userregisterform.get('firstname');
-//    }
-//     get lastname(){
-//       return this.Userregisterform.get('lastname');
-//     }
-//     get email(){
-//       return this.Userregisterform.get('email');
-//     }
-//     get password(){
-//       return this.Userregisterform.get('password');
-//     }
-//     get confirmPassword(){
-//       return this.Userregisterform.get('confirmpassword');
-//     }
-// }
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '../_service/auth.service';
 
 export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -70,7 +27,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
 export class RegisterComponent {
   Userregisterform: FormGroup;
 
-  constructor() {
+  constructor(private _authService: AuthService) {
     this.Userregisterform = new FormGroup({
       firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
@@ -79,16 +36,41 @@ export class RegisterComponent {
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     }, { validators: passwordMatchValidator });
   }
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
 
   register() {
-   Swal.fire({
-     position: "top-end",
-     icon: "success",
-     title: "create success",
-     showConfirmButton: false,
-     timer: 1500
-   });
+
+    if (this.Userregisterform.valid) {
+      const userData = this.Userregisterform.value;
+      delete userData.confirmPassword;
+
+      this._authService.register(userData).subscribe(
+        (res) => {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "create success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          console.log('register success');
+        },
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          });
+          console.log('register failed');
+        }
+      );
+    }
   }
+
 
   get firstName() {
     return this.Userregisterform.get('firstName');
