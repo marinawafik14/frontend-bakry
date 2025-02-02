@@ -22,6 +22,7 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileComponent},
 {path:"cart",component:CartComponent},
+{path:"login" ,component:LoginComponent},
 {path:"Checkout" , component:CheckoutComponent},
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},

@@ -183,6 +183,7 @@ export class RegisterComponent {
           this.router.navigateByUrl('/home');
         },
         error: (err) => {
+          // console.log(err);
           Swal.fire({
             title: 'Error!',
             text: `Registration failed: ${err.message}`,
