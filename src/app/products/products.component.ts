@@ -4,6 +4,7 @@ import { Product } from '../_models/product';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CartApiService } from '../_services/cart-api.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(public productService: ProductService, public route: ActivatedRoute){}
+  constructor(public productService: ProductService, public route: ActivatedRoute, public CartService:CartApiService){}
   categoryName: string = '';
   products: any[] = []; // Store products
   filteredProducts: any[] = []; // Store filtered products
@@ -68,6 +69,11 @@ export class ProductsComponent implements OnInit {
         product.price <= this.priceRange // Filter by price
       );
     });
+  }
+
+  addToCart(product: any) {
+    const quantity = 1; // Default quantity (modify if needed)
+    this.CartService.addToCart(product._id, quantity, product.price);
   }
 
   categories = [

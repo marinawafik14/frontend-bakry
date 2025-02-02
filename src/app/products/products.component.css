@@ -49,6 +49,7 @@
   background: #f8f9fa;
   padding: 15px;
   border-radius: 5px;
+  height: 100px;
 }
 
 .sidebar label {
@@ -80,19 +81,4 @@
   background: url('../../../public/assets/images/candy2.jpg')no-repeat center center/cover;
 }
 
-/* Our Products Section */
-.our-products-section {
-  padding: 50px 20px;
-}
 
-
-.category-card {
-  width: 250px;
-  text-align: center;
-}
-
-.category-card img {
-  border-radius: 10px;
-  height: 250px;
-  object-fit: cover;
-}

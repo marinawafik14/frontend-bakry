@@ -27,7 +27,7 @@
             <a [routerLink]="['/profile']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-user fa-xl" ></i></a>
           </li>
           <li class="nav-item ">
-            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
+            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i> <span class="cart-count">{{ cartCount }}</span></a>
           </li>
           <!-- <li class="nav-item ">
             <a [routerLink]="['/Checkout']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>

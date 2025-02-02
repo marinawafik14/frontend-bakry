@@ -44,13 +44,17 @@
     /* margin: auto; */
     text-align: center;
     flex: 1;
+    background-color: #b8b2ab46;
+    padding: 10px;
+    /* border: #000 solid 1px; */
   }
   
   .product-image-section .main-image {
-    width: 50%;
+    width: 70%;
     height: 500px;
     object-fit: cover;
     border-radius: 10px;
+    /* border: #000 solid 1px; */
   }
   
   /* Image Selector (Thumbnail Section) */
@@ -58,6 +62,9 @@
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    /* border: #000 solid 1px; */
+    width: 30%;
+    margin: auto;
   }
   
   .thumbnail {
@@ -145,4 +152,69 @@
     font-weight: bold;
     cursor: pointer;
   }
-  
+
+/* Previous Price */
+.previous-price {
+  text-decoration: line-through;
+  color: red;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+/* Current Price (New Price) */
+.current-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: green;
+}
+
+.related-products {
+  display: flex;
+  gap: 15px;
+}
+
+.related-product-card {
+  width: 150px;
+  text-align: center;
+}
+.related-product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+
+.countdown-timer {
+  color: rgb(179, 77, 82);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+/* .wishlist-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: red;
+  cursor: pointer;
+} */
+
+/* Our Products Section */
+.our-products-section {
+  padding: 50px 20px;
+}
+
+
+.category-card {
+  width: 250px;
+  text-align: center;
+}
+
+.category-card img {
+  border-radius: 10px;
+  height: 250px;
+  object-fit: cover;
+}
+
+
+
