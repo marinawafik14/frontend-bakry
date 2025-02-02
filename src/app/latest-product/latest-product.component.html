@@ -1,0 +1,46 @@
+<section class="latest-up">
+  <div class="container mydiv">
+    <div class="row justify-content-center">
+      <ng-container *ngIf="lastproducts.length > 0; else noData">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let product of lastproducts">
+          <div class="bbb_deals">
+            <div class="ribbon ribbon-top-right"><span><small class="cross">x</small>4</span></div>
+            <div class="bbb_deals_title">Today's Combo Offer</div>
+            <div class="bbb_deals_slider_container">
+              <div class="bbb_deals_item">
+                <div class="bbb_deals_image">
+                  <img [src]="product.images[0]" alt="{{ product.name }}">
+                </div>
+                <div class="bbb_deals_content">
+                  <div class="bbb_deals_info_line d-flex justify-content-between">
+                    <div class="bbb_deals_item_category">{{ product.category }}</div>
+                    <div class="bbb_deals_item_price_a"><del>{{ product.previousprice }}</del></div>
+                  </div>
+                  <div class="bbb_deals_info_line d-flex justify-content-between">
+                    <div class="bbb_deals_item_name">{{ product.name }}</div>
+                    <div class="bbb_deals_item_price">{{ product.price }}</div>
+                  </div>
+                  <div class="available">
+                    <div class="available_line d-flex justify-content-between">
+                      <div class="available_title">Available: <span>{{ product.stock }}</span></div>
+                      <div class="sold_stars">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                    <div class="available_bar"><span style="width: 17%"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
+<ng-template #noData>
+  <p class="text-center">No products to display.</p>
+</ng-template>
+

@@ -2,12 +2,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
+import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../_service/auth.service';
+import { user } from '../../../model/user.model';
 
-export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const passwordMatchValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
 
@@ -22,10 +33,11 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   standalone: true,
   imports: [FormsModule, RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   Userregisterform: FormGroup;
+  user: user = new user(); // will use it to bind data from ui
 
   constructor(private _authService: AuthService) {
     this.Userregisterform = new FormGroup({
@@ -92,5 +104,3 @@ export class RegisterComponent {
     return this.Userregisterform.get('confirmPassword');
   }
 }
-
-

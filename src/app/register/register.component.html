@@ -2,11 +2,11 @@
   <div class="col d-lg-flex image_register"></div>
   <div class="col p-5">
     <h3 class="text-center">Create an Account</h3>
-    <form [formGroup]="Userregisterform" (submit)="register()">
+    <form [formGroup]="Userregisterform" (ngSubmit)="register()">
       <!-- First Name and Last Name -->
       <div class="mb-4 d-flex">
-        <input class="form-control me-1" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required>
-        <input class="form-control" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required>
+        <input class="form-control me-1" type="text" name="firstName"  placeholder="First Name" formControlName="firstName" required>
+        <input class="form-control" type="text" name="lastName" placeholder="Last Name"  formControlName="lastName" required>
       </div>
 
       <!-- Validation for First Name -->
@@ -52,7 +52,7 @@
 
       <!-- Password and Confirm Password -->
       <div class="mb-4 d-flex">
-        <input class="form-control me-1" type="password" name="password" placeholder="Password" formControlName="password" required minlength="6">
+        <input class="form-control me-1" type="password"  name="password" placeholder="Password" formControlName="password" required minlength="6">
         <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" required minlength="6">
       </div>
 
