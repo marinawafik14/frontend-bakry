@@ -1,1 +1,171 @@
-<p>dashbord-seller works!</p>
+<br><br><br><br>
+<div class="container">
+  <div class="row ">
+      <!-- Start Order Card -->
+      <div class="col-6  col-xl-3 NewcardStyle" >
+          <div class="shadow card l-bg-cherry  ">
+              <div class="card-statistic-3 p-4" style="background-color: rgba(138, 238, 137, 0.96);">
+                  <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart fa-xl"></i></div>
+                  <div class="mb-4">
+                      <h6 class="card-title mb-0">Orders</h6>
+                  </div>
+                  <div class="row align-items-center mb-2 d-flex">
+                      <div class="col-8">
+                          <h2 id="OrderCard" class="d-flex align-items-center mb-0">
+                              3,243
+                          </h2>
+                      </div>
+                  </div>
+                  <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                      <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- End Order Card -->
+      <!-- Start Customers Card -->
+      <div class="col-6  col-xl-3 NewcardStyle" >
+          <div class="shadow card l-bg-blue-dark">
+              <div class="card-statistic-3 p-4" style="background-color: rgb(248, 170, 25);">
+                  <div class="card-icon card-icon-large"><i class="fa fa-cubes fa-xl "></i></div>
+                  <div class="mb-4">
+                      <h6 class="card-title mb-0 " > Products</h6>
+                  </div>
+                  <div class="row align-items-center mb-2 d-flex">
+                      <div class="col-8">
+                          <h2 id="ProductsCard" class="d-flex align-items-center mb-0">
+                              15.07k
+                          </h2>
+                      </div>
+                  </div>
+                  <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                      <div class="progress-bar l-bg-green" role="progressbar" data-width="25%"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- End Customers Card -->
+      <!-- Start Ticket Resolved Card -->
+      <div class="col-6  col-xl-3 NewcardStyle">
+          <div class="shadow card l-bg-orange-dark">
+              <div class="card-statistic-3 p-4" style="background-color:#25b7c4;">
+                  <div class="card-icon card-icon-large"><i class="fas fa-cube"></i></div>
+                  <div class="mb-4">
+                      <h6 class="card-title mb-0 "> Pending Products</h6>
+                  </div>
+                  <div class="row align-items-center mb-2 d-flex">
+                      <div class="col-8">
+                          <h2 id="PendingProducts" class="d-flex align-items-center mb-0">
+                              578
+                          </h2>
+                      </div>
+
+                  </div>
+                  <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                      <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- End Ticket Resolved Card -->
+      <!-- Start Sales Card -->
+      <div class="col-6  col-xl-3 NewcardStyle">
+          <div class="shadow card l-bg-green-dark">
+              <div class="card-statistic-3 p-4" style="background-color:#25c481;">
+                  <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
+                  <div class="mb-4">
+                      <h6 class="card-title mb-0">Total Sales</h6>
+                  </div>
+                  <div class="row align-items-center mb-2 d-flex">
+                      <div class="col-8">
+                          <h2 id="TotalSalesCard" class="d-flex align-items-center mb-0">
+                              $11.61k
+                          </h2>
+                      </div>
+
+                  </div>
+                  <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                      <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- End Sales Card -->
+  </div>
+</div>
+<div id="Inputs" class="row mt-5 mb-3">
+  <!-- Inputs Section  -->
+  <div class="col-md-4 col-sm-12 mb-2">
+      <input type="number" name="RowCount" id="ProductCounterInput" value="10" min="1" class="form-control border-1 border-black"
+          placeholder="Rows per page">
+  </div>
+  <div class="col-md-4 col-sm-12 mb-2">
+      <input type="text" name="Search" id="ProductsearchInput" class="form-control  border-1 border-black " placeholder="Search">
+  </div>
+  <div class="col-md-4 col-sm-12">
+      <!-- <button type="button" class="form-control btn  btn-success border-1 border-black"> Add Account</button> -->
+      <button id="add-Product" class="form-control btn  btn-success border-1 border-black"
+          data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</button>
+
+  </div>
+</div>
+<body>
+
+    <!-- Table Header -->
+    <h1>Products</h1>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Seller Name</th>
+            <th>Images</th>
+            <th>Created At</th>
+            <th>Status</th>
+            <th>Delete</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamically Display Products -->
+          <tr >
+            <td>id</td>
+            <td>name</td>
+            <td>description</td>
+            <td>45$</td>
+            <td>50</td>
+            <td>cookies</td>
+            <td>marena</td>
+            <td>img1</td>
+            <td>date</td>
+            <td>pennding</td>
+            <td>
+              <i class="fa-solid fa-trash fa-xl"  style="color: #dc0909; cursor: pointer;"></i>
+            </td>
+            <td>
+              <i class="fa-solid fa-pen fa-xl" [routerLink]="['/dashboard/update','']"
+                style="color: #d5d813; cursor: pointer;"></i>
+            </td>
+          </tr>
+
+          <!-- Empty State -->
+          <tr>
+            <td colspan="12" class="text-center">No data available</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</body>
+
+
+  <router-outlet></router-outlet>
+
