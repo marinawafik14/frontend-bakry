@@ -3,6 +3,8 @@ import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../_service/auth.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-cart',
@@ -118,4 +120,22 @@ export class CartComponent implements OnInit{
       this.userId = this.decodedToken.userId
     }
   }
+
+
+  proceddToCheckout(){
+   const token =  this._authServie.getDecodedToken();
+   if(!token){
+    Swal.fire({
+      icon: "error",
+      title: "You Don't Have an Account",
+      text: "You have to register or login first ",
+    });
+    setTimeout(()=>{
+        this.router.navigateByUrl('/login');
+    }, 2000)
+   }
+  }
+
+  redirectToLogin(){}
+
 }
