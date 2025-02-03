@@ -1,22 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { AuthService } from '../_service/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartApiService {
-
-  constructor(public httpClient: HttpClient) {}
+  header: any
+  constructor(public httpClient: HttpClient, _authService:AuthService) {
+      this.header = _authService.setHeaders()
+  }
 
   getCartForUser(userId:string):Observable<any>{
-      return this.httpClient.get<any>(`${environment.BASE_URL}/api/cart/user/${userId}`)
+      return this.httpClient.get<any>(`${environment.BASE_URL}/api/cart/user/${userId}`,
+        {headers: this.header}
+      )
   }
 
   removeCartItem(userId:string, productId:string):Observable<any>{
-    // const userId= "679cb88e6228c2c41f8d3c6a"
-
     return this.httpClient.delete<any>(`${environment.BASE_URL}/api/cart/items/${productId}?userId=${userId}`)
   }
 
@@ -34,4 +37,6 @@ export class CartApiService {
   clearCart(userId:string):Observable<any>{
     return this.httpClient.delete(`${environment.BASE_URL}/api/cart/clear/${userId}`)
   }
+
+  
 }

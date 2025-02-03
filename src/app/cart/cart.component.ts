@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../_service/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,17 +12,21 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  userId:string = "679cb88e6228c2c41f8d3c6a"
+  userId:string = "67a11a306aeced4e3fd89f4d"
   cartItems:any[] = []
   total:number = 0
   errorMessage:boolean = false;
-  constructor(public cartServiceApi:CartApiService, public router:Router){
+  decodedToken:any
+  constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
 
   }
   ngOnInit(): void {
+    this.decodedToken = this._authServie.getDecodedToken(); 
+    if(this.decodedToken){
+      this.userId = this.decodedToken.userId
+    }
      this.getCartData();
   }
-
 
   //functions
   updateQuantity(item:any, quantityCase:number){
@@ -69,7 +74,7 @@ export class CartComponent implements OnInit{
         this.fetchProductData()
       },
       error: (err)=>{
-        console.log(err);
+        console.log(err.error);
       }
     })
   }
@@ -80,6 +85,7 @@ export class CartComponent implements OnInit{
         next: (data)=>{
             item.name = data.name;
             item.category = data.category;
+            item.image = data.images[0];
         },
         error: (err)=>{
           console.log(err);
