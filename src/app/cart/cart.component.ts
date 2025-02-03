@@ -125,17 +125,24 @@ export class CartComponent implements OnInit{
   proceddToCheckout(){
    const token =  this._authServie.getDecodedToken();
    if(!token){
+    this.notLoggedIn()
+   }
+   else{
+    this.router.navigateByUrl('/Checkout')
+   }
+
+  }
+
+  notLoggedIn(){
     Swal.fire({
       icon: "error",
       title: "You Don't Have an Account",
       text: "You have to register or login first ",
-    });
-    setTimeout(()=>{
+    }).then(()=>{
+      setTimeout(()=>{
         this.router.navigateByUrl('/login');
-    }, 2000)
-   }
+          }, 2000)
+    })
   }
-
-  redirectToLogin(){}
 
 }
