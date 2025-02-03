@@ -14,6 +14,8 @@ import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-selle
 
 
 import { canloginGuard } from './guard/canlogin.guard';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 
@@ -26,10 +28,13 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileFormComponent},
 {path:"cart",component:CartComponent},
-{path:"category/cookies",component:CookiesComponent},
-{path:"category/cakes",component:CakesComponent},
-{path:"category/cupcakes",component:CupcakesComponent},
-{path:"dashboard",component:DashbordSellerComponent},
+// {path:"category/cookies",component:ProductsComponent},
+// {path:"category/cakes",component:CakesComponent},
+// {path:"category/cupcakes",component:CupcakesComponent},
+{path:"category/:name",component:ProductsComponent},
+{path:"products/:id", component:ProductDetailsComponent},
+// {path:"dashboard",component:DashbordSellerComponent},
+// {path:"products", component:ProductsComponent},
 {path:"**",component:NotFoundComponent},
 
 
