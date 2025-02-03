@@ -19,7 +19,7 @@
                         <div class="col-md-2">
                             <div class="input-group">
                                 <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, -1)">-</button>
-                                <input style="max-width:100px" type="text"
+                                <input style="max-width:45px" type="text"
                                 class="form-control  form-control-sm text-center quantity-input"
                                 [(ngModel)]="item.quantity" (input)="checkInput(item.quantity)" disabled="">
                                 <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, 1)">+</button>
