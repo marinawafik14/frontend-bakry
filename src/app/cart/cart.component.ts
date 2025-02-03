@@ -12,16 +12,16 @@ import { AuthService } from '../_service/auth.service';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  userId:string = "67a11a306aeced4e3fd89f4d"
+  userId:string = ""
   cartItems:any[] = []
   total:number = 0
   errorMessage:boolean = false;
   decodedToken:any
   constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
+    this.getUserId();
 
   }
   ngOnInit(): void {
-    this.getUserId();
      this.getCartData();
   }
 

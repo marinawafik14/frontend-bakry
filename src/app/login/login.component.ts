@@ -48,7 +48,6 @@ export class LoginComponent {
           sessionStorage.setItem('tokenkey', response.token);
           console.log('Token stored:', response.token);
           console.log(this._authservice.getDecodedToken());
-          
 
         } else {
           console.warn('No token received from the API.');
@@ -68,6 +67,8 @@ export class LoginComponent {
         this.router.navigateByUrl('/home');
       },
       error: (err) => {
+        console.log(err);
+        
         Swal.fire({
           title: 'Login Failed!',
           text: `Error: ${err.error?.message || 'Invalid credentials'}`,

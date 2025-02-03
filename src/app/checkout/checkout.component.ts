@@ -14,28 +14,6 @@ import { user } from '../../../model/user.model';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
-
-//   const nameRegex = /^[a-zA-Z\s'-]{2,50}$/; // Allow only letters (no numbers)
-//   const mobileRegex = /^\+?[1-9]\d{1,14}$/;
-//   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-// const firstname = document.getElementById('firstname') as HTMLInputElement;
-// const lastname = document.getElementById('lastname') as HTMLInputElement;
-// const email = document.getElementById('email') as HTMLInputElement;
-// const phone = document.getElementById('phone') as HTMLInputElement;
-// const address = document.getElementById('address') as HTMLInputElement;
-// const governorate = document.getElementById('governorate') as HTMLInputElement;
-// const city = document.getElementById('city') as HTMLInputElement;
-
-//   const firstNameError = firstname.nextElementSibling;
-//   const lastNameError = lastname.nextElementSibling;
-//   const mobileNumberError = phone.nextElementSibling;
-//   const emailError = email.nextElementSibling;
-//   const addressError = address.nextElementSibling;
-//   const governorateError = governorate.nextElementSibling;
-//   const cityError = city.nextElementSibling;
-
-//   const form = document.querySelector("form.needs-validation");
 export class CheckoutComponent implements AfterViewInit {
   @ViewChild('checkoutForm') checkoutForm!: NgForm;
   citiesData: { [key: string]: string[] } = {

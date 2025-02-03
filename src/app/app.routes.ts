@@ -15,6 +15,7 @@ import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-selle
 
 import { canloginGuard } from './guard/canlogin.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
