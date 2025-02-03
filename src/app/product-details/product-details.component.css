@@ -1,0 +1,148 @@
+/* Shop Header */
+.shop-header {
+  background: rgb(172, 171, 171);
+  /* background: url('../../../public/assets/images/candy5.jpg') no-repeat center center/cover; */
+  padding: 20px;
+  color: white;
+  height: 200px;
+  margin-bottom: 100px;
+}
+
+.shop-header a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.shop-header .text-warning {
+  font-weight: bold;
+}
+
+
+
+/* Breadcrumb Navigation */
+
+.breadcrumbs {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .breadcrumbs a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .product-container {
+    display: flex;
+    align-items: start;
+    gap: 40px;
+  }
+  
+  /* Product Image */
+  .product-image-section {
+    /* margin: auto; */
+    text-align: center;
+    flex: 1;
+  }
+  
+  .product-image-section .main-image {
+    width: 50%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  /* Image Selector (Thumbnail Section) */
+.image-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+  }
+  
+  .thumbnail:hover,
+  .thumbnail.selected {
+    border: 2px solid #5c2c2c; /* Highlight selected image */
+  }
+
+  /* Product Info */
+  .product-info {
+    flex: 1;
+  }
+  
+  .product-info h1 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .delivery-info {
+    font-size: 16px;
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  /* Quantity Selector */
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantity-selector button {
+    width: 30px;
+    height: 30px;
+    background: #ccc;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .quantity-selector input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  /* Add to Cart Button */
+  .add-to-cart {
+    background: #5c2c2c;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  /* Extra Info */
+  .extra-info {
+    margin-top: 20px;
+  }
+  
+  .extra-info details {
+    background: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .extra-info summary {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

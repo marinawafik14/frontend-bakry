@@ -1,1 +1,64 @@
-<p>profile works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Sidebar or additional content can go here -->
+    </div>
+    <div class="col-md-9">
+      <h5 class="mb-4">Edit Your Profile</h5>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="First Name">
+            <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="text-danger">
+              First Name is required.
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="Last Name">
+            <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="text-danger">
+              Last Name is required.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="ProfileUser@gmail.com">
+          <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-danger">
+            Please enter a valid email.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input type="text" id="address" class="form-control" formControlName="address" placeholder="Address">
+        </div>
+        <div class="mb-3">
+          <label for="currentPassword" class="form-label">Current Password</label>
+          <input type="password" id="currentPassword" class="form-control" formControlName="currentPassword">
+          <div *ngIf="profileForm.get('currentPassword')?.invalid && profileForm.get('currentPassword')?.touched" class="text-danger">
+            Current Password is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="newPassword" class="form-label">New Password</label>
+          <input type="password" id="newPassword" class="form-control" formControlName="newPassword">
+          <div *ngIf="profileForm.get('newPassword')?.invalid && profileForm.get('newPassword')?.touched" class="text-danger">
+            New Password must be at least 6 characters long.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirm New Password</label>
+          <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword">
+          <div *ngIf="profileForm.hasError('mismatch') && profileForm.get('confirmPassword')?.touched" class="text-danger">
+            Passwords do not match.
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+          <button type="submit" class="btn btn-danger" [disabled]="profileForm.invalid">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

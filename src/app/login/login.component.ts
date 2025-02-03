@@ -51,7 +51,12 @@ export class LoginComponent {
 
     this.userservice.login(user).subscribe({
       next: (response) => {
-        Swal.fire({
+ if (response && response.token) {
+   sessionStorage.setItem('tokenkey', response.token);
+   console.log('Token stored:', response.token);
+ } else {
+   console.warn('No token received from the API.');
+ }        Swal.fire({
           title: 'Login Success!',
           html: `
           <div>
@@ -87,4 +92,5 @@ export class LoginComponent {
 
     // alert("login success")
   }
+
 }

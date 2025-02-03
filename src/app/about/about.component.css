@@ -1,0 +1,61 @@
+.container-about {
+  background-image: url("/assets/images/HotChocBPHomepage2.webp");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.info {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  font-size: 16px;
+  max-width: 80%;
+  padding: 20px ;
+  border-radius: 8px;
+}
+
+.story{
+  margin: 50px auto 0;
+  text-align: center;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+width: 50%;
+font-size: 20px;
+}
+.story h2{
+  font-weight: bold;
+  font-size: 30px;
+  color: darkolivegreen;
+}
+
+@media (max-width: 1024px) {
+  .container-about {
+    height: auto;
+    padding: 40px;
+  }
+
+  .info {
+    font-size: 14px;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .info {
+    font-size: 13px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info {
+    font-size: 12px;
+    max-width: 95%;
+    padding: 10px;
+  }
+}

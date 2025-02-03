@@ -1,0 +1,22 @@
+{
+    "cart": [
+      {
+        "id": "1",
+        "productId": "67994683936dac5236dcc735",
+        "quantity": 3,
+        "price": 19.99,
+        "totalPrice": 59.97,
+        "addedAt": "2025-01-28T22:47:30.100Z"
+      },
+      {
+        "id": "2",
+        "productId": "6799469c936dac5236dcc73b",
+        "quantity": 5,
+        "price": 21.00,
+        "totalPrice": 105.00,
+        "addedAt": "2025-01-28T22:47:30.100Z"
+      }
+    ],
+    "total": 164.97
+  }
+  
