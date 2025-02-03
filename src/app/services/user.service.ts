@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { register } from '../models/register';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Login } from '../models/login';
 
 @Injectable({
   providedIn: 'root',
@@ -9,13 +12,28 @@ export class UserserviceService {
 
   // set methods here will be used to call the API
 
-  public login(user: any) {
-    return this.http.post('http://localhost:9999/login', user);
+  public login(user: Login): Observable<Login> {
+    return this.http.post<Login>('http://localhost:8000/auth/login', user);
   }
 
   // will send user data from register form
-  public register(user: any) {
-    return this.http.post('http://localhost:9999/auth/register', user);
+  public register(user: register): Observable<register> {
+    return this.http
+      .post<register>('http://localhost:8000/auth/register', user)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side or network error
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Server returned code: ${error.status}, message: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 
   public getUser() {

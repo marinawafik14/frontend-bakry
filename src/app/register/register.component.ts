@@ -39,50 +39,85 @@ export class RegisterComponent {
   Userregisterform: FormGroup;
   user: user = new user(); // will use it to bind data from ui
 
-  constructor(private _authService: AuthService) {
-    this.Userregisterform = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    }, { validators: passwordMatchValidator });
+  constructor(private _authService: AuthService , public userservice:UserserviceService , public router: Router) {
+    this.Userregisterform = new FormGroup(
+      {
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10),
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(10),
+        ]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.pattern(
+            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+          ),
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+        confirmPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+      },
+      { validators: passwordMatchValidator }
+    );
   }
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
-
   register() {
-
     if (this.Userregisterform.valid) {
-      const userData = this.Userregisterform.value;
-      delete userData.confirmPassword;
+      // Populate the user object with form values
+      this.user.firstname = this.Userregisterform.value.firstName;
+      this.user.lastname = this.Userregisterform.value.lastName;
+      this.user.email = this.Userregisterform.value.email;
+      this.user.password = this.Userregisterform.value.password;
 
-      this._authService.register(userData).subscribe(
-        (res) => {
+      this.userservice.register(this.user).subscribe({
+        next: () => {
           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "create success",
+            title: 'Registration Success!',
+            html: `
+            <div>
+              <p><strong>First Name:</strong> ${this.Userregisterform.value.firstName}</p>
+              <p><strong>Last Name:</strong> ${this.Userregisterform.value.lastName}</p>
+              <p><strong>Email:</strong> ${this.Userregisterform.value.email}</p>
+            </div>`,
+            icon: 'success',
             showConfirmButton: false,
-            timer: 1500
+            timer: 3000,
           });
-          console.log('register success');
+          // Navigate to the home page
+          this.router.navigateByUrl('/home');
         },
-        (error) => {
+        error: (err) => {
           Swal.fire({
+            title: 'Error!',
+            text: `Registration failed: ${err.message}`,
             icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
+            showConfirmButton: true,
           });
-          console.log('register failed');
-        }
-      );
+        },
+      });
+    } else {
+      Swal.fire({
+        title: 'Validation Error!',
+        text: 'Please fill in all required fields correctly.',
+        icon: 'warning',
+        showConfirmButton: true,
+      });
     }
   }
-
 
   get firstName() {
     return this.Userregisterform.get('firstName');

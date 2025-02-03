@@ -11,7 +11,7 @@ export class OrdersService {
 
   addOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(
-      'http://localhost:9999/order/addneworder',
+      'http://localhost:8000/order/addneworder',
       order
     );
   }

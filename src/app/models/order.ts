@@ -7,6 +7,7 @@ export class Order {
   public addressdetails: string;
   public payment: string;
   public promoCode: string;
+  public items?:[];
 
   constructor(
     firstname: string,
@@ -15,6 +16,7 @@ export class Order {
     governorate: string,
     city: string,
     addressdetails: string,
+    items:[],
 
     payment: string,
     promoCode: string
@@ -27,5 +29,6 @@ export class Order {
     this.addressdetails = addressdetails;
     this.payment = payment;
     this.promoCode = promoCode;
+    this.items = items
   }
 }

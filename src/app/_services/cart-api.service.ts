@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class CartApiService {
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
 
   getCartForUser(userId:string):Observable<any>{
       return this.httpClient.get<any>(`${environment.BASE_URL}/api/cart/user/${userId}`)
