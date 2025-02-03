@@ -21,10 +21,7 @@ export class CartComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    this.decodedToken = this._authServie.getDecodedToken(); 
-    if(this.decodedToken){
-      this.userId = this.decodedToken.userId
-    }
+    this.getUserId();
      this.getCartData();
   }
 
@@ -113,5 +110,12 @@ export class CartComponent implements OnInit{
             console.log(err);
         }
     })
+  }
+
+  getUserId(){
+    this.decodedToken = this._authServie.getDecodedToken(); 
+    if(this.decodedToken){
+      this.userId = this.decodedToken.userId
+    }
   }
 }
