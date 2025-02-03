@@ -28,13 +28,16 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileFormComponent},
 {path:"cart",component:CartComponent},
+
 // {path:"category/cookies",component:ProductsComponent},
 // {path:"category/cakes",component:CakesComponent},
 // {path:"category/cupcakes",component:CupcakesComponent},
 {path:"category/:name",component:ProductsComponent},
 {path:"products/:id", component:ProductDetailsComponent},
+{path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
 // {path:"dashboard",component:DashbordSellerComponent},
 // {path:"products", component:ProductsComponent},
+
 {path:"**",component:NotFoundComponent},
 
 
