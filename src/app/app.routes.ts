@@ -29,7 +29,7 @@ export const routes: Routes = [
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},
-{path:"dashboard",component:DashbordSellerComponent},
+{path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
 {path:"**",component:NotFoundComponent},
 
 

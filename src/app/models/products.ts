@@ -1,16 +1,19 @@
 export class Products {
-  _id: string = '';
-  name: string = '';
-  sales: number = 0;
-  description: string = '';
-  price: number = 0;
-  category: string = '';
-  previousprice: number = 0;
-  stock: number = 0;
-  flavor: string = '';
-  discounted: Boolean = false;
-  createdAt: Date = new Date();
-  updatedAt: Date = new Date();
-  images: String[] = [];
-  accentColor: String = '';
+  constructor(
+    public _id: string,
+    public name:string,
+    public description:string,
+    public price:number,
+    public category:string,
+    public previousprice:number,
+    public sales:number,
+    public stock:number,
+    public flavor:string,
+    public discounted:boolean,
+    public categoryid:number,
+    public createdAt:Date,
+    public updatedAt:Date,
+    public images:string[],
+    public accentColor:string
+){}
 }
