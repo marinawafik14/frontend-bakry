@@ -118,6 +118,9 @@ export class CartComponent implements OnInit{
     this.decodedToken = this._authServie.getDecodedToken(); 
     if(this.decodedToken){
       this.userId = this.decodedToken.userId
+      console.log(this.userId);
+      
+      
     }
   }
 
