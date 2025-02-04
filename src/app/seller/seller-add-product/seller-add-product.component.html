@@ -32,7 +32,7 @@
       <input id="img2" (change)="onFileSelected($event, 2)" name="image2" class="m-1" type="file" accept="image/*" required /> Image 2
     </div>
     <div class="form-field col-lg-12">
-      <input class="submit-btn" type="submit" value="Submit" [disabled]="!productForm.valid" (click)="save()" />
+      <input class="submit-btn" type="submit" value="Submit" [disabled]="!productForm.valid" />
     </div>
   </form>
 </section>

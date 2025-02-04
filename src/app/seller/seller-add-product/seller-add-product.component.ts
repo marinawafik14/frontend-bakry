@@ -44,38 +44,51 @@ export class SellerAddProductComponent implements OnInit {
       console.log(categories)
     });
   }
-/*
-  save() {
-    // this.ProductService.createProduct(this.productAdd);
-    // if (this.productAdd) {
-      this.ProductService.createProduct(this.productAdd).subscribe((s) => {
-        console.log(s);
-        alert('product added sucessfully');
-        this.router.navigate(['/dashboard']);
-      });
-    // } else {
-    //   console.error('Product is undefined');
-    // }
-  }*/
-
-save(){
-  this.ProductService.createProduct(this.productAdd).subscribe((s)=>{
-    console.log(s);
-    alert('product added sucessfully');
-        this.router.navigate(['/dashboard']);
-  })
-
-}
 
 
-  onFileSelected(event: any, index: number): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.productAdd.images[index - 1] = e.target.result; // Save the base64 image
-      };
-      reader.readAsDataURL(file);
+    onFileSelected(event: any, index: number): void {
+      const file = event.target.files[0];
+      if (file) {
+        this.productAdd.images[index - 1] = file; // Store File object
+      }
     }
-  }
+
+    save() {
+      const formData = new FormData();
+    
+      formData.append("name", this.productAdd.name);
+      formData.append("description", this.productAdd.description);
+      formData.append("price", this.productAdd.price.toString()); // Convert to string
+      formData.append("stock", this.productAdd.stock.toString());
+      // formData.append("createdAt", this.productAdd.createdAt.toISOString());
+
+        // ✅ Convert createdAt to a Date before calling toISOString()
+        if (typeof this.productAdd.createdAt === "string") {
+          this.productAdd.createdAt = new Date(this.productAdd.createdAt);
+        }
+
+        // ✅ Check if createdAt is a valid Date before calling toISOString()
+        if (!isNaN(this.productAdd.createdAt.getTime())) {
+          formData.append("createdAt", this.productAdd.createdAt.toISOString());
+        } else {
+          console.error("Invalid createdAt value:", this.productAdd.createdAt);
+          formData.append("createdAt", new Date().toISOString()); // Use current date if invalid
+        }
+    
+      // Append images
+      this.productAdd.images.forEach((image, index) => {
+        formData.append(`images`, image); // Append each image file
+      });
+    
+      this.ProductService.createProduct(formData).subscribe(
+        (response) => {
+          console.log(response);
+          alert("Product added successfully");
+          this.router.navigate(["/dashboard"]);
+        },
+        (error) => {
+          console.error("Error adding product:", error);
+        }
+      );
+    } 
 }

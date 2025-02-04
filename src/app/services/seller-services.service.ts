@@ -8,7 +8,7 @@ import { Products } from '../models/products';
   providedIn: 'root'
 })
 export class SellerServicesService {
-private url="http://localhost:8000/products";
+private url="http://localhost:8000/allproducts";
 
   constructor(private http:HttpClient) { }
 // get all products
