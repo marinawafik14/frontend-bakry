@@ -124,7 +124,7 @@
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>ID</th>
+
           <th>Name</th>
           <th>Description</th>
           <th>Price</th>
@@ -141,7 +141,7 @@
       <tbody>
 
         <tr *ngFor="let item of selectedPro">
-          <td>{{item._id}}</td>
+
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
           <td>{{item.price}}</td>
@@ -149,8 +149,11 @@
           <td>{{item.category}}</td>
           <td>seller name</td>
           <td>
-            <img *ngFor="let img of item.images" [src]="img" width="50" />
-          </td>
+            <td>
+              <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
+            </td>
+
+          
           <td>{{item.createdAt}}</td>
           <td>status</td>
           <td>

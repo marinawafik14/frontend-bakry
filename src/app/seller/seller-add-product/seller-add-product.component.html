@@ -10,11 +10,11 @@
       <label class="label" for="descr">Description</label>
     </div>
     <div class="form-field col-lg-6">
-      <input id="price" [(ngModel)]="productAdd.price" name="price" class="input-text js-input" type="number" required />
-      <label class="label" for="price">Price</label>
+      <input id="price" [(ngModel)]="productAdd.price" name="price" class="input-text js-input" type="number" required min="1" (input)="onPositiveNumber($event)"/>
+      <label class="label" for="price" >Price</label>
     </div>
     <div class="form-field col-lg-6">
-      <input id="stock" [(ngModel)]="productAdd.stock" name="stock" class="input-text js-input" type="number" required />
+      <input id="stock" [(ngModel)]="productAdd.stock" name="stock" class="input-text js-input" type="number" required  min="1" (input)="onPositiveNumber($event)"/>
       <label class="label" for="stock">Stock number</label>
     </div>
     <div class="form-field col-lg-12">

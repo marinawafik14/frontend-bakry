@@ -8,23 +8,25 @@ import { Products } from '../models/products';
   providedIn: 'root'
 })
 export class SellerServicesService {
-private url="http://localhost:8000/products";
-
+private url="http://localhost:8000/allproducts";
+private url_delete ="http://localhost:8000/products"
   constructor(private http:HttpClient) { }
+
 // get all products
   getAllProduct():Observable<Products[]>{
     return this.http.get<Products[]>(this.url)
   }
 
 // get by id
-getById(id:string):Observable<Products>{
-return this.http.get<Products>(this.url+id)
+
+getById(id: string): Observable<Products> {
+  return this.http.get<Products>(`${this.url}/${id}`);
 }
 
-  // delete product by id
-  deleteById(id:string):Observable<void>{
-    return this.http.delete<void>(this.url + id)
+  deleteById(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url_delete}/${id}`);  // Add dynamic id here
   }
+
 
 // add product
 addProduct(pro:Products){
@@ -32,10 +34,10 @@ addProduct(pro:Products){
 }
 
 // update product
-updateProduct(pro:Products){
-this.http.put<Products>(this.url+pro._id,pro)
-}
 
+updateProduct(pro: Products): Observable<Products> {
+  return this.http.put<Products>(`${this.url}/${pro._id}`, pro);
+}
 
 
 

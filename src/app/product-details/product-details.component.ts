@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../_models/product';
 import { ActivatedRoute} from '@angular/router';
-import { ProductService } from '../_services/product.service';
+import { ProductService } from '../services/product.service';
+import { Products } from '../models/products';
 
 @Component({
   selector: 'app-product-details',
@@ -11,14 +11,14 @@ import { ProductService } from '../_services/product.service';
 })
 export class ProductDetailsComponent implements OnInit{
 
-  product: Product | null = null;
+  product: Products | null = null;
   productId: string = '';
   selectedImage: string = ''; // Store selected image
   constructor(private ac: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
     const productId = this.ac.snapshot.paramMap.get('id');
-    
+
     if (productId) {
       this.productService.getProductById(productId).subscribe({
         next: (data) => {

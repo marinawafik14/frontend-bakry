@@ -1,1 +1,51 @@
-<p>seller-update-product works!</p>
+
+
+<br><br>
+<body>
+  <form class="form" (ngSubmit)="updateProduct()">
+
+      <div class="subtitle">Let's update product</div>
+      <div class="input-container ic1 yellow">Name
+        <input id="pro_name" class="input" [(ngModel)]="productUP.name" type="text" placeholder=" product Name" name="nameproduct" />
+
+
+      </div>
+      <div class="input-container ic2 yellow">Description
+        <input id="description" [(ngModel)]="productUP.description" class="input" type="text" placeholder="Description "  name="description"/>
+
+      </div>
+      <div class="input-container ic2 yellow"> Stock
+        <input id="stock" [(ngModel)]="productUP.stock" class="input" type="number" placeholder="number of stock "  name="stock"/>
+        <div class="cut cut-short"></div>
+
+      </div>
+      <div class="input-container ic2 yellow" > price
+        <input id="price" [(ngModel)]="productUP.price" class="input" type="number" placeholder="price " name="price"/>
+
+
+      </div>
+
+      <div class="input-container ic2 yellow">Seller's Name
+        <input id="seller_name" class="input" type="text" placeholder="seller's name " name="sellername"/>
+
+      </div>
+<!--images-->
+      <div class="input-container ic2 yellow">image1
+        <input id="img" (change)="onFileSelected($event, 1)" class="input" type="file" name="img1" />
+      </div>
+      <div class="input-container ic2 yellow">image2
+        <input id="img2" (change)="onFileSelected($event, 2)" class="input" type="file" placeholder="seller's name " name="img2" />
+
+      </div>
+      <div class="mt-2">
+        <img *ngIf="productUP.images[0]" [src]="productUP.images[0]" alt="Current Image 1" width="80">
+        <img *ngIf="productUP.images[1]" [src]="productUP.images[1]" alt="Current Image 2" width="80">
+      </div>
+      <div class="input-container ic2 yellow">Date
+        <input id="date" class="input" type="date" name="date"  />
+
+      </div>
+
+      <button type="text" class="submit">submit</button>
+    </form>
+</body>

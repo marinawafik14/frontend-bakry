@@ -7,25 +7,25 @@ import { Products } from '../models/products';
   providedIn: 'root'
 })
 export class ProductService {
-private API_url:string ="http://localhost:8000/top-products"; //top product
-private apiUrl = 'http://localhost:8000/products'; // Your backend API for create product
+private API_top:string ="http://localhost:8000/top-products"; //top product
+private api_creatPro = 'http://localhost:8000/products'; // Your backend API for create product
 private URLCategory ='http://localhost:8000/category'; //api category
   constructor(private http:HttpClient) { }
 
+
+
 getProducts():Observable<Products[]>{
-return this.http.get<Products[]>(this.API_url)
+return this.http.get<Products[]>(this.API_top)
 
 }
-
-
 
 
 getProductsByCategory(categoryName: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}?category=${categoryName}`);
+  return this.http.get(`${this.api_creatPro}?category=${categoryName}`);
 }
 
 getProductById(id: string): Observable<any> {
-  return this.http.get(`${this.apiUrl}/${id}`);
+  return this.http.get(`${this.api_creatPro}/${id}`);
 }
 
 getCategories(): Observable<Array<{ _id: string, name: string }>> {
@@ -33,7 +33,7 @@ getCategories(): Observable<Array<{ _id: string, name: string }>> {
 }
 
 createProduct(std:Products):Observable<Products>{
-  return this.http.post<Products>(this.API_url, std)
+  return this.http.post<Products>(this.api_creatPro, std)
 }
 
 

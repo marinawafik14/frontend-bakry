@@ -22,9 +22,11 @@ prods:Products | undefined
   ngOnInit(): void {
     this.productSer.getAllProduct().subscribe((data)=>{
       this.selectedPro = data;
+      console.log(data)
       console.log(this.selectedPro);
     })
   }
+
 
   save(){
     if(this.prods){
@@ -32,18 +34,6 @@ prods:Products | undefined
     }
 
     }
-// delete product
-
-delete(id:string){
-  this.confirmAction().then((result) => {
-    if (result.isConfirmed) {
-      this.productSer.deleteById(id);
-      Swal.fire('Done!', 'Your action was successful.', 'success');
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire('Cancelled', 'Your action has been canceled.', 'info');
-    }
-  });
-}
 
 confirmAction() {
   return Swal.fire({
@@ -56,15 +46,30 @@ confirmAction() {
   });
 }
 
+delete(id: string) {
+  this.confirmAction().then((result) => {
+    if (result.isConfirmed) {
+      this.productSer.deleteById(id).subscribe({
+        next: () => {
+          Swal.fire('Done!', 'Your action was successful.', 'success');
 
-
-
+          this.selectedPro = this.selectedPro.filter(product => product._id !== id);
+        },
+        error: (err) => {
+          Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+        }
+      });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire('Cancelled', 'Your action has been canceled.', 'info');
+    }
+  });
+}
 
 
 
 
 update(id: string): void {
-  this.prods = this.selectedPro.find(s => s._id ==id);
+  this.prods = this.selectedPro.find(s => s._id ===id);
 }
 
 
