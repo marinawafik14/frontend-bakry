@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Order } from '../models/order';
 import { OrdersService } from '../services/order.service';
@@ -37,7 +37,7 @@ import { CartApiService } from '../_services/cart-api.service';
 //   const cityError = city.nextElementSibling;
 
 //   const form = document.querySelector("form.needs-validation");
-export class CheckoutComponent implements AfterViewInit {
+export class CheckoutComponent implements AfterViewInit,OnInit {
   @ViewChild('checkoutForm') checkoutForm!: NgForm;
   citiesData: { [key: string]: string[] } = {
     Cairo: [
@@ -115,12 +115,13 @@ export class CheckoutComponent implements AfterViewInit {
     public router: Router,
     public cartservice: CartApiService
   ) {}
+  ngOnInit(): void {
+      this.fetchCartItems();
+  }
   order: Order = new Order(
     '', // firstname
     '', // lastname
     '', // mobile
-    '', // governorate
-    '', // city
     '', // customerid
     '', // addressdetails
     [], // items
@@ -209,11 +210,17 @@ but first wanna to catch token then decode it
       this.router.navigateByUrl('/login');
       return;
     }
+    
 
     this.cartservice.getCartForUser(userId).subscribe({
       next: (cartData) => {
-        this.order.items = cartData.items;
-        this.order.total = cartData.total;
+        console.log(cartData);
+        this.order.items = cartData.data.items;
+        console.log(cartData.items); 
+        this.order.totalAmount = cartData.data.total;
+        console.log(cartData.total);
+        this.order.customerId = cartData.data.userId;
+        
       },
       error: (error) => {
         console.error('Error fetching cart items:', error);
@@ -246,6 +253,7 @@ but first wanna to catch token then decode it
 
   submitOrder(): void {
     const userId = this.getUseridFromToken();
+    console.log(userId);
     if (!userId) {
       Swal.fire({
         title: 'Session Expired!',
@@ -289,30 +297,52 @@ but first wanna to catch token then decode it
     //   promoCode: this.order.promoCode || '', // Include promoCode if available
     // };
 
-    const orderData = new Order(
-      (this.order.customerid = userId),
-      this.order.firstname,
-      this.order.lastname,
-      this.order.mobile,
-      this.order.governorate,
-      this.order.city,
-      this.order.addressdetails,
-      this.order.items.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      this.order.total,
-      this.order.payment,
-      this.order.promoCode || '',
-      {
-        governorate: this.order.governorate,
-        city: this.order.city,
-      }
-    );
+    // const orderData = new Order(
+    //   this.order.customerid,
+    //   this.order.firstname,
+    //   this.order.lastname,
+    //   this.order.mobile,
+    //   this.order.governorate,
+    //   this.order.city,
+    //   this.order.addressdetails,
+    //   this.order.items.map((item) => ({
+    //     productId: item.productId,
+    //     quantity: item.quantity,
+    //     price: item.price,
+    //   })),
+    //   this.order.total,
+    //   this.order.payment,
+    //   this.order.promoCode || '',
+    //   {
+    //     governorate: this.order.governorate,
+    //     city: this.order.city,
+    //   }
+    // );
 
+  const orderData =  {
+    items: this.order.items.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+      price: item.price,
+    })),
+    customerId: this.order.customerId,
+    totalAmount: this.order.totalAmount,
+    shippingAddress: {
+      governorate: this.order.shippingAddress.governorate,
+      city: this.order.shippingAddress.city,
+    },
+    addressdetails: this.order.addressdetails,
+    firstname: this.order.firstname,
+    lastname: this.order.lastname,
+    paymentMethod: this.order.paymentMethod,
+    paymentCode: this.order.paymentCode || '',
+  };
+
+
+    console.log(orderData); 
     // error ==> wanna to map or bind data come from ui and getting it fro service [cartitems + total]
     this.orderservice.addOrder(orderData).subscribe({
+      
       next: (response) => {
         Swal.fire({
           title: 'Order Placed!',
@@ -321,7 +351,7 @@ but first wanna to catch token then decode it
           showConfirmButton: false,
           timer: 3000,
         });
-        this.clearUserCart(orderData.customerid);
+        this.clearUserCart(orderData.customerId);
       },
       error: (error) => {
         Swal.fire({
