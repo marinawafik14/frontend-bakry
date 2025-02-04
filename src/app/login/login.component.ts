@@ -6,6 +6,7 @@ import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserserviceService } from '../services/user.service';
+import { AuthService } from '../_service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,10 @@ import { UserserviceService } from '../services/user.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  // loginForm: any;
-  // onSubmit(arg0: any) {
-  // throw new Error('Method not implemented.');
-  // }
+
   Userloginform: FormGroup; //crate membervariable from FormGroup
 
-  constructor(public userservice:UserserviceService , public router:Router) {
+  constructor(public userservice:UserserviceService , public router:Router, public _authservice:AuthService) {
     //intiallize the formgroup
     this.Userloginform = new FormGroup({
       email: new FormControl('', [
@@ -32,11 +30,6 @@ export class LoginComponent {
         Validators.minLength(6),
       ]),
 
-      // address:new FormGroup({
-      //   city:new FormControl(''),
-      //   street:new FormControl(''),
-
-      // })
     });
   }
 
@@ -51,12 +44,15 @@ export class LoginComponent {
 
     this.userservice.login(user).subscribe({
       next: (response) => {
- if (response && response.token) {
-   sessionStorage.setItem('tokenkey', response.token);
-   console.log('Token stored:', response.token);
- } else {
-   console.warn('No token received from the API.');
- }        Swal.fire({
+        if (response && response.token) {
+          sessionStorage.setItem('tokenkey', response.token);
+          console.log('Token stored:', response.token);
+          console.log(this._authservice.getDecodedToken());
+
+        } else {
+          console.warn('No token received from the API.');
+        }
+        Swal.fire({
           title: 'Login Success!',
           html: `
           <div>
@@ -71,6 +67,8 @@ export class LoginComponent {
         this.router.navigateByUrl('/home');
       },
       error: (err) => {
+        console.log(err);
+        
         Swal.fire({
           title: 'Login Failed!',
           text: `Error: ${err.error?.message || 'Invalid credentials'}`,
@@ -88,9 +86,6 @@ export class LoginComponent {
     });
   }
 
-
-
-    // alert("login success")
   }
 
 }

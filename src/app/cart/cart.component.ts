@@ -2,6 +2,9 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CartApiService } from '../_services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../_service/auth.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-cart',
@@ -11,17 +14,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  userId:string = "679cb88e6228c2c41f8d3c6a"
+  userId:string = ""
   cartItems:any[] = []
   total:number = 0
   errorMessage:boolean = false;
-  constructor(public cartServiceApi:CartApiService, public router:Router){
+  decodedToken:any
+  constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
+    this.getUserId();
 
   }
   ngOnInit(): void {
      this.getCartData();
   }
-
 
   //functions
   updateQuantity(item:any, quantityCase:number){
@@ -69,7 +73,7 @@ export class CartComponent implements OnInit{
         this.fetchProductData()
       },
       error: (err)=>{
-        console.log(err);
+        console.log(err.error);
       }
     })
   }
@@ -80,6 +84,7 @@ export class CartComponent implements OnInit{
         next: (data)=>{
             item.name = data.name;
             item.category = data.category;
+            item.image = data.images[0];
         },
         error: (err)=>{
           console.log(err);
@@ -108,4 +113,38 @@ export class CartComponent implements OnInit{
         }
     })
   }
+
+  getUserId(){
+    this.decodedToken = this._authServie.getDecodedToken(); 
+    if(this.decodedToken){
+      this.userId = this.decodedToken.userId
+      console.log(this.userId);
+      
+    }
+  }
+
+
+  proceddToCheckout(){
+   const token =  this._authServie.getDecodedToken();
+   if(!token){
+    this.notLoggedIn()
+   }
+   else{
+    this.router.navigateByUrl('/Checkout')
+   }
+
+  }
+
+  notLoggedIn(){
+    Swal.fire({
+      icon: "error",
+      title: "You Don't Have an Account",
+      text: "You have to register or login first ",
+    }).then(()=>{
+      setTimeout(()=>{
+        this.router.navigateByUrl('/login');
+          }, 2000)
+    })
+  }
+
 }

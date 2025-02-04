@@ -19,6 +19,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 
 import { CheckoutComponent } from './checkout/checkout.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 

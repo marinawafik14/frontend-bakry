@@ -1,20 +1,24 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { AuthService } from '../_service/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartApiService {
-
-
   private apiUrl = 'http://localhost:8000/cart/add';
 
-  constructor(public httpClient: HttpClient) { }
+  header: any
+  constructor(public httpClient: HttpClient, _authService:AuthService) {
+      this.header = _authService.setHeaders()
+  }
 
   getCartForUser(userId:string):Observable<any>{
-      return this.httpClient.get<any>(`${environment.BASE_URL}/api/cart/user/${userId}`)
+      return this.httpClient.get<any>(`${environment.BASE_URL}/api/cart/user/${userId}`,
+        {headers: this.header}
+      )
   }
 
   removeCartItem(userId:string, productId:string):Observable<any>{
@@ -36,31 +40,15 @@ export class CartApiService {
   clearCart(userId:string):Observable<any>{
     return this.httpClient.delete(`${environment.BASE_URL}/api/cart/clear/${userId}`)
   }
-
-// ------------------------------------------------
-
     private cartItems: any[] = [];
     private cartCount = new BehaviorSubject<number>(0);
 
     cartCount$ = this.cartCount.asObservable(); // Expose count as Observable
 
-    // constructor() { }
-
     // Get cart items
     getCartItems() {
       return this.cartItems;
     }
-  
-    // Add to cart
-    // addToCart(product: any) {
-    //   if (product.stock > 0) {
-    //     this.cartItems.push(product);
-    //     this.cartCount.next(this.cartItems.length); // Update cart count
-    //     console.log("Product added to cart:", product);
-    //   } else {
-    //     alert("This product is out of stock!");
-    //   }
-    // }
   
     // Get current cart count
     getCartCount() {
@@ -83,7 +71,5 @@ export class CartApiService {
         const decodedToken: any = JSON.parse(atob(token.split('.')[1])); // Decode token
         this.cartCount.next(decodedToken.cartItems?.length || 0);
       }
-    }
-
-
+    }  
 }

@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartApiService } from '../_services/cart-api.service';
-import { RouterModule } from '@angular/router'; 
-
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css'],
+  imports:[RouterLink, RouterLinkActive]
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   cartCount: number = 0;
 
-  constructor(private cartService: CartApiService) {}
+  constructor(private cartService: CartApiService, public router: Router) {}
 
   ngOnInit(): void {
     // Subscribe to cart count updates
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
     });
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('tokenkey');
+    this.router.navigateByUrl('/home');
   }
 }
