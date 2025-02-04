@@ -3,10 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { Order } from '../models/order';
 import { OrdersService } from '../services/order.service';
 import { NgForm } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import Swal from 'sweetalert2';
+import {jwtDecode} from 'jwt-decode';
+import { user } from '../../../model/user.model';
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule, RouterLink, RouterOutlet],
+  imports: [FormsModule, RouterLink, RouterOutlet, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
@@ -33,6 +37,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 //   const form = document.querySelector("form.needs-validation");
 export class CheckoutComponent implements AfterViewInit {
+  @ViewChild('checkoutForm') checkoutForm!: NgForm;
   citiesData: { [key: string]: string[] } = {
     Cairo: [
       'Cairo City Center',
@@ -103,22 +108,145 @@ export class CheckoutComponent implements AfterViewInit {
       });
     }
   }
-  constructor(public orderservice: OrdersService) {}
-  order: Order = new Order('', '', '', '', '', '', '', '');
+
+  constructor(public orderservice: OrdersService, public router: Router) {}
+  order: Order = new Order('', '', '', '', '', '', [], '', '');
 
   // method submit to add a new order
 
-  // need first to check if have a token in session or cookies or not if not having will reserveurl to login page 
-  submitOrder(): void {
-    this.orderservice.addOrder(this.order).subscribe(
-      (response) => {
-        console.log('Order added successfully:', response);
-      },
-      (error) => {
-        console.error('Error adding order:', error);
-      }
-    );
+  // need first to check if have a token in session or cookies or not if not having will reserveurl to login page
+  // submitOrder(): void {
+  //   this.orderservice.addOrder(this.order).subscribe(
+  //     (response) => {
+  //       console.log('Order added successfully:', response);
+  //       this.router.navigateByUrl('/home');
+  //     },
+  //     (error) => {
+  //       console.error('Error adding order:', error);
+  //     }
+  //   );
+
+  // }
+
+  /*
+{
+  "items": [
+    {
+      "productId": "64f39c55c1d7b9a2c8e91234",
+      "quantity": 2,
+      "price": 199.99
+    },
+    {
+      "productId": "64f39c55c1d7b9a2c8e94567",
+      "quantity": 1,
+      "price": 499.50
+    }
+  ],
+  "customerId": "64f39c55c1d7b9a2c8e97678",
+  "totalAmount": 899.48,
+  "shippingAddress": {
+    "governorate": "Cairo",
+    "city": "Nasr City"
+  },
+  "addressdetails":"32 alma3mora street",
+  "firstname":"omar ",
+  "lastname":"reda",
+  "paymentMethod": "Credit Card",
+  "paymentCode": "CC12345678"
+}
+
+need to catch items from cart from user to push it to items to a new order 
+but first wanna to catch token then decode it 
+
+
+*/
+  // catch token from session
+  // get userid after decode token
+
+  getUserIdFromToken(): string | null {
+    const token = sessionStorage.getItem('tokenkey');
+    if (!token) {
+      // if no token in session
+      return null;
+    }
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.userId  // Customize based on your JWT structure
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
   }
 
+  // after click to this button will print token ot userid 
+show(){
+const token = sessionStorage.getItem("tokenkey");
+console.log(token); // return token true 
+// error in decode token
+
+// const decodedToken: any =  jwtDecode(token);
+console.log();
 
 }
+
+  submitOrder(): void {
+    // if userid return null meaning no token in session [no login] redirect to login page
+
+    const userId = this.getUserIdFromToken();
+    console.log(userId);
+    if (!userId) {
+      Swal.fire({
+        title: 'Session Expired!',
+        text: 'Please log in again.',
+        icon: 'warning',
+        showConfirmButton: true,
+      });
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    if (this.checkoutForm.invalid) {
+      this.checkoutForm.form.markAllAsTouched();
+      Swal.fire({
+        title: 'Validation Error!',
+        text: 'Please correct the errors in the form before submitting.',
+        icon: 'warning',
+        showConfirmButton: true,
+      });
+      return;
+    }
+
+
+
+    this.orderservice.addOrder(this.order).subscribe({
+      next: (response) => {
+        Swal.fire({
+          title: 'Order Placed!',
+          text: 'Thank you for your order. Your order has been successfully submitted.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        this.router.navigateByUrl('/home');
+      },
+      error: (error) => {
+        Swal.fire({
+          title: 'Order Failed!',
+          text: `There was an error submitting your order: ${
+            error.message || 'Please try again later.'
+          }`,
+          icon: 'error',
+          showConfirmButton: true,
+        });
+        console.error('Error adding order:', error);
+      },
+    });
+  }
+
+  // wanna to get cartitems related to user will return data after get userid from token 
+  // to add this items to ui and add it to order to api to save it 
+  getCartItems(): any[] {
+    return [];
+  }
+}
+
+

@@ -29,7 +29,7 @@
 
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" (ngSubmit)="submitOrder()" #checkoutForm="ngForm" novalidate>
+      <form class="needs-validation" #checkoutForm="ngForm"  (ngSubmit)="submitOrder()"  novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
@@ -98,7 +98,7 @@
               <option value="South Sinai">South Sinai</option>
               <option value="North Sinai">North Sinai</option>
             </select>
-            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls.governorate?.valid" class="invalid-feedback">
+            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.governorate?.valid" class="invalid-feedback">
               Please select a valid governorate.
             </div>
           </div>
@@ -149,7 +149,8 @@
         </div>
 
         <hr class="mb-4">
-        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Place order</button>
+        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Done</button>
+        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="button" (click)="show()">print token</button>
       </form>
     </div>
   </div>
