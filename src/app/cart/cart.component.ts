@@ -119,8 +119,7 @@ export class CartComponent implements OnInit{
     if(this.decodedToken){
       this.userId = this.decodedToken.userId
       console.log(this.userId);
-      
-    }
+      }
   }
 
 
