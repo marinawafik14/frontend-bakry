@@ -128,22 +128,45 @@ export class CartComponent implements OnInit{
    if(!token){
     this.notLoggedIn()
    }
-   else{
-    this.router.navigateByUrl('/Checkout')
-   }
+   else if(this.cartItems.length === 0){
+    this.cartIsEmpty();
+    }
+    else{
+         this.router.navigateByUrl('/Checkout')
+    }
 
   }
 
   notLoggedIn(){
     Swal.fire({
       icon: "error",
-      title: "You Don't Have an Account",
-      text: "You have to register or login first ",
+      title: "No account found.",
+      text: "Please sign up or log in to continue.",
     }).then(()=>{
       setTimeout(()=>{
         this.router.navigateByUrl('/login');
           }, 2000)
     })
+  }
+
+  cartIsEmpty(){
+    Swal.fire({
+      title: "Your Cart is Empty",
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      }
+    });
   }
 
 }

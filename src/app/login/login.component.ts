@@ -62,9 +62,12 @@ export class LoginComponent {
           icon: 'success',
           showConfirmButton: false,
           timer: 3000,
-        });
+        }).then(()=>{
+          setTimeout(()=>{
+            this.router.navigateByUrl('/home');
+          }, 1800)
+        })
 
-        this.router.navigateByUrl('/home');
       },
       error: (err) => {
         console.log(err);

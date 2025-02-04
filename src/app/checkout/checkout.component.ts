@@ -208,8 +208,12 @@ but first wanna to catch token then decode it
         text: 'Please log in again.',
         icon: 'warning',
         showConfirmButton: true,
-      });
-      this.router.navigateByUrl('/login');
+      }).then(()=>{
+        setTimeout(()=>{
+          this.router.navigateByUrl('/login');
+        }, 2000)
+      })
+     
       return;
     }
     
