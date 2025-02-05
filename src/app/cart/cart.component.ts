@@ -36,15 +36,35 @@ export class CartComponent implements OnInit{
   }
 
   //functions
-  updateQuantity(item:any, quantityCase:number){
+  updateQuantity(item:any, productId:string, quantityCase:number){
 
+    if(quantityCase == -1){
       item.quantity += quantityCase;
-
       if(item.quantity == 0) item.quantity = 1;
+      this.errorMessage = false;
+    }
+    else{
+        item.quantity += quantityCase;
+        this.checkQuantity(item.quantity, productId);
+        
+    }
+
       this.updateCartQuantities();
 
   }
 
+  checkQuantity(quantity:number ,productId:string){
+    this.cartServiceApi.getProuctById(productId).subscribe({
+      next: (res)=>{
+       const stock = res.stock;
+       if(quantity > stock)
+        this.errorMessage = true;
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
   removeCartItem(productId:string){
       this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
           next: (res)=>{
