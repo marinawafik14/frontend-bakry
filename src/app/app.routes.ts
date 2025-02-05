@@ -19,7 +19,6 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 
 import { CheckoutComponent } from './checkout/checkout.component';
-import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -34,7 +33,6 @@ export const routes: Routes = [
 {path:"profile",component:ProfileFormComponent},
 {path:"cart",component:CartComponent},
 {path:"checkout" , component:CheckoutComponent},
-=======
 
 
 // {path:"category/cookies",component:ProductsComponent},
@@ -47,7 +45,6 @@ export const routes: Routes = [
 // {path:"products", component:ProductsComponent},
 
 
-{path:"Checkout" , component:CheckoutComponent},
 {path:"category/cookies",component:CookiesComponent},
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},

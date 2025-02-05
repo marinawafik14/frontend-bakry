@@ -1,9 +1,11 @@
 
-import { Component } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';
+import { CartApiService } from '../_services/cart-api.service';
+
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,16 @@ import {jwtDecode} from 'jwt-decode';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent {
-  constructor(public router: Router) {
+export class HeaderComponent implements OnInit {
+    cartCount: number = 0;
+  constructor(public router: Router , private cartService: CartApiService) {
     this.loadUserData();
   }
+  ngOnInit(): void {
+     // Subscribe to cart count updates
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+  })}
   userEmail: string | null = null;
 
   // wanna to check if there token in session or not
@@ -39,32 +47,5 @@ export class HeaderComponent {
     sessionStorage.removeItem('tokenkey');
     this.userEmail = null;
     // after that redirect to home
-=======
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CartApiService } from '../_services/cart-api.service';
-
-@Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  imports:[RouterLink, RouterLinkActive]
-})
-export class HeaderComponent implements OnInit {
-  cartCount: number = 0;
-
-  constructor(private cartService: CartApiService, public router: Router) {}
-
-  ngOnInit(): void {
-    // Subscribe to cart count updates
-    this.cartService.cartCount$.subscribe(count => {
-      this.cartCount = count;
-    });
   }
-
-  logout(): void {
-    sessionStorage.removeItem('tokenkey');
-
-    this.router.navigateByUrl('/home');
   }
-}
