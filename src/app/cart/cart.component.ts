@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../_service/auth.service';
 import Swal from 'sweetalert2';
-
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 @Component({
   selector: 'app-cart',
@@ -21,8 +22,15 @@ export class CartComponent implements OnInit{
   decodedToken:any
   constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
     this.getUserId();
+    this.getCartData();
 
   }
+
+  private notyf = new Notyf({
+    duration: 3000,  // Notification duration in milliseconds
+    position: { x: 'center', y: 'bottom' } // Position on the screen
+  });
+
   ngOnInit(): void {
      this.getCartData();
   }
@@ -150,23 +158,24 @@ export class CartComponent implements OnInit{
   }
 
   cartIsEmpty(){
-    Swal.fire({
-      title: "Your Cart is Empty",
-      showClass: {
-        popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        `
-      },
-      hideClass: {
-        popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        `
-      }
-    });
+    // Swal.fire({
+    //   title: "Your Cart is Empty",
+    //   showClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeInUp
+    //       animate__faster
+    //     `
+    //   },
+    //   hideClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeOutDown
+    //       animate__faster
+    //     `
+    //   }
+    // });
+    this.notyf.error("Your Cart is Empty");
   }
 
 }
