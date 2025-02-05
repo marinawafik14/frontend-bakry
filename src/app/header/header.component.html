@@ -4,46 +4,57 @@
       <a href="#" class="navbar-brand">logo</a>
 
       <!-- Navbar Toggler for Mobile -->
-      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" >
+      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
         <span class="navbar-toggler-icon " style="background-color: pink;"></span>
       </button>
 
       <!-- Navbar Links -->
       <div class="collapse navbar-collapse" id="main-nav">
-        <ul class="navbar-nav ms-auto" >
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a [routerLink]="['/home']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }"   class="nav-link ">Home</a>
-          </li>
-          <li class="nav-item">
-            <a [routerLink]="['/about']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">About Us</a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/contact']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Contact</a>
+            <a [routerLink]="['/about']" routerLinkActive="router-link-active" class="nav-link">About Us</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/register']" class="nav-link">register</a>
+            <a [routerLink]="['/contact']" routerLinkActive="router-link-active" class="nav-link">Contact</a>
+          </li>
+          
+          <!-- Show Register and Login if not logged in -->
+          <ng-container *ngIf="!islogged()">
+            <li class="nav-item">
+              <a [routerLink]="['/register']" class="nav-link">Register</a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/login']" class="nav-link">Login</a>
+            </li>
+          </ng-container>
+
+          <!-- Show Logout if logged in -->
+          <ng-container *ngIf="islogged()">
+            <li class="nav-item">
+              <span class="nav-link">Hello, {{ userEmail }}</span>
+            </li>
+            <li class="nav-item">
+              <a (click)="logout()" class="nav-link">Logout</a>
+            </li>
+          </ng-container>
+
+          <li class="nav-item">
+            <a [routerLink]="['/checkout']" class="nav-link">Checkout</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/login']" class="nav-link">login</a>
+            <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" class="nav-link">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/Checkout']" class="nav-link">checkout</a>
+            <a [routerLink]="['/profile']" class="nav-link"><i class="fa-solid fa-user fa-xl"></i></a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/dashboard']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+            <a [routerLink]="['/cart']" class="nav-link"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
           </li>
-          <li class="nav-item ">
-            <a [routerLink]="['/profile']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-user fa-xl" routerLinkActive="router-link-active" ></i></a>
-          </li>
-          <li class="nav-item ">
-            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl" routerLinkActive="router-link-active"></i></a>
-          </li>
-          <!-- <li class="nav-item ">
-            <a [routerLink]="['/Checkout']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
-          </li> -->
         </ul>
       </div>
     </div>
   </nav>
 </header>
-
