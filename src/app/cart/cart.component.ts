@@ -59,6 +59,9 @@ export class CartComponent implements OnInit{
        const stock = res.stock;
        if(quantity > stock)
         this.errorMessage = true;
+      setTimeout(()=>{
+          this.errorMessage = false;
+      }, 2500)
       },
       error: (err)=>{
         console.log(err);
