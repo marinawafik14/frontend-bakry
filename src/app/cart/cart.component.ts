@@ -18,7 +18,7 @@ export class CartComponent implements OnInit{
   userId:string = ""
   cartItems:any[] = []
   total:number = 0
-  errorMessage:boolean = false;
+  quantityErrorMessage:boolean = false;
   decodedToken:any
   constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
     this.getUserId();
@@ -56,9 +56,9 @@ export class CartComponent implements OnInit{
       next: (res)=>{
        const stock = res.stock;
        if(quantity > stock)
-        this.errorMessage = true;
+        this.quantityErrorMessage = true;
        else{
-        this.errorMessage = false;
+        this.quantityErrorMessage = false;
        }
       },
       error: (err)=>{
@@ -124,10 +124,10 @@ export class CartComponent implements OnInit{
 
   checkInput(quantity:number){
       if(quantity<1){
-        this.errorMessage = true;
+        this.quantityErrorMessage = true;
       return
       }
-      this.errorMessage = false;
+      this.quantityErrorMessage = false;
   }
 
   clearCart(){
@@ -160,7 +160,7 @@ export class CartComponent implements OnInit{
    else if(this.cartItems.length === 0){
     this.cartIsEmpty();
     }
-    else if(this.errorMessage){
+    else if(this.quantityErrorMessage){
     this.notyf.error("No enough items");
 
     }
