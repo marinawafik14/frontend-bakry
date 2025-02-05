@@ -33,6 +33,8 @@ export const routes: Routes = [
 {path:"register",component:RegisterComponent},
 {path:"profile",component:ProfileFormComponent},
 {path:"cart",component:CartComponent},
+{path:"checkout" , component:CheckoutComponent},
+=======
 
 
 // {path:"category/cookies",component:ProductsComponent},

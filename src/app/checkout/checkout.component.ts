@@ -11,7 +11,7 @@ import { user } from '../../../model/user.model';
 import { CartApiService } from '../_services/cart-api.service';
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule, RouterLink, RouterOutlet, CommonModule],
+  imports: [FormsModule, RouterLink , RouterOutlet, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
