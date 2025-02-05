@@ -41,13 +41,11 @@ export class CartComponent implements OnInit{
     if(quantityCase == -1){
       item.quantity += quantityCase;
       if(item.quantity == 0) item.quantity = 1;
-      this.errorMessage = false;
     }
     else{
         item.quantity += quantityCase;
-        this.checkQuantity(item.quantity, productId);
-        
     }
+    this.checkQuantity(item.quantity, productId);
 
       this.updateCartQuantities();
 
@@ -59,9 +57,9 @@ export class CartComponent implements OnInit{
        const stock = res.stock;
        if(quantity > stock)
         this.errorMessage = true;
-      setTimeout(()=>{
-          this.errorMessage = false;
-      }, 2500)
+       else{
+        this.errorMessage = false;
+       }
       },
       error: (err)=>{
         console.log(err);
@@ -161,6 +159,10 @@ export class CartComponent implements OnInit{
    }
    else if(this.cartItems.length === 0){
     this.cartIsEmpty();
+    }
+    else if(this.errorMessage){
+    this.notyf.error("No enough items");
+
     }
     else{
          this.router.navigateByUrl('/Checkout')
