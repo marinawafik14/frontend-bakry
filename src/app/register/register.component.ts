@@ -84,7 +84,10 @@ export class RegisterComponent {
       this.user.password = this.Userregisterform.value.password;
 
       this.userservice.register(this.user).subscribe({
-        next: () => {
+        next: (res) => {
+          console.log('Done Register', res);
+          console.log(this._authService.getDecodedToken());
+          
           Swal.fire({
             title: 'Registration Success!',
             html: `

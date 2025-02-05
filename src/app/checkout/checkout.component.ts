@@ -184,13 +184,15 @@ but first wanna to catch token then decode it
 
   getUseridFromToken(): string | null {
     const token = sessionStorage.getItem('tokenkey');
+    console.log(token);
+    
     if (!token) {
       // if no token in session
       return null;
     }
     try {
       const decodedToken: any = jwtDecode(token);
-      return decodedToken.userid; // Customize based on your JWT structure
+      return decodedToken.userId; // Customize based on your JWT structure
     } catch (error) {
       console.error('Error decoding token:', error);
       return null;
@@ -199,15 +201,19 @@ but first wanna to catch token then decode it
   // need to catch cart items from user by id i catch it from session
 
   fetchCartItems(): void {
-    const userId = this.getUseridFromToken();
+    const userId = this.getUseridFromToken();    
     if (!userId) {
       Swal.fire({
         title: 'Session Expired!',
         text: 'Please log in again.',
         icon: 'warning',
         showConfirmButton: true,
-      });
-      this.router.navigateByUrl('/login');
+      }).then(()=>{
+        setTimeout(()=>{
+          this.router.navigateByUrl('/login');
+        }, 2000)
+      })
+     
       return;
     }
     
@@ -386,5 +392,4 @@ but first wanna to catch token then decode it
     return [];
   }
 }
-
 

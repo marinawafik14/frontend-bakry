@@ -23,7 +23,6 @@
       <div class="product-image-section">
         <img [src]="selectedImage || product?.images" alt="{{ product?.name }}" class="main-image"/>
       
-
         <!-- Image Selector (Thumbnails) -->
         <div class="image-selector">
             @for (image of product?.images; track $index) {
@@ -35,23 +34,47 @@
             />
             }
         </div>
-    </div>
+      </div>
   
       <!-- Product Info -->
       <div class="product-info">
         <h1>{{ product?.name }}</h1>
-        <p class="price">${{ product?.price }}</p>
-        <!-- <p class="delivery-info">{{ product.pickupOptions }}</p> -->
+         <!-- Product Pricing -->
+        <p class="price">
+          <span *ngIf="product?.previousprice" class="previous-price">${{ product?.previousprice }}</span>
+          <span class="current-price">${{ product?.price }}</span>
+        </p>
   
         <!-- Quantity Selector -->
         <div class="quantity-selector">
-          <button>-</button>
-          <input type="text" value="1">
-          <button>+</button>
+          <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+          <input type="text" [value]="quantity" readonly>
+          <button (click)="increaseQuantity()" [disabled]="quantity >= product!.stock">+</button>
         </div>
+            <!-- Out of Stock Message -->
+        <p *ngIf="quantity >= product!.stock" class="out-of-stock">Stock limit reached!</p>
   
         <!-- Add to Cart Button -->
-        <button class="add-to-cart">ADD TO CART</button>
+        <button class="add-to-cart" (click)="addToCart(product)" [disabled]="product!.stock === 0">ADD TO CART</button>
+        <br><br><br>
+        <h5>Discription:</h5>
+        <h6>{{product?.description}}</h6>
+
+        <!-- Customer Reviews Section -->
+        <!-- <div class="reviews">
+          <h3>Customer Reviews:</h3>
+          <div *ngIf="product.reviews.length > 0; else noReviews">
+              <div class="review" *ngFor="let review of product.reviews">
+                  <p class="reviewer"><strong>{{ review.user }}</strong> - ⭐ {{ review.rating }}/5</p>
+                  <p class="review-text">{{ review.comment }}</p>
+              </div>
+          </div>
+          <ng-template #noReviews>
+              <p class="no-reviews">No reviews yet. Be the first to review this product!</p>
+          </ng-template>
+      </div> -->
+      
+        
       </div>
     </div>
 
@@ -63,6 +86,39 @@
       </details>
     </div>
   </div>
+
+
+  
+  <!-- Our Products Section -->
+  <div class="text-center mt-5 p-5 bg-light bbb" style="background:url('../../../public/assets/images/candy2.jpg');">
+    <h3>You May Also Like</h3>
+    <p class="mb-3">Our assortment includes our fan-favorite cakes, cupcakes, and seasonal treats.</p>
+    <!-- <button class="btn btn-outline-dark fw-bold mb-3">VIEW MORE</button> -->
+
+    <!-- Bootstrap Carousel -->
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" >
+      <div class="carousel-inner">
+        <div *ngFor="let category of categories; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
+          <div class="d-flex justify-content-center">
+            <div class="category-card">
+              <a [routerLink]="['/category', category.name]" >
+              <img [src]="category.image" class="d-block w-100 rounded" alt="{{ category.name }}">
+              <h5 class="mt-2" style="color: black; text-decoration-line: none;">{{ category.name }}</h5>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div><br><br>
   
   
   
