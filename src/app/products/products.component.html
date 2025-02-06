@@ -16,7 +16,7 @@
   <!-- Sidebar & Product List -->
   <div class="row mt-4">
     <!-- Sidebar -->
-    <aside class="col-md-3 bg-light p-3 rounded shadow-sm">
+    <aside class="col-md-3 bg-light p-3 rounded shadow-sm" style="height: 500px;">
       <h4 class="text-dark fw-bold">Filters</h4>
 
       <!-- Search by Name -->
@@ -55,7 +55,15 @@
               <h5 class="card-title fw-bold">{{ product.name }}</h5>
               <p class="text-muted">Flavor: {{ product.flavor }}</p>
               <p class="fw-bold"><strong>Price:</strong> {{ product.price }}$</p>
-              <button class="btn btn-secondary w-100">Order Now</button>
+              <!-- <button class="btn btn-secondary w-100">Order Now</button> -->
+              <button class="btn btn-secondary w-100" (click)="addToCart(product)" [disabled]="product.stock <= 0">
+                  Order Now
+              </button>
+
+              <!-- Show Out of Stock if Stock is 0 -->
+              <p *ngIf="product.stock <= 0" class="out-of-stock">
+                  Out of Stock
+              </p>
             </div>
           </div>
         </div>

@@ -1,31 +1,36 @@
 export class Order {
   public firstname: string;
   public lastname: string;
-  public mobile: string;
-  public governorate: string;
-  public city: string;
+  public mobile: string; // Assuming mobile is still required
   public addressdetails: string;
-  public payment: string;
-  public promoCode: string;
+  public customerId: string;
+  public paymentMethod: string; // Renamed from payment
+  public paymentCode: string; // Renamed from promoCode
+  public totalAmount: string; // Renamed from total
+  public items: { productId: string; quantity: number; price: number }[]; // Item structure
+  public shippingAddress: { governorate: string; city: string };
 
   constructor(
     firstname: string,
     lastname: string,
     mobile: string,
-    governorate: string,
-    city: string,
+    customerId: string,
     addressdetails: string,
-
-    payment: string,
-    promoCode: string
+    items: { productId: string; quantity: number; price: number }[],
+    totalAmount: string, // Renamed from total
+    paymentMethod: string, // Renamed from payment
+    paymentCode: string, // Renamed from promoCode
+    shippingAddress: { governorate: string; city: string }
   ) {
+    this.customerId = customerId;
     this.firstname = firstname;
     this.lastname = lastname;
     this.mobile = mobile;
-    this.governorate = governorate;
-    this.city = city;
     this.addressdetails = addressdetails;
-    this.payment = payment;
-    this.promoCode = promoCode;
+    this.items = items;
+    this.totalAmount = totalAmount; 
+    this.paymentMethod = paymentMethod; 
+    this.paymentCode = paymentCode; 
+    this.shippingAddress = shippingAddress;
   }
 }

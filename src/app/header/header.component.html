@@ -12,22 +12,36 @@
       <div class="collapse navbar-collapse" id="main-nav">
         <ul class="navbar-nav ms-auto" >
           <li class="nav-item">
-            <a [routerLink]="['/home']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }"   class="nav-link ">Home</a>
+            <a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="nav-link active">Home</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/about']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">About Us</a>
+            <a [routerLink]="['/about']" class="nav-link">About Us</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/contact']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Contact</a>
+            <a [routerLink]="['/contact']" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+
+       
+  
+
+            <a [routerLink]="['/register']" class="nav-link">register</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/login']" class="nav-link">login</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/Checkout']" class="nav-link">checkout</a>
           </li>
           <li class="nav-item">
             <a [routerLink]="['/dashboard']" class="nav-link" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
           </li>
+
           <li class="nav-item ">
-            <a [routerLink]="['/profile']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-user fa-xl" routerLinkActive="router-link-active" ></i></a>
+            <a [routerLink]="['/profile']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-user fa-xl" ></i></a>
           </li>
           <li class="nav-item ">
-            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl" routerLinkActive="router-link-active"></i></a>
+            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i> <span class="cart-count">{{ cartCount }}</span></a>
           </li>
           <!-- <li class="nav-item ">
             <a [routerLink]="['/Checkout']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>

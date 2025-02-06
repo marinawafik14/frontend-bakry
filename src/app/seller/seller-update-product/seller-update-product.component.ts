@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SellerServicesService } from '../../services/seller-services.service';
 import { Products } from '../../models/products';
-import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserserviceService } from '../../services/user.service';
+
 
 @Component({
   selector: 'app-seller-update-product',
@@ -14,23 +13,7 @@ import { UserserviceService } from '../../services/user.service';
   imports: [CommonModule, FormsModule]
 })
 export class SellerUpdateProductComponent implements OnInit {
-  productUP: Products = new Products(
-    '',
-    '',
-    '',
-    0,
-    '',
-    0,
-    0,
-    0,
-    '',
-    false,
-    0,
-    new Date(),
-    new Date(),
-    [],
-    ''
-  );
+  productUP: Products = new Products('','','',0,'',0,0,0,'',false,0,new Date(),new Date(),[],'')
 
   categories: Products[] = [];
 
@@ -38,37 +21,31 @@ export class SellerUpdateProductComponent implements OnInit {
     private updateProSrv: SellerServicesService,
     private route: ActivatedRoute,
     private router: Router,
-    private catogryies: ProductService,
-    private authService :UserserviceService
+
   ) {}
 
   ngOnInit(): void {
-
-
-
-    if (!this.productUP || !this.productUP._id) {
-      console.warn('⚠️ No valid product found in localStorage. Fetching from API...');
-    }
-
-    // Step 2: Fetch product from API if ID is available
     this.route.params.subscribe((params) => {
       const productID = params['id'];
-      if (productID) {
-        this.updateProSrv.getById(productID).subscribe((product) => {
+      //console.log('Product ID from URL:', productID);
+      if (!productID) {
+        console.error(" No product ID found in URL. Cannot fetch product.");
+        return;
+      }
+
+      this.updateProSrv.getById(productID).subscribe(
+        (product) => {
           if (product) {
             this.productUP = product;
-            console.log('✅ Loaded productUP from API:', this.productUP);
-
-            // Step 3: Now fetch category products (AFTER `productUP.category` is set)
-
+           // console.log(" Product loaded:", this.productUP);
+          } else {
+            //console.warn(" No product data received from API.");
           }
-        });
-      }
-    });
-
-    this.catogryies.getProductsByCategory(this.productUP.category).subscribe((g) => {
-      this.categories = g;
-      console.log('✅ Categories loaded:', this.categories);
+        },
+        (error) => {
+          console.error(" Error fetching product:", error);
+        }
+      );
     });
   }
 
@@ -76,25 +53,19 @@ export class SellerUpdateProductComponent implements OnInit {
 
 
 
-
-  updateProduct(): void {
-    console.log('🚀 Attempting to update product:', this.productUP);
-
-    if (!this.productUP._id || !this.productUP.name || !this.productUP.price || !this.productUP.categoryid) {
-      console.error('❌ Missing required fields:', this.productUP);
-      return;
-    }
-
+  updateProductone(): void {
+    console.log("Updating product:", this.productUP);
     this.updateProSrv.updateProduct(this.productUP).subscribe(
-      (updatedProduct) => {
-        console.log('✅ Update successful:', updatedProduct);
-        this.router.navigate(['/dashboard']);
+      (response) => {
+        console.log(" Product updated successfully:", response);
+        this.router.navigate(['/dashboard']);  // Redirect after update
       },
       (error) => {
-        console.error('❌ Update failed:', error);
+        console.error(" Error updating product:", error);
       }
     );
   }
+
 
 
   onFileSelected(event: Event, imageIndex: number): void {
@@ -115,10 +86,17 @@ export class SellerUpdateProductComponent implements OnInit {
     }
   }
 
+//check to accept only positive number
+
+onPositiveNumber(event: any): void {
+  const value = event.target.value;
+  const regex = /^[+]?\d+(\.\d+)?$/;
 
 
-
-
+  if (!regex.test(value)) {
+    event.target.value = value.slice(0, -1); // Remove the invalid character
+  }
+}
 
 }
 

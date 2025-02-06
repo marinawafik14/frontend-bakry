@@ -19,7 +19,7 @@
       <!-- Total amount will be updated here -->
       <li class="list-group-item d-flex justify-content-between">
         <span>Total</span>
-        <strong id="cartTotal">$0.00</strong>
+        <strong id="cartTotal">[(ngModel)] = "order.Total"</strong>
       </li>
 
       <div id="paymentMessage" class="payment-message">
@@ -29,7 +29,7 @@
 
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" (ngSubmit)="submitOrder()" #checkoutForm="ngForm" novalidate>
+      <form class="needs-validation" #checkoutForm="ngForm"  (ngSubmit)="submitOrder()"  novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
@@ -68,7 +68,7 @@
 
           <div class="col-md-4 mb-3">
             <label for="governorate">Governorate</label>
-            <select #governorateSelect id="Governorate" class="form-select" [(ngModel)]="order.governorate" name="governorate" required>
+            <select #governorateSelect id="Governorate" class="form-select" [(ngModel)]="order.shippingAddress.governorate" name="governorate" required>
               <option value="" disabled selected>Select your governorate</option>
               <option value="Cairo">Cairo</option>
               <option value="Giza">Giza</option>
@@ -98,14 +98,14 @@
               <option value="South Sinai">South Sinai</option>
               <option value="North Sinai">North Sinai</option>
             </select>
-            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls.governorate?.valid" class="invalid-feedback">
+            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.governorate?.valid" class="invalid-feedback">
               Please select a valid governorate.
             </div>
           </div>
 
           <div class="col-md-3 mb-3">
             <label for="City" class="form-label">City</label>
-            <select #citySelect id="City" class="form-select" [(ngModel)]="order.city" name="city" required>
+            <select #citySelect id="City" class="form-select" [(ngModel)]="order.shippingAddress.city" name="city" required>
               <option value="" disabled selected>Select City</option>
             </select>
             <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.city?.valid" class="invalid-feedback">
@@ -123,19 +123,19 @@
         <div class="mb-4">
           <h4 class="mb-3">Payment Method</h4>
           <div class="form-check d-flex align-items-center mb-2">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="creditCard" value="Credit Card" [(ngModel)]="order.payment" required>
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="creditCard" value="Credit Card" [(ngModel)]="order.paymentMethod" required>
             <label class="form-check-label d-flex align-items-center" for="creditCard">
               <i class="fas fa-credit-card me-2"></i> Credit Card
             </label>
           </div>
           <div class="form-check d-flex align-items-center mb-2">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="paypal" value="PayPal" [(ngModel)]="order.payment">
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="paypal" value="PayPal" [(ngModel)]="order.paymentMethod">
             <label class="form-check-label d-flex align-items-center" for="paypal">
               <i class="fab fa-paypal me-2"></i> PayPal
             </label>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.payment">
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.paymentMethod">
             <label class="form-check-label d-flex align-items-center" for="vodafoneCash">
               <i class="fas fa-mobile-alt me-2"></i> Vodafone Cash
             </label>
@@ -145,11 +145,11 @@
         <!-- Promo Code -->
         <div class="mb-4">
           <label for="promoCode" class="form-label">Promo Code</label>
-          <input type="text" id="promoCode" class="form-control" placeholder="Enter promo code" [(ngModel)]="order.promoCode" name="promoCode">
+          <input type="text" id="promoCode" class="form-control" placeholder="Enter promo code" [(ngModel)]="order.paymentCode" name="promoCode">
         </div>
 
         <hr class="mb-4">
-        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Place order</button>
+        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Done</button>
       </form>
     </div>
   </div>

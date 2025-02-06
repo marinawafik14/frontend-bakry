@@ -22,11 +22,11 @@ prods:Products | undefined
   ngOnInit(): void {
     this.productSer.getAllProduct().subscribe((data)=>{
       this.selectedPro = data;
-      console.log(data)
-      console.log(this.selectedPro);
+      //console.log(data)
+      //console.log(this.selectedPro);
+
     })
   }
-
 
   save(){
     if(this.prods){
@@ -75,10 +75,63 @@ update(id: string): void {
 
 
 
+ rowCount:number = 3; // Default number of rows
+  isAscending = true;
+
+// Update row count when user types a number
+
+updateRowCount(event:any){
+this.rowCount = parseInt(event.target.value,10)|| 5; // defult count
+
+}
 
 
 
+
+//sort table
+
+sortTable(column: keyof Products) {
+  this.isAscending = !this.isAscending;
+  this.selectedPro.sort((a, b) => {
+    return this.isAscending
+      ? (a[column] > b[column] ? 1 : -1)
+      : (a[column] < b[column] ? 1 : -1);
+  });
+}
+/*
+sortTable(column: keyof Products) {
+  this.isAscending = !this.isAscending;
+  this.selectedPro = [...this.selectedPro].sort((a, b) => {
+    return this.isAscending
+      ? (a[column] > b[column] ? 1 : -1)
+      : (a[column] < b[column] ? 1 : -1);
+  });
+
+}
+*/
+
+
+
+
+
+
+//check to accept only positive number
+
+onPositiveNumber(event: any): void {
+  const value = event.target.value;
+  const regex = /^[+]?\d+(\.\d+)?$/;
+
+
+  if (!regex.test(value)) {
+    event.target.value = value.slice(0, -1); // Remove the invalid character
   }
+}
+
+}
+
+
+
+
 
 
 

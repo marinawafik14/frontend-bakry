@@ -11,7 +11,7 @@ body {
   background-color: #15172b;
   border-radius: 20px;
   box-sizing: border-box;
-  height: 900px;
+  height: 1300px;
   padding: 20px;
   width: 320px;
 }
@@ -64,7 +64,8 @@ body {
 
 
 .submit {
-  background-color: yellow;
+  /* cursor: pointer; */
+  background-color: rgb(233, 233, 34);
   border-radius: 12px;
   border: 0;
   box-sizing: border-box;
@@ -83,4 +84,9 @@ body {
 }
 .yellow{
   color: yellow;
+}
+#discount{
+  margin-top: 5px;
+  width: 30px;
+  height: 20px;
 }
