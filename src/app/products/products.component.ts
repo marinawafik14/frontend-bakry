@@ -72,9 +72,23 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(product: any) {
-    const quantity = 1; // Default quantity (modify if needed)
-    this.CartService.addToCart(product._id, quantity, product.price);
+    console.log("errorlllllllllllllllll");
+    const token = sessionStorage.getItem('tokenkey');
+    
+    if (!token) {
+      console.log("errorlllllllllllllllll");
+      // console.error("No token found in session storage. User might not be logged in.");
+      return; // Prevent request if no token
+    }
+  
+    const quantity = 1; // Default quantity
+    this.CartService.addToCart(product._id, quantity, product.price)
+      .subscribe({
+        next: (response) => console.log("Product added successfully:", response),
+        error: (err) => console.error("Error adding to cart:", err)
+      });
   }
+  
 
   categories = [
     {
