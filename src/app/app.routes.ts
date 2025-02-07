@@ -55,6 +55,7 @@ export const routes: Routes = [
 //admin route
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminUsersComponent},
+  {path:'users', component:AdminUsersComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},

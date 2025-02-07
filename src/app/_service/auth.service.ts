@@ -53,13 +53,8 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
   }
-
-  isAdminLogged() {
-    this.decodedToken = this.getDecodedToken() || {};
-    if (this.decodedToken.role) {
-      console.log(this.decodedToken.role);
-      return this.decodedToken.role === 'Customer';
-    }
-    return false;
+  isLoggedIn(): boolean {
+    const token = sessionStorage.getItem('tokenkey');
+    return !!token;
   }
 }

@@ -8,7 +8,8 @@ export const canloginGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     const router= inject(Router)
-router.navigateByUrl("/login")
-    return false;
+  router.navigateByUrl("/login")
   }
+  return false;
+
 };

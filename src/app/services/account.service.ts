@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AccountService {
-islogin:boolean =false;
+islogin:boolean =true;
 
 // function login
 login(email:string , password:string){
   this.islogin = true;
-console.log("login done")
+ console.log("login done")
 
 }
 //function logout

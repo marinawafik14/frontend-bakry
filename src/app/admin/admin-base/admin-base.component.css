@@ -23,3 +23,18 @@
     font-weight: bold;
     background-color: #c99b3f;
 }
+.sidebar {
+    position: fixed; /* Fix to the left */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full height */
+    width: 250px; /* Sidebar width */
+    overflow-y: auto; /* Enable scroll if content is long */
+    z-index: 1000; /* Keeps sidebar on top */
+}
+
+.content {
+    margin-left: 250px; /* Prevents overlapping with sidebar */
+    width: calc(100% - 250px); /* Adjust width dynamically */
+    padding: 20px;
+}
