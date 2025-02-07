@@ -1,0 +1,40 @@
+.navbar-nav .nav-link {
+    color: #e6d2ab !important; /* Bakery Color */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #a52a2a !important; /* Darker hover effect */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #c99b3f !important;
+}
+
+/* Default sidebar link */
+.nav-link {
+    color: #c99b3f !important; /* Light brown (default) */
+    transition: color 0.3s ease-in-out;
+}
+
+/* Darker color when active */
+.nav-link.active{
+    color: #a3752a !important; /* Darker brown */
+    font-weight: bold;
+    background-color: #c99b3f;
+}
+.sidebar {
+    position: fixed; /* Fix to the left */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full height */
+    width: 250px; /* Sidebar width */
+    overflow-y: auto; /* Enable scroll if content is long */
+    z-index: 1000; /* Keeps sidebar on top */
+}
+
+.content {
+    margin-left: 250px; /* Prevents overlapping with sidebar */
+    width: calc(100% - 250px); /* Adjust width dynamically */
+    padding: 20px;
+}

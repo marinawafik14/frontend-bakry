@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -14,9 +15,11 @@ console.log("login done")
 }
 //function logout
 logout(){
+localStorage.removeItem('token');
   this.islogin=false;
   console.log("logout done")
 }
+
 //function register
 register(username:string, password:string,email:string){
   console.log("registered done");
@@ -25,7 +28,7 @@ register(username:string, password:string,email:string){
 }
 
 
-  constructor() { }
+
 
 
 

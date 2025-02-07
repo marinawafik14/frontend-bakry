@@ -101,8 +101,8 @@
 <div id="Inputs" class="row mt-5 mb-3">
   <!-- Inputs Section  -->
   <div class="col-md-4 col-sm-12 mb-2">
-    <input type="number" name="RowCount" id="ProductCounterInput" value="10" min="1"
-      class="form-control border-1 border-black" placeholder="Rows per page">
+    <input type="number" name="RowCount"  [(ngModel)]="rowCount" id="ProductCounterInput" value="10" min="1"
+      class="form-control border-1 border-black" placeholder="Rows per page" (input)="onPositiveNumber($event)">
   </div>
   <div class="col-md-4 col-sm-12 mb-2">
     <input type="text" name="Search" id="ProductsearchInput" class="form-control  border-1 border-black "
@@ -124,33 +124,42 @@
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Category</th>
-          <th>Seller Name</th>
-          <th>Images</th>
-          <th>Created At</th>
-          <th>Status</th>
-          <th>Delete</th>
-          <th>Update</th>
+
+          <th (click)="sortTable('name')" style="cursor: pointer;">Name</th>
+          <th (click)="sortTable('description')" style="cursor: pointer;">Description</th>
+          <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
+          <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th>
+          <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
+          <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
+          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
+          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
+          <th >Seller Name</th>
+          <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
+          <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
+          <th >Status</th>
+          <th >Delete</th>
+          <th >Update</th>
         </tr>
       </thead>
       <tbody>
 
-        <tr *ngFor="let item of selectedPro">
-          <td>{{item._id}}</td>
+        <tr *ngFor="let item of selectedPro.slice(0,rowCount)">
+
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
           <td>{{item.price}}</td>
-          <td></td>
+          <td>{{item.stock}}</td>
           <td>{{item.category}}</td>
+          <td>{{item.flavor}}</td>
+          <td>{{item.discounted}}</td>
+          <td>{{item.previousprice}}</td>
           <td>seller name</td>
-          <td>
-            <img *ngFor="let img of item.images" [src]="img" width="50" />
-          </td>
+         
+            <td>
+              <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
+            </td>
+
+
           <td>{{item.createdAt}}</td>
           <td>status</td>
           <td>

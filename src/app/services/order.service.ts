@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class OrdersService {
   constructor(public http: HttpClient) {}
 
-  addOrder(order: Order): Observable<Order> {
+  addOrder(order: any): Observable<Order> {
     return this.http.post<Order>(
       'http://localhost:8000/order/addneworder',
       order

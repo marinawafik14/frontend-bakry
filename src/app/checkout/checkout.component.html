@@ -19,7 +19,7 @@
       <!-- Total amount will be updated here -->
       <li class="list-group-item d-flex justify-content-between">
         <span>Total</span>
-        <strong id="cartTotal">$0.00</strong>
+        <strong id="cartTotal">${{order.totalAmount}}</strong>
       </li>
 
       <div id="paymentMessage" class="payment-message">
@@ -68,7 +68,7 @@
 
           <div class="col-md-4 mb-3">
             <label for="governorate">Governorate</label>
-            <select #governorateSelect id="Governorate" class="form-select" [(ngModel)]="order.governorate" name="governorate" required>
+            <select #governorateSelect id="Governorate" class="form-select" [(ngModel)]="order.shippingAddress.governorate" name="governorate" required>
               <option value="" disabled selected>Select your governorate</option>
               <option value="Cairo">Cairo</option>
               <option value="Giza">Giza</option>
@@ -105,7 +105,7 @@
 
           <div class="col-md-3 mb-3">
             <label for="City" class="form-label">City</label>
-            <select #citySelect id="City" class="form-select" [(ngModel)]="order.city" name="city" required>
+            <select #citySelect id="City" class="form-select" [(ngModel)]="order.shippingAddress.city" name="city" required>
               <option value="" disabled selected>Select City</option>
             </select>
             <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.city?.valid" class="invalid-feedback">
@@ -123,19 +123,19 @@
         <div class="mb-4">
           <h4 class="mb-3">Payment Method</h4>
           <div class="form-check d-flex align-items-center mb-2">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="creditCard" value="Credit Card" [(ngModel)]="order.payment" required>
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="creditCard" value="Credit Card" [(ngModel)]="order.paymentMethod" required>
             <label class="form-check-label d-flex align-items-center" for="creditCard">
               <i class="fas fa-credit-card me-2"></i> Credit Card
             </label>
           </div>
           <div class="form-check d-flex align-items-center mb-2">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="paypal" value="PayPal" [(ngModel)]="order.payment">
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="paypal" value="PayPal" [(ngModel)]="order.paymentMethod">
             <label class="form-check-label d-flex align-items-center" for="paypal">
               <i class="fab fa-paypal me-2"></i> PayPal
             </label>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.payment">
+            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.paymentMethod">
             <label class="form-check-label d-flex align-items-center" for="vodafoneCash">
               <i class="fas fa-mobile-alt me-2"></i> Vodafone Cash
             </label>
@@ -145,12 +145,11 @@
         <!-- Promo Code -->
         <div class="mb-4">
           <label for="promoCode" class="form-label">Promo Code</label>
-          <input type="text" id="promoCode" class="form-control" placeholder="Enter promo code" [(ngModel)]="order.promoCode" name="promoCode">
+          <input type="text" id="promoCode" class="form-control" placeholder="Enter promo code" [(ngModel)]="order.paymentCode" name="promoCode">
         </div>
 
         <hr class="mb-4">
         <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Done</button>
-        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="button" (click)="show()">print token</button>
       </form>
     </div>
   </div>
