@@ -1,0 +1,47 @@
+<h2>Users</h2>
+<div class="container my-5">
+    <div class="table-responsive"> <!-- ✅ Makes table scrollable on small screens -->
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Contact No.</th>
+                <th>Registered Since</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (user of users; track $index) {
+                <tr>
+                  <td>{{ user._id | slice:-3 }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.profile.firstName }} {{ user.profile.lastName }}</td>
+                  <td>{{ user.role }}</td>
+                   @if (user.profile.address) {
+                     <td>212 st {{ user.profile.address.city }}, {{ user.profile.address.governorate }}</td> 
+                   }
+                   @else{
+                    <td></td>
+                   }
+                  <td>{{ user.status }}</td>
+                  <td>{{ user.profile.contactNo }}</td>
+                  <td>{{ user.createdAt | date: 'medium'}}</td>
+                  <td>
+                      <button class="btn btn-sm" title="Edit User">
+                          <i class="bi bi-pencil-fill"></i>
+                      </button>
+                      <button class="btn btn-sm" title="Delete User">
+                          <i class="bi bi-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+        </table>
+    </div>
+</div>

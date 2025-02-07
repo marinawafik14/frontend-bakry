@@ -6,24 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class AccountService {
 islogin:boolean =false;
-constructor(private http:HttpClient){}
+
 // function login
-login(email: string, password: string) {
-  this.http.post<{ token: string }>("http://localhost:8000/auth/login", {
-    email,
-    password,
-  }).subscribe((response) => {
-    const token = response.token; // Get token from API
-    localStorage.setItem('token', token);
-    this.islogin = true;
-    console.log("Login successful");
-  },
-  (error) => {
-    console.error('Login failed', error);
-  });
+login(email:string , password:string){
+  this.islogin = true;
+console.log("login done")
+
 }
-
-
 //function logout
 logout(){
 localStorage.removeItem('token');

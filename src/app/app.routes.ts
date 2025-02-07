@@ -19,6 +19,8 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 
 
@@ -50,6 +52,14 @@ export const routes: Routes = [
 {path:"category/cakes",component:CakesComponent},
 {path:"category/cupcakes",component:CupcakesComponent},
 {path:"dashboard",component:DashbordSellerComponent},
+
+//admin route
+{path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+  {path:'dashboard', component:AdminUsersComponent},
+  {path:'users', component:AdminUsersComponent},
+  {path: "", pathMatch: "full", redirectTo:"dashboard",},
+  {path: "**", redirectTo:"dashboard"}
+]},
 
 {path:"**",component:NotFoundComponent},
 
