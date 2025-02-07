@@ -5,8 +5,9 @@ import { OrdersService } from '../services/order.service';
 import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
-import {jwtDecode} from 'jwt-decode';
+
 import { user } from '../../../model/user.model';
 import { CartApiService } from '../_services/cart-api.service';
 @Component({
@@ -174,8 +175,8 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
   "paymentCode": "CC12345678"
 }
 
-need to catch items from cart from user to push it to items to a new order 
-but first wanna to catch token then decode it 
+need to catch items from cart from user to push it to items to a new order
+but first wanna to catch token then decode it
 
 
 */
@@ -185,7 +186,7 @@ but first wanna to catch token then decode it
   getUseridFromToken(): string | null {
     const token = sessionStorage.getItem('tokenkey');
     console.log(token);
-    
+
     if (!token) {
       // if no token in session
       return null;
@@ -201,7 +202,7 @@ but first wanna to catch token then decode it
   // need to catch cart items from user by id i catch it from session
 
   fetchCartItems(): void {
-    const userId = this.getUseridFromToken();    
+    const userId = this.getUseridFromToken();
     if (!userId) {
       Swal.fire({
         title: 'Session Expired!',
@@ -213,20 +214,20 @@ but first wanna to catch token then decode it
           this.router.navigateByUrl('/login');
         }, 2000)
       })
-     
+
       return;
     }
-    
+
 
     this.cartservice.getCartForUser(userId).subscribe({
       next: (cartData) => {
         console.log(cartData);
         this.order.items = cartData.data.items;
-        console.log(cartData.items); 
+        console.log(cartData.items);
         this.order.totalAmount = cartData.data.total;
         console.log(cartData.total);
         this.order.customerId = cartData.data.userId;
-        
+
       },
       error: (error) => {
         console.error('Error fetching cart items:', error);
@@ -345,10 +346,10 @@ but first wanna to catch token then decode it
   };
 
 
-    console.log(orderData); 
+    console.log(orderData);
     // error ==> wanna to map or bind data come from ui and getting it fro service [cartitems + total]
     this.orderservice.addOrder(orderData).subscribe({
-      
+
       next: (response) => {
         Swal.fire({
           title: 'Order Placed!',
