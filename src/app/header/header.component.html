@@ -1,41 +1,54 @@
 <header class="header-area overlay">
-  <nav class="navbar navbar-expand-md navbar-dark ">
+  <nav class="navbar navbar-expand-md navbar-dark">
     <div class="container">
       <a href="#" class="navbar-brand">logo</a>
 
       <!-- Navbar Toggler for Mobile -->
-      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-        <span class="navbar-toggler-icon " style="background-color: pink;"></span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#main-nav"
+      >
+        <span class="navbar-toggler-icon" style="background-color: pink"></span>
       </button>
 
       <!-- Navbar Links -->
       <div class="collapse navbar-collapse" id="main-nav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-
-            <a [routerLink]="['/home']" routerLinkActive="router-link-active" class="nav-link">Home</a>
+            <a
+              [routerLink]="['/home']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/about']" routerLinkActive="router-link-active" class="nav-link">About Us</a>
+            <a
+              [routerLink]="['/about']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >About Us</a
+            >
           </li>
           <!-- <li class="nav-item">
             <a [routerLink]="['/contact']" routerLinkActive="router-link-active" class="nav-link">Contact</a>
           </li> -->
-     <li class="nav-item">
-  <a
-    *ngIf="islogged()"
-    [routerLink]="['/contact']"
-    routerLinkActive="router-link-active"
-    class="nav-link">
-    Contact
-  </a>
-  <a *ngIf="!islogged()" (click)="redirectToLogin()" class="nav-link">
-    Contact
-  </a>
-</li>
+          <li class="nav-item">
+            <a
+              *ngIf="islogged()"
+              [routerLink]="['/contact']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+            >
+              Contact
+            </a>
+            <a *ngIf="!islogged()" (click)="redirectToLogin()" class="nav-link">
+              Contact
+            </a>
+          </li>
 
-
-          
           <!-- Show Register and Login if not logged in -->
           <ng-container *ngIf="!islogged()">
             <li class="nav-item">
@@ -59,31 +72,53 @@
           <li class="nav-item">
             <a [routerLink]="['/checkout']" class="nav-link">Checkout</a>
           </li>
-         
-       
+
           <li class="nav-item">
-            <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" class="nav-link">Dashboard</a>
+  <a [routerLink]="['/admin/admin-base']" routerLinkActive="router-link-active" class="nav-link">
+    Admin Dashboard
+  </a>
+</li>
+
+
+          <li class="nav-item">
+            <a
+              [routerLink]="['/dashboard']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Dashboard</a
+            >
           </li>
-         
+          <!-- 
+          <li class="nav-item">
+            <a [routerLink]="['/Admin/admin-base']" routerLinkActive="router-link-active" class="nav-link">ِAdmin Dashboard</a>
+          </li> -->
+
           <!-- <li class="nav-item">
             <a [routerLink]="['/cart']" class="nav-link"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
           </li> -->
 
-
-
-          <li class="nav-item ">
-            <a [routerLink]="['/profile']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-user fa-xl" ></i></a>
+          <li class="nav-item">
+            <a
+              [routerLink]="['/profile']"
+              class="nav-link"
+              data-bs-toggle="dropdown"
+              ><i class="fa-solid fa-user fa-xl"></i
+            ></a>
           </li>
-          <li class="nav-item ">
-            <a [routerLink]="['/cart']" class="nav-link " data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping fa-xl"></i> <span class="cart-count">{{ cartCount }}</span></a>
+          <li class="nav-item">
+            <a
+              [routerLink]="['/cart']"
+              class="nav-link"
+              data-bs-toggle="dropdown"
+              ><i class="fa-solid fa-cart-shopping fa-xl"></i>
+              <span class="cart-count">{{ cartCount }}</span></a
+            >
           </li>
           <!-- <li class="nav-item">
             <a (click)="logout()" class="nav-link" title="Logout">
               <i class="fa-solid fa-sign-out-alt fa-xl"></i>
             </a>
           </li> -->
-          
-
         </ul>
       </div>
     </div>
