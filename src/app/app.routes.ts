@@ -20,6 +20,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 
 export const routes: Routes = [
@@ -49,6 +50,16 @@ export const routes: Routes = [
   //     import('../app/admin/admin-base/admin-base.component').then((m) => m.AdminBaseComponent),
   // },
 
+// // {path:"category/cookies",component:ProductsComponent},
+// // {path:"category/cakes",component:CakesComponent},
+// // {path:"category/cupcakes",component:CupcakesComponent},
+// {path:"category/:name",component:ProductsComponent},
+// {path:"products/:id", component:ProductDetailsComponent},
+// {path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
+// // {path:"dashboard",component:DashbordSellerComponent},
+// // {path:"products", component:ProductsComponent},
+ 
+
   // {path:"dashboard",component:DashbordSellerComponent},
   // {path:"products", component:ProductsComponent},
 
@@ -56,21 +67,17 @@ export const routes: Routes = [
   { path: 'category/cakes', component: CakesComponent },
   { path: 'category/cupcakes', component: CupcakesComponent },
   { path: 'dashboard', component: DashbordSellerComponent },
-//  {path:'admin', component:AdminBaseComponent}, 
-  //admin route
-  {
-    path: 'admin/admin-base',
-    component: AdminBaseComponent,
-    title: 'Admin Panel',
-    children: [
-      { path: 'dashboard', component: AdminUsersComponent },
-      { path: 'users', component: AdminUsersComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-      { path: '**', redirectTo: 'dashboard' },
-    ],
-  },
- 
 
-  // { path: '**', component: NotFoundComponent },
+ //admin route
+ {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+  {path:'dashboard', component:AdminUsersComponent},
+  {path:'users', component:AdminUsersComponent},
+  { path: "users/edit/:id", component: AdminUserEditComponent },
+  {path: 'orders', component: OrdersComponent },
+  {path: "", pathMatch: "full", redirectTo:"dashboard",},
+  {path: "**", redirectTo:"dashboard"}
+]},
+
+
+  { path: '**', component: NotFoundComponent },
 ];
