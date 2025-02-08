@@ -54,11 +54,18 @@ export class AdminUserEditComponent implements OnInit {
     this._adminUsersApi.updateUser(this.user._id, this.user).subscribe({
         next: (res)=> {
           console.log(res);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User Updated",
+            showConfirmButton: false,
+            timer: 1500
+          });
         },
         error: (err)=>{
             console.log(err);
         }
-    }) 
+    })
    
   }
 
