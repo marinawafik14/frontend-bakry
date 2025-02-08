@@ -4,8 +4,6 @@ import { AdminUserApiService } from '../../_services/admin-user-api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { error } from 'jquery';
-
 
 @Component({
   selector: 'app-admin-user-edit',
