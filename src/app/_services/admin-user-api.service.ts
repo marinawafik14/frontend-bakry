@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +22,16 @@ export class AdminUserApiService {
     });
   }
 
+  removeUser(userId:any):Observable<any>{
+    return this.httpClient.delete<any>(`${this.apiurl}/admin/users/${userId}`);
+  }
+
+  getUserById(userId: string): Observable<any> {
+    return this.httpClient.get(`${this.apiurl}/admin/user/${userId}`);
+  }
+
+  updateUser(userId: string, userData: any) {
+    return this.httpClient.put(`${this.apiurl}/admin/users/${userId}`, userData);
+  }
   
 }

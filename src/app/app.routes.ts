@@ -21,6 +21,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
 
 
 
@@ -56,6 +57,7 @@ export const routes: Routes = [
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminUsersComponent},
   {path:'users', component:AdminUsersComponent},
+  { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},
