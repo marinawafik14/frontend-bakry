@@ -1,1 +1,53 @@
-<p>orders works!</p>
+<h2>Orders</h2>
+<div class="container my-5">
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Id</th>
+          <th>Full Name</th>
+          <th>Address</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>OK</th>
+          <th>Cancel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order._id | slice: -3 }}</td>
+          <td>{{ order.customername.firstname }} {{ order.customername.lastname }}</td>
+          <!-- <td>{{ order.addressdetails }}</td> -->
+           @if (order.addressdetails) {
+                     <td>{{order.addressdetails}}</td> 
+                   }
+                   @else{
+                    <td></td>
+                   }
+          <td>{{ order.totalAmount | currency }}</td>
+          <td>
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-warning text-dark': order.orderStatus === 'pending',
+                    'bg-primary': order.orderStatus === 'shipped',
+                    'bg-danger': order.orderStatus === 'canceled',
+                    'bg-success': order.orderStatus === 'delivered'
+                  }">
+              {{ order.orderStatus | titlecase }}
+            </span>
+          </td>
+          <td>
+            <button (click)="markAsShipped(order._id)" class="btn btn-success btn-sm" title="Mark as OK">
+              <i class="bi bi-check-lg"></i> OK
+            </button>
+          </td>
+          <td>
+            <button (click)="markAscanceled(order._id)" class="btn btn-danger btn-sm" title="Cancel Order">
+              <i class="bi bi-x-lg"></i> Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
