@@ -58,8 +58,8 @@ export const routes: Routes = [
 // {path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
 // // {path:"dashboard",component:DashbordSellerComponent},
 // // {path:"products", component:ProductsComponent},
+ 
 
-{path:"**",component:NotFoundComponent},
   // {path:"dashboard",component:DashbordSellerComponent},
   // {path:"products", component:ProductsComponent},
 
@@ -68,8 +68,8 @@ export const routes: Routes = [
   { path: 'category/cupcakes', component: CupcakesComponent },
   { path: 'dashboard', component: DashbordSellerComponent },
 
-  //admin route
-{path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+ //admin route
+ {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminUsersComponent},
   {path:'users', component:AdminUsersComponent},
   { path: "users/edit/:id", component: AdminUserEditComponent },
@@ -78,7 +78,6 @@ export const routes: Routes = [
   {path: "**", redirectTo:"dashboard"}
 ]},
 
- 
 
-  // { path: '**', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent },
 ];
