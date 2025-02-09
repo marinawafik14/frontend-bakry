@@ -165,7 +165,7 @@ export class CartComponent implements OnInit{
 
     }
     else{
-         this.router.navigateByUrl('/Checkout')
+         this.router.navigateByUrl('/checkout')
     }
 
   }

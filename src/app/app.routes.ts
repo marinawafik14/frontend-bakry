@@ -11,43 +11,71 @@ import { CookiesComponent } from './category/cookies/cookies.component';
 import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
 import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-seller.component';
+
 import { canloginGuard } from './guard/canlogin.guard';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { ChartSellerComponent } from './seller/chart-seller/chart-seller.component';
-
-
-
+import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
+import { OrdersComponent } from './admin/orders/orders.component';
 
 export const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: "full" },
-{path:"home",component:HomeComponent},
-{path:"about",component:AboutComponent},
-{path:"contact",component:ContactUsComponent,canActivate:[canloginGuard]},
-{path:"login",component:LoginComponent},
-{path:"register",component:RegisterComponent},
-{path:"profile",component:ProfileFormComponent},
-{path:"cart",component:CartComponent},
-{path:"checkout" , component:CheckoutComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  // {path:"contact",component:ContactUsComponent,canActivate:[canloginGuard]},
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileFormComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+
+  // {path:"category/cookies",component:ProductsComponent},
+  // {path:"category/cakes",component:CakesComponent},
+  // {path:"category/cupcakes",component:CupcakesComponent},
+  { path: 'category/:name', component: ProductsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
+  },
+  // {
+  //   path: 'admin',
+  //   loadChildren: () =>
+  //     import('../app/admin/admin-base/admin-base.component').then((m) => m.AdminBaseComponent),
+  // },
+
+// // {path:"category/cookies",component:ProductsComponent},
+// // {path:"category/cakes",component:CakesComponent},
+// // {path:"category/cupcakes",component:CupcakesComponent},
+// {path:"category/:name",component:ProductsComponent},
+// {path:"products/:id", component:ProductDetailsComponent},
+// {path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
+// // {path:"dashboard",component:DashbordSellerComponent},
+// // {path:"products", component:ProductsComponent},
 
 
-// {path:"category/cookies",component:ProductsComponent},
-// {path:"category/cakes",component:CakesComponent},
-// {path:"category/cupcakes",component:CupcakesComponent},
-{path:"category/:name",component:ProductsComponent},
-{path:"products/:id", component:ProductDetailsComponent},
-{path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
-// {path:"dashboard",component:DashbordSellerComponent},
-// {path:"products", component:ProductsComponent},
+  // {path:"dashboard",component:DashbordSellerComponent},
+  // {path:"products", component:ProductsComponent},
+
+  { path: 'category/cookies', component: CookiesComponent },
+  { path: 'category/cakes', component: CakesComponent },
+  { path: 'category/cupcakes', component: CupcakesComponent },
+  { path: 'dashboard', component: DashbordSellerComponent },
+
+ //admin route
+ {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+  {path:'dashboard', component:AdminUsersComponent},
+  {path:'users', component:AdminUsersComponent},
+  { path: "users/edit/:id", component: AdminUserEditComponent },
+  {path: 'orders', component: OrdersComponent },
+  {path: "", pathMatch: "full", redirectTo:"dashboard",},
+  {path: "**", redirectTo:"dashboard"}
+]},
 
 
-{path:"category/cookies",component:CookiesComponent},
-{path:"category/cakes",component:CakesComponent},
-{path:"category/cupcakes",component:CupcakesComponent},
-{path:"dashboard",component:DashbordSellerComponent},
-
-{path:"**",component:NotFoundComponent},
-
-
+  { path: '**', component: NotFoundComponent },
 ];

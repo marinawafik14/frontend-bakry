@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 //   progressBar: true, // Show progress bar
 // };
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers:
