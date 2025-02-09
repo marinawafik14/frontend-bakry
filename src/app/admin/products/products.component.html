@@ -1,1 +1,46 @@
-<p>products works!</p>
+<h2>Users</h2>
+<div class="container my-5">
+  <div class="table-responsive table-bordered">
+    <table class="table table-hover">
+      <thead class="table-danger text-white">
+        <tr class>
+          <td>Id</td>
+          <th>name</th>
+          <th>price</th>
+          <th>category</th>
+          <th>sales</th>
+          <th>stock</th>
+          <th>flavor</th>
+          <th>discounted</th>
+          <th>createAt</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products; track $index) {
+        <tr>
+          <td>{{ product._id?.slice(-3) }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.sales }}</td>
+          <td>{{ product.stock }}</td>
+          <td>{{ product.flavor }}</td>
+          <td>{{ product.discounted }}</td>
+          <td>{{ product.createdAt }}</td>
+
+          <td>
+            <button class="btn btn-sm" title="Edit User">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm" title="Delete User">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

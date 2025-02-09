@@ -87,7 +87,7 @@ export class RegisterComponent {
         next: (res) => {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
-          
+
           Swal.fire({
             title: 'Registration Success!',
             html: `
@@ -104,9 +104,15 @@ export class RegisterComponent {
           this.router.navigateByUrl('/home');
         },
         error: (err) => {
+          console.error('Registration Error:', err);
+
+          const errorMessage =
+            err.error?.message ||
+            'An unexpected error occurred during registration.';
+
           Swal.fire({
             title: 'Error!',
-            text: `Registration failed: ${err.message}`,
+            text: `Registration failed: ${errorMessage}`,
             icon: 'error',
             showConfirmButton: true,
           });
