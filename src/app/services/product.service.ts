@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Products } from '../models/products';
+import { productToAdmin } from '../models/productToAdmin';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ return this.http.get<Products[]>(this.topPro_url)
 }
 getAllProducts(): Observable<Products[]> {
   return this.http.get<Products[]>(this.allProduct_url);
+}
+getAllProductsToadmin(): Observable<productToAdmin[]> {
+  return this.http.get<productToAdmin[]>(this.allProduct_url);
 }
 
 
