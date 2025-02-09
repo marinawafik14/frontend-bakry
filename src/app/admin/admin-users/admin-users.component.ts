@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminUserApiService } from '../../_services/admin-user-api.service';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -19,18 +19,18 @@ export class AdminUsersComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllUsers();
-        
+
     }
 
     getAllUsers(): void {
-        
+
       this._adminUsersApi.getAllUsers().subscribe({
           next: (res) => {
               console.log("API Response:", res);
               if (res && res.users) {
                   this.users = res.users;
                   console.log(this.users[4]);
-                  
+
               } else {
                   console.error("Unexpected API response format:", res);
               }
@@ -63,14 +63,14 @@ export class AdminUsersComponent implements OnInit {
                       });
                       this.getAllUsers();
                 },
-                error: (err)=>{                    
+                error: (err)=>{
                     Swal.fire(`${err.error.message}`);
-                        
+
                 }
             })
         }
       });
-   
+
   }
 
   getRoleClass(role: string): string {
@@ -87,5 +87,5 @@ export class AdminUsersComponent implements OnInit {
             return 'status-active'; // Gray
     }
 }
-  
+
 }

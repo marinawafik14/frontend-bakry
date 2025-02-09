@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminUserApiService } from '../../_services/admin-user-api.service';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -48,7 +48,7 @@ export class AdminUserEditComponent implements OnInit {
 }
 
 
-  saveUser() {    
+  saveUser() {
     this._adminUsersApi.updateUser(this.user._id, this.user).subscribe({
         next: (res)=> {
           console.log(res);
@@ -64,10 +64,10 @@ export class AdminUserEditComponent implements OnInit {
             console.log(err);
         }
     })
-   
+
   }
 
-  
+
   toggleRoleEdit(){
   Swal.fire({
     title: 'Change User Role',
