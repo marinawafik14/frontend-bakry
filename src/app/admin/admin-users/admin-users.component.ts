@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminUserApiService } from '../../_services/admin-user-api.service';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
