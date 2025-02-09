@@ -3,21 +3,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- 
-}
+  
 
-/* @import 'ngx-toastr/toastr.css';
-
-
-.toast-success {
-  background-color: #28a745 !important; 
-  color: white !important;
-  font-weight: bold;
-  width: 500px;
 }
 
 
-.toast-error {
-  background-color: #dc3545 !important; 
-  color: white !important;
-} */
+
+

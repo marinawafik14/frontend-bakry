@@ -11,14 +11,11 @@ import { CookiesComponent } from './category/cookies/cookies.component';
 import { CakesComponent } from './category/cakes/cakes.component';
 import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
 import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-seller.component';
-
-
 import { canloginGuard } from './guard/canlogin.guard';
-
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ChartSellerComponent } from './seller/chart-seller/chart-seller.component';
 
 
 

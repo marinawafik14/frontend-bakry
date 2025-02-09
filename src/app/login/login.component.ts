@@ -6,7 +6,7 @@ import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserserviceService } from '../services/user.service';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,7 @@ export class LoginComponent {
     });
   }
 
-  
+
  login() {
   if (this.Userloginform.valid) {
     // Populate the user object with form values
@@ -71,7 +71,7 @@ export class LoginComponent {
       },
       error: (err) => {
         console.log(err);
-        
+
         Swal.fire({
           title: 'Login Failed!',
           text: `Error: ${err.error?.message || 'Invalid credentials'}`,

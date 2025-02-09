@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 
 
 @Component({

@@ -42,13 +42,16 @@ export class SellerAddProductComponent implements OnInit {
   }
 
   save() {
+   
+    console.log("Product data:", this.productAdd);
+
     const formData = new FormData();
 
     formData.append("name", this.productAdd.name);
     formData.append("description", this.productAdd.description);
-    formData.append("price", this.productAdd.price.toString()); // ✅ Convert to string
-    formData.append("stock", this.productAdd.stock.toString()); // ✅ Convert to string
-    formData.append("categoryid", this.productAdd.categoryid.toString()); // ✅ Convert to string
+    formData.append("price", this.productAdd.price.toString());
+    formData.append("stock", this.productAdd.stock.toString());
+    formData.append("categoryid", this.productAdd.categoryid.toString());
 
     // Append images correctly
     this.productAdd.images.forEach((image, index) => {

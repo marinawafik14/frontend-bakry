@@ -1,13 +1,13 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
- private apiServer = "http://localhost:8000/api/auth";
+private apiServer = "http://localhost:8000/api/auth";
 
   constructor(private http:HttpClient) { }
 
@@ -23,7 +23,7 @@ export class AuthService {
     try {
       const decoded = jwtDecode(token);
       console.log(decoded);
-      
+
       return decoded;
     } catch (error) {
       console.error('Error decoding token:', error);
@@ -51,3 +51,7 @@ export class AuthService {
   }
 
 }
+
+
+
+
