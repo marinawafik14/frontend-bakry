@@ -1,9 +1,13 @@
-// src/app/shared/echarts-wrapper.module.ts
+
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 
+
 @NgModule({
-  imports: [NgxEchartsModule],
+
+  imports: [CommonModule, NgxEchartsModule],
+
   exports: [NgxEchartsModule],
 })
 export class EchartsWrapperModule {}

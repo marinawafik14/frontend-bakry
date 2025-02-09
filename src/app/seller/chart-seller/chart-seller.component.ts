@@ -7,8 +7,7 @@ import { EchartsWrapperModule } from '../../echarts-wrapper.module';
   standalone: true,
   selector: 'app-chart-seller',
   templateUrl: './chart-seller.component.html',
-  styleUrls: ['./chart-seller.component.css'],
-  imports: [EchartsWrapperModule],
+  imports:[EchartsWrapperModule],
 })
 export class ChartSellerComponent implements OnInit {
   sellers: Seller[] = [];

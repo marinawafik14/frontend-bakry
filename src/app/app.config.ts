@@ -39,7 +39,7 @@ export const appConfig: ApplicationConfig = {
     }),
 
      DatePipe,
-     provideEchartsCore({echarts,}),
+     provideEchartsCore({echarts}),
 
   ]
 };
