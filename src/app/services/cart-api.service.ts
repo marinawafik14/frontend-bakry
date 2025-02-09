@@ -1,14 +1,14 @@
-import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartApiService {
-  private apiUrl = 'http://localhost:8000/cart/add';
+private apiUrl = 'http://localhost:8000/cart/add';
 
   header: any
   constructor(public httpClient: HttpClient, _authService:AuthService) {
@@ -49,13 +49,13 @@ export class CartApiService {
     getCartItems() {
       return this.cartItems;
     }
-  
+
     // Get current cart count
     getCartCount() {
       return this.cartCount.value;
     }
 
-  
+
     addToCart(productId: string, quantity: number, price: number) {
       return this.httpClient.post<any>(this.apiUrl, { productId, quantity, price }).subscribe(response => {
         if (response.token) {
@@ -64,12 +64,14 @@ export class CartApiService {
         this.cartCount.next(response.cartItems.length); // Update cart count
       });
     }
-  
+
     loadCartCount() {
       const token = localStorage.getItem('token');
       if (token) {
         const decodedToken: any = JSON.parse(atob(token.split('.')[1])); // Decode token
         this.cartCount.next(decodedToken.cartItems?.length || 0);
       }
-    }  
+    }
 }
+
+

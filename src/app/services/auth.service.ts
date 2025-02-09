@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,7 +14,7 @@ interface DecodedToken {
 export class AuthService {
   private apiServer = "http://localhost:8000/api/auth";
 
-  decodedToken: DecodedToken = {}; 
+  decodedToken: DecodedToken = {};
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,7 @@ export class AuthService {
     try {
       const decoded = jwtDecode<DecodedToken>(token); // Cast to DecodedToken
       console.log(decoded);
+
       return decoded;
     } catch (error) {
       console.error('Error decoding token:', error);
@@ -58,3 +60,7 @@ export class AuthService {
     return !!token;
   }
 }
+
+
+
+

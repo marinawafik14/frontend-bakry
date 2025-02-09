@@ -13,8 +13,8 @@ import {
 } from '@angular/forms';
 import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
-import { AuthService } from '../_service/auth.service';
-import { user } from '../../../model/user.model';
+import { AuthService } from '../services/auth.service';
+import { user } from '../models/user.model';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -87,7 +87,7 @@ export class RegisterComponent {
         next: (res) => {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
-          
+
           Swal.fire({
             title: 'Registration Success!',
             html: `

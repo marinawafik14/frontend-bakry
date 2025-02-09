@@ -5,8 +5,9 @@ import { FooterComponent } from "./footer/footer.component";
 import { AuthService } from './_service/auth.service';
 
 @Component({
+  standalone:true,
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, FooterComponent,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
