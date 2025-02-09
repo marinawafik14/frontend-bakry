@@ -13,10 +13,8 @@ import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
 import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-seller.component';
 
 import { canloginGuard } from './guard/canlogin.guard';
-
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';

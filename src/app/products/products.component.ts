@@ -3,7 +3,7 @@ import { ProductService } from '../services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 
 @Component({
   selector: 'app-products',

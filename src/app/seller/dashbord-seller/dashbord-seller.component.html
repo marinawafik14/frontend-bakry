@@ -109,11 +109,14 @@
       placeholder="Search">
   </div>
   <div class="col-md-4 col-sm-12">
-
+    <a [routerLink]="['/dashboard/chart-seller']"   id="chart" class="form-control btn  btn-success border-1 border-black"
+      data-bs-toggle="modal" data-bs-target="">Chart</a>
+  </div>
+  <div class="col-md-4 col-sm-12">
     <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn  btn-success border-1 border-black"
       data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
-
   </div>
+
 </div>
 
 <body>
@@ -154,7 +157,7 @@
           <td>{{item.discounted}}</td>
           <td>{{item.previousprice}}</td>
           <td>seller name</td>
-         
+
             <td>
               <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
             </td>

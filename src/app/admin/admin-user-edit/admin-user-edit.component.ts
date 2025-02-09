@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AdminUserApiService } from '../../_services/admin-user-api.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-user-edit',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './admin-user-edit.component.html',
   styleUrl: './admin-user-edit.component.css',
 })
@@ -75,7 +75,6 @@ export class AdminUserEditComponent implements OnInit {
       <select id="userRoleSelect" class="swal2-select form-control">
         <option value="Customer">Customer</option>
         <option value="Admin">Admin</option>
-        <option value="Manager">Manager</option>
         <option value="Seller">Seller</option>
         <option value="Cashier">Cashier</option>
       </select>
@@ -92,7 +91,7 @@ export class AdminUserEditComponent implements OnInit {
     }
   }).then((result) => {
     if (result.isConfirmed) {
-      this.user.role = result.value; // Update role in the component
+      this.user.role = result.value;
       console.log("Role updated to:", this.user.role);
     }
   });
