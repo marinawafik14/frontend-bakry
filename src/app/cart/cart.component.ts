@@ -23,7 +23,6 @@ export class CartComponent implements OnInit{
   constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
     this.getUserId();
     this.getCartData();
-
   }
 
   private notyf = new Notyf({
@@ -48,6 +47,7 @@ export class CartComponent implements OnInit{
     this.checkQuantity(item.quantity, productId);
 
       this.updateCartQuantities();
+      this.getCartData();
 
   }
 

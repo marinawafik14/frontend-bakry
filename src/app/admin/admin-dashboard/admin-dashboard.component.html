@@ -1,0 +1,78 @@
+<div class="container my-5">
+  <div class="row g-4">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card shadow-lg border-0 rounded-3 bg-light">
+              <div class="card-body d-flex align-items-center">
+                  <div class="icon-container bg-warning text-white rounded-circle p-3 me-3">
+                      <i class="fas fa-hdd fa-2x"></i>
+                  </div>
+                  <div>
+                      <p class="text-muted mb-1">Customers</p>
+                      <h4 class="fw-bold">150GB</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card shadow-lg border-0 rounded-3 bg-light">
+              <div class="card-body d-flex align-items-center">
+                  <div class="icon-container bg-success text-white rounded-circle p-3 me-3">
+                      <i class="fas fa-dollar-sign fa-2x"></i>
+                  </div>
+                  <div>
+                      <p class="text-muted mb-1">Total Money</p>
+                      <h4 class="fw-bold">$1,345</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-6 title">
+          <div class="card shadow-lg border-0 rounded-3 bg-light">
+              <div class="card-body d-flex align-items-center">
+                  <div class="icon-container bg-dark text-white rounded-circle p-3 me-3">
+                        <i class="fa-solid fa-clock"></i>
+                  </div>
+                  <div>
+                      <p class="text-muted mb-1">Pending Orders</p>
+                      <h4 class="fw-bold">{{pendingOrders}}</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card shadow-lg border-0 rounded-3 bg-light">
+              <div class="card-body d-flex align-items-center">
+                  <div class="icon-container bg-primary text-white rounded-circle p-3 me-3">
+                      <i class="fas fa-users fa-2x"></i>
+                  </div>
+                  <div>
+                      <p class="text-muted mb-1">Followers</p>
+                      <h4 class="fw-bold">+45K</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- User Behavior Chart -->
+  <div class="row mt-4">
+      <div class="col-md-12">
+          <div class="card shadow-lg border-0 rounded-3">
+              <div class="card-header bg-dark text-white">
+                  <h5 class="mb-0">Users Behavior</h5>
+                  <small>24 Hours Performance</small>
+              </div>
+              <div class="card-body">
+                  <canvas id="chartHours" width="400" height="100"></canvas>
+              </div>
+              <div class="card-footer text-muted">
+                  <i class="fa fa-history"></i> Updated 3 minutes ago
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

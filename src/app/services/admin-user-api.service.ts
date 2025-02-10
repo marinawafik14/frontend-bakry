@@ -37,4 +37,7 @@ export class AdminUserApiService {
     return this.httpClient.get<{ users: User[] }>(`${this.apiurl}/admin/users/${role}`)
   }
 
+  getDashboardData(){
+    
+  }
 }
