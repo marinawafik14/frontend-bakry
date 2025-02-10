@@ -15,7 +15,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 export class AdminUsersComponent implements OnInit {
     users: User[] = [];  // Ensuring it's an array
 
-    constructor(private _adminUsersApi: AdminUserApiService) {}
+    constructor(private _adminUsersApi: AdminUserApiService) {
+        this.getAllUsers();
+    }
 
     ngOnInit(): void {
         this.getAllUsers();
@@ -72,7 +74,22 @@ export class AdminUsersComponent implements OnInit {
       });
    
   }
+  getUserRole(role:string){
+        this._adminUsersApi.getUsersByRole(role).subscribe({
+            next: (res)=>{
+                console.log(res);
+                if (res && res.users) {
+                    this.users = res.users;                    
+                } else {
+                    console.error("Unexpected API response format:", res);
+                }
+            },
+            error: (err) => {
+                console.log(err.error);
+            }
+        })
 
+  }
   getRoleClass(role: string): string {
     switch (role.toLowerCase()) {
         case 'admin':
