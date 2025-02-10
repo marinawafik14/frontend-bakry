@@ -21,6 +21,7 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
+import { TestComponent } from './admin/test/test.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -74,6 +75,7 @@ export const routes: Routes = [
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
+  {path:'test' , component:TestComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},

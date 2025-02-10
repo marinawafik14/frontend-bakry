@@ -1,0 +1,21 @@
+<div class="table-responsive m-5">
+    <div class="table-responsive">
+        <ngx-datatable 
+          class="bootstrap table-hover table-striped"
+          [rows]="displayRows" 
+          [columns]="columns"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [limit]="pageSize"
+          [count]="rows.length"
+          [offset]="currentPage"
+          [externalPaging]="true"
+          (page)="onPageChange($event)">
+        </ngx-datatable>
+      </div>
+      
+
+  </div>
+  
