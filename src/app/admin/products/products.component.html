@@ -1,23 +1,41 @@
-<h2>Users</h2>
+<h2>Products</h2>
+<div class="container my-5">
+  <input
+    type="text"
+    placeholder="Search Products"
+    [(ngModel)]="filterText"
+    (input)="applyFilter()"
+    class="form-control mb-3"
+  />
+<!-- 
+  <ngx-datatable
+    [rows]="filteredProducts"
+    [columns]="columns"
+    class="bootstrap"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="50"
+  ></ngx-datatable> -->
+    
 <div class="container my-5">
   <div class="table-responsive table-bordered">
     <table class="table table-hover">
       <thead class="table-danger text-white">
-        <tr class>
-          <td>Id</td>
-          <th>name</th>
-          <th>price</th>
-          <th>category</th>
-          <th>sales</th>
-          <th>stock</th>
-          <th>flavor</th>
-          <th>discounted</th>
-          <th>createAt</th>
+         <tr>
+          <th class="sortable" (click)="sortTable('_id')">Id</th>
+          <th class="sortable" (click)="sortTable('name')">Name</th>
+          <th class="sortable" (click)="sortTable('price')">Price</th>
+          <th class="sortable" (click)="sortTable('category')">Category</th>
+          <th class="sortable" (click)="sortTable('sales')">Sales</th>
+          <th class="sortable" (click)="sortTable('stock')">Stock</th>
+          <th class="sortable" (click)="sortTable('flavor')">Flavor</th>
+          <th class="sortable" (click)="sortTable('discounted')">Discounted</th>
+          <th class="sortable" (click)="sortTable('createdAt')">Created At</th>
+          <th>action</th>
         </tr>
       </thead>
       <tbody>
-        @for (product of products; track $index) {
-        <tr>
+        <tr *ngFor="let product of filteredProducts; let i = index">
           <td>{{ product._id?.slice(-3) }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
@@ -27,19 +45,17 @@
           <td>{{ product.flavor }}</td>
           <td>{{ product.discounted }}</td>
           <td>{{ product.createdAt }}</td>
-
-          <td>
-            <button class="btn btn-sm" title="Edit User">
+           <td>
+            <!-- Update Button -->
+            <button class="btn btn-sm btn-primary me-2" >
               <i class="bi bi-pencil-fill"></i>
             </button>
-          </td>
-          <td>
-            <button class="btn btn-sm" title="Delete User">
+            <!-- Delete Button -->
+            <button (click)="deleteProduct(product._id || '')" class="btn btn-sm btn-danger" >
               <i class="bi bi-trash"></i>
             </button>
           </td>
         </tr>
-        }
       </tbody>
     </table>
   </div>

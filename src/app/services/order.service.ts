@@ -4,6 +4,7 @@ import { Order } from '../models/order';
 import { Observable } from 'rxjs/internal/Observable';
 import { orderToAdmin } from '../models/orderToAdmin';
 import { map } from 'rxjs/operators';
+import { OrderTo } from '../models/orderTo';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,11 @@ export class OrdersService {
 
   getallorders(): Observable<{ order: orderToAdmin[] }> {
     return this.http.get<{ order: orderToAdmin[] }>(
+      'http://localhost:8000/order/getallorder'
+    );
+  }
+  getallordersP(): Observable<{ order: OrderTo[] }> {
+    return this.http.get<{ order: OrderTo[] }>(
       'http://localhost:8000/order/getallorder'
     );
   }
