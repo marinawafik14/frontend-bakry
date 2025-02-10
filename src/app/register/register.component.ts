@@ -88,6 +88,10 @@ export class RegisterComponent {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
 
+            const token = res.token;
+            if (token) {
+              sessionStorage.setItem('tokenkey', token);
+            }
           Swal.fire({
             title: 'Registration Success!',
             html: `
