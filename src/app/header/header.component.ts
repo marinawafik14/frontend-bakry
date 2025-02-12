@@ -20,7 +20,10 @@ export class HeaderComponent implements OnInit {
     this.loadUserData();
   }
   ngOnInit(): void {
-    // Subscribe to cart count updates
+    this.loadUserData();
+    this.cartService.loadCartCount(); // ✅ Ensure count is loaded
+
+    // ✅ Subscribe to cart count updates
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });

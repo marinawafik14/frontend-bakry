@@ -25,11 +25,11 @@ getAllProducts(): Observable<Products[]> {
 
 
 getProductsByCategory(categoryName: string): Observable<any> {
-  return this.http.get(`${this.allProduct_url}?category=${categoryName}`);
+  return this.http.get(`${this.createpro_url}?category=${categoryName}`);
 }
 
 getProductById(id: string): Observable<any> {
-  return this.http.get(`${this.allProduct_url}/${id}`);
+  return this.http.get(`${this.createpro_url}/${id}`);
 }
 
 getCategories(): Observable<Array<{ _id: string, name: string }>> {

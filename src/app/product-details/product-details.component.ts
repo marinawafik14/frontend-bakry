@@ -5,8 +5,7 @@ import { ProductService } from '../services/product.service';
 import { CartApiService } from '../_services/cart-api.service';
 import { CommonModule } from '@angular/common';
 import { Products } from '../models/products';
-
-// import { ToastrService } from 'ngx-toastr';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +19,8 @@ export class ProductDetailsComponent implements OnInit{
   quantity: number = 1;
   relatedProducts: Products[] = []; ;
   productId: string = '';
-  selectedImage: string = ''; // Store selected image
+  selectedImage: string = '';
+  errorMessage: string = '';
   constructor(private ac: ActivatedRoute, private productService: ProductService, public cartService:CartApiService) {}
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit{
       this.productService.getProductById(productId).subscribe({
         next: (data) => {
           this.product = data;
-          this.selectedImage = data.images[0]; // Set default image
+          this.selectedImage = data.images[0];
         },
         error: (error) => {
           console.error("Error fetching product:", error);
@@ -40,67 +40,59 @@ export class ProductDetailsComponent implements OnInit{
     }
   }
 
+  private notyf = new Notyf({
+      duration: 3000,
+      position: { x: 'center', y: 'bottom' }
+    });
+
   changeImage(imageUrl: string): void {
-    this.selectedImage = imageUrl; // Update selected image
+    this.selectedImage = imageUrl;
   }
 
-    // Increase Quantity (Max: Stock Limit)
-    increaseQuantity(): void {
+    increaseQuantity() {
       if (this.quantity < this.product!.stock) {
         this.quantity++;
+        this.errorMessage = '';
+      } else {
+        this.notyf.error("Cannot add more than available stock!");
+        this.errorMessage = 'Cannot add more than available stock!';
       }
     }
 
-    // Decrease Quantity (Min: 1)
-    decreaseQuantity(): void {
+    decreaseQuantity() {
       if (this.quantity > 1) {
         this.quantity--;
+        this.errorMessage = '';
       }
     }
 
-    // Add to Cart Only If Stock is Available
-    addToCart(product: any) {
-      const quantity = 1; // Default quantity (modify if needed)
-      this.cartService.addToCart(product._id, quantity, product.price);
+     //Add to Cart
+     addToCart() {
+      if (this.quantity > this.product!.stock) {
+        this.notyf.error("Not enough stock available!");
+        this.errorMessage = 'Not enough stock available!';
+        return;
+      }
+  
+      this.cartService.addToCart(this.product!._id, this.quantity, this.product!.price).subscribe(
+        (response) => {
+          console.log('Cart updated:', response);
+          this.notyf.success("Cart updated successfully");
+          this.errorMessage = '';
+        },
+        (error) => {
+          this.notyf.error("Error adding to cart");
+          console.error('Error adding to cart:', error);
+        }
+      );
     }
 
 
     getRelatedProducts() {
       this.productService.getProductsByCategory(this.product?.category!).subscribe((data) => {
-        this.relatedProducts = data.filter((s:any) => s._id !== this.product!._id).slice(0, 4); // Exclude current product
+        this.relatedProducts = data.filter((s:any) => s._id !== this.product!._id).slice(0, 4);
       });
     }
-
-    // timer: any;
-    // remainingTime: string = '';
-
-    // startCountdown(endDate: string) {
-    //   const interval = setInterval(() => {
-    //     const now = new Date().getTime();
-    //     const timeLeft = new Date(endDate).getTime() - now;
-
-    //     if (timeLeft <= 0) {
-    //       clearInterval(interval);
-    //       this.remainingTime = "Offer expired";
-    //     } else {
-    //       let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    //       let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //       let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    //       this.remainingTime = `${days}d ${hours}h ${minutes}m left`;
-    //     }
-    //   }, 1000);
-    // }
-
-    // addToWishlist(product: any) {
-    //   let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    //   if (!wishlist.some((p:any) => p._id === product._id)) {
-    //     wishlist.push(product);
-    //     localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    //     // this.toastr.success('Added to Wishlist!', 'Success');
-    //   } else {
-    //     // this.toastr.info('Product already in Wishlist', 'Info');
-    //   }
-    // }
 
     categories = [
       {
@@ -116,7 +108,5 @@ export class ProductDetailsComponent implements OnInit{
         image: 'https://bellyfull.net/wp-content/uploads/2022/06/Strawberry-Shortcake-Cupcakes-blog-2.jpg'
       }
     ];
-
-
 
 }

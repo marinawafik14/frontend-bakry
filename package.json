@@ -33,6 +33,7 @@
     "ecomerce-bakery": "file:",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
+    "mongoose": "^8.10.0",
     "ngx-toastr": "^19.0.0",
     "notyf": "^3.10.0",
     "popper.js": "^1.16.1",

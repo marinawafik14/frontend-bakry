@@ -55,7 +55,7 @@
         <p *ngIf="quantity >= product!.stock" class="out-of-stock">Stock limit reached!</p>
   
         <!-- Add to Cart Button -->
-        <button class="add-to-cart" (click)="addToCart(product)" [disabled]="product!.stock === 0">ADD TO CART</button>
+        <button class="add-to-cart" (click)="addToCart()" [disabled]="product!.stock === 0">ADD TO CART</button>
         <br><br><br>
         <h5>Discription:</h5>
         <h6>{{product?.description}}</h6>
