@@ -22,6 +22,7 @@ body {
   height: 0;
   z-index: 100;
   position: relative;
+  background-color: #fff;
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;

@@ -1,8 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';

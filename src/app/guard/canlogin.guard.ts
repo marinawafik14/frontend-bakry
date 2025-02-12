@@ -12,11 +12,9 @@ export const canloginGuard: CanActivateFn = (route, state) => {
     console.log('User is logged in');
     return true;
   } else {
-    const router= inject(Router)
-router.navigateByUrl("/login")
+    console.warn('User not logged in. Redirecting to login.');
+    router.navigateByUrl("/login");
     return false;
   }
-  return false;
-
 };
 

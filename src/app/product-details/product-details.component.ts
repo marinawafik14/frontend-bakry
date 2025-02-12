@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, RouterLink} from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 import { CommonModule } from '@angular/common';
 import { Products } from '../models/products';
 import { Notyf } from 'notyf';

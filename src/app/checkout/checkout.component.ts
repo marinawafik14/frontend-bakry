@@ -6,8 +6,10 @@ import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { CartApiService } from '../_services/cart-api.service';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
+import { CartApiService } from '../services/cart-api.service';
+import { User } from '../_models/user';
+
 @Component({
   selector: 'app-checkout',
   imports: [FormsModule , CommonModule],

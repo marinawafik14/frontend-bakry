@@ -13,8 +13,8 @@ import {
 } from '@angular/forms';
 import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
-import { AuthService } from '../_service/auth.service';
-import { user } from '../../../model/user.model';
+import { AuthService } from '../services/auth.service';
+import { user } from '../models/user.model';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -87,7 +87,11 @@ export class RegisterComponent {
         next: (res) => {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
-          
+
+            const token = res.token;
+            if (token) {
+              sessionStorage.setItem('tokenkey', token);
+            }
           Swal.fire({
             title: 'Registration Success!',
             html: `
@@ -104,9 +108,15 @@ export class RegisterComponent {
           this.router.navigateByUrl('/home');
         },
         error: (err) => {
+          console.error('Registration Error:', err);
+
+          const errorMessage =
+            err.error?.message ||
+            'An unexpected error occurred during registration.';
+
           Swal.fire({
             title: 'Error!',
-            text: `Registration failed: ${err.message}`,
+            text: `Registration failed: ${errorMessage}`,
             icon: 'error',
             showConfirmButton: true,
           });
