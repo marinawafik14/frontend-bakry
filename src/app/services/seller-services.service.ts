@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { Products } from '../models/products';
 import { Seller } from '../models/seller';
-
+import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +11,7 @@ import { Seller } from '../models/seller';
 export class SellerServicesService {
 private url="http://localhost:8000/products";
 private allproducts_url = "http://localhost:8000/allproducts";
-private sellerState_url ="http://localhost:8000/seller-stats";
+private sellerSales_url ="http://localhost:8000/products/seller";
 
   constructor(private http:HttpClient) { }
 
@@ -44,13 +43,43 @@ addProduct(pro:Products){
 // seller update product
 
 updateProduct(pro: Products): Observable<Products> {
-  console.log("blaaaaa")
   return this.http.put<Products>(`${this.url}/${pro._id}`, pro);
 }
 
 // get seller state
+/*
 getSellerStats(): Observable<Seller[]> {
-  return this.http.get<Seller[]>(this.sellerState_url);
+  const token = sessionStorage.getItem('tokenkey');
+
+  if (!token) {
+    throw new Error('No token found, user is not logged in.');
+  }
+  const decodedToken: any = jwtDecode(token);
+  const sellerId = decodedToken.userId;
+  return this.http.get<Seller[]>(`${this.sellerSales_url}/sales`);
+  headers: {
+    Authorization: `Bearer ${token}`, // Include token for authentication
+  },
 }
 
+}
+*/
+
+
+getSellerStats(): Observable<Seller[]> {
+  const token = sessionStorage.getItem('tokenkey');
+
+  if (!token) {
+    throw new Error('No token found, user is not logged in.');
+  }
+
+  const decodedToken: any = jwtDecode(token);
+  const sellerId = decodedToken.userId || decodedToken.userid || decodedToken._id;
+
+  return this.http.get<Seller[]>(`${this.sellerSales_url}/sales`, {
+    headers: {
+      Authorization: `Bearer ${token}`, // Include token for authentication
+    },
+  });
+}
 }

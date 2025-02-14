@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-
+import { tap } from 'rxjs/operators';
 interface DecodedToken {
   role?: string;
 }
@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${this.apiServer}/login`, data);
+    return this.http.post(`${this.apiServer}/login`, data)
   }
 
   register(data: any): Observable<any> {
@@ -59,6 +59,11 @@ export class AuthService {
     const token = sessionStorage.getItem('tokenkey');
     return !!token;
   }
+
+  getRole(): string | null {
+    return sessionStorage.getItem('role'); // Retrieve role
+  }
+
 }
 
 

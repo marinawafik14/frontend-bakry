@@ -130,13 +130,12 @@
 
           <th (click)="sortTable('name')" style="cursor: pointer;">Name</th>
           <th (click)="sortTable('description')" style="cursor: pointer;">Description</th>
+          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
           <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
+          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
           <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th>
           <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
           <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
-          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
-          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
-          <th >Seller Name</th>
           <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
           <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
           <th >Status</th>
@@ -150,19 +149,15 @@
 
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
+          <td>{{item.previousprice}}</td>
           <td>{{item.price}}</td>
+          <td>{{item.discounted}}</td>
           <td>{{item.stock}}</td>
           <td>{{item.category}}</td>
           <td>{{item.flavor}}</td>
-          <td>{{item.discounted}}</td>
-          <td>{{item.previousprice}}</td>
-          <td>seller name</td>
-
             <td>
               <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
             </td>
-
-
           <td>{{item.createdAt}}</td>
           <td>status</td>
           <td>

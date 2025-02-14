@@ -6,6 +6,7 @@
   color: white;
   height: 200px;
   margin-bottom: 100px;
+
 }
 
 .shop-header a {
@@ -27,18 +28,18 @@
     color: #666;
     margin-bottom: 10px;
   }
-  
+
   .breadcrumbs a {
     text-decoration: none;
     color: #000;
   }
-  
+
   .product-container {
     display: flex;
     align-items: start;
     gap: 40px;
   }
-  
+
   /* Product Image */
   .product-image-section {
     /* margin: auto; */
@@ -48,7 +49,7 @@
     padding: 10px;
     /* border: #000 solid 1px; */
   }
-  
+
   .product-image-section .main-image {
     width: 70%;
     height: 500px;
@@ -56,7 +57,7 @@
     border-radius: 10px;
     /* border: #000 solid 1px; */
   }
-  
+
   /* Image Selector (Thumbnail Section) */
 .image-selector {
     display: flex;
@@ -66,7 +67,7 @@
     width: 30%;
     margin: auto;
   }
-  
+
   .thumbnail {
     width: 60px;
     height: 60px;
@@ -76,7 +77,7 @@
     border: 2px solid transparent;
     transition: border 0.3s ease;
   }
-  
+
   .thumbnail:hover,
   .thumbnail.selected {
     border: 2px solid #5c2c2c; /* Highlight selected image */
@@ -86,31 +87,31 @@
   .product-info {
     flex: 1;
   }
-  
+
   .product-info h1 {
     font-size: 32px;
     font-weight: bold;
   }
-  
+
   .price {
     font-size: 24px;
     font-weight: bold;
     color: #333;
   }
-  
+
   .delivery-info {
     font-size: 16px;
     color: #666;
     margin: 10px 0;
   }
-  
+
   /* Quantity Selector */
   .quantity-selector {
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  
+
   .quantity-selector button {
     width: 30px;
     height: 30px;
@@ -119,13 +120,13 @@
     font-size: 16px;
     cursor: pointer;
   }
-  
+
   .quantity-selector input {
     width: 40px;
     text-align: center;
     border: 1px solid #ddd;
   }
-  
+
   /* Add to Cart Button */
   .add-to-cart {
     background: #5c2c2c;
@@ -136,18 +137,18 @@
     cursor: pointer;
     margin-top: 10px;
   }
-  
+
   /* Extra Info */
   .extra-info {
     margin-top: 20px;
   }
-  
+
   .extra-info details {
     background: #f8f8f8;
     padding: 10px;
     border-radius: 5px;
   }
-  
+
   .extra-info summary {
     font-weight: bold;
     cursor: pointer;
@@ -181,6 +182,7 @@
   width: 100%;
   height: auto;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 

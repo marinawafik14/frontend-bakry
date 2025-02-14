@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
 import {
   FormGroup,
   FormControl,
@@ -15,6 +17,7 @@ import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { user } from '../models/user.model';
+import { User } from '../_models/user';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -82,12 +85,27 @@ export class RegisterComponent {
       this.user.lastname = this.Userregisterform.value.lastName;
       this.user.email = this.Userregisterform.value.email;
       this.user.password = this.Userregisterform.value.password;
-
+      
       this.userservice.register(this.user).subscribe({
         next: (res) => {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
+const token =res.token;
 
+   if(res.token){
+   sessionStorage.setItem('tokenkey',res.token);
+
+   // Decode the token to get user role
+   const decodedToken: any = jwtDecode(res.token);
+   console.log("Decoded Token:", decodedToken);
+   const role = this._authService.getRole();
+   console.log("User Role:", role);
+   // check the user is supplier
+
+   if (role === 'Supplier') {
+    this.router.navigate(['/seller-dashboard']);
+  }
+}
           Swal.fire({
             title: 'Registration Success!',
             html: `
@@ -142,3 +160,5 @@ export class RegisterComponent {
     return this.Userregisterform.get('confirmPassword');
   }
 }
+
+
