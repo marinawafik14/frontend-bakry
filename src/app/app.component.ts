@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { AuthService } from './_service/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   standalone:true,
   selector: 'app-root',
@@ -13,6 +12,6 @@ import { AuthService } from './_service/auth.service';
 })
 export class AppComponent {
   title = 'ecomerce-bakery';
-  constructor(public _authService: AuthService){
-  }
+  // constructor(@Inject(AuthService) public _authService: AuthService){
+  // }
 }

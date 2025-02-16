@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminUserApiService } from '../../_services/admin-user-api.service';
+import { Component, Inject, OnInit } from '@angular/core';
+// import { AdminUserApiService } from '../../_services/admin-user-api.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
 
 
 @Component({
@@ -15,27 +16,27 @@ import { RouterLink } from '@angular/router';
 export class AdminUsersComponent implements OnInit {
     users: User[] = [];  // Ensuring it's an array
 
-    constructor(private _adminUsersApi: AdminUserApiService) {}
+    constructor(@Inject(AdminUserApiService) private _adminUsersApi: AdminUserApiService) {}
 
     ngOnInit(): void {
         this.getAllUsers();
-        
+
     }
 
     getAllUsers(): void {
-        
+
       this._adminUsersApi.getAllUsers().subscribe({
-          next: (res) => {
+          next: (res: { users: User[]; }) => {
               console.log("API Response:", res);
               if (res && res.users) {
                   this.users = res.users;
                   console.log(this.users[4]);
-                  
+
               } else {
                   console.error("Unexpected API response format:", res);
               }
           },
-          error: (err) => {
+          error: (err: { error: any; }) => {
               console.log(err.error);
           }
       });
@@ -54,7 +55,7 @@ export class AdminUsersComponent implements OnInit {
         if (result.isConfirmed) {
             console.log('deleted');
             this._adminUsersApi.removeUser(userId).subscribe({
-                next: (res)=>{
+                next: (res: { message: any; })=>{
                     console.log(res);
                     Swal.fire({
                         title: "Removed!",
@@ -63,14 +64,14 @@ export class AdminUsersComponent implements OnInit {
                       });
                       this.getAllUsers();
                 },
-                error: (err)=>{                    
+                error: (err: { error: { message: any; }; })=>{
                     Swal.fire(`${err.error.message}`);
-                        
+
                 }
             })
         }
       });
-   
+
   }
 
   getRoleClass(role: string): string {
@@ -87,5 +88,5 @@ export class AdminUsersComponent implements OnInit {
             return 'status-active'; // Gray
     }
 }
-  
+
 }
