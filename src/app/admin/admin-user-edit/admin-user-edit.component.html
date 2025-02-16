@@ -1,5 +1,6 @@
 <div class="container mt-4">
     <h3>Edit User</h3>
+    
 
     <!-- User Info Section -->
     <div class="mb-3">
@@ -67,7 +68,6 @@
             <select class="form-select" [(ngModel)]="user.role" name="role">
                 <option value="Customer">Customer</option>
                 <option value="Admin">Admin</option>
-                <option value="Manager">Manager</option>
                 <option value="Seller">Seller</option>
                 <option value="Cashier">Cashier</option>
             </select>
@@ -75,6 +75,7 @@
 
         <!-- Buttons -->
         <button type="button" class="btn btn-success" (click)="saveUser()">Save Changes</button>
-        <button type="button" class="btn btn-secondary ms-2" routerLink="/admin/users">Cancel</button>
+        <button type="button" class="btn btn-secondary"  routerLink="/admin/users">Cancel</button>
+
     </form>
 </div>

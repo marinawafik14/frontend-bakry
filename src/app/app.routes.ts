@@ -20,6 +20,7 @@ import { AdminBaseComponent } from './admin/admin-base/admin-base.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
 import { OrdersComponent } from './admin/orders/orders.component';
+import { ProductosComponent } from './admin/products/products.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -67,11 +68,12 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashbordSellerComponent },
 
  //admin route
- {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+{path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminUsersComponent},
   {path:'users', component:AdminUsersComponent},
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
+  {path:'products' , component:ProductosComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},

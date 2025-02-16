@@ -22,6 +22,7 @@
     "@angular/router": "^19.1.0",
     "@popperjs/core": "^2.11.8",
     "@primeng/themes": "^19.0.5",
+    "@swimlane/ngx-datatable": "^21.0.0-alpha.0",
     "@types/bootstrap": "^5.2.10",
     "angular-datatables": "^19.0.0",
     "bootstrap": "^5.3.3",
