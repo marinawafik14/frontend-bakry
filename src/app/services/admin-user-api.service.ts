@@ -37,7 +37,7 @@ export class AdminUserApiService {
     return this.httpClient.get<{ users: User[] }>(`${this.apiurl}/admin/users/${role}`)
   }
 
-  getDashboardData(){
-    
+  getDashboardStats():Observable<any>{
+    return this.httpClient.get<any>(`${this.apiurl}/admin/dashboard/stats`);
   }
 }
