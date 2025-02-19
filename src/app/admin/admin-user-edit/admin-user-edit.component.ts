@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { FormsModule } from '@angular/forms';
@@ -22,8 +22,8 @@ export class AdminUserEditComponent implements OnInit {
 
   constructor(
     public acroute: ActivatedRoute,
-    router: Router,
-    public _adminUsersApi: AdminUserApiService
+    private router: Router,
+    @Inject(AdminUserApiService) private _adminUsersApi: AdminUserApiService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class AdminUserEditComponent implements OnInit {
 
   getUserById(userId: any) {
     this._adminUsersApi.getUserById(userId).subscribe({
-        next: (data) => {
+        next: (data: { user: any; }) => {
             this.user = data.user;
             if (this.user.profile?.dateOfBirth) {
                 this.user.profile.dateOfBirth = this.user.profile.dateOfBirth.split('T')[0];
@@ -43,14 +43,14 @@ export class AdminUserEditComponent implements OnInit {
 
             console.log(this.user);
         },
-        error: (err) => console.error("Error fetching user:", err)
+        error: (err: any) => console.error("Error fetching user:", err)
     });
 }
 
 
   saveUser() {
     this._adminUsersApi.updateUser(this.user._id, this.user).subscribe({
-        next: (res)=> {
+        next: (res: any)=> {
           console.log(res);
           Swal.fire({
             position: "top-end",
@@ -60,7 +60,7 @@ export class AdminUserEditComponent implements OnInit {
             timer: 1500
           });
         },
-        error: (err)=>{
+        error: (err: any)=>{
             console.log(err);
         }
     })

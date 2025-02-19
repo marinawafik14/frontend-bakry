@@ -12,7 +12,7 @@ import { User } from '../_models/user';
 
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule, RouterLink , RouterOutlet, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })

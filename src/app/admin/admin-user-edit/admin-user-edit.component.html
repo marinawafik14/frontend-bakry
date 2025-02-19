@@ -1,11 +1,11 @@
 <div class="container mt-4">
-    <h3>Edit User</h3>
+    <h3>User Details</h3>
     
 
     <!-- User Info Section -->
     <div class="mb-3">
         <label class="form-label"><strong>User ID:</strong></label>
-        <p>{{ user._id?.slice(-3) }}</p>
+        <p>{{ user._id }}</p>
     </div>
 
     <div class="mb-3">
@@ -13,12 +13,12 @@
         <p>{{ user.createdAt | date: 'medium' }}</p>
     </div>
 
-    <form #editForm="ngForm">
+    <form #editForm="ngForm" >
         <!-- Full Name -->
         <div class="mb-3">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" [(ngModel)]="user.profile.firstName" name="firstName" required>
-            <input type="text" class="form-control mt-2" [(ngModel)]="user.profile.lastName" name="lastName" required>
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.firstName" name="firstName" required>
+            <input disabled ="text" class="form-control mt-2" [(ngModel)]="user.profile.lastName" name="lastName" required>
         </div>
 
         <!-- Email -->
@@ -30,21 +30,21 @@
         <!-- Birthdate -->
         <div class="mb-3">
             <label class="form-label">Date of Birth</label>
-            <input type="date" class="form-control" [(ngModel)]="user.profile.dateOfBirth" name="dateOfBirth">
+            <input disabled="" type="date" class="form-control" [(ngModel)]="user.profile.dateOfBirth" name="dateOfBirth">
         </div>
 
         <!-- Contact Number -->
         <div class="mb-3">
             <label class="form-label">Contact No.</label>
-            <input type="text" class="form-control" [(ngModel)]="user.profile.contactNo" name="contactNo">
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.contactNo" name="contactNo">
         </div>
 
         <!-- Address -->
         <div class="mb-3">
             <label class="form-label">Address</label>
-            <input type="text" class="form-control" [(ngModel)]="user.profile.address.street" name="street" placeholder="Street">
-            <input type="text" class="form-control mt-2" [(ngModel)]="user.profile.address.city" name="city" placeholder="City">
-            <input type="text" class="form-control mt-2" [(ngModel)]="user.profile.address.governorate" name="governorate" placeholder="Governorate">
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.address.street" name="street" placeholder="Street">
+            <input  disabled="text" class="form-control mt-2" [(ngModel)]="user.profile.address.city" name="city" placeholder="City">
+            <input disabled="" type="text" class="form-control mt-2" [(ngModel)]="user.profile.address.governorate" name="governorate" placeholder="Governorate">
         </div>
 
         <!-- Status -->

@@ -1,46 +1,108 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserProfileService } from '../services/user-profile.service';
+import { User } from '../_models/user';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // Import ReactiveFormsModule
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileFormComponent {
-  profileForm: FormGroup;
+export class ProfileFormComponent implements OnInit {
+  profileForm!: FormGroup;
+  userId!: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private profileService: UserProfileService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
     this.profileForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      address: [''],
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      address: this.fb.group({
+        city: ['', Validators.required],
+        governorate: ['', Validators.required]
+      }),
+      contactNo: ['', Validators.required],
+      currentPassword: [''],
+      newPassword: ['']
+    });
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+      this.loadUserData();
+    });
+    this.loadUserData();
   }
 
-  // Custom validator to check if new password and confirm password match
-  passwordMatchValidator(form: FormGroup) {
-    const newPassword = form.get('newPassword')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    return newPassword === confirmPassword ? null : { mismatch: true };
+  private loadUserData() {
+    if (!this.userId) {
+      console.error('User ID is undefined'); 
+      return;
+    }
+    this.profileService.getUserProfile(this.userId).subscribe({
+      next: (user) => {
+        console.log('User data loaded:', user);
+        this.profileForm.patchValue({
+          firstName: user.profile.firstName,
+          lastName: user.profile.lastName,
+          gender: user.profile.gender,
+          dateOfBirth: user.profile.dateOfBirth,
+          address: {
+            city: user.profile.address.city,
+            governorate: user.profile.address.governorate
+          },
+          contactNo: user.profile.contactNo
+        });
+
+      },
+      error: (err) => console.error('Error loading profile', err)
+    });
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      console.log('Form Submitted', this.profileForm.value);
-      // Handle form submission (e.g., send data to an API)
-    } else {
-      console.log('Form is invalid');
+
+      const updatedProfile = {
+        profile: {
+
+          firstName: this.profileForm.value.firstName,
+          lastName: this.profileForm.value.lastName,
+          gender: this.profileForm.value.gender,
+          dateOfBirth: this.profileForm.value.dateOfBirth,
+          address: {
+            city: this.profileForm.value.address.city,
+            governorate: this.profileForm.value.address.governorate
+          },
+          contactNo: this.profileForm.value.contactNo
+        }
+      };
+      console.log('User profile loaded:', updatedProfile);
+
+      this.profileService.updateUserProfile(this.userId, updatedProfile).subscribe({
+        next: (updated) => console.log('Profile updated', updated),
+        error: (err) => console.error('Update failed', err)
+      });
     }
   }
 
-  onCancel() {
-    this.profileForm.reset(); // Reset the form
+  onCancel(): void {
+    alert("Operation cancelled.");
   }
+
+  get firstName() { return this.profileForm.get('firstName')!; }
+  get lastName() { return this.profileForm.get('lastName')!; }
+  get gender() { return this.profileForm.get('gender')!; }
+  get dateOfBirth() { return this.profileForm.get('dateOfBirth')!; }
+  get address() { return this.profileForm.get('address') as FormGroup; }
+  get contactNo() { return this.profileForm.get('contactNo')!; }
+  get newPassword() { return this.profileForm.get('newPassword')!; }
+  get currentPassword() { return this.profileForm.get('currentPassword')!; }
 }

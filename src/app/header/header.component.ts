@@ -22,7 +22,9 @@ export class HeaderComponent implements OnInit {
     // Subscribe to cart count updates
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
+
     });
+
   }
   userEmail: string | null = null;
 
