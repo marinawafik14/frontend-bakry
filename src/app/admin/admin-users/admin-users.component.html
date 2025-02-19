@@ -4,6 +4,13 @@
     <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       Role
     </button>
+     <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let role of availableRoles">
+            <label class="dropdown-item">
+                <input type="checkbox" [value]="role" (change)="toggleRoleFilter(role, $event)"> {{ role | titlecase }}
+            </label>
+        </li>
+    </ul>
     <ul class="dropdown-menu" role="menu">
       <li><a class="dropdown-item" (click)="getUserRole('Customer')">Customers</a></li>
       <li><a class="dropdown-item" (click)="getUserRole('Seller')">Sellers</a></li>

@@ -1,4 +1,4 @@
-export class user {
+   export class user {
   public firstname?: string;
   public lastname?: string;
   public email?: string;
@@ -15,4 +15,16 @@ export class user {
     this.email = email;
     this.password = password;
   }
+}
+
+export class address {
+  constructor( public city?: string, public governorate?: string) {
+    this.city = city;
+    this.governorate = governorate;
+  }
+}
+
+export class Profile {
+  constructor(public firstName?: string, public lastName?: string, public gender?:string, public dateOfBirth?: Date | string, public address?: address, public mobile?: string) {
+}
 }

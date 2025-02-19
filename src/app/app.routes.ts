@@ -32,7 +32,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileFormComponent },
+  { path: 'profile/:userId', component: ProfileFormComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
 
