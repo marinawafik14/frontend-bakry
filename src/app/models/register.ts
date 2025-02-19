@@ -10,11 +10,14 @@ export class register {
     firstname?: string,
     lastname?: string,
     email?: string,
-    password?: string
+    password?: string,
+    token?:string
+
   ) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
     this.password = password;
+    this.token = token;
   }
 }

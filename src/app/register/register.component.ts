@@ -85,27 +85,16 @@ export class RegisterComponent {
       this.user.lastname = this.Userregisterform.value.lastName;
       this.user.email = this.Userregisterform.value.email;
       this.user.password = this.Userregisterform.value.password;
-      
+
       this.userservice.register(this.user).subscribe({
         next: (res) => {
           console.log('Done Register', res);
           console.log(this._authService.getDecodedToken());
-const token =res.token;
 
-   if(res.token){
-   sessionStorage.setItem('tokenkey',res.token);
-
-   // Decode the token to get user role
-   const decodedToken: any = jwtDecode(res.token);
-   console.log("Decoded Token:", decodedToken);
-   const role = this._authService.getRole();
-   console.log("User Role:", role);
-   // check the user is supplier
-
-   if (role === 'Supplier') {
-    this.router.navigate(['/seller-dashboard']);
-  }
-}
+            const token = res.token;
+            if (token) {
+              sessionStorage.setItem('tokenkey', token);
+            }
           Swal.fire({
             title: 'Registration Success!',
             html: `
@@ -122,9 +111,15 @@ const token =res.token;
           this.router.navigateByUrl('/home');
         },
         error: (err) => {
+          console.error('Registration Error:', err);
+
+          const errorMessage =
+            err.error?.message ||
+            'An unexpected error occurred during registration.';
+
           Swal.fire({
             title: 'Error!',
-            text: `Registration failed: ${err.message}`,
+            text: `Registration failed: ${errorMessage}`,
             icon: 'error',
             showConfirmButton: true,
           });

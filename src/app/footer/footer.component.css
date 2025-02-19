@@ -1,9 +1,9 @@
 
 .container-fluid{
     overflow:hidden;
-    background-color: #b49a5981;
+    background-color: #000000ac;
     /* background:#bae8d4; */
-    color: #35383a  !important;
+    color: #fff !important;
     margin-bottom: 0 ;
     padding-bottom:0  ;
 }
@@ -13,7 +13,7 @@ small{
 }
 
 .bold-text{
-    color: #171a1b !important;
+    color: #fff !important;
 }
 
 

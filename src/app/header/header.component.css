@@ -28,16 +28,22 @@ overflow: hidden;
   font-size: 14px;
   padding: 5px 10px;
 }
-
+.nav-item a:active{
+  background-color: goldenrod;
+}
 .navbar-dark .nav-link:hover, .navbar-dark .nav-link.active {
-  color: rgb(240, 162, 175);
+  color: rgb(252, 252, 252);
+  background-color: goldenrod;
 }
 
 .router-link-active {
-  color: rgb(240, 162, 175) !important;
+  color: rgb(252, 252, 252) !important;
   font-weight: bold;
+  background-color: goldenrod;
 }
-
+i:active{
+  background-color: goldenrod;
+}
 /* Responsive Navbar *//*
 @media (max-width: 992px) {
   .navbar-collapse {

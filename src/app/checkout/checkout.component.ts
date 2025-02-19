@@ -7,8 +7,9 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import Swal from 'sweetalert2';
 import {jwtDecode} from 'jwt-decode';
-import { user } from '../models/user.model';
 import { CartApiService } from '../services/cart-api.service';
+import { User } from '../_models/user';
+
 @Component({
   selector: 'app-checkout',
   imports: [FormsModule, RouterLink , RouterOutlet, CommonModule],

@@ -1,0 +1,41 @@
+*{
+  overflow: hidden;
+}
+
+input{
+border: none;
+outline: none;
+border: 2px solid rgb(234, 153, 13);
+margin-top: 10px;
+width: 250px;
+border-radius: none;
+}
+input:focus{
+  outline: none;
+  border: none;
+}
+label{
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+button[type='submit']
+{
+  background-color: rgb(234, 153, 13);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+  color: white;
+  font-weight: bold;
+}
+button[type='button']{
+  background-color: rgb(234, 153, 13);
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  margin-left: 5px;
+  color: white;
+  font-weight: bold;
+
+}
+

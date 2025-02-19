@@ -3,32 +3,34 @@
 <div class="container">
   <section class="navv" id="navv"></section>
   <div class="py-5 text-center">
-    <h2>Checkout form</h2>
+    <h2 class="check-out">Checkout form</h2>
   </div>
 
-  <div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Order Summary </span>
+  <div class="row pb-5 ">
+    <div class="col-md-4 order-md-2 mb-4 m-2 order-details text-white mt-3">
+      <h4 class="d-flex justify-content-evenly align-items-center mb-3">
+        <span class=" text-white fw-bold">Order Summary </span>
         <span class="badge badge-secondary badge-pill">3</span>
       </h4>
       <ul id="cartList" class="list-group mb-3">
         <!-- Cart items will be inserted here dynamically -->
+        <li class="list-group-item d-flex justify-content-evenly ">
+          <span>Total</span>
+          <strong id="cartTotal">${{order.totalAmount}}</strong>
+        </li>
       </ul>
 
       <!-- Total amount will be updated here -->
-      <li class="list-group-item d-flex justify-content-between">
-        <span>Total</span>
-        <strong id="cartTotal">${{order.totalAmount}}</strong>
-      </li>
 
-      <div id="paymentMessage" class="payment-message">
-        <p>💳 Exciting news! Online payments will be available soon. Stay tuned! ✨</p>
+
+      <div id="paymentMessage" class="payment-message p-2 m-3">
+        <p class="fw-bold">💳 Exciting news! Online payments will be available soon. Stay tuned! ✨</p>
       </div>
     </div>
 
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
+    <div class="col-md-10 order-md-1 check text-center w-75 m-auto">
+      <h4 class="mb-3 text-center p-2 fw-bold
+      mt-3">Billing address</h4>
       <form class="needs-validation" #checkoutForm="ngForm"  (ngSubmit)="submitOrder()"  novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
@@ -116,7 +118,7 @@
 
         <div class="mb-3">
           <label for="address2">Address details</label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" [(ngModel)]="order.addressdetails" name="addressdetails">
+          <input type="text" class="form-control " id="address2" placeholder="Apartment or suite" [(ngModel)]="order.addressdetails" name="addressdetails">
         </div>
 
         <!-- Payment Method Section with Icons -->
@@ -135,7 +137,7 @@
             </label>
           </div>
           <div class="form-check d-flex align-items-center">
-            <input class="form-check-input me-2" type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.paymentMethod">
+            <input class="form-check-input me-2 " type="radio" name="paymentMethod" id="vodafoneCash" value="Vodafone Cash" [(ngModel)]="order.paymentMethod">
             <label class="form-check-label d-flex align-items-center" for="vodafoneCash">
               <i class="fas fa-mobile-alt me-2"></i> Vodafone Cash
             </label>
@@ -144,12 +146,12 @@
 
         <!-- Promo Code -->
         <div class="mb-4">
-          <label for="promoCode" class="form-label">Promo Code</label>
-          <input type="text" id="promoCode" class="form-control" placeholder="Enter promo code" [(ngModel)]="order.paymentCode" name="promoCode">
+          <label for="promoCode" class="form-label ">Promo Code</label>
+          <input type="text" id="promoCode" class="form-control w-50 m-auto text-center" placeholder="Enter promo code" [(ngModel)]="order.paymentCode" name="promoCode">
         </div>
 
         <hr class="mb-4">
-        <button class="placeOrderBtn btn btn-primary btn-lg btn-block" type="submit">Done</button>
+        <button class="placeOrderBtn btn btn-block" type="submit">Done</button>
       </form>
     </div>
   </div>

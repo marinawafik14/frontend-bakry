@@ -5,22 +5,28 @@ import { OrdersService } from '../../services/order.service';
 import { orderToAdmin } from '../../models/orderToAdmin';
 import { data } from 'jquery';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-orders',
-  imports: [CommonModule],
+  imports: [CommonModule , FormsModule ,NgxDatatableModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css',
 })
 export class OrdersComponent implements OnInit {
   constructor(public orderservice: OrdersService) {}
   orders: orderToAdmin[] = []; // will bind
-
+  filteredOrders: orderToAdmin[] = [];
+  filterText: string = '';
+  sortKey: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
   ngOnInit(): void {
     this.orderservice.getallorders().subscribe({
       next: (data) => {
         if (data && data.order) {
           this.orders = data.order;
+          this.filteredOrders = data.order;
           console.log('Orders:', this.orders);
         } else {
           console.warn('Data structure issue: ', data);
@@ -95,7 +101,7 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  markAscanceled(_id:string){
+  markAscanceled(_id: string) {
     // Fetch the current order details first
     this.orderservice.getorderbyid(_id).subscribe({
       next: (response) => {
@@ -111,11 +117,7 @@ export class OrdersComponent implements OnInit {
           return; // Exit early
         }
         if (order.orderStatus === 'shipped') {
-          Swal.fire(
-            'Notice',
-            'sorry u cant cancelled order shipped',
-            'info'
-          );
+          Swal.fire('Notice', 'sorry u cant cancelled order shipped', 'info');
           return; // Exit early
         }
 
@@ -156,6 +158,39 @@ export class OrdersComponent implements OnInit {
         console.error('Error fetching order status', err);
         Swal.fire('Error!', 'Failed to fetch order details.', 'error');
       },
+    });
+  }
+
+  applyFilter(): void {
+    const filterValue = this.filterText.toLowerCase().trim();
+    if (!filterValue) {
+      this.filteredOrders = [...this.orders];
+    } else {
+      this.filteredOrders = this.orders.filter(
+        (order) =>
+          (order.customername?.firstname + ' ' + order.customername?.lastname)
+            .toLowerCase()
+            .includes(filterValue) ||
+          order.addressdetails?.toLowerCase().includes(filterValue)
+      );
+    }
+  }
+
+  sortTable(key: string): void {
+    if (this.sortKey === key) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortKey = key;
+      this.sortDirection = 'asc';
+    }
+
+    this.filteredOrders.sort((a: any, b: any) => {
+      const valueA = key.split('.').reduce((o, k) => (o ? o[k] : ''), a);
+      const valueB = key.split('.').reduce((o, k) => (o ? o[k] : ''), b);
+
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
     });
   }
 }

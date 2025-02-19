@@ -115,12 +115,14 @@
   .quantity-selector button {
     width: 30px;
     height: 30px;
-    background: #ccc;
+    background: goldenrod;
     border: none;
     font-size: 16px;
     cursor: pointer;
   }
-
+  .quantity-selector button:hover{
+    background-color: gold;
+  }
   .quantity-selector input {
     width: 40px;
     text-align: center;
@@ -129,7 +131,7 @@
 
   /* Add to Cart Button */
   .add-to-cart {
-    background: #5c2c2c;
+    background: goldenrod;
     color: white;
     font-size: 16px;
     padding: 10px;
