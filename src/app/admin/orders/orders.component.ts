@@ -6,11 +6,10 @@ import { orderToAdmin } from '../../models/orderToAdmin';
 import { data } from 'jquery';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-orders',
-  imports: [CommonModule , FormsModule ,NgxDatatableModule],
+  imports: [CommonModule , FormsModule ,],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css',
 })

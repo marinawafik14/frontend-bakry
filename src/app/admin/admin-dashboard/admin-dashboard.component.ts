@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AdminUsersComponent } from '../admin-users/admin-users.component';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { RouterLink } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterLink, NgxChartsModule],
+  imports: [],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })

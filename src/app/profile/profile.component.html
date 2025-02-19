@@ -1,7 +1,6 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <!-- Card container for a modern look -->
       <div class="card shadow-sm">
         <div class="card-header bg-danger text-white">
           <h5 class="mb-0">Edit Your Profile</h5>
@@ -20,7 +19,7 @@
                   placeholder="Enter your first name"
                 />
                 <div
-                  *ngIf="firstName.invalid && firstName.touched"
+                  *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched"
                   class="small text-danger"
                 >
                   First Name is required (Min 3 characters).
@@ -36,7 +35,7 @@
                   placeholder="Enter your last name"
                 />
                 <div
-                  *ngIf="lastName.invalid && lastName.touched"
+                  *ngIf="profileForm.get('lastName')?.invalid  && profileForm.get('lastName')?.touched"
                   class="small text-danger"
                 >
                   Last Name is required (Min 3 characters).
@@ -54,7 +53,7 @@
                   <option value="female">Female</option>
                 </select>
                 <div
-                  *ngIf="gender.invalid && gender.touched"
+                  *ngIf="profileForm.get('gender')?.invalid  && profileForm.get('gender')?.touched"
                   class="small text-danger"
                 >
                   Gender is required.
@@ -64,7 +63,7 @@
                 <label for="dateOfBirth" class="form-label">Date of Birth</label>
                 <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth" />
                 <div
-                  *ngIf="dateOfBirth.invalid && dateOfBirth.touched"
+                  *ngIf="profileForm.get('dateOfBirth')?.invalid && profileForm.get('dateOfBirth')?.touched"
                   class="small text-danger"
                 >
                   Date of Birth is required.
@@ -82,33 +81,33 @@
                     <option value="Cairo">Cairo</option>
                     <option value="Giza">Giza</option>
                     <option value="Alexandria">Alexandria</option>
-                    <option value="Dakahlia">Dakahlia</option>
-                    <option value="Sharqia">Sharqia</option>
-                    <option value="Port Said">Port Said</option>
-                    <option value="Suez">Suez</option>
-                    <option value="Qena">Qena</option>
-                    <option value="Aswan">Aswan</option>
-                    <option value="Ismailia">Ismailia</option>
-                    <option value="Luxor">Luxor</option>
-                    <option value="Assiut">Assiut</option>
-                    <option value="Beheira">Beheira</option>
-                    <option value="Damietta">Damietta</option>
-                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-                    <option value="Minya">Minya</option>
-                    <option value="Monufia">Monufia</option>
-                    <option value="Gharbia">Gharbia</option>
-                    <option value="Beni Suef">Beni Suef</option>
-                    <option value="Fayoum">Fayoum</option>
-                    <option value="Qalyubia">Qalyubia</option>
-                    <option value="Sohag">Sohag</option>
-                    <option value="Red Sea">Red Sea</option>
-                    <option value="Matrouh">Matrouh</option>
-                    <option value="New Valley">New Valley</option>
-                    <option value="South Sinai">South Sinai</option>
-                    <option value="North Sinai">North Sinai</option>
+                      <option value="Dakahlia">Dakahlia</option>
+                      <option value="Sharqia">Sharqia</option>
+                      <option value="Port Said">Port Said</option>
+                      <option value="Suez">Suez</option>
+                      <option value="Qena">Qena</option>
+                      <option value="Aswan">Aswan</option>
+                      <option value="Ismailia">Ismailia</option>
+                      <option value="Luxor">Luxor</option>
+                      <option value="Assiut">Assiut</option>
+                      <option value="Beheira">Beheira</option>
+                      <option value="Damietta">Damietta</option>
+                      <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                      <option value="Minya">Minya</option>
+                      <option value="Monufia">Monufia</option>
+                      <option value="Gharbia">Gharbia</option>
+                      <option value="Beni Suef">Beni Suef</option>
+                      <option value="Fayoum">Fayoum</option>
+                      <option value="Qalyubia">Qalyubia</option>
+                      <option value="Sohag">Sohag</option>
+                      <option value="Red Sea">Red Sea</option>
+                      <option value="Matrouh">Matrouh</option>
+                      <option value="New Valley">New Valley</option>
+                      <option value="South Sinai">South Sinai</option>
+                      <option value="North Sinai">North Sinai</option>
                   </select>
                   <div
-                    *ngIf="address.get('governorate')?.invalid && address.get('governorate')?.touched"
+                    *ngIf="profileForm.get('address.governorate')?.invalid && profileForm.get('address.governorate')?.touched"
                     class="small text-danger"
                   >
                     Please select a governorate.
@@ -118,7 +117,7 @@
                   <label for="city" class="form-label">City</label>
                   <input type="text" id="city" class="form-control" formControlName="city" placeholder="Enter your city" />
                   <div
-                    *ngIf="address.get('city')?.invalid && address.get('city')?.touched"
+                    *ngIf="profileForm.get('address.city')?.invalid && profileForm.get('address.city')?.touched"
                     class="small text-danger"
                   >
                     Please enter a city.
@@ -141,7 +140,7 @@
                   />
                 </div>
                 <div
-                  *ngIf="contactNo.invalid && contactNo.touched"
+                  *ngIf="profileForm.get('contactNo')?.invalid && profileForm.get('contactNo')?.touched"
                   class="small text-danger"
                 >
                   Please enter a valid mobile number.
@@ -160,7 +159,7 @@
                 placeholder="Current Password"
               />
               <div
-                *ngIf="profileForm.hasError('mismatch') && currentPassword.touched"
+                *ngIf="profileForm.hasError('mismatch') && profileForm.get('currentPassword')?.touched"
                 class="small text-danger"
               >
                 Password is incorrect.
@@ -176,7 +175,7 @@
                 placeholder="Enter new password"
               />
               <div
-                *ngIf="newPassword.invalid && newPassword.touched"
+                *ngIf="profileForm.get('newPassword')?.invalid && profileForm.get('newPassword')?.touched"
                 class="small text-danger"
               >
                 Password must be at least 6 characters long.
@@ -196,3 +195,9 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+

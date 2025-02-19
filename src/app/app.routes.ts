@@ -4,7 +4,6 @@ import { AboutComponent } from './about/about.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ProfileFormComponent } from './profile/profile.component';
 import { CartComponent } from './cart/cart.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CookiesComponent } from './category/cookies/cookies.component';
@@ -23,6 +22,7 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
 import { TestComponent } from './admin/test/test.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ProfileFormComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,7 +32,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile/:userId', component: ProfileFormComponent },
+  {path:'profile/:userId',component:ProfileFormComponent},
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
 

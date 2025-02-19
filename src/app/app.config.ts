@@ -10,7 +10,6 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const appConfig: ApplicationConfig = {
   providers:
@@ -32,5 +31,5 @@ export const appConfig: ApplicationConfig = {
      provideEchartsCore({echarts}),
 
   ]
-  
+
 };

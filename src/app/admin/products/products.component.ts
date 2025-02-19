@@ -1,7 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { productToAdmin } from '../../models/productToAdmin';
 import { ProductService } from '../../services/product.service';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OrdersService } from '../../services/order.service';
@@ -11,7 +10,7 @@ import { OrderTo } from '../../models/orderTo';
 
 @Component({
   selector: 'app-products',
-  imports: [FormsModule, NgxDatatableModule, CommonModule],
+  imports: [FormsModule,  CommonModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })

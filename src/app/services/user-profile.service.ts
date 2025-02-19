@@ -9,20 +9,19 @@ export class UserProfileService {
   checkEmailExists(value: any) {
     throw new Error('Method not implemented.');
   }
-  private apiUrl = 'http://localhost:8000/api/users';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  getUserProfile(userId: string): Observable<any> {
-    if (!userId) {
-      console.error('User ID is undefined'); // Debugging
-      return throwError('User ID is undefined');
-    }
-    return this.http.get(`${this.apiUrl}/${userId}`);
+
+  // Fetch user profile by ID
+  getUserProfile(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/profile/${userId}`);
   }
 
-  updateUserProfile(userId: string, profileData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${userId}`, profileData);
+  // Update user profile by ID
+  updateUserProfile(userId: string, updateData: any): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/profile/${userId}`, updateData);
   }
 }
 
