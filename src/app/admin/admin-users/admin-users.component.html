@@ -1,0 +1,75 @@
+<div class="container my-5">
+  <h2 class="text-center">Users</h2>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Role
+    </button>
+     <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let role of availableRoles">
+            <label class="dropdown-item">
+                <input type="checkbox" [value]="role" (change)="toggleRoleFilter(role, $event)"> {{ role | titlecase }}
+            </label>
+        </li>
+    </ul>
+    <ul class="dropdown-menu" role="menu">
+      <li><a class="dropdown-item" (click)="getUserRole('Customer')">Customers</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Seller')">Sellers</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Admin')">Admins</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Cashier')">Cashiers</a></li>
+    </ul>
+  </div>
+  
+
+    <div class="table-responsive table-bordered">
+        <table class="table table-hover">
+            <thead class="table-danger text-white">
+              <tr class>
+                <td>Id</td>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Contact No.</th>
+                <th>Registered Since</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (user of users; track $index) {
+                <tr>
+                  <td>{{ user._id | slice:-3 }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.profile.firstName }} {{ user.profile.lastName }}</td>
+
+                  <td >
+                    <p [ngClass]="getRoleClass(user.role)">{{ user.role }}</p>
+                  </td>
+
+                  @if (user.profile.address) {
+                     <td>212 st {{ user.profile.address.city }}, {{ user.profile.address.governorate }}</td> 
+                   }
+                   @else{
+                    <td></td>
+                   }
+                  @if (user.status === 'active') {
+                    <td >
+                      <p class="status-active">{{ user.status}}</p>
+                      </td>
+                  }
+                  <td>{{ user.profile.contactNo }}</td>
+                  <td>{{ user.createdAt | date: 'medium'}}</td>
+                  <td>
+                    <button class="btn btn-sm" title="Edit User" [routerLink]="['/admin/users/edit', user._id]">
+                      <i class="bi bi-pencil-fill"></i>
+                  </button>                  
+                      <button class="btn btn-sm" title="Delete User" (click)="removeUser(user._id)">
+                          <i class="bi bi-trash"></i>
+                      </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+        </table>
+    </div>
+</div>

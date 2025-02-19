@@ -3,5 +3,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- 
+
+
 }
+
+/* @import '~@swimlane/ngx-datatable/index.css'; */
+/* @import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css'; */
+

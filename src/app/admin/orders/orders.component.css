@@ -1,0 +1,19 @@
+/* Styling for table header with sorting icons */
+th.sortable {
+  position: relative;
+  padding-right: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+th.sortable:after {
+  content: '\25B4'; /* Upward arrow Unicode */
+  position: absolute;
+  right: 5px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+th.sortable.desc:after {
+  content: '\25BE'; /* Downward arrow Unicode */
+}

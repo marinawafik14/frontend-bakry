@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <br><br>
+  <!-- Header Section -->
+  <div class="row shop-header text-center text-white p-3 bg-dark">
+    <!-- <h1 class="fw-bold">Shop</h1> -->
+    <h1 class="text-center fw-bold">{{ categoryName | titlecase }} Category</h1>
+    <nav>
+      <a href="/" class="text-white text-decoration-none">Home</a>
+      <span class="mx-2">☕</span>
+      <span class="text-warning fw-bold">Products</span>
+    </nav>
+  </div>
+
+
+  
+  <!-- Sidebar & Product List -->
+  <div class="row mt-4">
+    <!-- Sidebar -->
+    <aside class="col-md-3 bg-light p-3 rounded shadow-sm" style="height: 500px;">
+      <h4 class="text-dark fw-bold">Filters</h4>
+
+      <!-- Search by Name -->
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Search by product name..." [(ngModel)]="searchText" (input)="applyFilters()" />
+      </div>
+
+      <!-- Filter by Flavor -->
+      <div class="mb-3">
+        <label for="flavor" class="form-label fw-bold">Filter by Flavor:</label>
+        <select id="flavor" class="form-select" [(ngModel)]="selectedFlavor" (change)="applyFilters()">
+          <option value=''>All Flavors</option>
+          <option value="chocolate">Chocolate</option>
+          <option value="vanilla">Vanilla</option>
+          <option value="strawberry">Strawberry</option>
+        </select>
+      </div>
+      
+
+      <!-- Filter by Price -->
+      <div class="mb-3">
+        <label for="priceRange" class="form-label fw-bold">Max Price: {{ priceRange }}$</label>
+        <input type="range" id="priceRange" class="form-range" [(ngModel)]="priceRange" (input)="applyFilters()" min="0" max="100" step="5" />
+      </div>
+    </aside>
+
+    <!-- Product List -->
+    <div class="col-md-9">
+      <div *ngIf="filteredProducts.length > 0; else noProducts" class="row g-4">
+        <div *ngFor="let product of filteredProducts" class="col-md-4">
+          <div class="card h-100 shadow-sm border-0">
+            <a [routerLink]="['/products', product._id]">
+              <img [src]="product.images[0]" class="card-img-top" alt="{{ product.name }}" />
+            </a>
+            <div class="card-body text-center">
+              <h5 class="card-title fw-bold">{{ product.name }}</h5>
+              <p class="text-muted">Flavor: {{ product.flavor }}</p>
+              <p class="fw-bold"><strong>Price:</strong> {{ product.price }}$</p>
+              <!-- <button class="btn btn-secondary w-100">Order Now</button> -->
+              <button class="btn btn-secondary w-100" (click)="addToCart(product)" [disabled]="product.stock <= 0">
+                  Order Now
+              </button>
+
+              <!-- Show Out of Stock if Stock is 0 -->
+              <p *ngIf="product.stock <= 0" class="out-of-stock">
+                  Out of Stock
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Products Message -->
+      <ng-template #noProducts>
+        <p class="text-center text-danger">No products found matching your filters.</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <br><br>
+
+  <!-- Banner Section -->
+  <div class="row banner-section text-center">
+    <div class="col-12 overlay text-white">
+      <h2 class="fw-bold">Indulge in the Sweetest Moments</h2>
+      <h3 class="subtext text-warning">Where Every Bite is a Delight!" 🍰🍩🍪</h3>
+    </div>
+  </div>
+
+  <!-- Our Products Section -->
+  <!-- <div class="text-center mt-5 p-5 bg-light bbb">
+    <h2 class="fw-bold">Our Products</h2>
+    <p class="mb-3">Our assortment includes our fan-favorite cakes, cupcakes, and seasonal treats.</p>
+    <button class="btn btn-outline-dark fw-bold mb-3">VIEW MORE</button> -->
+
+    <!-- Bootstrap Carousel -->
+    <!-- <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let category of categories; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
+          <div class="d-flex justify-content-center">
+            <div class="category-card">
+              <img [src]="category.image" class="d-block w-100 rounded" alt="{{ category.name }}">
+              <h5 class="mt-2">{{ category.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Carousel Controls -->
+      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</div> -->

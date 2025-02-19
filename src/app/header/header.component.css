@@ -22,6 +22,7 @@ body {
   height: 0;
   z-index: 100;
   position: relative;
+  background-color: #fff;
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
@@ -57,8 +58,12 @@ body {
 .dropdown-item:hover {
   background-color: pink;
   color: #000;
-}
 
+}
+.router-link-active {
+  color: rgb(240, 162, 175) !important; /* Persistent pink for active link */
+  font-weight: bold; /* Optional: make the active link bold */
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
   .navbar-nav {

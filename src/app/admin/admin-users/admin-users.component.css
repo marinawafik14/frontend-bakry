@@ -1,0 +1,86 @@
+.btn-discovery {
+    background-color: #5a67d8;
+    color: white;
+}
+
+.table th{
+    cursor: pointer;
+}
+  .status-active {
+    background-color: #d4edda !important; /* Light green */
+    color: #155724 !important; /* Dark green text */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+  
+  .status-inactive {
+    background-color: #f8f9fa !important; /* Light gray */
+    color: #6c757d !important; /* Dark gray text */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+  
+  .status-banned {
+    background-color: #f8d7da !important; /* Light red */
+    color: #721c24 !important; /* Dark red text */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+  
+
+  .role-admin {
+    background-color: #f8d7da !important; /* Light red */
+    color: #721c24 !important; /* Dark red */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-manager {
+    background-color: #cce5ff !important; /* Light blue */
+    color: #004085 !important; /* Dark blue */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-cashier {
+    background-color: #d4edda !important; /* Light green */
+    color: #155724 !important; /* Dark green */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-sales {
+    background-color: #e2d9f3 !important; /* Light purple */
+    color: #4b0082 !important; /* Dark purple */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-default {
+    background-color: #e2e3e5 !important; /* Light gray */
+    color: #383d41 !important; /* Dark gray */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+}
+

@@ -1,7 +1,9 @@
-body{
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap");
+
+body {
   margin: 0;
   padding: 0;
-
+  overflow: hidden;
 }
 
 .text-color {
@@ -13,7 +15,6 @@ body{
 }
 
 /* category*/
-
 
 ul {
   list-style: none;
@@ -31,11 +32,11 @@ ul {
   margin-bottom: 30px !important;
 }
 
-.card-img-tiles {
+.category .card-img-tiles {
   display: block;
   border-bottom: 1px solid #e1e7ec;
 }
-.card-title{
+.category .card-title {
   font-weight: bold;
 }
 a {
@@ -43,32 +44,32 @@ a {
   text-decoration: none !important;
 }
 
-.card-img-tiles > .inner {
+.category .card-img-tiles > .inner {
   display: table;
   width: 100%;
 }
 
-.card-img-tiles .main-img,
-.card-img-tiles .thumblist {
+.category .card-img-tiles .main-img,
+.category .card-img-tiles .thumblist {
   display: table-cell;
   width: 65%;
   padding: 15px;
   vertical-align: middle;
 }
 
-.card-img-tiles .main-img > img:last-child,
-.card-img-tiles .thumblist > img:last-child {
+.category .card-img-tiles .main-img > img:last-child,
+.category .card-img-tiles .thumblist > img:last-child {
   margin-bottom: 0;
 }
 
-.card-img-tiles .main-img > img,
-.card-img-tiles .thumblist > img {
+.category .card-img-tiles .main-img > img,
+.category .card-img-tiles .thumblist > img {
   display: block;
   width: 100%;
   height: 80px;
   margin-bottom: 6px;
 }
-.thumblist {
+.category .thumblist {
   width: 35%;
   border-left: 1px solid #e1e7ec !important;
   display: table-cell;
@@ -77,13 +78,13 @@ a {
   vertical-align: middle;
 }
 
-.card-img-tiles .thumblist > img {
+.category .card-img-tiles .thumblist > img {
   display: block;
   width: 100%;
   margin-bottom: 6px;
 }
-.btn-group-sm > .btn,
-.btn-sm {
+.category .btn-group-sm > .btn,
+.category .btn-sm {
   padding: 0.45rem 0.5rem !important;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -93,8 +94,6 @@ a {
 /*
 best seller
 */
-
-
 
 ul {
   --col-gap: 2rem;
@@ -136,7 +135,7 @@ ul.best li {
   clip-path: polygon(
     calc(var(--col-gap) / -2 - 5px) 0,
     calc(100% + var(--col-gap) / 2 + 5px) 0,
-    calc(100% + var(--col-gap) / 2 + 5px ) calc(100% - var(--flapH)),
+    calc(100% + var(--col-gap) / 2 + 5px) calc(100% - var(--flapH)),
     50% 100%,
     calc(var(--col-gap) / -2 - 5px) calc(100% - var(--flapH))
   );
@@ -211,7 +210,6 @@ ul.best li .descr {
 
 /* end best seller */
 
-
 h1 {
   position: relative;
   margin: 70px auto 70px;
@@ -220,8 +218,9 @@ h1 {
   background-color: #9aeeee;
 }
 
-h1::before, h1::after {
-  content: '';
+h1::before,
+h1::after {
+  content: "";
   width: 80px;
   height: 100%;
   background-color: #9aeeee;
@@ -247,30 +246,15 @@ h1::before {
 
 h1::after {
   right: -60px;
-  transform: scaleX(-1); /* flip horizontally */
+  transform: scaleX(-1);
 }
-
-/* everything below is for demo appearances and not important to the concept */
-
-
 
 @media (max-width: 400px) {
-  h1 { font-size: 1.5rem; }
+  h1 {
+    font-size: 1.5rem;
+  }
 }
 
+/* latest updated*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*end best seller*/
-/*latest product*/
 
