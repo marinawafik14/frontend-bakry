@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
 import {
   FormGroup,
   FormControl,
@@ -15,6 +17,7 @@ import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { user } from '../models/user.model';
+import { User } from '../_models/user';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -152,3 +155,5 @@ export class RegisterComponent {
     return this.Userregisterform.get('confirmPassword');
   }
 }
+
+

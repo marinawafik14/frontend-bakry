@@ -33,5 +33,11 @@ export class AdminUserApiService {
   updateUser(userId: string, userData: any) {
     return this.httpClient.put(`${this.apiurl}/admin/users/${userId}`, userData);
   }
+  getUsersByRole(role:string){
+    return this.httpClient.get<{ users: User[] }>(`${this.apiurl}/admin/users/${role}`)
+  }
 
+  getDashboardStats():Observable<any>{
+    return this.httpClient.get<any>(`${this.apiurl}/admin/dashboard/stats`);
+  }
 }

@@ -21,6 +21,8 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
+import { TestComponent } from './admin/test/test.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,7 +32,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileFormComponent },
+  { path: 'profile/:userId', component: ProfileFormComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
 
@@ -69,11 +71,12 @@ export const routes: Routes = [
 
  //admin route
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
-  {path:'dashboard', component:AdminUsersComponent},
+  {path:'dashboard', component:AdminDashboardComponent},
   {path:'users', component:AdminUsersComponent},
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
+  {path:'test' , component:TestComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},

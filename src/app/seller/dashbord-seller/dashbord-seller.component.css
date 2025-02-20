@@ -1,12 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
 body {
-  background: linear-gradient(to right, #25c481, #25b7c4);
+  /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+  background-color: goldenrod;
   font-family: 'Roboto', sans-serif;
-  font-size: 30px;
-  width: 90%;
-  margin: auto;
-  /* border-radius: 10%; */
+  font-size: 32px;
+  background: linear-gradient(to right, #e4c309, #8d860d,#f3be10);
+ font-weight: bold;
+
 }
 
 section {
@@ -75,7 +76,14 @@ tbody tr:hover {
   border-radius: 4px;
 }
 
-/* #Inputs{
-  padding: 70px;
-} */
-/* ---------------------------------------- */
+.btndash{
+  border: none;
+background-color: #F0A04B;
+color: white;
+font-size: 16px;
+padding: 5px 10px;
+margin-bottom: 10px;
+}
+.btndash:hover{
+  background-color: #DF9755;
+}

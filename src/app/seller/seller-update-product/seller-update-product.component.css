@@ -11,11 +11,6 @@
   font-size: 3.2em;
   line-height: 48px;
   padding-bottom: 48px;
-     color: #5543ca;
-    background: #5543ca;
-    background: -moz-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-    background: -webkit-linear-gradient(left,#f4524d  0%,#5543ca 100%) !important;
-    background: linear-gradient(to right,#f4524d  0%,#5543ca  100%) !important;
 
     -webkit-text-fill-color: transparent !important;
 }
@@ -29,7 +24,7 @@
   width: 75%;
   height: 36px;
   border-width: 0 0 2px 0;
-  border-color: #5543ca;
+  border-color: #F0A04B;
   font-size: 18px;
   line-height: 26px;
   font-weight: 400;
@@ -51,7 +46,8 @@
   font-size: 18px;
   line-height: 26px;
   font-weight: 400;
-  color: #5543ca;
+  color: #F0A04B;
+  font-weight: bold;
   cursor: text;
   transition: -webkit-transform .2s ease-in-out;
   transition: transform .2s ease-in-out;
@@ -61,7 +57,7 @@
 .contact-form .submit-btn {
   display: inline-block;
   background-color: #000;
-   background-image: linear-gradient(125deg,#a72879,#064497);
+   background-image: linear-gradient(125deg,#F0A04B,#ffb70f);
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 2px;

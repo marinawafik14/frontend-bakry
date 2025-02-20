@@ -1,8 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
-@import url('https://fonts.googleapis.com/css?family=Lobster');
-
-
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -11,69 +7,57 @@ body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
-
+overflow: hidden;
 }
 
-/* Header Area */
 .header-area {
-  max-width: 100%;
   width: 100%;
-  height: 0;
-  z-index: 100;
   position: relative;
   background-color: #fff;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-  font-weight: bold;
-  box-shadow: 5px 5px 19px rgba(237, 203, 203, 0.05),-5px -5px 20px rgba(237, 203, 203, 0.05) ;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-/* Navbar */
 .navbar {
   padding: 10px 0;
+  margin-left: 10px;
 }
 
-.navbar-dark .navbar-nav .nav-link {
+.navbar-dark .nav-link {
   color: black;
-  font-size: 18px;
-  padding: 5px 10px ;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.nav-item a:active{
+  background-color: goldenrod;
+}
+.navbar-dark .nav-link:hover, .navbar-dark .nav-link.active {
+  color: rgb(252, 252, 252);
+  background-color: goldenrod;
 }
 
-.navbar-dark .navbar-nav .nav-link:hover,
-.navbar-dark .navbar-nav .nav-link.active {
-  color: rgb(240, 162, 175)
-}
-
-/* Dropdown Menu */
-.dropdown-menu {
-  background-color: #343a40;
-}
-
-.dropdown-item {
-  color: #fff;
-}
-
-.dropdown-item:hover {
-  background-color: pink;
-  color: #000;
-
-}
 .router-link-active {
-  color: rgb(240, 162, 175) !important; /* Persistent pink for active link */
-  font-weight: bold; /* Optional: make the active link bold */
+  color: rgb(252, 252, 252) !important;
+  font-weight: bold;
+  background-color: goldenrod;
 }
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .navbar-nav {
-    background-color:rgba(245, 185, 195, 0.64);
-    padding: 10px;
-
-
-  }
-  .navbar-dark .navbar-nav .nav-link{
-    color: white;
-  }
-
+i:active{
+  background-color: goldenrod;
 }
+/* Responsive Navbar *//*
+@media (max-width: 992px) {
+  .navbar-collapse {
+    display: none;
+  }
+  .navbar-toggler {
+    display: block;
+  }
+}
+
+@media (min-width: 993px) {
+  .navbar-collapse {
+    display: flex !important;
+  }
+}
+*/
+

@@ -2,32 +2,23 @@
   <h2 class="text-center">Users</h2>
   <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Role
+      Role
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
+     <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let role of availableRoles">
             <label class="dropdown-item">
-                <input type="checkbox" value="admin"> Customer
+                <input type="checkbox" [value]="role" (change)="toggleRoleFilter(role, $event)"> {{ role | titlecase }}
             </label>
         </li>
-        <li>
-            <label class="dropdown-item">
-                <input type="checkbox" value="seller"> Admin
-            </label>
-        </li>
-        <li>
-            <label class="dropdown-item">
-                <input type="checkbox" value="cashier"> Cashier
-            </label>
-        </li>
-        <li>
-          <label class="dropdown-item">
-              <input type="checkbox" value="cashier"> Seller
-          </label>
-       </li>
-      
     </ul>
-</div>
+    <ul class="dropdown-menu" role="menu">
+      <li><a class="dropdown-item" (click)="getUserRole('Customer')">Customers</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Seller')">Sellers</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Admin')">Admins</a></li>
+      <li><a class="dropdown-item" (click)="getUserRole('Cashier')">Cashiers</a></li>
+    </ul>
+  </div>
+
 
     <div class="table-responsive table-bordered">
         <table class="table table-hover">
@@ -56,7 +47,7 @@
                   </td>
 
                   @if (user.profile.address) {
-                     <td>212 st {{ user.profile.address.city }}, {{ user.profile.address.governorate }}</td> 
+                     <td>212 st {{ user.profile.address.city }}, {{ user.profile.address.governorate }}</td>
                    }
                    @else{
                     <td></td>
@@ -71,7 +62,7 @@
                   <td>
                     <button class="btn btn-sm" title="Edit User" [routerLink]="['/admin/users/edit', user._id]">
                       <i class="bi bi-pencil-fill"></i>
-                  </button>                  
+                  </button>
                       <button class="btn btn-sm" title="Delete User" (click)="removeUser(user._id)">
                           <i class="bi bi-trash"></i>
                       </button>

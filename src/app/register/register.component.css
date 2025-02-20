@@ -1,8 +1,13 @@
 /* styles.css or registration.component.css */
 
-
-.image_register{
-  background: url('../../../public/assets/images/oatmeal-cookies-with-jar-milk.jpg') ;
+body{
+  background: url('../../../public/assets/images/cookieschocolate.jpg') ;
+  opacity: 0.8;
+  margin: 0;
+  padding: 0;
+}
+.register-content{
+color: white;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -11,10 +16,12 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  opacity: 0.9;
+  font-weight: bold;
+
 }
 .container {
   max-width: 600px;
+
 }
 
 .shadow-lg {
@@ -25,7 +32,7 @@
 
 h3 {
   font-weight: bold;
-  color: #333;
+  color: #fff
 }
 
 .form-control, .form-select {
@@ -45,6 +52,7 @@ h3 {
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
+
 }
 
 .btn-dark:hover {
@@ -66,5 +74,11 @@ a.text-dark:hover {
 
 
 .btn{
-  background-color: rgb(193, 134, 56);
+  background-color: rgb(228, 138, 21);
+  z-index: 10;
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
 }
