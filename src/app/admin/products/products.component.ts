@@ -1,5 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { productToAdmin } from '../../models/productToAdmin';
+import { ProductToAdmin } from '../../models/productToAdmin';
 import { ProductService } from '../../services/product.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
@@ -16,9 +16,9 @@ import { OrderTo } from '../../models/orderTo';
   styleUrl: './products.component.css',
 })
 export class ProductosComponent implements OnInit {
-  products: productToAdmin[] = [];
+  products: ProductToAdmin[] = [];
   orders:OrderTo[] = [];
-  filteredProducts: productToAdmin[] = [];
+  filteredProducts: ProductToAdmin[] = [];
   sortColumn: string = '';
   sortDirection: boolean = true;
   filterText: string = '';
@@ -37,7 +37,7 @@ export class ProductosComponent implements OnInit {
   constructor(public productservice: ProductService , public orderservice:OrdersService ) {}
   ngOnInit(): void {
     this.productservice.getAllProductsToadmin().subscribe({
-      next: (data: productToAdmin[]) => {
+      next: (data: ProductToAdmin[]) => {
         this.products = data;
         this.filteredProducts = data;
         console.log('Products fetched:', this.products);
@@ -70,7 +70,7 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  sortTable(column: keyof productToAdmin): void {
+  sortTable(column: keyof ProductToAdmin): void {
     if (this.sortColumn === column) {
       this.sortDirection = !this.sortDirection; // Toggle direction
     } else {
@@ -143,5 +143,10 @@ export class ProductosComponent implements OnInit {
     }
   }
 
+
+  // will change status of product 
+  approve(){
+
+  }
 
 }

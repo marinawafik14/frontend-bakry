@@ -1,33 +1,20 @@
-export class productToAdmin {
-  _id?: string; // Optional for newly created products
-  name: string;
-  price: number;
-  category?: string;
-  sales?: number;
-  stock: number;
-  flavor?: string;
-  discounted?: boolean;
-  createdAt?: Date;
-
+export class ProductToAdmin {
   constructor(
-    _id:string,
-    name: string,
-    price: number,
-    stock: number,
-    category?: string,
-    sales?: number,
-    flavor?: string,
-    discounted?: boolean,
-    createdAt?: Date,
-  ) {
-    this._id = _id;
-    this.name = name;
-    this.price = price;
-    this.stock = stock;
-    this.category = category;
-    this.sales = sales;
-    this.flavor = flavor;
-    this.discounted = discounted;
-    this.createdAt = createdAt;
-  }
+    public _id: string,
+    public name: string,
+    public description: string,
+    public price: number,
+    public category: string,
+    public previousprice: number,
+    public sales: number,
+    public stock: number,
+    public flavor: string,
+    public discounted: boolean,
+    public categoryid: number,
+    public status: string,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public images: string[],
+    public accentColor: string
+  ) {}
 }

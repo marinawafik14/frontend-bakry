@@ -1,20 +1,19 @@
 export class register {
-  public firstname?: string;
-  public lastname?: string;
+  public first_name?: string;
+  public last_name?: string;
   public email?: string;
   public password?: string;
-  public token?:string;
+  public token?: string;
 
   constructor(
-    firstname?: string,
-    lastname?: string,
+    first_name?: string,
+    last_name?: string,
     email?: string,
     password?: string,
-    token?:string
-
+    token?: string
   ) {
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.first_name = first_name;
+    this.last_name = last_name;
     this.email = email;
     this.password = password;
     this.token = token;

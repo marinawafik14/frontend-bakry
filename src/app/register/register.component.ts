@@ -15,6 +15,7 @@ import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { user } from '../models/user.model';
+import { register } from '../models/register';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -37,7 +38,7 @@ export const passwordMatchValidator: ValidatorFn = (
 })
 export class RegisterComponent {
   Userregisterform: FormGroup;
-  user: user = new user(); // will use it to bind data from ui
+  user: register = new register(); // will use it to bind data from ui
 
   constructor(private _authService: AuthService , public userservice:UserserviceService , public router: Router) {
     this.Userregisterform = new FormGroup(
@@ -78,8 +79,8 @@ export class RegisterComponent {
   register() {
     if (this.Userregisterform.valid) {
       // Populate the user object with form values
-      this.user.firstname = this.Userregisterform.value.firstName;
-      this.user.lastname = this.Userregisterform.value.lastName;
+      this.user.first_name = this.Userregisterform.value.firstName;
+      this.user.last_name = this.Userregisterform.value.lastName;
       this.user.email = this.Userregisterform.value.email;
       this.user.password = this.Userregisterform.value.password;
 
