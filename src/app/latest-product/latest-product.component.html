@@ -1,11 +1,12 @@
+
 <section class="latest-up">
   <div class="container mydiv">
     <div class="row justify-content-center">
       <ng-container *ngIf="lastproducts.length > 0; else noData">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let product of lastproducts">
           <div class="bbb_deals">
-            <div class="ribbon ribbon-top-right"><span><small class="cross">x</small>4</span></div>
-            <div class="bbb_deals_title">Today's Combo Offer</div>
+            <div class="ribbon ribbon-top-right"><span><small class="cross"></small></span></div>
+            <div class="bbb_deals_title"></div>
             <div class="bbb_deals_slider_container">
               <div class="bbb_deals_item">
                 <div class="bbb_deals_image">
@@ -43,4 +44,5 @@
 <ng-template #noData>
   <p class="text-center">No products to display.</p>
 </ng-template>
+
 

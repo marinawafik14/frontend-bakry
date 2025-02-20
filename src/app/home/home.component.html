@@ -1,128 +1,126 @@
-<div id="carouselExampleFade" class="carousel slide carousel-fade ">
-  <div class="carousel-inner">
-    <div class="carousel-item active img-fluid">
-      <img src="assets/images/cookies1.avif" class="d-block w-100 img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/images/photo1.webp" class="d-block w-100 img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/images/cupcake1.jpg" class="d-block w-100 img-fluid" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="assets/images/chocolate2jpeg.jpeg" class="d-block w-100 img-fluid" alt="...">
-    </div>
+<body>
+  <div class="head  container ">
+    <h1 class="fs-1 ">Sweet Bakery</h1>
+    <p>GRACE offers you a wide range of mouth-watering products that come in different flavors, shapes & sizes tailored
+      for your needs</p>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-
-<!--category-->
-<ul id="nav">
-  <li class="nav-link">
-    <h1 data-name="home">Category</h1>
-  </li>
-</ul>
-<section class="category">
-<div class="container mt-100">
-  <div class="row ">
-    <!-- Cookies Card -->
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card h-100">
-        <a class="card-img-tiles" [routerLink]="['/category','cookies']" routerLinkActive="router-link-active"
-          data-abc="true">
-          <div class="inner">
-            <div class="main-img">
-              <img src="assets/images/cookies1jpeg.jpeg" alt="Cookies" class="img-fluid">
-            </div>
-            <div class="thumblist d-flex">
-              <img src="assets/images/cookies3.webp" alt="Cookies" class="img-fluid w-50">
-              <img src="assets/images/cookies4.jpg" alt="Cookies" class="img-fluid w-50">
-            </div>
-          </div>
-        </a>
-        <div class="card-body text-center">
-          <h4 class="card-title">Cookies</h4>
-          <p class="text-muted">Starting from $2</p>
-          <a class="btn btn-outline-primary btn-sm" [routerLink]="['/category','cookies']" data-abc="true">View
-            Products</a>
-        </div>
+  <div id="carouselExampleFade" class="carousel slide carousel-fade ">
+    <div class="carousel-inner">
+      <div class="carousel-item active img-fluid ">
+        <img src="assets/images/background2.jpg" class="d-block w-100 img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/images/pieces.avif" class="d-block w-100 img-fluid " alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/images/browncupcake.jpg" class="d-block w-100 img-fluid" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/images/background.jpeg" class="d-block w-100 img-fluid" alt="...">
       </div>
     </div>
-
-    <!-- Cakes Card -->
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card h-100">
-        <a class="card-img-tiles" [routerLink]="['/category','cakes']" data-abc="true">
-          <div class="inner">
-            <div class="main-img">
-              <img src="assets/images/cake11.jpg" alt="Cakes" class="img-fluid">
-            </div>
-            <div class="thumblist d-flex">
-              <img src="assets/images/cake22.jpg" alt="Cakes" class="img-fluid w-50">
-              <img src="assets/images/cake33.avif" alt="Cakes" class="img-fluid w-50">
-            </div>
-          </div>
-        </a>
-        <div class="card-body text-center">
-          <h4 class="card-title">Cakes</h4>
-          <p class="text-muted">Starting from $3</p>
-          <a class="btn btn-outline-primary btn-sm" [routerLink]="['/category','cakes']" data-abc="true">View
-            Products</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cupcakes Card -->
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card h-100">
-        <a class="card-img-tiles" [routerLink]="['/category','cupcakes']" data-abc="true">
-          <div class="inner">
-            <div class="main-img">
-              <img src="assets/images/cupcake11.jpg" alt="Cupcakes" class="img-fluid">
-            </div>
-            <div class="thumblist d-flex">
-              <img src="assets/images/cupcake22.jpg" alt="Cupcakes" class="img-fluid w-50">
-              <img src="assets/images/cupcakes33.jpg" alt="Cupcakes" class="img-fluid w-50">
-            </div>
-          </div>
-        </a>
-        <div class="card-body text-center">
-          <h4 class="card-title">Cupcakes</h4>
-          <p class="text-muted">Starting from $1</p>
-          <a class="btn btn-outline-primary btn-sm" [routerLink]="['/category','cupcakes']" data-abc="true">View
-            Products</a>
-        </div>
-      </div>
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-</div>
-</section>
-<!-- end category-->
+  <!--category-->
+  <ul id="nav">
+    <li class="nav-link">
+      <h1 data-name="home">Category</h1>
+    </li>
+  </ul>
+  <section class="category">
+    <div class="container mt-100">
+      <div class="row ">
+        <!-- Cookies Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100">
+            <a class="card-img-tiles" [routerLink]="['/category','cookies']" routerLinkActive="router-link-active"
+              data-abc="true">
+              <div class="inner">
+                <div class="main-img">
+                  <img src="assets/images/cookieschocolate.jpg" alt="Cookies" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center">
+              <h4 class="card-title mb-4">Cookies</h4>
+
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/category','cookies']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cakes Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card ">
+            <a class="card-img-tiles " [routerLink]="['/category','cakes']" data-abc="true">
+              <div class="inner  w-100">
+                <div class="main-img h-100 w-100">
+                  <img src="assets/images/coffee-cake.jpg" alt="Cakes" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center ">
+              <h4 class="card-title mb-4">Cakes</h4>
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/category','cakes']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cupcakes Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100">
+            <a class="card-img-tiles" [routerLink]="['/category','cupcakes']" data-abc="true">
+              <div class="inner">
+                <div class="main-img ">
+                  <img src="assets/images/3-cupcakes.jpg" alt="Cupcakes" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center">
+              <h4 class="card-title mb-4">Cupcakes</h4>
+
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/category','cupcakes']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end category-->
 
 
-<!--best seller -->
+  <!--best seller -->
 
-<ul id="nav">
-  <li class="nav-link">
-    <h1 data-name="home">Best Seller</h1>
-  </li>
-</ul>
-<div class="best-seller" *ngIf="topProducts.length;">
-<ul class="best">
-  <li [ngStyle]="{'background-color': product.accentColor}" *ngFor="let product of topProducts">
-    <div class="icon"><img [src]= "product.images[0]"  alt ="{{product.name}}"style="width: 130px;height: 120px;"></div>
-    <div class="title">{{product.name}}</div>
-    <div class="descr">{{product.description}}  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, impedit?</div>
-  </li>
-<!--
+  <ul id="nav">
+    <li class="nav-link">
+      <h1 data-name="home">Best Seller</h1>
+    </li>
+  </ul>
+  <div class="best-seller" *ngIf="topProducts.length;">
+    <ul class="best">
+      <li [ngStyle]="{'background-color': product.accentColor}" *ngFor="let product of topProducts">
+        <div class="icon"><img [src]="product.images[0]" alt="{{product.name}}" style="width: 130px;height: 120px;">
+        </div>
+        <div class="title">{{product.name}}</div>
+        <div class="descr">{{product.description}} </div>
+      </li>
+      <!--
   <li style="--accent-color:#1286A8" *ngFor="let product of topProducts">
     <div class="icon"><img src="['{{product.images[0]}}']" style="width: 130px;height: 120px;"></div>
     <div class="title">product name</div>
@@ -144,15 +142,16 @@
     <div class="descr">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
   </li>
 -->
-</ul>
-</div>
+    </ul>
+  </div>
 
-<!--end best  seller-->
-<!--latest product -->
-<ul id="nav">
-  <li class="nav-link">
-    <h1 data-name="home">Latest product</h1>
-  </li>
-</ul>
-<app-latest-product></app-latest-product>
-<!--end latest update-->
+  <!--end best  seller-->
+  <!--latest product -->
+  <ul id="nav">
+    <li class="nav-link">
+      <h1 data-name="home">Latest product</h1>
+    </li>
+  </ul>
+</body>
+  <app-latest-product></app-latest-product>
+  <!--end latest update-->

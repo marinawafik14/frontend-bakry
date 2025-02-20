@@ -2,13 +2,23 @@
 /* Shop Header */
 .shop-header {
   background: rgb(172, 171, 171);
+  overflow: hidden;
+
   /* background: url('../../../public/assets/images/candy5.jpg') no-repeat center center/cover; */
   padding: 20px;
   color: white;
   height: 200px;
   margin-bottom: 100px;
 }
+.btn-order{
+  color: white;
+  background-color: goldenrod;
 
+}
+.btn-order:hover{
+  transition: 1s ease;
+  background-color: gold;
+}
 .shop-header a {
   color: white;
   text-decoration: none;
@@ -19,9 +29,10 @@
   font-weight: bold;
 }
 
-
+*{overflow: hidden;}
 /* Banner Section */
 .banner-section {
+  overflow: hidden;
   position: relative;
   width: 100%;
   height: 250px;
@@ -33,6 +44,7 @@
 }
 
 .banner-section .overlay {
+  overflow: hidden;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -63,12 +75,16 @@
 
 /* Product Card */
 .card {
-  transition: transform 0.2s ease-in-out;
+  transition: tr
+  transform 0.2s ease-in-out;
   text-align: center;
+  overflow: hidden;
+  transition: all 1s;
 }
 
 .card:hover {
   transform: scale(1.05);
+
 }
 
 .card img {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../_models/product';
+
 import { ActivatedRoute, RouterLink} from '@angular/router';
 import { ProductService } from '../services/product.service';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 import { CommonModule } from '@angular/common';
+import { Products } from '../models/products';
 
 // import { ToastrService } from 'ngx-toastr';
 
@@ -15,16 +16,16 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductDetailsComponent implements OnInit{
 
-  product: Product | null = null;
+  product: Products | null = null;
   quantity: number = 1;
-  relatedProducts: Product[] = []; ;
+  relatedProducts: Products[] = []; ;
   productId: string = '';
   selectedImage: string = ''; // Store selected image
   constructor(private ac: ActivatedRoute, private productService: ProductService, public cartService:CartApiService) {}
 
   ngOnInit(): void {
     const productId = this.ac.snapshot.paramMap.get('id');
-    
+
     if (productId) {
       this.productService.getProductById(productId).subscribe({
         next: (data) => {
@@ -49,20 +50,20 @@ export class ProductDetailsComponent implements OnInit{
         this.quantity++;
       }
     }
-  
+
     // Decrease Quantity (Min: 1)
     decreaseQuantity(): void {
       if (this.quantity > 1) {
         this.quantity--;
       }
     }
-  
+
     // Add to Cart Only If Stock is Available
     addToCart(product: any) {
       const quantity = 1; // Default quantity (modify if needed)
       this.cartService.addToCart(product._id, quantity, product.price);
     }
-    
+
 
     getRelatedProducts() {
       this.productService.getProductsByCategory(this.product?.category!).subscribe((data) => {
@@ -77,7 +78,7 @@ export class ProductDetailsComponent implements OnInit{
     //   const interval = setInterval(() => {
     //     const now = new Date().getTime();
     //     const timeLeft = new Date(endDate).getTime() - now;
-        
+
     //     if (timeLeft <= 0) {
     //       clearInterval(interval);
     //       this.remainingTime = "Offer expired";
@@ -115,7 +116,7 @@ export class ProductDetailsComponent implements OnInit{
         image: 'https://bellyfull.net/wp-content/uploads/2022/06/Strawberry-Shortcake-Cupcakes-blog-2.jpg'
       }
     ];
-    
-    
+
+
 
 }

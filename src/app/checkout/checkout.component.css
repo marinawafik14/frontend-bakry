@@ -1,0 +1,50 @@
+.check-out{
+  color: #6c6111;
+
+}
+.check{
+background-color: goldenrod;
+border-radius: 10px;
+box-shadow: 7px 7px 4px rgba(244, 217, 44, 0.761), -7px -7px 4px rgba(244, 217, 44, 0.761);
+
+
+}
+label{
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+input{
+  outline: none;
+  border: none;
+}
+input:focus{
+  border: 2px solid #6c6111;
+
+}
+
+.placeOrderBtn{
+  background-color: #6c6111;
+  padding: 5px 20px;
+  margin: 10px auto;
+  display: block;
+  width: 100px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+.placeOrderBtn:hover{
+  background-color: #c7b636;
+}
+.order-details{
+  margin: 20px;
+  /*background-image: url("/assets/images/background.jpeg");*/
+  width: 100%;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+background-color: #9c945a;
+border-radius: 5px;
+
+}

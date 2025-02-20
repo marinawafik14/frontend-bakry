@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <h3>User Details</h3>
+    
+
+    <!-- User Info Section -->
+    <div class="mb-3">
+        <label class="form-label"><strong>User ID:</strong></label>
+        <p>{{ user._id }}</p>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label"><strong>Registered Since:</strong></label>
+        <p>{{ user.createdAt | date: 'medium' }}</p>
+    </div>
+
+    <form #editForm="ngForm" >
+        <!-- Full Name -->
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.firstName" name="firstName" required>
+            <input disabled ="text" class="form-control mt-2" [(ngModel)]="user.profile.lastName" name="lastName" required>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label  class="form-label">Email</label>
+            <input disabled="" type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+        </div>
+
+        <!-- Birthdate -->
+        <div class="mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input disabled="" type="date" class="form-control" [(ngModel)]="user.profile.dateOfBirth" name="dateOfBirth">
+        </div>
+
+        <!-- Contact Number -->
+        <div class="mb-3">
+            <label class="form-label">Contact No.</label>
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.contactNo" name="contactNo">
+        </div>
+
+        <!-- Address -->
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input disabled="" type="text" class="form-control" [(ngModel)]="user.profile.address.street" name="street" placeholder="Street">
+            <input  disabled="text" class="form-control mt-2" [(ngModel)]="user.profile.address.city" name="city" placeholder="City">
+            <input disabled="" type="text" class="form-control mt-2" [(ngModel)]="user.profile.address.governorate" name="governorate" placeholder="Governorate">
+        </div>
+
+        <!-- Status -->
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" [(ngModel)]="user.status" name="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="suspended">Suspended</option>
+            </select>
+        </div>
+
+        <!-- Change Role Button -->
+        <div class="d-flex align-items-center mb-3">
+            <label class="form-label me-2">Role:</label>
+            <button type="button" class="btn btn-warning btn-sm me-2" (click)="toggleRoleEdit()">Change Role</button>
+        </div>
+
+        <!-- Role Dropdown (Initially Hidden) -->
+        <div *ngIf="isEditingRole" class="mb-3">
+            <select class="form-select" [(ngModel)]="user.role" name="role">
+                <option value="Customer">Customer</option>
+                <option value="Admin">Admin</option>
+                <option value="Seller">Seller</option>
+                <option value="Cashier">Cashier</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <button type="button" class="btn btn-success" (click)="saveUser()">Save Changes</button>
+        <button type="button" class="btn btn-secondary"  routerLink="/admin/users">Cancel</button>
+
+    </form>
+</div>

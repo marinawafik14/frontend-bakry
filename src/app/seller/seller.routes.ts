@@ -3,8 +3,8 @@
 import { Routes } from '@angular/router';
 import { DashbordSellerComponent } from './dashbord-seller/dashbord-seller.component';
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
-import { SellerDetailsProductComponent } from './seller-details-product/seller-details-product.component';
 import { SellerUpdateProductComponent } from './seller-update-product/seller-update-product.component';
+import { ChartSellerComponent } from './chart-seller/chart-seller.component';
 
 
 export const routes: Routes = [
@@ -14,8 +14,8 @@ export const routes: Routes = [
   }, // Parent route
 
   { path: 'add', component: SellerAddProductComponent },
-  { path: 'details/:id', component: SellerDetailsProductComponent },
-  { path: 'update/:id', component: SellerUpdateProductComponent },
 
+  { path: 'update/:id', component: SellerUpdateProductComponent },
+{path:'chart-seller',component:ChartSellerComponent}
 
 ];

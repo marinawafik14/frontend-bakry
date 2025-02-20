@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
 import {
   FormGroup,
   FormControl,
@@ -13,8 +15,9 @@ import {
 } from '@angular/forms';
 import { UserserviceService } from '../services/user.service';
 import Swal from 'sweetalert2';
-import { AuthService } from '../_service/auth.service';
-import { user } from '../../../model/user.model';
+import { AuthService } from '../services/auth.service';
+import { user } from '../models/user.model';
+import { User } from '../_models/user';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -84,7 +87,14 @@ export class RegisterComponent {
       this.user.password = this.Userregisterform.value.password;
 
       this.userservice.register(this.user).subscribe({
-        next: () => {
+        next: (res) => {
+          console.log('Done Register', res);
+          console.log(this._authService.getDecodedToken());
+
+            const token = res.token;
+            if (token) {
+              sessionStorage.setItem('tokenkey', token);
+            }
           Swal.fire({
             title: 'Registration Success!',
             html: `
@@ -101,9 +111,15 @@ export class RegisterComponent {
           this.router.navigateByUrl('/home');
         },
         error: (err) => {
+          console.error('Registration Error:', err);
+
+          const errorMessage =
+            err.error?.message ||
+            'An unexpected error occurred during registration.';
+
           Swal.fire({
             title: 'Error!',
-            text: `Registration failed: ${err.message}`,
+            text: `Registration failed: ${errorMessage}`,
             icon: 'error',
             showConfirmButton: true,
           });
@@ -139,3 +155,5 @@ export class RegisterComponent {
     return this.Userregisterform.get('confirmPassword');
   }
 }
+
+

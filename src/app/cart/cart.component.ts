@@ -1,7 +1,11 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 @Component({
   selector: 'app-cart',
@@ -11,28 +15,57 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  userId:string = "679cb88e6228c2c41f8d3c6a"
+  userId:string = ""
   cartItems:any[] = []
   total:number = 0
-  errorMessage:boolean = false;
-  constructor(public cartServiceApi:CartApiService, public router:Router){
-
+  quantityErrorMessage:boolean = false;
+  decodedToken:any
+  constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
+    this.getUserId();
+    this.getCartData();
   }
+
+  private notyf = new Notyf({
+    duration: 3000,  // Notification duration in milliseconds
+    position: { x: 'center', y: 'bottom' } // Position on the screen
+  });
+
   ngOnInit(): void {
      this.getCartData();
   }
 
-
   //functions
-  updateQuantity(item:any, quantityCase:number){
+  updateQuantity(item:any, productId:string, quantityCase:number){
 
+    if(quantityCase == -1){
       item.quantity += quantityCase;
-
       if(item.quantity == 0) item.quantity = 1;
+    }
+    else{
+        item.quantity += quantityCase;
+    }
+    this.checkQuantity(item.quantity, productId);
+
       this.updateCartQuantities();
+      this.getCartData();
 
   }
 
+  checkQuantity(quantity:number ,productId:string){
+    this.cartServiceApi.getProuctById(productId).subscribe({
+      next: (res)=>{
+       const stock = res.stock;
+       if(quantity > stock)
+        this.quantityErrorMessage = true;
+       else{
+        this.quantityErrorMessage = false;
+       }
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
   removeCartItem(productId:string){
       this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
           next: (res)=>{
@@ -69,7 +102,7 @@ export class CartComponent implements OnInit{
         this.fetchProductData()
       },
       error: (err)=>{
-        console.log(err);
+        console.log(err.error);
       }
     })
   }
@@ -80,6 +113,7 @@ export class CartComponent implements OnInit{
         next: (data)=>{
             item.name = data.name;
             item.category = data.category;
+            item.image = data.images[0];
         },
         error: (err)=>{
           console.log(err);
@@ -90,10 +124,10 @@ export class CartComponent implements OnInit{
 
   checkInput(quantity:number){
       if(quantity<1){
-        this.errorMessage = true;
+        this.quantityErrorMessage = true;
       return
       }
-      this.errorMessage = false;
+      this.quantityErrorMessage = false;
   }
 
   clearCart(){
@@ -108,4 +142,65 @@ export class CartComponent implements OnInit{
         }
     })
   }
+
+  getUserId(){
+    this.decodedToken = this._authServie.getDecodedToken();
+    if(this.decodedToken){
+      this.userId = this.decodedToken.userId
+      console.log(this.userId);
+      }
+  }
+
+
+  proceddToCheckout(){
+   const token =  this._authServie.getDecodedToken();
+   if(!token){
+    this.notLoggedIn()
+   }
+   else if(this.cartItems.length === 0){
+    this.cartIsEmpty();
+    }
+    else if(this.quantityErrorMessage){
+    this.notyf.error("No enough items");
+
+    }
+    else{
+         this.router.navigateByUrl('/checkout')
+    }
+
+  }
+
+  notLoggedIn(){
+    Swal.fire({
+      icon: "error",
+      title: "No account found.",
+      text: "Please sign up or log in to continue.",
+    }).then(()=>{
+      setTimeout(()=>{
+        this.router.navigateByUrl('/login');
+          }, 2000)
+    })
+  }
+
+  cartIsEmpty(){
+    // Swal.fire({
+    //   title: "Your Cart is Empty",
+    //   showClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeInUp
+    //       animate__faster
+    //     `
+    //   },
+    //   hideClass: {
+    //     popup: `
+    //       animate__animated
+    //       animate__fadeOutDown
+    //       animate__faster
+    //     `
+    //   }
+    // });
+    this.notyf.error("Your Cart is Empty");
+  }
+
 }

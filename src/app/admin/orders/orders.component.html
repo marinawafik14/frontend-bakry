@@ -1,0 +1,56 @@
+<h2>Orders</h2>
+<div class="container my-5">
+  <!-- Search Bar -->
+  <input 
+    type="text" 
+    placeholder="Search Orders by Name or Address" 
+    [(ngModel)]="filterText" 
+    (input)="applyFilter()" 
+    class="form-control mb-3"
+  />
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th class="sortable" (click)="sortTable('_id')">Id</th>
+          <th class="sortable" (click)="sortTable('customername.firstname')">Full Name</th>
+          <th class="sortable" (click)="sortTable('addressdetails')">Address</th>
+          <th class="sortable" (click)="sortTable('totalAmount')">Total Price</th>
+          <th class="sortable" (click)="sortTable('orderStatus')">Status</th>
+          <th>OK</th>
+          <th>Cancel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of filteredOrders">
+          <td>{{ order._id | slice: -3 }}</td>
+          <td>{{ order.customername.firstname }} {{ order.customername.lastname }}</td>
+          <td>{{ order.addressdetails || '' }}</td>
+          <td>{{ order.totalAmount | currency }}</td>
+          <td>
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-warning text-dark': order.orderStatus === 'pending',
+                    'bg-primary': order.orderStatus === 'shipped',
+                    'bg-danger': order.orderStatus === 'canceled',
+                    'bg-success': order.orderStatus === 'delivered'
+                  }">
+              {{ order.orderStatus | titlecase }}
+            </span>
+          </td>
+          <td>
+            <button (click)="markAsShipped(order._id)" class="btn btn-success btn-sm" title="Mark as OK">
+              <i class="bi bi-check-lg"></i> OK
+            </button>
+          </td>
+          <td>
+            <button (click)="markAscanceled(order._id)" class="btn btn-danger btn-sm" title="Cancel Order">
+              <i class="bi bi-x-lg"></i> Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

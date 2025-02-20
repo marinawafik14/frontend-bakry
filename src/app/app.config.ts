@@ -1,25 +1,21 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideEchartsCore } from 'ngx-echarts';
 
+import * as echarts from 'echarts';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
-// import { provideAnimations } from '@angular/platform-browser/animations';
-// import { provideToastr, ToastrConfig} from 'ngx-toastr';
-
-// const toastrOptions: Partial<ToastrConfig> = {
-//   timeOut: 3000, // 3 seconds before auto-hide
-//   positionClass: 'toast-top-right', // ✅ Move toastr to top-right
-//   // preventDuplicates: true, // Prevent showing same notification twice
-//   closeButton: true, // Enable close button
-//   progressBar: true, // Show progress bar
-// };
-
+import { DatePipe } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+  providers:
+   [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withFetch()),
 
@@ -30,7 +26,11 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura
       }
-    })
+    }),
 
+     DatePipe,
+     provideEchartsCore({echarts}),
+     importProvidersFrom(NgxChartsModule)
   ]
+
 };

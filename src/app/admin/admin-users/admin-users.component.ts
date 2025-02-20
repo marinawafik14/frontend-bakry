@@ -1,0 +1,128 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { AdminUserApiService } from '../../services/admin-user-api.service';
+import { User } from '../../_models/user';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-admin-users',
+  templateUrl: './admin-users.component.html',
+  styleUrls: ['./admin-users.component.css'],
+  imports: [CommonModule, RouterLink],
+})
+export class AdminUsersComponent implements OnInit {
+  users: User[] = [];
+  filteredUsers: User[] = [];
+  selectedRoles: string[] = [];
+  availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
+
+    constructor(private _adminUsersApi: AdminUserApiService) {
+        this.getAllUsers();
+    }
+
+
+    ngOnInit(): void {
+        this.getAllUsers();
+
+    }
+
+    getAllUsers(): void {
+
+      this._adminUsersApi.getAllUsers().subscribe({
+          next: (res: { users: User[]; }) => {
+              console.log("API Response:", res);
+              if (res && res.users) {
+                  this.users = res.users;
+                  console.log(this.users[4]);
+
+              } else {
+                  console.error("Unexpected API response format:", res);
+              }
+          },
+          error: (err: { error: any; }) => {
+              console.log(err.error);
+          }
+      });
+  }
+
+
+
+  toggleRoleFilter(role: string, event: any): void {
+    if (event.target.checked) {
+      this.selectedRoles.push(role);
+    } else {
+      this.selectedRoles = this.selectedRoles.filter((r) => r !== role);
+    }
+    this.filterUsers();
+  }
+
+  filterUsers(): void {
+    if (this.selectedRoles.length === 0) {
+      this.filteredUsers = this.users;
+    } else {
+      this.filteredUsers = this.users.filter((user) =>
+        this.selectedRoles.includes(user.role)
+      );
+    }
+  }
+
+  removeUser(userId: any) {
+    Swal.fire({
+      title: 'Are you sure you want to delete this user?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete User!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._adminUsersApi.removeUser(userId).subscribe({
+          next: (res) => {
+            Swal.fire({
+              title: 'Removed!',
+              text: res.message,
+              icon: 'success',
+            });
+            this.getAllUsers();
+          },
+          error: (err) => {
+            Swal.fire(`${err.error.message}`);
+          },
+        });
+      }
+    });
+  }
+  getUserRole(role:string){
+        this._adminUsersApi.getUsersByRole(role).subscribe({
+            next: (res)=>{
+                console.log(res);
+                if (res && res.users) {
+                    this.users = res.users;
+                } else {
+                    console.error("Unexpected API response format:", res);
+                }
+            },
+            error: (err) => {
+                console.log(err.error);
+            }
+        })
+
+  }
+  getRoleClass(role: string): string {
+    switch (role.toLowerCase()) {
+      case 'admin':
+        return 'role-admin';
+      case 'manager':
+        return 'role-manager';
+      case 'cashier':
+        return 'role-cashier';
+      case 'sales':
+        return 'role-sales';
+      default:
+        return 'status-active';
+    }
+}
+
+
+}

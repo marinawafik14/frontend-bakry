@@ -1,0 +1,35 @@
+/* Change cursor and hover effect for table headers */
+table th {
+  background-color: #f8d7da; /* Light red header background */
+  color: #343a40; /* Dark text color */
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+}
+
+table th:hover {
+  background-color: #e57373; /* Darker hover background */
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styling for table header with sorting icons */
+th.sortable {
+  position: relative;
+  padding-right: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+th.sortable:after {
+  content: '\25B4'; /* Upward arrow Unicode */
+  position: absolute;
+  right: 5px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+th.sortable.desc:after {
+  content: '\25BE'; /* Downward arrow Unicode */
+}

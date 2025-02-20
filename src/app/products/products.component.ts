@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
-import { Product } from '../_models/product';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CartApiService } from '../_services/cart-api.service';
+import { CartApiService } from '../services/cart-api.service';
 
 @Component({
   selector: 'app-products',
@@ -27,9 +26,9 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.categoryName = params['name']; // Get category name from URL
-  
+
       console.log("Category Name from URL:", this.categoryName); // Debugging
-  
+
       if (this.categoryName) {
         this.fetchProducts(); // Fetch products for this category
       } else {
@@ -41,7 +40,7 @@ export class ProductsComponent implements OnInit {
 
   fetchProducts(): void {
     console.log("Fetching products for category:", this.categoryName); // Debugging
-  
+
     this.productService.getProductsByCategory(this.categoryName).subscribe(
       (data) => {
         this.products = data;
@@ -54,7 +53,7 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
-  
+
 
   extractFlavors(): void {
     this.availableFlavors = [...new Set(this.products.map(product => product.flavor))]; // Get unique flavors

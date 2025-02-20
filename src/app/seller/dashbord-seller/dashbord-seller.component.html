@@ -4,7 +4,7 @@
     <!-- Start Order Card -->
     <div class="col-6  col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-cherry  ">
-        <div class="card-statistic-3 p-4" style="background-color: rgba(138, 238, 137, 0.96);">
+        <div class="card-statistic-3 p-4" style="background-color: #640D5F;">
           <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart fa-xl"></i></div>
           <div class="mb-4">
             <h6 class="card-title mb-0">Orders</h6>
@@ -50,7 +50,7 @@
     <!-- Start Ticket Resolved Card -->
     <div class="col-6  col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-orange-dark">
-        <div class="card-statistic-3 p-4" style="background-color:#25b7c4;">
+        <div class="card-statistic-3 p-4" style="background-color:#D91656;">
           <div class="card-icon card-icon-large"><i class="fas fa-cube"></i></div>
           <div class="mb-4">
             <h6 class="card-title mb-0 "> Pending Products</h6>
@@ -74,7 +74,7 @@
     <!-- Start Sales Card -->
     <div class="col-6  col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-green-dark">
-        <div class="card-statistic-3 p-4" style="background-color:#25c481;">
+        <div class="card-statistic-3 p-4" style="background-color:#EB5B00;">
           <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
           <div class="mb-4">
             <h6 class="card-title mb-0">Total Sales</h6>
@@ -98,22 +98,26 @@
   </div>
 </div>
 
-<div id="Inputs" class="row mt-5 mb-3">
+<div id="Inputs" class="row mt-5 mb-3 container ">
   <!-- Inputs Section  -->
-  <div class="col-md-4 col-sm-12 mb-2">
-    <input type="number" name="RowCount" id="ProductCounterInput" value="10" min="1"
-      class="form-control border-1 border-black" placeholder="Rows per page">
+
+  <div class=" col-6 col-md-3 col-sm-12 mb-2">
+    <input type="number" name="RowCount"  [(ngModel)]="rowCount" id="ProductCounterInput" value="10" min="1"
+      class="form-control border-1 border-black w-75" placeholder="Rows per page" (input)="onPositiveNumber($event)">
   </div>
-  <div class="col-md-4 col-sm-12 mb-2">
-    <input type="text" name="Search" id="ProductsearchInput" class="form-control  border-1 border-black "
+  <div class=" col-6 col-md-3 col-sm-12 mb-2">
+    <input type="text" name="Search" id="ProductsearchInput" class="form-control  border-1 border-black w-75 "
       placeholder="Search">
   </div>
-  <div class="col-md-4 col-sm-12">
-
-    <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn  btn-success border-1 border-black"
-      data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
-
+  <div class=" col-6 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard/chart-seller']"  id="chart" class="form-control btn  btndash w-75"
+      data-bs-toggle="modal" data-bs-target="">Chart</a>
   </div>
+  <div class=" col-6 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn btndash w-75"
+      data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
+  </div>
+
 </div>
 
 <body>
@@ -124,33 +128,37 @@
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Category</th>
-          <th>Seller Name</th>
-          <th>Images</th>
-          <th>Created At</th>
-          <th>Status</th>
-          <th>Delete</th>
-          <th>Update</th>
+
+          <th (click)="sortTable('name')" style="cursor: pointer;">Name</th>
+          <th (click)="sortTable('description')" style="cursor: pointer;">Description</th>
+          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
+          <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
+          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
+          <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th>
+          <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
+          <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
+          <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
+          <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
+          <th >Status</th>
+          <th >Delete</th>
+          <th >Update</th>
         </tr>
       </thead>
       <tbody>
 
-        <tr *ngFor="let item of selectedPro">
-          <td>{{item._id}}</td>
+        <tr *ngFor="let item of selectedPro.slice(0,rowCount)">
+
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
+          <td>{{item.previousprice}}</td>
           <td>{{item.price}}</td>
-          <td></td>
+          <td>{{item.discounted}}</td>
+          <td>{{item.stock}}</td>
           <td>{{item.category}}</td>
-          <td>seller name</td>
-          <td>
-            <img *ngFor="let img of item.images" [src]="img" width="50" />
-          </td>
+          <td>{{item.flavor}}</td>
+            <td>
+              <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
+            </td>
           <td>{{item.createdAt}}</td>
           <td>status</td>
           <td>
@@ -158,7 +166,7 @@
           </td>
           <td>
             <i class="fa-solid fa-pen fa-xl" [routerLink]="['/dashboard/update',item._id]"
-              style="color: #d5d813; cursor: pointer;"></i>
+              style="color: #f5530d; cursor: pointer;"></i>
           </td>
         </tr>
 
