@@ -8,11 +8,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import Swal from 'sweetalert2';
 import {jwtDecode} from 'jwt-decode';
 import { CartApiService } from '../services/cart-api.service';
-<<<<<<< HEAD
-=======
 import { User } from '../_models/user';
 
->>>>>>> 52b38a8db8242900dec30d5677e1992197e8da7f
 @Component({
   selector: 'app-checkout',
   imports: [FormsModule, CommonModule],
