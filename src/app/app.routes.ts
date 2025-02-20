@@ -28,45 +28,22 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  // {path:"contact",component:ContactUsComponent,canActivate:[canloginGuard]},
   { path: 'contact', component: ContactUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:userId', component: ProfileFormComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-
+  { path: 'category/:name', component: ProductsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
   // {path:"category/cookies",component:ProductsComponent},
   // {path:"category/cakes",component:CakesComponent},
   // {path:"category/cupcakes",component:CupcakesComponent},
-  { path: 'category/:name', component: ProductsComponent },
-  { path: 'products/:id', component: ProductDetailsComponent },
+
   {
     path: 'dashboard',
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
   },
-  // {
-  //   path: 'admin',
-  //   loadChildren: () =>
-  //     import('../app/admin/admin-base/admin-base.component').then((m) => m.AdminBaseComponent),
-  // },
-
-// // {path:"category/cookies",component:ProductsComponent},
-// // {path:"category/cakes",component:CakesComponent},
-// // {path:"category/cupcakes",component:CupcakesComponent},
-// {path:"category/:name",component:ProductsComponent},
-// {path:"products/:id", component:ProductDetailsComponent},
-// {path:"dashboard",loadChildren:()=>import('./seller/seller.routes').then(s=>s.routes)},
-// // {path:"dashboard",component:DashbordSellerComponent},
-// // {path:"products", component:ProductsComponent},
-
-
-  // {path:"dashboard",component:DashbordSellerComponent},
-  // {path:"products", component:ProductsComponent},
-
-  // { path: 'category/cookies', component: CookiesComponent },
-  // { path: 'category/cakes', component: CakesComponent },
-  // { path: 'category/cupcakes', component: CupcakesComponent },
   { path: 'dashboard', component: DashbordSellerComponent },
 
  //admin route
@@ -80,7 +57,6 @@ export const routes: Routes = [
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},
-
 
   { path: '**', component: NotFoundComponent },
 ];

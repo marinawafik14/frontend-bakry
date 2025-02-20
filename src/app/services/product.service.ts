@@ -100,11 +100,11 @@ export class ProductService {
   }
 
   getProductsByCategory(categoryName: string): Observable<any> {
-    return this.http.get(`${this.allProduct_url}?category=${categoryName}`);
+    return this.http.get(`http://localhost:8000/products?category=${categoryName}`);
   }
 
   getProductById(id: string): Observable<any> {
-    return this.http.get(`${this.allProduct_url}/${id}`);
+    return this.http.get(`${this.createpro_url}/${id}`);
   }
 
   Deleteproductbyid(id: string): Observable<any> {
