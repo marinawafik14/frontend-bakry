@@ -8,12 +8,15 @@ export class Products {
     public previousprice:number,
     public sales:number,
     public stock:number,
+    public status:string,
     public flavor:string,
     public discounted:boolean,
-    public categoryid:number,
+    public categoryid:string | { _id: string; name: string },
+    public sellerId: string | { _id: string; profile?: { firstName?: string; lastName?: string } },
     public createdAt:Date,
     public updatedAt:Date,
     public images:string[],
-    public accentColor:string
+    public accentColor:string,
+    public branch:string[]
 ){}
 }

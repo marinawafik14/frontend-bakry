@@ -36,14 +36,14 @@
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
             <input pattern="^[a-zA-Z\s'-]{2,50}$" type="text" class="form-control" id="firstName" placeholder="" [(ngModel)]="order.firstname" name="firstname" required>
-            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.firstname?.valid" class="invalid-feedback">
+            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls['firstname']?.valid" class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last name</label>
             <input type="text" class="form-control" id="lastName" placeholder="" [(ngModel)]="order.lastname" name="lastname" required>
-            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.lastname?.valid" class="invalid-feedback">
+            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls['lastname']?.valid" class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
@@ -52,7 +52,7 @@
         <div class="mb-3">
           <label for="mobileNumber">Mobile Number</label>
           <input type="tel" class="form-control" id="mobileNumber" placeholder="+201-234-5678" [(ngModel)]="order.mobile" name="mobile" required pattern="^\+?[1-9]\d{1,14}$">
-          <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.mobile?.valid" class="invalid-feedback">
+          <div *ngIf="checkoutForm.submitted && !checkoutForm.controls['mobile']?.valid" class="invalid-feedback">
             Please enter a valid mobile number.
           </div>
         </div>
@@ -100,7 +100,7 @@
               <option value="South Sinai">South Sinai</option>
               <option value="North Sinai">North Sinai</option>
             </select>
-            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.governorate?.valid" class="invalid-feedback">
+            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls['governorate']?.valid" class="invalid-feedback">
               Please select a valid governorate.
             </div>
           </div>
@@ -110,7 +110,7 @@
             <select #citySelect id="City" class="form-select" [(ngModel)]="order.shippingAddress.city" name="city" required>
               <option value="" disabled selected>Select City</option>
             </select>
-            <div *NgIf="checkoutForm.submitted && !checkoutForm.controls.city?.valid" class="invalid-feedback">
+            <div *ngIf="checkoutForm.submitted && !checkoutForm.controls['city']?.valid" class="invalid-feedback">
               Please select a valid city.
             </div>
           </div>

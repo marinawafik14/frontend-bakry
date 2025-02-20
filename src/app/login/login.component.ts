@@ -36,59 +36,63 @@ export class LoginComponent {
 
  login() {
   if (this.Userloginform.valid) {
-    // Populate the user object with form values
+    // Retrieve guest cart from localStorage
+    const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+
+    // Populate user object with form values
     const user = {
       email: this.Userloginform.value.email,
       password: this.Userloginform.value.password,
+      guestCart, // Send guestCart to backend
     };
 
     this.userservice.login(user).subscribe({
       next: (response) => {
         if (response && response.token) {
-          sessionStorage.setItem('tokenkey', response.token);
-          console.log('Token stored:', response.token);
+          sessionStorage.setItem("tokenkey", response.token); // Store new token
+          localStorage.removeItem("guestCart"); // Clear guest cart after merging
+          console.log("✅ Token stored:", response.token);
           console.log(this._authservice.getDecodedToken());
-
         } else {
-          console.warn('No token received from the API.');
+          console.warn("⚠️ No token received from the API.");
         }
+
         Swal.fire({
-          title: 'Login Success!',
+          title: "Login Success!",
           html: `
           <div>
             <p><strong>Email:</strong> ${user.email}</p>
             <p>Welcome back!</p>
           </div>`,
-          icon: 'success',
+          icon: "success",
           showConfirmButton: false,
           timer: 3000,
-        }).then(()=>{
-          setTimeout(()=>{
-            this.router.navigateByUrl('/home');
-          }, 1800)
-        })
-
+        }).then(() => {
+          setTimeout(() => {
+            this.router.navigateByUrl("/home");
+          }, 1800);
+        });
       },
       error: (err) => {
         console.log(err);
 
         Swal.fire({
-          title: 'Login Failed!',
-          text: `Error: ${err.error?.message || 'Invalid credentials'}`,
-          icon: 'error',
+          title: "Login Failed!",
+          text: `Error: ${err.error?.message || "Invalid credentials"}`,
+          icon: "error",
           showConfirmButton: true,
         });
       },
     });
   } else {
     Swal.fire({
-      title: 'Validation Error!',
-      text: 'Please fill in all required fields correctly.',
-      icon: 'warning',
+      title: "Validation Error!",
+      text: "Please fill in all required fields correctly.",
+      icon: "warning",
       showConfirmButton: true,
     });
   }
+}
 
-  }
 
 }
