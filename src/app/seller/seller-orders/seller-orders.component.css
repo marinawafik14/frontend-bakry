@@ -6,22 +6,22 @@
 table {
   width: 100%;
   margin-top: 20px;
+  background-color: #28a745;
 }
 
 th, td {
   text-align: center;
   vertical-align: middle;
+  background-color: #28a745;
 }
 
 th {
-  background-color: #f1f1f1;
+  background-color: #cab422;
 }
 
 td {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  /* height: 50px; */
-  /* width: 50px; */
+  background-color: #ddd9bf;
+  border: 1px solid #ddd9bf;
 }
 
 .items-container {
@@ -32,7 +32,7 @@ td {
 }
 
 .item-card {
-  background-color: #f7f7f7;
+  background-color: #f1efe0;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -51,7 +51,8 @@ td {
 }
 
 .pending {
-  color: orange;
+  color: brown;
+  font-weight: bold;
 }
 
 .shipped {
