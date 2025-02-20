@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h2>Seller Inventory</h2>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Branch</th>
+          <th>Product</th>
+          <th>Current Stock</th>
+          <th>Price per Unit</th>
+          <th>Capacity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of sellerInventory" [ngClass]="{'table-danger': item.currentStock < 10}">
+          <td>{{ item.branchId?.name }}</td>
+          <td>{{ item.productId?.name }}</td>
+          <td>{{ item.currentStock }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.capacity }}</td>
+        </tr>
+        <tr *ngIf="sellerInventory.length === 0">
+          <td colspan="5" class="text-center">No inventory records found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

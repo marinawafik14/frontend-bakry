@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
 interface DecodedToken {
+  userId?: string;
   role?: string;
 }
 
@@ -60,6 +61,14 @@ export class AuthService {
     const token = sessionStorage.getItem('tokenkey');
     return !!token;
   }
+
+    // Check if the user is a seller by inspecting the decoded token
+    isSeller(): boolean {
+      const decodedToken = this.getDecodedToken();
+      return decodedToken?.role === 'Seller';
+    }
+
+
 
 }
 

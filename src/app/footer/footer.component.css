@@ -1,15 +1,11 @@
 
-
-
-
-
 .container-fluid{
     overflow:hidden;
     background-color: #b49a5981;
-    /* background:#bae8d4; */
     color: #35383a  !important;
     margin-bottom: 0 ;
     padding-bottom:0  ;
+    margin-top: 40px;
 }
 
 small{

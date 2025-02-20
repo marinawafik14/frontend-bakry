@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';
 import { CartApiService } from '../services/cart-api.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { CartApiService } from '../services/cart-api.service';
 })
 export class HeaderComponent implements OnInit {
   cartCount: number = 0;
-  constructor(public router: Router, private cartService: CartApiService) {
+  isSeller:boolean = false;
+  constructor(public router: Router, private cartService: CartApiService, private authService:AuthService) {
     this.loadUserData();
   }
   ngOnInit(): void {
@@ -55,5 +57,16 @@ export class HeaderComponent implements OnInit {
   }
   redirectToLogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  checkUserRole() {
+    if (this.authService.isSeller()) {
+      this.isSeller = true;
+      console.log("Welcome, Seller!");
+    } else {
+      this.isSeller = false;
+      console.log("you are not seller")
+      this.router.navigateByUrl('/home');
+    }
   }
 }

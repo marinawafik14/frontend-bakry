@@ -26,8 +26,9 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.categoryName = params['name'];
-
+      
+      this.categoryName = params['category'];
+      console.log("params", params);
       console.log("Category Name from URL:", this.categoryName);
 
       if (this.categoryName) {
@@ -74,35 +75,6 @@ export class ProductsComponent implements OnInit {
       );
     });
   }
-
-  // addToCart(product: any) {
-  //   const token = sessionStorage.getItem('tokenkey');
-  
-  //   if (!token) {
-  //     console.error("❌ No token found in session storage. User might not be logged in.");
-  //     return; // Prevent request if no token
-  //   }
-  
-  //   const quantity = 1; // Default quantity
-  
-  //     this.CartService.addToCart(product._id, quantity, product.price)
-  //       .subscribe({
-  //         next: (response) => {
-  //           console.log("✅ Product added successfully:", response);
-  
-  //         // Log to see if token exists in response
-  //           if (response.token) {
-  //             console.log("🔄 Updating token in session storage:", response.token);
-  //           sessionStorage.setItem('tokenkey', response.token); // ✅ Store new token
-  //           } else {
-  //             console.warn("⚠️ No new token received in response.");
-  //           }
-  
-  //         this.CartService.loadCartCount(); // ✅ Refresh cart count
-  //         },
-  //         error: (err) => console.error("❌ Error adding to cart:", err)
-  //       });
-  // }
 
   addToCart(product: any) {
     const token = sessionStorage.getItem('tokenkey');

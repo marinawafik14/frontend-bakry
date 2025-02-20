@@ -48,5 +48,11 @@ changeOrderStatus(_id: string, status: string): Observable<orderToAdmin> {
   return this.http.patch<orderToAdmin>(url, { orderStatus: status });
 }
 
+//-----------------------
+getOrdersBySellerId(sellerId: string): Observable<any> {
+  return this.http.get(`http://localhost:8000/dashboard/orders/${sellerId}`);
+}
+
+
 
 }

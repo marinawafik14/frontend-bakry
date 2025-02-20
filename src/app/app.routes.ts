@@ -62,9 +62,9 @@ export const routes: Routes = [
   // {path:"dashboard",component:DashbordSellerComponent},
   // {path:"products", component:ProductsComponent},
 
-  { path: 'category/cookies', component: CookiesComponent },
-  { path: 'category/cakes', component: CakesComponent },
-  { path: 'category/cupcakes', component: CupcakesComponent },
+  // { path: 'category/cookies', component: CookiesComponent },
+  // { path: 'category/cakes', component: CakesComponent },
+  // { path: 'category/cupcakes', component: CupcakesComponent },
   { path: 'dashboard', component: DashbordSellerComponent },
 
  //admin route
