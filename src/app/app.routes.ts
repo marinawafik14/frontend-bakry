@@ -27,6 +27,7 @@ import { CashierProductsComponent } from './casheir/cashier-products/cashier-pro
 import { CashierCategoryComponent } from './casheir/cashier-category/cashier-category.component';
 import { CashierCartComponent } from './casheir/cashier-cart/cashier-cart.component';
 import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-checkout.component';
+import { InventoryComponent } from './admin/inventory/inventory.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -57,6 +58,7 @@ export const routes: Routes = [
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
+  {path:'inventory' , component:InventoryComponent},
   {path:'test' , component:TestComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}

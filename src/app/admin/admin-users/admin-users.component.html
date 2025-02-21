@@ -1,11 +1,14 @@
 <div class="container my-5">
   <h2 class="text-center">Users</h2>
-  <div class="dropdown">
+  <!-- <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       Role
     </button>
      <ul class="dropdown-menu" role="menu">
         <li *ngFor="let role of availableRoles">
+=======
+    <ul class="dropdown-menu" role="menu">
+        <li>
             <label class="dropdown-item">
                 <input type="checkbox" [value]="role" (change)="toggleRoleFilter(role, $event)"> {{ role | titlecase }}
             </label>
@@ -17,10 +20,12 @@
       <li><a class="dropdown-item" (click)="getUserRole('Admin')">Admins</a></li>
       <li><a class="dropdown-item" (click)="getUserRole('Cashier')">Cashiers</a></li>
     </ul>
+<<<<<<< HEAD
   </div>
-
-
-    <div class="table-responsive table-bordered">
+=======
+  </div> -->
+  
+  <div class="table-responsive table-bordered">
         <table class="table table-hover">
             <thead class="table-danger text-white">
               <tr class>

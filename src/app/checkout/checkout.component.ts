@@ -180,6 +180,7 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
     });
   }
 
+  orderError: any;
   submitOrder(): void {
     const userId = this.getUseridFromToken();
     console.log("userid: ",userId);
@@ -206,10 +207,12 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
         const control = this.checkoutForm.controls[field];
         if (control.invalid) {
           console.log(`${field} is invalid:`, control.errors);
+          this.orderError = `${field} is invalid`;
         }});
       Swal.fire({
-        title: 'Validation Error!',
-        text: 'Please correct the errors in the form before submitting.',
+        title: 'Your data is missing!',
+        text: this.orderError,
+        // text: 'Please correct the errors in the form before submitting.',
         icon: 'warning',
         showConfirmButton: true,
       });

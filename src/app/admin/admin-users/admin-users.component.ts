@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
@@ -17,36 +17,28 @@ export class AdminUsersComponent implements OnInit {
   selectedRoles: string[] = [];
   availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
 
-    constructor(private _adminUsersApi: AdminUserApiService) {
-        this.getAllUsers();
-    }
+  constructor(private _adminUsersApi: AdminUserApiService) {}
 
-
-    ngOnInit(): void {
-        this.getAllUsers();
-
-    }
-
-    getAllUsers(): void {
-
-      this._adminUsersApi.getAllUsers().subscribe({
-          next: (res: { users: User[]; }) => {
-              console.log("API Response:", res);
-              if (res && res.users) {
-                  this.users = res.users;
-                  console.log(this.users[4]);
-
-              } else {
-                  console.error("Unexpected API response format:", res);
-              }
-          },
-          error: (err: { error: any; }) => {
-              console.log(err.error);
-          }
-      });
+  ngOnInit(): void {
+    this.getAllUsers();
   }
 
-
+  getAllUsers(): void {
+    this._adminUsersApi.getAllUsers().subscribe({
+      next: (res) => {
+        console.log("API Response:", res);
+        if (res && res.users) {
+          this.users = res.users;
+          this.filteredUsers = this.users; // Ensure filtered list is initialized
+        } else {
+          console.error("Unexpected API response format:", res);
+        }
+      },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
+  }
 
   toggleRoleFilter(role: string, event: any): void {
     if (event.target.checked) {
@@ -67,7 +59,7 @@ export class AdminUsersComponent implements OnInit {
     }
   }
 
-  removeUser(userId: any) {
+  removeUser(userId: any): void {
     Swal.fire({
       title: 'Are you sure you want to delete this user?',
       icon: 'warning',
@@ -93,22 +85,24 @@ export class AdminUsersComponent implements OnInit {
       }
     });
   }
-  getUserRole(role:string){
-        this._adminUsersApi.getUsersByRole(role).subscribe({
-            next: (res)=>{
-                console.log(res);
-                if (res && res.users) {
-                    this.users = res.users;
-                } else {
-                    console.error("Unexpected API response format:", res);
-                }
-            },
-            error: (err) => {
-                console.log(err.error);
-            }
-        })
 
+  getUserRole(role: string): void {
+    this._adminUsersApi.getUsersByRole(role).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res && res.users) {
+          this.users = res.users;
+          this.filteredUsers = this.users;
+        } else {
+          console.error("Unexpected API response format:", res);
+        }
+      },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
   }
+
   getRoleClass(role: string): string {
     switch (role.toLowerCase()) {
       case 'admin':
@@ -122,7 +116,5 @@ export class AdminUsersComponent implements OnInit {
       default:
         return 'status-active';
     }
-}
-
-
+  }
 }
