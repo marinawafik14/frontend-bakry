@@ -47,4 +47,7 @@ export class UserserviceService {
   public deleteUser(user: any) {
     return this.http.delete('http://localhost:3000/user', user);
   }
+
+
+  
 }
