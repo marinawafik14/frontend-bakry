@@ -1,0 +1,33 @@
+<h3>Branch Inventory</h3>
+<p><strong>Capacity:</strong> {{ productsinbranch.capacity }} items</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Sales</th>
+      <th>StockIN</th>
+      <th>Stockout</th>
+      <th>Status</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of productsinbranch?.products">
+      <td>{{ product._id?.slice(-3) }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.sales }}</td>
+      <td>
+        <span [ngClass]="{'bg-danger text-white p-1': product.stockIn < 10}">
+          {{ product.stockIn }}
+        </span>
+      </td>
+      <td>{{ product.stockOut }}</td>
+      <td>{{ product.status }}</td>
+      <td>{{ product.createdAt | date }}</td>
+    </tr>
+  </tbody>
+</table>

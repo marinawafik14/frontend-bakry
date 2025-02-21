@@ -23,11 +23,13 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
 import { TestComponent } from './admin/test/test.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { CashierProductsComponent } from './casheir/cashier-products/cashier-products.component';
 import { CashierCategoryComponent } from './casheir/cashier-category/cashier-category.component';
+import { CashierProductsComponent } from './casheir/cashier-products/cashier-products.component';
 import { CashierCartComponent } from './casheir/cashier-cart/cashier-cart.component';
 import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-checkout.component';
 import { InventoryComponent } from './admin/inventory/inventory.component';
+import { BranchesComponent } from './admin/branches/branches.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -60,6 +62,7 @@ export const routes: Routes = [
   {path:'products' , component:ProductosComponent},
   {path:'inventory' , component:InventoryComponent},
   {path:'test' , component:TestComponent},
+  {path:'admin/branch/:id', component:BranchesComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},

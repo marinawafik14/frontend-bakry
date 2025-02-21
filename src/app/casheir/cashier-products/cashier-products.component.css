@@ -1,14 +1,13 @@
 
 /* Shop Header */
 .shop-header {
-  background: rgb(172, 171, 171);
   overflow: hidden;
-
-  /* background: url('../../../public/assets/images/candy5.jpg') no-repeat center center/cover; */
   padding: 20px;
-  color: white;
+  color: rgb(226, 203, 172);
   height: 200px;
-  margin-bottom: 100px;
+  margin-bottom: 30px;
+  background-color: #535353;
+  text-shadow: 2px 2px 4px rgba(192, 174, 156, 0.822);
 }
 .btn-order{
   color: white;
@@ -56,23 +55,6 @@
   color: white;
 }
 
-/* Sidebar */
-.sidebar {
-  background: #f8f9fa;
-  padding: 15px;
-  border-radius: 5px;
-  height: 100px;
-}
-
-.sidebar label {
-  font-weight: bold;
-}
-
-.sidebar input,
-.sidebar select {
-  width: 100%;
-}
-
 /* Product Card */
 .card {
   transition: tr
@@ -93,11 +75,11 @@
   object-fit: cover;
 }
 
-.cartbtn{
+/* .cartbtn{
   margin: auto;
   text-align: center;
   justify-content: center;
   align-items: center;
-}
+} */
 
 
