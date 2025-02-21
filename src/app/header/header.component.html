@@ -80,26 +80,26 @@
 </li>
 
 
+          <!-- <li class="nav-item" *ngIf="isSeller"> -->
           <li class="nav-item">
             <a
               [routerLink]="['/dashboard']"
               routerLinkActive="router-link-active"
               class="nav-link"
-              >Dashboard</a
-            >
+              >Dashboard</a>
           </li>
 
           <li class="nav-item">
             <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link">Admin</a>
           </li>
-         
+
           <!-- <li class="nav-item">
             <a [routerLink]="['/cart']" class="nav-link"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>
           </li> -->
 
           <li class="nav-item">
             <a
-              [routerLink]="['/profile']"
+              [routerLink]="['/profile/:userId']"
               class="nav-link"
               data-bs-toggle="dropdown"
               ><i class="fa-solid fa-user fa-xl"></i

@@ -1,5 +1,5 @@
 <section class="get-in-touch">
-  <h1 class="title">ADD PRODUCT</h1>
+
   <form class="contact-form row" #productForm="ngForm" (ngSubmit)="save()" novalidate>
     <div class="form-field col-lg-6">
       <input id="name" [(ngModel)]="productAdd.name" name="name" class="input-text js-input" type="text" required />
@@ -16,13 +16,73 @@
       <label class="label" for="price">Price</label>
     </div>
     <div class="form-field col-lg-6">
+      <input id="previousprice" [(ngModel)]="productAdd.previousprice" name="previousprice" class="input-text js-input" type="number" required
+        min="1" (input)="onPositiveNumber($event)" />
+      <label class="label" for="previousprice">Previous Price</label>
+    </div>
+    <!-- <div class="form-field col-lg-6">
       <input id="stock" [(ngModel)]="productAdd.stock" name="stock" class="input-text js-input" type="number" required
         min="1" (input)="onPositiveNumber($event)" />
-      <label class="label" for="stock">Stock number</label>
+      <label class="label" for="stock">Quantity</label>
+    </div> -->
+    <!-- <div class="form-field col-lg-6">
+      <input id="branch" [(ngModel)]="productAdd.branch" name="branch" class="input-text js-input" type="text"
+        required />
+      <label class="label" for="createdAt">Branch</label>
+    </div> -->
+
+    <div class="form-field col-lg-6">
+      <input 
+        id="quantity" 
+        [(ngModel)]="productAdd.stock" 
+        name="quantity" 
+        type="number" 
+        class="input-text js-input" 
+        required 
+        min="1" 
+        placeholder="Enter product quantity"
+        (blur)="checkBranchCapacity(productAdd.branch, productAdd.stock)" />
+      <label class="label" for="quantity">Quantity</label>
     </div>
-    <div class="form-field col-lg-12">
-      <select [(ngModel)]="productAdd.categoryid" name="category" class="form-select mt-3 w-25" id="category" required>
-        <option value="" disabled selected>Select a Category</option>
+    
+    <div class="form-field col-lg-6">
+      <input 
+        id="branches" 
+        [(ngModel)]="productAdd.branch" 
+        name="branches" 
+        class="input-text js-input" 
+        type="text" 
+        placeholder="Enter branch names (comma separated)" 
+        required 
+        (blur)="processBranchesInput(productAdd.branch)" />
+      <label class="label" for="branches">Branches</label>
+    </div>
+    
+    <!-- Display capacity errors -->
+    <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
+      <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
+    </div>
+
+    
+    
+    
+    
+    
+    
+
+    <div class="form-field col-lg-6">
+      <input id="flavor" [(ngModel)]="productAdd.flavor" name="flavor" class="input-text js-input" type="text"
+        required />
+      <label class="label" for="createdAt">flavor</label>
+    </div>
+    <div class="form-field col-lg-6">
+      <input id="createdAt" [(ngModel)]="productAdd.createdAt" name="createdAt" class="input-text js-input" type="date"
+        required />
+      <label class="label" for="createdAt">Created At</label>
+    </div>
+    <div class="form-field col-lg-12" style="color: #eeb928;">Select a Category
+      <select [(ngModel)]="productAdd.categoryid" name="category" class="form-select mt-3 w-25" id="category" required >
+        <option value="Select a Category" disabled selected>Select a Category</option>
         <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
       </select>
     </div>
@@ -31,22 +91,17 @@
         required />
       <label class="label" for="createdAt">flavor</label>
     </div>
-    <div class="input-container ic2 yellow"> Discount
+    <div class="input-container ic2 yellow" style="color: #eeb928;"> Discount
       <input id="discount" [(ngModel)]="productAdd.discounted" class="input" type="checkbox" name="discount" />
     </div>
 
-    <div class="form-field col-lg-6">
-      <input id="createdAt" [(ngModel)]="productAdd.createdAt" name="createdAt" class="input-text js-input" type="date"
-        required />
-      <label class="label" for="createdAt">Created At</label>
-    </div>
     <div class="col-lg-6" style="color: #5543ca;">
       <input id="img1" (change)="onFileSelected($event)" name="image1" class="m-1" type="file" accept="image/*"
         required /> Image 1
       <input id="img2" (change)="onFileSelected($event)" name="image2" class="m-1" type="file" accept="image/*"
         required /> Image 2
     </div>
-    
+
     <div class="form-field col-lg-12">
       <input class="submit-btn" type="submit" value="Submit" [disabled]="!productForm.valid" />
     </div>

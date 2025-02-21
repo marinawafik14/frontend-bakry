@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Products } from '../models/products';
 import { Seller } from '../models/seller';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,46 @@ updateProduct(pro: Products): Observable<Products> {
 getSellerStats(): Observable<Seller[]> {
   return this.http.get<Seller[]>(this.sellerState_url);
 }
+
+getProductBySellerId(id:string):Observable<any>  {
+  return this.http.get(`http://localhost:8000/products/seller/${id}`);
+}
+
+getSellerIdFromToken(): string | null {
+  const token = sessionStorage.getItem('tokenkey');  // Or from localStorage if needed
+  if (token) {
+    const decodedToken: any = jwtDecode(token);  // Use `jwt-decode` library to decode the JWT token
+    return decodedToken.userId;  // Assuming `userId` is the seller's ID in the token
+  }
+  return null;
+}
+
+getSellerInventory(sellerId: string): Observable<any[]> {
+  const token = sessionStorage.getItem('tokenkey');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+  // The backend should filter by sellerId (e.g. /branch-inventory?sellerId=xxx)
+  return this.http.get<any[]>(`http://localhost:8000/branch-inventory?sellerId=${sellerId}`, { headers });
+}
+
+
+getTotalOrders(sellerId: string): Observable<any> {
+  return this.http.get(`http://localhost:8000/seller/totalOrders/${sellerId}`);
+}
+
+getTotalProducts(sellerId: string): Observable<any> {
+  return this.http.get(`http://localhost:8000/seller/totalProducts/${sellerId}`);
+}
+
+getPendingProducts(sellerId: string): Observable<any> {
+  return this.http.get(`http://localhost:8000/seller/pendingProducts/${sellerId}`);
+}
+
+getTotalSales(sellerId: string): Observable<any> {
+  return this.http.get(`http://localhost:8000/seller/totalSales/${sellerId}`);
+}
+
 
 }

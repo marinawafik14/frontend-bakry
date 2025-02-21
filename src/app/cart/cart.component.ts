@@ -23,7 +23,6 @@ export class CartComponent implements OnInit{
   constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
     this.getUserId();
     this.getCartData();
-
   }
 
   private notyf = new Notyf({
@@ -48,6 +47,7 @@ export class CartComponent implements OnInit{
     this.checkQuantity(item.quantity, productId);
 
       this.updateCartQuantities();
+      this.getCartData();
 
   }
 
@@ -56,7 +56,10 @@ export class CartComponent implements OnInit{
       next: (res)=>{
        const stock = res.stock;
        if(quantity > stock)
+       {
+        this.notyf.error('Not enough stock available');
         this.quantityErrorMessage = true;
+       }
        else{
         this.quantityErrorMessage = false;
        }
@@ -66,17 +69,27 @@ export class CartComponent implements OnInit{
       }
     })
   }
-  removeCartItem(productId:string){
-      this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
-          next: (res)=>{
-            console.log(res);
-           this.getCartData();
-          },
-          error: (err)=>{
-            console.log(err);
-          }
-      })
 
+  removeCartItem(productId:string){
+    if (this.userId) {
+      // For logged-in user, make backend API call
+      this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
+        next: (res) => {
+          this.notyf.success("Remove Item successfully");
+          this.getCartData(); // Refresh cart data
+        },
+        error: (err) => {
+          this.notyf.error("Failed to remove item");
+          console.log(err);
+        }
+      });
+    } else {
+      // For guest user, remove item from localStorage
+      let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+      guestCart = guestCart.filter((item: any) => item.productId !== productId); // Remove item
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      this.getCartData(); // Refresh cart data
+    }
   }
 
   updateCartQuantities(){
@@ -85,6 +98,7 @@ export class CartComponent implements OnInit{
           .subscribe({
             next: (res)=>{
                 console.log(res);
+                // this.calculateTotal(); 
             },
             error: (err)=>{
               console.log(err);
@@ -92,19 +106,31 @@ export class CartComponent implements OnInit{
           })
       }
   }
-
+//************ */
+  // onQuantityChange() {
+  //   this.calculateTotal();
+  // }
+//************ */
   getCartData(){
-    this.cartServiceApi.getCartForUser(this.userId).subscribe({
-      next: (res)=>{
-        this.userId = res.data.userId
-        this.cartItems = res.data.items;
-        this.total = res.data.total
-        this.fetchProductData()
-      },
-      error: (err)=>{
-        console.log(err.error);
-      }
-    })
+    if (this.userId) {
+      this.cartServiceApi.getCartForUser(this.userId).subscribe({
+        next: (res) => {
+          this.userId = res.data.userId;
+          this.cartItems = res.data.items;
+          this.total = res.data.total;
+          this.fetchProductData();
+        },
+        error: (err) => {
+          console.log(err.error);
+        }
+      });
+    } else {
+      // For guest users, load cart from localStorage
+      const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+      this.cartItems = guestCart;
+      // this.total = this.calculateTotal(guestCart);
+      this.fetchProductData();
+    }
   }
 
   fetchProductData(){
@@ -130,18 +156,25 @@ export class CartComponent implements OnInit{
       this.quantityErrorMessage = false;
   }
 
-  clearCart(){
-    console.log('clear cart');
-    this.cartServiceApi.clearCart(this.userId).subscribe({
-        next:(res)=>{
-          console.log(res);
-          this.getCartData()
+  clearCart() {
+    this.notyf.success("Clearing cart...");
+    if (this.userId) {
+      this.cartServiceApi.clearCart(this.userId).subscribe({
+        next: (res) => {
+          this.getCartData();
+          this.notyf.success("Cart cleared successfully");
         },
-        error:(err)=>{
-            console.log(err);
+        error: (err) => {
+          console.log(err);
+          this.notyf.error("Failed to clear cart");
         }
-    })
+      });
+    } else {
+      localStorage.removeItem("guestCart");
+      this.getCartData();
+    }
   }
+  
 
   getUserId(){
     this.decodedToken = this._authServie.getDecodedToken();
@@ -174,10 +207,10 @@ export class CartComponent implements OnInit{
     Swal.fire({
       icon: "error",
       title: "No account found.",
-      text: "Please sign up or log in to continue.",
+      text: "Please sign up and log in to continue.",
     }).then(()=>{
       setTimeout(()=>{
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/register');
           }, 2000)
     })
   }
@@ -202,5 +235,19 @@ export class CartComponent implements OnInit{
     // });
     this.notyf.error("Your Cart is Empty");
   }
+
+  // calculateTotal(cartItems: any[]): number {
+  //   let total = 0;
+  //   cartItems.forEach(item => {
+  //     total += item.quantity * item.price;  // Multiply quantity by price for each item
+  //   });
+  // calculateTotal(): number {
+  //   let total = 0;
+  //   this.cartItems.forEach(item => {
+  //     total += item.quantity * item.price;
+  //   });
+
+  //   return total;
+  // }
 
 }

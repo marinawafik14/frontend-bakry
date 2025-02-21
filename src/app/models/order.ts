@@ -6,7 +6,7 @@ export class Order {
   public customerId: string;
   public paymentMethod: string; // Renamed from payment
   public paymentCode: string; // Renamed from promoCode
-  public totalAmount: string; // Renamed from total
+  public totalAmount: number; // Renamed from total
   public items: { productId: string; quantity: number; price: number }[]; // Item structure
   public shippingAddress: { governorate: string; city: string };
 
@@ -17,7 +17,7 @@ export class Order {
     customerId: string,
     addressdetails: string,
     items: { productId: string; quantity: number; price: number }[],
-    totalAmount: string, // Renamed from total
+    totalAmount: number, // Renamed from total
     paymentMethod: string, // Renamed from payment
     paymentCode: string, // Renamed from promoCode
     shippingAddress: { governorate: string; city: string }

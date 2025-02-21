@@ -1,9 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
 body {
-  background: linear-gradient(to right, #25c481, #25b7c4);
+  /*background: linear-gradient(to right, #25c481, #25b7c4);*/
+  background-color: goldenrod;
   font-family: 'Roboto', sans-serif;
-  font-size: 30px;
+  font-size: 32px;
+  background: linear-gradient(to right, #e4c309, #8d860d,#f3be10);
+ font-weight: bold;
+
 }
 
 section {
@@ -21,7 +25,7 @@ h1 {
 }
 
 table {
-  width: 100%;
+  /* width: 10%; */
   border-collapse: collapse;
   table-layout: fixed;
 
@@ -42,17 +46,17 @@ th, td {
   width: 150px;
   padding: 15px;
   text-align: left;
-  font-weight: 300;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 17px;
   color: #ffffff;
   border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
 th {
   font-weight: 500;
-  font-size: 17px;
+  font-size: 20px;
   text-transform: uppercase;
-  color: black;
+  color: rgb(3, 77, 55);
 }
 
 tbody tr:nth-child(even) {
@@ -72,3 +76,14 @@ tbody tr:hover {
   border-radius: 4px;
 }
 
+.btndash{
+  border: none;
+background-color: #F0A04B;
+color: white;
+font-size: 16px;
+padding: 5px 10px;
+margin-bottom: 10px;
+}
+.btndash:hover{
+  background-color: #DF9755;
+}

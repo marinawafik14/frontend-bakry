@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { User } from '../../_models/user';
 import { CommonModule } from '@angular/common';
@@ -17,72 +17,62 @@ export class AdminUsersComponent implements OnInit {
   selectedRoles: string[] = [];
   availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
 
-  constructor(private _adminUsersApi: AdminUserApiService) {}
+    constructor(private _adminUsersApi: AdminUserApiService) {}
 
-  ngOnInit(): void {
-    this.getAllUsers();
-  }
-
-  getAllUsers(): void {
-    this._adminUsersApi.getAllUsers().subscribe({
-      next: (res) => {
-        if (res && res.users) {
-          this.users = res.users;
-          this.filteredUsers = res.users;
-        } else {
-          console.error('Unexpected API response format:', res);
-        }
-      },
-      error: (err) => {
-        console.log(err.error);
-      },
-    });
-  }
-
-  toggleRoleFilter(role: string, event: any): void {
-    if (event.target.checked) {
-      this.selectedRoles.push(role);
-    } else {
-      this.selectedRoles = this.selectedRoles.filter((r) => r !== role);
+    ngOnInit(): void {
+        this.getAllUsers();
+        
     }
-    this.filterUsers();
-  }
 
-  filterUsers(): void {
-    if (this.selectedRoles.length === 0) {
-      this.filteredUsers = this.users;
-    } else {
-      this.filteredUsers = this.users.filter((user) =>
-        this.selectedRoles.includes(user.role)
-      );
-    }
-  }
-
-  removeUser(userId: any) {
-    Swal.fire({
-      title: 'Are you sure you want to delete this user?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete User!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._adminUsersApi.removeUser(userId).subscribe({
+    getAllUsers(): void {
+        
+      this._adminUsersApi.getAllUsers().subscribe({
           next: (res) => {
-            Swal.fire({
-              title: 'Removed!',
-              text: res.message,
-              icon: 'success',
-            });
-            this.getAllUsers();
+              console.log("API Response:", res);
+              if (res && res.users) {
+                  this.users = res.users;
+                  console.log(this.users[4]);
+                  
+              } else {
+                  console.error("Unexpected API response format:", res);
+              }
           },
           error: (err) => {
-            Swal.fire(`${err.error.message}`);
-          },
-        });
-      }
-    });
+              console.log(err.error);
+          }
+      });
+  }
+
+  removeUser(userId:any){
+    Swal.fire({
+        title: "Are you sure u want to delete this user?",
+        // text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete User!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            console.log('deleted');
+            this._adminUsersApi.removeUser(userId).subscribe({
+                next: (res)=>{
+                    console.log(res);
+                    Swal.fire({
+                        title: "Removed!",
+                        text: res.message,
+                        icon: "success"
+                      });
+                      this.getAllUsers();
+                },
+                error: (err)=>{                    
+                    Swal.fire(`${err.error.message}`);
+                        
+                }
+            })
+        }
+      });
+   
   }
 
   getRoleClass(role: string): string {
@@ -98,5 +88,6 @@ export class AdminUsersComponent implements OnInit {
       default:
         return 'status-active';
     }
-  }
+}
+  
 }

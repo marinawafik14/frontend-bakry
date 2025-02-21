@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
 import {
   FormGroup,
   FormControl,
@@ -153,3 +155,5 @@ export class RegisterComponent {
     return this.Userregisterform.get('confirmPassword');
   }
 }
+
+

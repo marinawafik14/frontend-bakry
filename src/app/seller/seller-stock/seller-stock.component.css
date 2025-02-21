@@ -1,0 +1,16 @@
+
+th {
+    background-color: #e6dc9c;
+}
+
+td {
+    border: 1px solid #ddd9bf;
+}
+
+.table-danger {
+    background-color: #e4999f !important;
+    font-style: italic;
+}
+
+
+  

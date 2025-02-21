@@ -1,10 +1,10 @@
-<br><br><br><br>
-<div class="container">
-  <div class="row ">
+<div class="container mt-4">
+  <h2>Welcome to your Seller Dashboard!</h2>
+  <div class="row">
     <!-- Start Order Card -->
     <div class="col-6  col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-cherry  ">
-        <div class="card-statistic-3 p-4" style="background-color: rgba(138, 238, 137, 0.96);">
+        <div class="card-statistic-3 p-4" style="background-color: #640D5F;">
           <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart fa-xl"></i></div>
           <div class="mb-4">
             <h6 class="card-title mb-0">Orders</h6>
@@ -12,69 +12,70 @@
           <div class="row align-items-center mb-2 d-flex">
             <div class="col-8">
               <h2 id="OrderCard" class="d-flex align-items-center mb-0">
-                3,243
+                {{ totalOrders | number }}
               </h2>
             </div>
           </div>
-          <div class="progress mt-1 " data-height="8" style="height: 8px;">
-            <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0"
-              aria-valuemax="100" style="width: 25%;"></div>
+          <div class="progress mt-1" data-height="8" style="height: 8px;">
+            <div class="progress-bar l-bg-cyan" role="progressbar" [style.width]="progressOrders + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
     </div>
     <!-- End Order Card -->
-    <!-- Start Customers Card -->
-    <div class="col-6  col-xl-3 NewcardStyle">
+
+    <!-- Start Products Card -->
+    <div class="col-6 col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-blue-dark">
         <div class="card-statistic-3 p-4" style="background-color: rgb(248, 170, 25);">
-          <div class="card-icon card-icon-large"><i class="fa fa-cubes fa-xl "></i></div>
+          <div class="card-icon card-icon-large">
+            <i class="fa fa-cubes fa-xl"></i>
+          </div>
           <div class="mb-4">
-            <h6 class="card-title mb-0 "> Products</h6>
+            <h6 class="card-title mb-0">Products</h6>
           </div>
           <div class="row align-items-center mb-2 d-flex">
             <div class="col-8">
               <h2 id="ProductsCard" class="d-flex align-items-center mb-0">
-                15.07k
+                {{ totalProducts | number }}
               </h2>
             </div>
           </div>
-          <div class="progress mt-1 " data-height="8" style="height: 8px;">
-            <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25"
-              aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+          <div class="progress mt-1" data-height="8" style="height: 8px;">
+            <div class="progress-bar l-bg-green" role="progressbar" [style.width]="progressProducts + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Customers Card -->
-    <!-- Start Ticket Resolved Card -->
-    <div class="col-6  col-xl-3 NewcardStyle">
+    <!-- End Products Card -->
+
+    <!-- Start Pending Products Card -->
+    <div class="col-6 col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-orange-dark">
-        <div class="card-statistic-3 p-4" style="background-color:#25b7c4;">
+        <div class="card-statistic-3 p-4" style="background-color:#D91656;">
           <div class="card-icon card-icon-large"><i class="fas fa-cube"></i></div>
           <div class="mb-4">
-            <h6 class="card-title mb-0 "> Pending Products</h6>
+            <h6 class="card-title mb-0">Pending Products</h6>
           </div>
           <div class="row align-items-center mb-2 d-flex">
             <div class="col-8">
               <h2 id="PendingProducts" class="d-flex align-items-center mb-0">
-                578
+                {{ pendingProducts | number }}
               </h2>
             </div>
-
           </div>
-          <div class="progress mt-1 " data-height="8" style="height: 8px;">
-            <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
-              aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+          <div class="progress mt-1" data-height="8" style="height: 8px;">
+            <div class="progress-bar l-bg-orange" role="progressbar" [style.width]="progressPending + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
     </div>
-    <!-- End Ticket Resolved Card -->
+    <!-- End Pending Products Card -->
+
     <!-- Start Sales Card -->
-    <div class="col-6  col-xl-3 NewcardStyle">
+    <div class="col-6 col-xl-3 NewcardStyle">
       <div class="shadow card l-bg-green-dark">
-        <div class="card-statistic-3 p-4" style="background-color:#25c481;">
+        <div class="card-statistic-3 p-4" style="background-color:#EB5B00;">
           <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
           <div class="mb-4">
             <h6 class="card-title mb-0">Total Sales</h6>
@@ -82,14 +83,12 @@
           <div class="row align-items-center mb-2 d-flex">
             <div class="col-8">
               <h2 id="TotalSalesCard" class="d-flex align-items-center mb-0">
-                $11.61k
+                ${{ totalSales | number: '1.0-0' }}
               </h2>
             </div>
-
           </div>
-          <div class="progress mt-1 " data-height="8" style="height: 8px;">
-            <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0"
-              aria-valuemax="100" style="width: 25%;"></div>
+          <div class="progress mt-1" data-height="8" style="height: 8px;">
+            <div class="progress-bar l-bg-cyan" role="progressbar" [style.width]="progressSales + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       </div>
@@ -98,31 +97,45 @@
   </div>
 </div>
 
-<div id="Inputs" class="row mt-5 mb-3">
-  <!-- Inputs Section  -->
-  <div class="col-md-4 col-sm-12 mb-2">
-    <input type="number" name="RowCount"  [(ngModel)]="rowCount" id="ProductCounterInput" value="10" min="1"
-      class="form-control border-1 border-black" placeholder="Rows per page" (input)="onPositiveNumber($event)">
-  </div>
-  <div class="col-md-4 col-sm-12 mb-2">
-    <input type="text" name="Search" id="ProductsearchInput" class="form-control  border-1 border-black "
-      placeholder="Search">
-  </div>
-  <div class="col-md-4 col-sm-12">
-    <a [routerLink]="['/dashboard/chart-seller']"   id="chart" class="form-control btn  btn-success border-1 border-black"
+<div id="Inputs" class="row mt-5 mb-3 container" style="margin: auto;">
+
+  <div class=" col-6 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard/chart-seller']"  id="chart" class="form-control btn  btndash w-75"
       data-bs-toggle="modal" data-bs-target="">Chart</a>
   </div>
-  <div class="col-md-4 col-sm-12">
-    <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn  btn-success border-1 border-black"
+  <div class=" col-6 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn btndash w-75"
       data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
+  </div>
+  <div class="col-6 col-md-3 col-sm-12 ">
+    <a [routerLink]="['/dashboard/orders/', sellerId]"   id="orders" class="form-control btn  btndash w-75"
+      data-bs-toggle="modal" data-bs-target="#orderstModal">Orders</a>
+  </div>
+  <div class="col-12 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard/stock/', sellerId]"   id="stock" class="form-control btn  btndash w-75"
+      data-bs-toggle="modal" data-bs-target="#stockModal">Stock</a>
   </div>
 
 </div>
 
-<body>
-
+<div id="Inputs2" class="row mt-5 mb-3">
   <!-- Table Header -->
-  <h1>Products</h1>
+
+  <div class="col-md-1 col-sm-12 mb-1"></div>
+  <div class="col-md-2 col-sm-12 mb-1">
+    <input type="number" name="RowCount"  [(ngModel)]="rowCount" id="ProductCounterInput" value="10" min="1"
+      class="form-control border-1 border-black" placeholder="Rows per page" (input)="onPositiveNumber($event)">
+  </div>
+  <div class="col-md-4 col-sm-12 mb-1"></div>
+  <div class="col-md-4 col-sm-12 mb-1">
+    <input type="text" name="Search" id="ProductsearchInput" class="form-control border-1 border-black"
+  placeholder="Search" [(ngModel)]="searchTerm">
+
+  </div>
+  <div class="col-md-2 col-sm-12 mb-2"></div>
+</div>
+<body>
+  <h1 class="p-2">Products</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -130,13 +143,12 @@
 
           <th (click)="sortTable('name')" style="cursor: pointer;">Name</th>
           <th (click)="sortTable('description')" style="cursor: pointer;">Description</th>
+          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
           <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
+          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
           <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th>
           <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
           <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
-          <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
-          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
-          <th >Seller Name</th>
           <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
           <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
           <th >Status</th>
@@ -146,31 +158,32 @@
       </thead>
       <tbody>
 
-        <tr *ngFor="let item of selectedPro.slice(0,rowCount)">
+        <!-- <tr *ngFor="let item of selectedPro.slice(0,rowCount)"> -->
+          <tr *ngFor="let item of filteredProducts().slice(0, rowCount)">
 
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
+          <td>{{item.previousprice}}</td>
           <td>{{item.price}}</td>
+          <td>{{item.discounted}}</td>
           <td>{{item.stock}}</td>
-          <td>{{item.category}}</td>
+          <td>{{ getCategoryName(item.categoryid) }}</td>
           <td>{{item.flavor}}</td>
           <td>{{item.discounted}}</td>
           <td>{{item.previousprice}}</td>
-          <td>seller name</td>
+          <td>{{ getSellerName(item.sellerId)}}</td>
 
             <td>
               <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
             </td>
-
-
           <td>{{item.createdAt}}</td>
-          <td>status</td>
+          <td>{{item.status}}</td>
           <td>
             <i class="fa-solid fa-trash fa-xl" (click)="delete(item._id)" style="color: #dc0909; cursor: pointer;"></i>
           </td>
           <td>
             <i class="fa-solid fa-pen fa-xl" [routerLink]="['/dashboard/update',item._id]"
-              style="color: #d5d813; cursor: pointer;"></i>
+              style="color: #f5530d; cursor: pointer;"></i>
           </td>
         </tr>
 

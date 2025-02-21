@@ -4,9 +4,10 @@
   margin-top: 10%;
   margin-bottom: 5%;
   width: 70%;
-  background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+  /*background: -webkit-linear-gradient(left, #0072ff, #00c6ff);*/
+  background-color: rgba(218, 165, 32, 0.567);
   border-radius: 20px;
-  
+
 }
 .contact-form .form-control{
   border-radius:1rem;
@@ -30,7 +31,7 @@
   margin-bottom: 8%;
   margin-top: -10%;
   text-align: center;
-  color: #0062cc;
+  color: #37320d;
 
 }
 .contact-form .btnContact {
@@ -38,7 +39,7 @@
   border: none;
   border-radius: 1rem;
   padding: 1.5%;
-  background: #0f4fa4;
+  background:#37320d;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -49,7 +50,7 @@
   border-radius: 1rem;
   padding: 1.5%;
   color: #fff;
-  background-color: #00cc88;
+  background-color: #e9da35;
   border: none;
   cursor: pointer;
 }

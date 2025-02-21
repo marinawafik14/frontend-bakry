@@ -17,7 +17,7 @@ import { OrderTo } from '../../models/orderTo';
 })
 export class ProductosComponent implements OnInit {
   products: ProductToAdmin[] = [];
-  orders:OrderTo[] = [];
+  orders: OrderTo[] = [];
   filteredProducts: ProductToAdmin[] = [];
   sortColumn: string = '';
   sortDirection: boolean = true;
@@ -34,13 +34,18 @@ export class ProductosComponent implements OnInit {
     { prop: 'createdAt', name: 'Created At' },
   ];
 
-  constructor(public productservice: ProductService , public orderservice:OrdersService ) {}
+  constructor(
+    public productservice: ProductService,
+    public orderservice: OrdersService
+  ) {}
   ngOnInit(): void {
     this.productservice.getAllProductsToadmin().subscribe({
       next: (data: ProductToAdmin[]) => {
         this.products = data;
         this.filteredProducts = data;
         console.log('Products fetched:', this.products);
+        console.log(this.filteredProducts);
+        console.log(this.products);
       },
       error: (err) => {
         console.error('Error fetching products', err);
@@ -48,15 +53,14 @@ export class ProductosComponent implements OnInit {
     });
 
     // Load orders for checking pending status
-  this.orderservice.getallordersP().subscribe({
-    next: (response) => {
-      this.orders = response.order; // Access the nested order array
-    },
-    error: (err) => {
-      console.error('Error fetching orders', err);
-    },
-  });
-
+    this.orderservice.getallordersP().subscribe({
+      next: (response) => {
+        this.orders = response.order; // Access the nested order array
+      },
+      error: (err) => {
+        console.error('Error fetching orders', err);
+      },
+    });
   }
 
   applyFilter(): void {
@@ -102,13 +106,11 @@ export class ProductosComponent implements OnInit {
     return String(value);
   }
 
-
-
   deleteProduct(productId: string): void {
     const isInPendingOrder = this.orders.some(
       (order) =>
         order.orderStatus === 'pending' &&
-        order.items.some(item => item.productId === productId)
+        order.items.some((item) => item.productId === productId)
     );
 
     if (isInPendingOrder) {
@@ -131,7 +133,9 @@ export class ProductosComponent implements OnInit {
           this.productservice.Deleteproductbyid(productId).subscribe({
             next: () => {
               Swal.fire('Deleted!', 'Product has been deleted.', 'success');
-              this.products = this.products.filter(product => product._id !== productId);
+              this.products = this.products.filter(
+                (product) => product._id !== productId
+              );
               this.filteredProducts = [...this.products]; // Update the list
             },
             error: (err) => {
@@ -143,10 +147,95 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-
-  // will change status of product 
-  approve(){
-
+  // to approve product
+  approve(_id: string) {
+    this.productservice.getProductById(_id).subscribe((product) => {
+      if (product.status === 'Approved') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Already Approved',
+          text: 'This product is already approved.',
+          confirmButtonText: 'OK',
+        });
+      } else {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to approve this product?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, approve it!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.productservice.changeproductStatus(_id, 'Approved').subscribe(
+              (updatedProduct) => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Approved!',
+                  text: `The product "${updatedProduct.name}" is now approved.`,
+                });
+              },
+              (error) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'Failed to update the product status.',
+                });
+              }
+            );
+          }
+        });
+      }
+    });
   }
 
+  reject(_id: string) {
+    this.productservice.getProductById(_id).subscribe((product) => {
+      if (product.status === 'Rejected') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Already Rejected',
+          text: 'This product is already rejected.',
+          confirmButtonText: 'OK',
+        });
+      } else if (product.status === 'Out of Stock') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Action Not Allowed',
+          text: "You can't reject this product because it's out of stock.",
+          confirmButtonText: 'OK',
+        });
+      } else {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to reject this product?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Yes, reject it!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.productservice.changeproductStatus(_id, 'Rejected').subscribe(
+              (updatedProduct) => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Rejected!',
+                  text: `The product "${updatedProduct.name}" is now rejected.`,
+                });
+              },
+              (error) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'Failed to update the product status.',
+                });
+              }
+            );
+          }
+        });
+      }
+    });
+  }
 }
