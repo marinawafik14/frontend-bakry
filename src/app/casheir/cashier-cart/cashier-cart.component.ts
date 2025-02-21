@@ -46,10 +46,20 @@ export class CashierCartComponent implements OnInit{
     this.checkQuantity(item.quantity, productId);
 
       this.updateCartQuantities();
-      this.getCartData();
+      this.updateTotal();
 
   }
-
+  updateTotal(){
+    this.cartServiceApi.getCartForUser(this.userId).subscribe({
+      next: (res) => {
+        this.total = res.data.total;
+      },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
+  
+}
   checkQuantity(quantity:number ,productId:string){
     this.cartServiceApi.getProuctById(productId).subscribe({
       next: (res)=>{
