@@ -146,9 +146,10 @@
           <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
           <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
           <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
-          <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th>
+          <!-- <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th> -->
           <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
           <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
+          <th style="cursor: pointer;">Seller Name</th>
           <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
           <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
           <th >Status</th>
@@ -166,11 +167,8 @@
           <td>{{item.previousprice}}</td>
           <td>{{item.price}}</td>
           <td>{{item.discounted}}</td>
-          <td>{{item.stock}}</td>
           <td>{{ getCategoryName(item.categoryid) }}</td>
           <td>{{item.flavor}}</td>
-          <td>{{item.discounted}}</td>
-          <td>{{item.previousprice}}</td>
           <td>{{ getSellerName(item.sellerId)}}</td>
 
             <td>
