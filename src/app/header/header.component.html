@@ -90,6 +90,10 @@
           </li>
 
           <li class="nav-item">
+            <a [routerLink]="['/cashier']" routerLinkActive="router-link-active" class="nav-link">Cashier</a>
+          </li>
+
+          <li class="nav-item">
             <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link">Admin</a>
           </li>
 
@@ -111,8 +115,7 @@
               class="nav-link"
               data-bs-toggle="dropdown"
               ><i class="fa-solid fa-cart-shopping fa-xl"></i>
-              <span class="cart-count">{{ cartCount }}</span></a
-            >
+              <span class="cart-count">{{ cartCount }}</span></a>
           </li>
           <!-- <li class="nav-item">
             <a (click)="logout()" class="nav-link" title="Logout">

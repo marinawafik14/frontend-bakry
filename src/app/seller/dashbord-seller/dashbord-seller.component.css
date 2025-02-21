@@ -6,13 +6,13 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 32px;
   background: linear-gradient(to right, #e4c309, #8d860d,#f3be10);
- font-weight: bold;
-
+  font-weight: bold;
+  width: 90%;
+  margin: auto;
 }
 
 section {
   margin: 50px;
-
 }
 
 h1 {

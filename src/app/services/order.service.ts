@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from '../models/order';
 import { Observable } from 'rxjs/internal/Observable';
@@ -52,6 +52,28 @@ changeOrderStatus(_id: string, status: string): Observable<orderToAdmin> {
 getOrdersBySellerId(sellerId: string): Observable<any> {
   return this.http.get(`http://localhost:8000/dashboard/orders/${sellerId}`);
 }
+
+createOrder(orderData: any): Observable<any> {
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  return this.http.post<any>(`http://localhost:8000/order`, orderData, { headers });
+}
+
+clearCashierCart(token: string): Observable<any> {
+  const headers = { Authorization: `Bearer ${token}` };
+  return this.http.post<any>(`http://localhost:8000/cashier/clear-cart`, {}, { headers });  // Assuming you're sending the token for authentication
+}
+
+// clearCartInToken(token: string): Observable<any> {
+//   const headers = { Authorization: `Bearer ${token}` };  // Attach the token for authorization
+//   return this.http.post<any>(`http://localhost:8000/clear-cart-token`, {}, { headers });
+// }
+
+// removeFromCart(productId: string, quantity: number): Observable<any> {
+//   const token = sessionStorage.getItem('tokenkey');
+//   const headers = { Authorization: `Bearer ${token}` };
+
+//   return this.http.delete<any>(`http://localhost:8000/cart/items/${productId}?quantity=${quantity}`, { headers });
+// }
 
 
 

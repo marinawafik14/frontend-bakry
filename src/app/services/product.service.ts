@@ -126,16 +126,13 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
     );
   }
 
-  // createProduct(std:Products):Observable<Products>{
-  //   return this.http.post<Products>(this.apiUrl, std)
-  // }
-
   createProduct(formData: FormData) {
-    return this.http.post(this.createpro_url, formData, {
-      headers: new HttpHeaders({
-        // Remove `Content-Type` because Angular sets it automatically for FormData
-      }),
-    });
+    const token = sessionStorage.getItem('tokenkey');
+    if (!token) {
+      throw new Error("Unauthorized: No token found");
+    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.createpro_url, formData, { headers });
   }
 
     checkBranchCapacity(branchName: string, quantity: number): Observable<any> {

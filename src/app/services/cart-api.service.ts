@@ -126,15 +126,15 @@ cartCount$ = this.cartCount.asObservable();
     }
 
     loadCartCount() {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('tokenkey'); 
       if (token) {
-        const decodedToken: any = JSON.parse(atob(token.split('.')[1])); // Decode token
-        this.cartCount.next(decodedToken.cartItems?.length || 0);
+        const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
+        this.cartCount.next(decodedToken.cartItems?.length || 0); 
       } else {
-        // If no token, check guest cart in localStorage
         const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
-        this.cartCount.next(guestCart.length);
+        this.cartCount.next(guestCart.length); 
       }
     }
+    
 }
 

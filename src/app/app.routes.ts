@@ -23,7 +23,13 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
 import { TestComponent } from './admin/test/test.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CashierCategoryComponent } from './casheir/cashier-category/cashier-category.component';
+import { CashierProductsComponent } from './casheir/cashier-products/cashier-products.component';
+import { CashierCartComponent } from './casheir/cashier-cart/cashier-cart.component';
+import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-checkout.component';
+import { InventoryComponent } from './admin/inventory/inventory.component';
 import { BranchesComponent } from './admin/branches/branches.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,10 +43,10 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
-  // {path:"category/cookies",component:ProductsComponent},
-  // {path:"category/cakes",component:CakesComponent},
-  // {path:"category/cupcakes",component:CupcakesComponent},
-
+  { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
+  {path: 'cashier/category/:name', component:CashierProductsComponent},
+  {path: 'cashier/cashier-cart', component:CashierCartComponent},
+  {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
   {
     path: 'dashboard',
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
@@ -54,6 +60,7 @@ export const routes: Routes = [
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
+  {path:'inventory' , component:InventoryComponent},
   {path:'test' , component:TestComponent},
   {path:'admin/branch/:id', component:BranchesComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},

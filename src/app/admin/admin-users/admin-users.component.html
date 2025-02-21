@@ -4,6 +4,9 @@
     <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       Role
     </button>
+     <ul class="dropdown-menu" role="menu">
+        <li *ngFor="let role of availableRoles">
+=======
     <ul class="dropdown-menu" role="menu">
         <li>
             <label class="dropdown-item">
@@ -17,10 +20,12 @@
       <li><a class="dropdown-item" (click)="getUserRole('Admin')">Admins</a></li>
       <li><a class="dropdown-item" (click)="getUserRole('Cashier')">Cashiers</a></li>
     </ul>
+<<<<<<< HEAD
+  </div>
+=======
   </div> -->
-
-
-    <div class="table-responsive table-bordered">
+  
+  <div class="table-responsive table-bordered">
         <table class="table table-hover">
             <thead class="table-danger text-white">
               <tr class>

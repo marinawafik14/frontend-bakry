@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { AuthService } from './services/auth.service';
-
-
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 @Component({
   standalone:true,
   selector: 'app-root',
