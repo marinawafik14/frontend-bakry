@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Order Summary</h2>
+    
+    <!-- Cart Items Section -->
+    <div class="cart-items">
+      <div *ngFor="let item of cartItems" class="cart-item row">
+        <div class="col-md-8">
+          <div class="cart-item-details">
+            <img [src]="item.image" alt="{{ item.productName }}" class="cart-item-image" />
+            <div>
+              <h5>{{ item.productName }}</h5>
+              <p>{{ item.quantity }} x ${{ item.price }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <p class="item-total">${{ item.price * item.quantity }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <hr>
+  
+    <!-- Order Summary Section -->
+    <div class="order-summary">
+      <div class="row">
+        <div class="col-md-8">
+          <h4>Subtotal</h4>
+        </div>
+        <div class="col-md-4 text-end">
+          <p>${{ subtotal }}</p>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-8">
+          <h4>Shipping</h4>
+        </div>
+        <div class="col-md-4 text-end">
+          <p>${{ shipping }}</p>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-8">
+          <h4>Total</h4>
+        </div>
+        <div class="col-md-4 text-end">
+          <h4 class="total-amount">${{ totalAmount }}</h4>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <label for="paymentMethod">Select Payment Method:</label>
+        <select id="paymentMethod" [(ngModel)]="paymentMethod">
+          <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+        </select>
+      </div>
+  
+      <hr>
+  
+      <!-- Proceed to Checkout Button -->
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-warning btn-lg w-100" (click)="completePurchase()">Complete Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
