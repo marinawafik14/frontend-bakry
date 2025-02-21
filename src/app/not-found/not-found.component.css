@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .error-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-title {
+    font-size: 72px;
+    color: goldenrod;
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .error-image img {
+    width: 200px;
+    margin-bottom: 30px;
+  }
+  
+  .home-button {
+    background-color: goldenrod;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .home-button:hover {
+    background-color: goldenrod;
+  }
+  

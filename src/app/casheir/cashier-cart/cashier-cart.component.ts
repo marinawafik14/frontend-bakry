@@ -1,20 +1,19 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { CartApiService } from '../services/cart-api.service';
-import { Router } from '@angular/router';
+import { CartApiService } from '../../services/cart-api.service';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
 @Component({
-  selector: 'app-cart',
-  imports:[FormsModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  selector: 'app-cashier-cart',
+  imports: [FormsModule, RouterLink],
+  templateUrl: './cashier-cart.component.html',
+  styleUrl: './cashier-cart.component.css'
 })
-export class CartComponent implements OnInit{
+export class CashierCartComponent implements OnInit{
   userId:string = ""
   cartItems:any[] = []
   total:number = 0
@@ -198,7 +197,7 @@ export class CartComponent implements OnInit{
 
     }
     else{
-         this.router.navigateByUrl('/checkout')
+      this.router.navigate(['/cashier/cashier-checkout'], { queryParams: { cartItems: JSON.stringify(this.cartItems) } });
     }
 
   }
@@ -216,38 +215,7 @@ export class CartComponent implements OnInit{
   }
 
   cartIsEmpty(){
-    // Swal.fire({
-    //   title: "Your Cart is Empty",
-    //   showClass: {
-    //     popup: `
-    //       animate__animated
-    //       animate__fadeInUp
-    //       animate__faster
-    //     `
-    //   },
-    //   hideClass: {
-    //     popup: `
-    //       animate__animated
-    //       animate__fadeOutDown
-    //       animate__faster
-    //     `
-    //   }
-    // });
     this.notyf.error("Your Cart is Empty");
   }
-
-  // calculateTotal(cartItems: any[]): number {
-  //   let total = 0;
-  //   cartItems.forEach(item => {
-  //     total += item.quantity * item.price;  // Multiply quantity by price for each item
-  //   });
-  // calculateTotal(): number {
-  //   let total = 0;
-  //   this.cartItems.forEach(item => {
-  //     total += item.quantity * item.price;
-  //   });
-
-  //   return total;
-  // }
 
 }

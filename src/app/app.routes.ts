@@ -23,6 +23,10 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
 import { TestComponent } from './admin/test/test.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CashierProductsComponent } from './casheir/cashier-products/cashier-products.component';
+import { CashierCategoryComponent } from './casheir/cashier-category/cashier-category.component';
+import { CashierCartComponent } from './casheir/cashier-cart/cashier-cart.component';
+import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-checkout.component';
 import { InventoryComponent } from './admin/inventory/inventory.component';
 
 export const routes: Routes = [
@@ -37,10 +41,10 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
-  // {path:"category/cookies",component:ProductsComponent},
-  // {path:"category/cakes",component:CakesComponent},
-  // {path:"category/cupcakes",component:CupcakesComponent},
-
+  { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
+  {path: 'cashier/category/:name', component:CashierProductsComponent},
+  {path: 'cashier/cashier-cart', component:CashierCartComponent},
+  {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
   {
     path: 'dashboard',
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
