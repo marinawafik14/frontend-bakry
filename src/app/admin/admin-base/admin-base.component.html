@@ -30,21 +30,17 @@
               <span class="ms-1 d-none d-sm-inline">Dashboard</span>
             </a>
             <ul
-              class="collapse show nav flex-column ms-1"
-              id="submenu1"
-              data-bs-parent="#menu"
-            >
-              <li class="w-100">
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Item</span> 1
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Item</span> 2
-                </a>
-              </li>
-            </ul>
+  class="collapse show nav flex-column ms-1"
+  id="submenu1"
+  data-bs-parent="#menu"
+>
+  <li *ngFor="let branch of branches" class="w-100">
+    <a [routerLink]="['admin/branch',branch._id]" class="nav-link px-0">
+      <span class="d-none d-sm-inline">{{ branch.name }}</span>
+    </a>
+  </li>
+</ul>
+
           </li>
           <li >
             <a [routerLink]="'/admin/orders'" href="#"  class="nav-link px-0 align-middle">

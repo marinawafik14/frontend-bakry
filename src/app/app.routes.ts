@@ -23,6 +23,7 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { ProductosComponent } from './admin/products/products.component';
 import { TestComponent } from './admin/test/test.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { BranchesComponent } from './admin/branches/branches.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,6 +55,7 @@ export const routes: Routes = [
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
   {path:'test' , component:TestComponent},
+  {path:'admin/branch/:id', component:BranchesComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"dashboard"}
 ]},
