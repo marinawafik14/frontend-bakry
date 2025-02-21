@@ -16,9 +16,7 @@
             "outputPath": "dist/ecomerce-bakery",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -34,7 +32,9 @@
               "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
               "node_modules/datatables.net-dt/css/dataTables.dataTables.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "src/styles.css"
+              "src/styles.css",
+              "https://cdn.jsdelivr.net/npm/@swimlane/ngx-datatable@20.0.0/themes/material.css",
+              "https://cdn.jsdelivr.net/npm/@swimlane/ngx-datatable@20.0.0/assets/icons.css"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.min.js",
@@ -91,10 +91,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {

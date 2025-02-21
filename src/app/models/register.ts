@@ -1,4 +1,5 @@
 export class register {
+  [x: string]: any;
   public firstname?: string;
   public lastname?: string;
   public email?: string;

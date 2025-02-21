@@ -46,8 +46,6 @@ export class AdminUsersComponent implements OnInit {
       });
   }
 
-  
-
   toggleRoleFilter(role: string, event: any): void {
     if (event.target.checked) {
       this.selectedRoles.push(role);

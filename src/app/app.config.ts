@@ -30,7 +30,6 @@ export const appConfig: ApplicationConfig = {
 
      DatePipe,
      provideEchartsCore({echarts}),
-
+     importProvidersFrom(NgxChartsModule)
   ]
-  
 };

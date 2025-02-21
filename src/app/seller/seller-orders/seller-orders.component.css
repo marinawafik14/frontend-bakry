@@ -1,0 +1,105 @@
+.orders-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #28a745;
+}
+
+th, td {
+  text-align: center;
+  vertical-align: middle;
+  background-color: #28a745;
+}
+
+th {
+  background-color: #cab422;
+}
+
+td {
+  background-color: #ddd9bf;
+  border: 1px solid #ddd9bf;
+}
+
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: row ; */
+  gap: 10px;
+}
+
+.item-card {
+  background-color: #f1efe0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item-card h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.item-card p {
+  margin: 5px 0;
+}
+
+.pending {
+  color: brown;
+  font-weight: bold;
+}
+
+.shipped {
+  color: blue;
+}
+
+.canceled {
+  color: red;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-success:hover,
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 576px) {
+  .item-card {
+    width: 50%; /* Two items per row on medium screens */
+  }
+}
+
+@media (min-width: 768px) {
+  .item-card {
+    width: 30%; /* Four items per row on larger screens */
+  }
+}

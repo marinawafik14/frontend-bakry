@@ -4,7 +4,6 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-
 @Component({
   standalone:true,
   selector: 'app-root',

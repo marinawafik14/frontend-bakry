@@ -1,1 +1,49 @@
+<div class="orders-container mt-5">
+  <h2 style="text-align: center; color: rgb(117, 108, 24);">Recent Orders</h2>
+  <div *ngFor="let order of orders; let i = index" class="order-table-container">
+    <h4 class="mt-3">Order {{ i+1 }}</h4>
+    
+    <div class="table-responsive">
+    <table class="table table-striped ">
+      <thead>
+        <tr>
+          <th>Invoice</th>
+          <th>Customer</th>
+          <th>Purchase On</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ order._id }}</td>
+          <td>{{ order.customername.firstname }} {{ order.customername.lastname }}</td>
+          <td>{{ order.createdAt | date: 'short' }}</td>
+          <td>${{ order.totalAmount }}</td>
+          <td [ngClass]="{
+            'pending': order.orderStatus === 'pending',
+            'shipped': order.orderStatus === 'shipped',
+            'canceled': order.orderStatus === 'canceled'
+          }">
+            {{ order.orderStatus }}
+          </td>
+        </tr>
+        <tr>
+          <th>Items</th>
+          <td colspan="4">
+            <div class="items-container">
+              <div class="item-card" *ngFor="let item of getItemsForCurrentSeller(order)">
+                <h5>{{ item.productId.name }}</h5>
+                <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                <p><strong>Price:</strong> ${{ item.productId.price }}</p>
+                <p><strong>Total:</strong> ${{ item.quantity * item.productId.price }}</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
 

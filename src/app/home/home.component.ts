@@ -7,6 +7,7 @@ import { ProductService } from '../services/product.service';
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   topProducts: Products[] = [];
+
 
 
   constructor(private productService: ProductService) {}

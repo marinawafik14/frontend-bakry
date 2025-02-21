@@ -19,10 +19,7 @@
                   formControlName="firstName"
                   placeholder="Enter your first name"
                 />
-                <div
-                  *ngIf="firstName.invalid && firstName.touched"
-                  class="small text-danger"
-                >
+                <div *ngIf="firstName.invalid && firstName.touched" class="small text-danger">
                   First Name is required (Min 3 characters).
                 </div>
               </div>
@@ -35,13 +32,37 @@
                   formControlName="lastName"
                   placeholder="Enter your last name"
                 />
-                <div
-                  *ngIf="lastName.invalid && lastName.touched"
-                  class="small text-danger"
-                >
+                <div *ngIf="lastName.invalid && lastName.touched" class="small text-danger">
                   Last Name is required (Min 3 characters).
                 </div>
               </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="ProfileUser@gmail.com"
+              />
+              <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-danger">
+                Please enter a valid email.
+              </div>
+            </div>
+
+            <!-- Address Section -->
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <input
+                type="text"
+                id="address"
+                class="form-control"
+                formControlName="address"
+                placeholder="Address"
+              />
             </div>
 
             <!-- Gender & Date of Birth -->
@@ -53,26 +74,20 @@
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
-                <div
-                  *ngIf="gender.invalid && gender.touched"
-                  class="small text-danger"
-                >
+                <div *ngIf="gender.invalid && gender.touched" class="small text-danger">
                   Gender is required.
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="dateOfBirth" class="form-label">Date of Birth</label>
                 <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth" />
-                <div
-                  *ngIf="dateOfBirth.invalid && dateOfBirth.touched"
-                  class="small text-danger"
-                >
+                <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="small text-danger">
                   Date of Birth is required.
                 </div>
               </div>
             </div>
 
-            <!-- Address Section -->
+            <!-- Address Fields -->
             <div formGroupName="address" class="mb-3">
               <div class="row">
                 <div class="col-md-6">
@@ -88,39 +103,15 @@
                     <option value="Suez">Suez</option>
                     <option value="Qena">Qena</option>
                     <option value="Aswan">Aswan</option>
-                    <option value="Ismailia">Ismailia</option>
-                    <option value="Luxor">Luxor</option>
-                    <option value="Assiut">Assiut</option>
-                    <option value="Beheira">Beheira</option>
-                    <option value="Damietta">Damietta</option>
-                    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-                    <option value="Minya">Minya</option>
-                    <option value="Monufia">Monufia</option>
-                    <option value="Gharbia">Gharbia</option>
-                    <option value="Beni Suef">Beni Suef</option>
-                    <option value="Fayoum">Fayoum</option>
-                    <option value="Qalyubia">Qalyubia</option>
-                    <option value="Sohag">Sohag</option>
-                    <option value="Red Sea">Red Sea</option>
-                    <option value="Matrouh">Matrouh</option>
-                    <option value="New Valley">New Valley</option>
-                    <option value="South Sinai">South Sinai</option>
-                    <option value="North Sinai">North Sinai</option>
                   </select>
-                  <div
-                    *ngIf="address.get('governorate')?.invalid && address.get('governorate')?.touched"
-                    class="small text-danger"
-                  >
+                  <div *ngIf="address.get('governorate')?.invalid && address.get('governorate')?.touched" class="small text-danger">
                     Please select a governorate.
                   </div>
                 </div>
                 <div class="col-md-6">
                   <label for="city" class="form-label">City</label>
                   <input type="text" id="city" class="form-control" formControlName="city" placeholder="Enter your city" />
-                  <div
-                    *ngIf="address.get('city')?.invalid && address.get('city')?.touched"
-                    class="small text-danger"
-                  >
+                  <div *ngIf="address.get('city')?.invalid && address.get('city')?.touched" class="small text-danger">
                     Please enter a city.
                   </div>
                 </div>
@@ -128,24 +119,17 @@
             </div>
 
             <!-- Mobile Number -->
-            <div class="row mb-3 align-items-center">
-              <div class="col-md-12">
-                <label for="mobile" class="form-label">Mobile Number</label>
-                <div class="input-group">
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="contactNo"
-                    formControlName="contactNo"
-                    placeholder="Eg. number without country code"
-                  />
-                </div>
-                <div
-                  *ngIf="contactNo.invalid && contactNo.touched"
-                  class="small text-danger"
-                >
-                  Please enter a valid mobile number.
-                </div>
+            <div class="mb-3">
+              <label for="mobile" class="form-label">Mobile Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="contactNo"
+                formControlName="contactNo"
+                placeholder="Eg. number without country code"
+              />
+              <div *ngIf="contactNo.invalid && contactNo.touched" class="small text-danger">
+                Please enter a valid mobile number.
               </div>
             </div>
 
@@ -159,36 +143,31 @@
                 formControlName="currentPassword"
                 placeholder="Current Password"
               />
-              <div
-                *ngIf="profileForm.hasError('mismatch') && currentPassword.touched"
-                class="small text-danger"
-              >
-                Password is incorrect.
+              <div *ngIf="profileForm.get('currentPassword')?.invalid && profileForm.get('currentPassword')?.touched" class="text-danger">
+                Current Password is required.
               </div>
             </div>
-            <div class="mb-3">
-              <label for="newPassword" class="form-label">New Password</label>
-              <input
-                type="password"
-                id="newPassword"
-                class="form-control"
-                formControlName="newPassword"
-                placeholder="Enter new password"
-              />
-              <div
-                *ngIf="newPassword.invalid && newPassword.touched"
-                class="small text-danger"
-              >
-                Password must be at least 6 characters long.
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" id="newPassword" class="form-control" formControlName="newPassword" />
+                <div *ngIf="profileForm.get('newPassword')?.invalid && profileForm.get('newPassword')?.touched" class="text-danger">
+                  Password must be at least 6 characters long.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" />
+                <div *ngIf="profileForm.hasError('mismatch') && profileForm.get('confirmPassword')?.touched" class="text-danger">
+                  Passwords do not match.
+                </div>
               </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
-              <button type="submit" class="btn btn-danger" [disabled]="profileForm.invalid">
-                Save Changes
-              </button>
+              <button type="submit" class="btn btn-danger" [disabled]="profileForm.invalid">Save Changes</button>
             </div>
           </form>
         </div>
