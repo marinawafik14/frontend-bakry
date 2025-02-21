@@ -1,6 +1,9 @@
 .container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
+    background-color: #eee9e4;
+    border-radius: 20px;
+    padding: 50px;
   }
   
   .cart-item {
@@ -11,6 +14,8 @@
   .cart-item-details {
     display: flex;
     align-items: center;
+    font-weight: bold;
+    color: brown;
   }
   
   .cart-item-image {
@@ -28,27 +33,38 @@
   
   .order-summary {
     padding-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
   }
   
   .order-summary h4 {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
   }
   
   .order-summary .total-amount {
-    color: #e87a1b;
+    color: #219427;
     font-weight: bold;
     font-size: 22px;
   }
   
   .btn-warning {
-    background-color: #e87a1b;
+    background-color: #daa520;
     color: white;
     border: none;
     border-radius: 5px;
   }
   
   .btn-warning:hover {
-    background-color: #d56e15;
+    background-color: #ddc78f;
+    color: #5f3917;
+  }
+
+  .payment-method{
+    font-weight: bold;
+  }
+
+  #paymentMethod{
+    margin-left: 20px;
   }
   

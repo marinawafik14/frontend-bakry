@@ -16,7 +16,7 @@ export class CashierCheckoutComponent implements OnInit {
   cartItems: any[] = [];
   subtotal: number = 0;
   cartCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  shipping: number = 10.0; // Or any logic for shipping
+  //shipping: number = 10.0; // Or any logic for shipping
   totalAmount: number = 0;
   paymentMethod: string = "cash";  // Default payment method
 
@@ -40,7 +40,7 @@ export class CashierCheckoutComponent implements OnInit {
 
   calculateTotal(): void {
     this.subtotal = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    this.totalAmount = this.subtotal + this.shipping;
+    this.totalAmount = this.subtotal;
   }
 
   completePurchase() {
@@ -59,7 +59,7 @@ export class CashierCheckoutComponent implements OnInit {
     this.orderService.createOrder(orderData).subscribe(
       (response) => {
         alert('Order placed successfully!');
-        this.clearCart();  // Clear the cart after a successful order
+        this.clearCart();
         this.router.navigate(['/cashier']);
       },
       (error) => {
