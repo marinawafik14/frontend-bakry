@@ -32,5 +32,4 @@ export const appConfig: ApplicationConfig = {
      provideEchartsCore({echarts}),
      importProvidersFrom(NgxChartsModule)
   ]
-
 };

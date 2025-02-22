@@ -19,7 +19,6 @@ interface OrderItem {
 
 interface Order {
   _id: string;
-  customername: { firstname: string; lastname: string; _id: string };
   items: OrderItem[];
   totalAmount: number;
   orderStatus: string;
@@ -49,7 +48,7 @@ export class SellerOrdersComponent implements OnInit {
     this.orderService.getOrdersBySellerId(this.sellerId).subscribe({
       next: (res) => {
         console.log('Response:', res);
-        this.orders = res.orders; // Assuming res.orders is of type Order[]
+        this.orders = res.orders;
       },
       error: (error) => {
         console.error('Error fetching orders:', error);

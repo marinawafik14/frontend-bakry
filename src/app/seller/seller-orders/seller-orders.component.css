@@ -6,13 +6,11 @@
 table {
   width: 100%;
   margin-top: 20px;
-  background-color: #28a745;
 }
 
 th, td {
   text-align: center;
   vertical-align: middle;
-  background-color: #28a745;
 }
 
 th {
@@ -57,10 +55,18 @@ td {
 
 .shipped {
   color: blue;
+  font-weight: bold;
 }
 
 .canceled {
   color: red;
+  font-weight: bold;
+}
+
+.delivered{
+  color: green;
+  font-weight: bold;
+
 }
 
 .btn-group {

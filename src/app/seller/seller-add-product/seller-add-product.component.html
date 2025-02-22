@@ -63,13 +63,6 @@
       <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
     </div>
 
-    
-    
-    
-    
-    
-    
-
     <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productAdd.flavor" name="flavor" class="input-text js-input" type="text"
         required />
@@ -86,11 +79,11 @@
         <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
       </select>
     </div>
-    <div class="form-field col-lg-6">
+    <!-- <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productAdd.flavor" name="flavor" class="input-text js-input" type="text"
         required />
       <label class="label" for="createdAt">flavor</label>
-    </div>
+    </div> -->
     <div class="input-container ic2 yellow" style="color: #eeb928;"> Discount
       <input id="discount" [(ngModel)]="productAdd.discounted" class="input" type="checkbox" name="discount" />
     </div>

@@ -1,0 +1,78 @@
+
+
+<!--category-->
+<ul id="nav">
+    <li class="nav-link mt-4">
+      <h1 data-name="home" style="text-align: center; text-shadow: 5px 5px 4px rgba(204, 154, 106, 0.5);">Welcome Casheir</h1>
+    </li>
+  </ul>
+  <section class="category">
+    <div class="container mt-100">
+      <div class="row ">
+        <!-- Cookies Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100">
+            <a class="card-img-tiles" [routerLink]="['/cashier/category','cookies']" routerLinkActive="router-link-active"
+              data-abc="true">
+              <div class="inner">
+                <div class="main-img">
+                  <img src="assets/images/cookieschocolate.jpg" alt="Cookies" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center">
+              <h4 class="card-title mb-4">Cookies</h4>
+
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/cashier/category','cookies']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cakes Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card ">
+            <a class="card-img-tiles " [routerLink]="['/cashier/category','cakes']" data-abc="true">
+              <div class="inner  w-100">
+                <div class="main-img h-100 w-100">
+                  <img src="assets/images/coffee-cake.jpg" alt="Cakes" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center ">
+              <h4 class="card-title mb-4">Cakes</h4>
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/cashier/category','cakes']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cupcakes Card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card h-100">
+            <a class="card-img-tiles" [routerLink]="['/cashier/category','cupcakes']" data-abc="true">
+              <div class="inner">
+                <div class="main-img ">
+                  <img src="assets/images/3-cupcakes.jpg" alt="Cupcakes" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+
+              </div>
+            </a>
+            <div class="card-body text-center">
+              <h4 class="card-title mb-4">Cupcakes</h4>
+
+              <a class="btn btn-outline-primary btn-sm border-0" [routerLink]="['/cashier/category','cupcakes']"
+                data-abc="true">View
+                Products</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <router-outlet></router-outlet>
+  <!-- end category-->
