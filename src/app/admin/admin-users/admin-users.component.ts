@@ -111,10 +111,12 @@ export class AdminUsersComponent implements OnInit {
         return 'role-manager';
       case 'cashier':
         return 'role-cashier';
-      case 'sales':
+      case 'seller':
         return 'role-sales';
+      case 'customer':
+          return 'role-customer';
       default:
-        return 'status-active';
+        return 'role-default';
     }
   }
 }
