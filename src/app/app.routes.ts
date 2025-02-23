@@ -63,8 +63,9 @@ export const routes: Routes = [
   {path:'inventory' , component:InventoryComponent},
   {path:'test' , component:TestComponent},
   {path:'admin/branch/:id', component:BranchesComponent},
+  {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
-  {path: "**", redirectTo:"dashboard"}
+  {path: "**", redirectTo:"notfound"}
 ]},
 
   { path: '**', component: NotFoundComponent },
