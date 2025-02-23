@@ -40,8 +40,8 @@ export class ProductsComponent implements OnInit {
   }
 
   public notyf = new Notyf({
-    duration: 3000,  // Notification duration in milliseconds
-    position: { x: 'center', y: 'bottom' } // Position on the screen
+    duration: 3000,
+    position: { x: 'center', y: 'bottom' }
   });
 
   fetchProducts(): void {
