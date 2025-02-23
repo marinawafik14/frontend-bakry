@@ -81,7 +81,7 @@ import { ProductToAdmin } from '../models/productToAdmin';
 export class ProductService {
   private topPro_url: string = 'http://localhost:8000/top-products'; //top product
   private createpro_url = 'http://localhost:8000/products'; // Your backend API for create product
-  private allProduct_url = 'http://localhost:8000/api/inventory/all';
+  private allProduct_url = 'http://localhost:8000/allproducts';
   private delete_url = 'http://localhost:8000/products'; // get all products
   //  // get all products
   private URLCategory = 'http://localhost:8000/category'; //api category

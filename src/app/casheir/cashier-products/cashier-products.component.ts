@@ -92,7 +92,7 @@ export class CashierProductsComponent implements OnInit{
                 console.warn("No new token received in response.");
               }
     
-              this.CartService.loadCartCount();
+              this.CartService.refreshCartCount();
             },
             error: (err) => {
               this.notyf.error("Error adding to cart");
@@ -114,7 +114,7 @@ export class CashierProductsComponent implements OnInit{
   
         localStorage.setItem("guestCart", JSON.stringify(guestCart));
         console.log("Product added to guest cart in localStorage:", guestCart);
-        this.CartService.loadCartCount();
+        this.CartService.refreshCartCount();
       }
     }
      
