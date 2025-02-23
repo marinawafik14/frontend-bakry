@@ -40,8 +40,8 @@ export class ProductsComponent implements OnInit {
   }
 
   public notyf = new Notyf({
-    duration: 3000,  // Notification duration in milliseconds
-    position: { x: 'center', y: 'bottom' } // Position on the screen
+    duration: 3000,
+    position: { x: 'center', y: 'bottom' }
   });
 
   fetchProducts(): void {
@@ -94,7 +94,7 @@ export class ProductsComponent implements OnInit {
               console.warn("No new token received in response.");
             }
   
-            this.CartService.loadCartCount();
+            this.CartService.refreshCartCount();
           },
           error: (err) => {
             this.notyf.error("Error adding to cart");
@@ -120,28 +120,9 @@ export class ProductsComponent implements OnInit {
 
       localStorage.setItem("guestCart", JSON.stringify(guestCart));
       console.log("Product added to guest cart in localStorage:", guestCart);
-      this.CartService.loadCartCount();
+      this.CartService.refreshCartCount();
     }
   }
   
-  
-
-  
-  
-  
-  categories = [
-    {
-      name: 'Cookies',
-      image: 'https://www.modernhoney.com/wp-content/uploads/2019/12/One-Bowl-Chocolate-Chip-Cookie-Recipe-5-scaled.jpg'
-    },
-    {
-      name: 'Cakes',
-      image: 'https://w0.peakpx.com/wallpaper/379/1024/HD-wallpaper-yummy-cacke-birtay-cacke-happy.jpg'
-    },
-    {
-      name: 'Cupcakes',
-      image: 'https://bellyfull.net/wp-content/uploads/2022/06/Strawberry-Shortcake-Cupcakes-blog-2.jpg'
-    }
-  ];
 
 }

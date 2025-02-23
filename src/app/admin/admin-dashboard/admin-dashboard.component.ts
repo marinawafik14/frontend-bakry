@@ -1,41 +1,80 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminUsersComponent } from '../admin-users/admin-users.component';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+export interface Branch {
+  _id: string;
+  name: string;
+  location: {
+    address: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
+  clerks: string[]; // Array of Clerk IDs
+  cashiers: string[]; // Array of Cashier IDs
+  createdAt: string; // ISO Date String
+  updatedAt: string; // ISO Date String
+  __v: number;
+}
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterLink, NgxChartsModule],
+  imports: [RouterLink, NgxChartsModule, RouterModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
-export class AdminDashboardComponent {
+
+
+export class AdminDashboardComponent implements OnInit {
   pendingOrders:any = 0;
   totalMoney:any = 0;
   customers: any = 0;
   latestOrders: any;
   topProducts: any;
+  branches: any[] = [];
 
-  constructor(public adminService:AdminUserApiService){
-        adminService.getDashboardStats().subscribe({
-          next: (res)=>{
-            this.pendingOrders = res.pendingOrders;
-            this.totalMoney = res.totalMoney;
-            this.latestOrders = res.latestOrders;
-            console.log(this.latestOrders);
-            this.customers = res.customers;
-            this.topProducts = res.topProducts;
-            this.getTopSellingProducts();
-            console.log(this.topSellingProducts);
-            this.data = this.topSellingProducts
-          },
-          error: (err)=>{
-            console.log(err);
-          }
-        })
+  ngOnInit(): void {
+    this.getInventoryDetails()
+  }
+  constructor(public adminService:AdminUserApiService, public router:Router){
+           this.getDashboardStats();
+           this.getInventoryDetails();
   }
 
+  getInventoryDetails(){
+    this.adminService.getBranchInfo().subscribe({
+      next: (res)=>{
+          for(let i = 0; i < res.length; i++){
+              this.branches = res
+          }
+          console.log(this.branches);
+          
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
+  getDashboardStats(){
+    this.adminService.getDashboardStats().subscribe({
+      next: (res)=>{
+        this.pendingOrders = res.pendingOrders;
+        this.totalMoney = res.totalMoney;
+        this.latestOrders = res.latestOrders;
+        console.log(this.latestOrders);
+        this.customers = res.customers;
+        this.topProducts = res.topProducts;
+        this.getTopSellingProducts();
+        console.log(this.topSellingProducts);
+        this.data = this.topSellingProducts
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
   view: [number, number] = [700, 400]; // Chart size
 
   // Sample Data
@@ -56,6 +95,12 @@ export class AdminDashboardComponent {
     }
   }
 
+  navigateToBranch(branchId: string) {
+    this.router.navigateByUrl(`/admin/admin/branch/${branchId}`);
+    console.log(`/admin/branch/${branchId}`);
+    
+    // this.router.navigate(['/admin/branch', branchId]);
+  }
 
   //pie chart
   pieChartData = [

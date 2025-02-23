@@ -61,3 +61,59 @@
 .contact-form .submit-btn:hover {
   background-color: rgba(165, 42, 42, 0.466);
 }
+
+/* Branch & Quantity Container */
+.branch-container {
+  display: flex;
+  gap: 15px; /* Space between branch and quantity */
+  align-items: center;
+  width: 100%;
+}
+
+/* Half-width fields for branch and quantity */
+.branch-container .form-field {
+  flex: 1; /* Both take equal space */
+}
+
+/* Label Styling */
+.contact-form .label {
+  position: absolute;
+  top: -18px;
+  left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f0a04b;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Remove Button */
+.remove-btn {
+  background: #d32f2f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.remove-btn:hover {
+  background: #b71c1c;
+}
+
+/* Add Button */
+.add-btn {
+  width: 70%;
+  background-color: #e4c195;
+  border: 2px solid #f0a04b;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #d69b6b;
+}
+
+

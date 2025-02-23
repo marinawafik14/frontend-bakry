@@ -44,32 +44,71 @@
 
       
   </div>
+
+  <!-- Branch Container -->
+    <div class="container my-5">
+        <h4 class="lead mb-3">Our Branches</h4>
+        
+        <div class="row gx-3">
+            @for (item of branches; track $index) {
+                <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ item.name }}</h5>
+                            <p class="card-text text-muted">
+                                {{ item.location.address }}, {{ item.location.city }} <br>
+                                <strong>ZipCode:</strong> {{ item.location.zipCode }}
+                            </p>
+                            <!-- <button class="btn btn-sm btn-secondary"  
+                            [routerLink]="['/admin/branch', item?._id]">
+                                Details
+                             </button> -->
+
+                             <button class="btn btn-sm btn-secondary"  
+                             (click)="navigateToBranch(item._id)">
+                         Details
+                     </button>
+                     
+
+                             
+                    
+                             </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+
 <!-- order-overview.component.html -->
-<table class="table table-striped my-5">
-    <thead>
-      <tr>
-        <th>Customer Name</th>
-        <th>Order Date</th>
-        <th>Total Amount</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-        @for (item of latestOrders; track $index) {
-        <tr>
-            <td>{{item.customername.firstname}} {{item.customername.lastname}}</td>
-            <td>{{ item.createdAt | date: 'medium'}}</td>
-            <td>${{item.totalAmount}}</td>
-                <td class="btn bg-danger my-2 text-white" routerLink="/admin/orders">
-                    {{item.orderStatus}}
-                </td>
-        </tr>
-
-        }
-      
-    </tbody>
-  </table>
-
+<div class="container-fluid my-3">
+    <h4 class="lead">Latest Orders</h4>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for (item of latestOrders; track $index) {
+            <tr>
+                <td>{{item.customername.firstname}} {{item.customername.lastname}}</td>
+                <td>{{ item.createdAt | date: 'medium'}}</td>
+                <td>${{item.totalAmount}}</td>
+                    <td class="btn bg-danger my-2 text-white" routerLink="/admin/orders">
+                        {{item.orderStatus}}
+                    </td>
+            </tr>
+    
+            }
+          
+        </tbody>
+      </table>
+    
+</div>
   <!-- User Behavior Chart -->
   <!-- <div class="row mt-4">
       <div class="col-md-12">
