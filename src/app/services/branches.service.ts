@@ -15,6 +15,9 @@ export class BranchesService {
   private getProductsByBranchId_url = `http://localhost:8000/api/inventory/branch/`;
   private request_url = 'http://localhost:8000/api/inventory/clerk/request';
   private requests_url = `http://localhost:8000/api/inventory/requests`;
+  private changeRequestStatus_url =
+    'http://localhost:8000/api/inventory/stockReq';
+
   constructor(private http: HttpClient) {}
 
   // return all branches
@@ -54,5 +57,12 @@ export class BranchesService {
           response.stockRequests.map((req) => new RestockRequest(req))
         )
       );
+  }
+
+    updateRequestStatus(requestId: string, status: string, message: string): Observable<any> {
+    return this.http.put(`${this.changeRequestStatus_url}/${requestId}`, {
+      status,
+      message,
+    });
   }
 }
