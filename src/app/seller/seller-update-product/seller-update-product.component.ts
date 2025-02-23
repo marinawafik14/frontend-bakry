@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SellerServicesService } from '../../services/seller-services.service';
 import { Products } from '../../models/products';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,12 +17,19 @@ export class SellerUpdateProductComponent implements OnInit {
 
   categories: Products[] = [];
 
+  maxBranches = 5;
   constructor(
     private updateProSrv: SellerServicesService,
     private route: ActivatedRoute,
     private router: Router,
 
+
   ) {}
+
+
+
+
+
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -98,5 +105,20 @@ onPositiveNumber(event: any): void {
   }
 }
 
+
+addBranch(): void {
+  if (this.productUP.branch.length < this.maxBranches) {
+    this.productUP.branch.push(''); // Add an empty branch input
+  }
 }
 
+/** ✅ Remove branch at a specific index */
+removeBranch(index: number): void {
+  this.productUP.branch.splice(index, 1);
+}
+
+
+
+
+
+}

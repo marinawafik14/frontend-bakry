@@ -15,8 +15,10 @@ private url="http://localhost:8000/products";
 private allproducts_url = "http://localhost:8000/allproducts";
 private sellerState_url ="http://localhost:8000/seller-stats";
 
-  constructor(private http:HttpClient) { }
 
+  constructor(private http:HttpClient) { }
+ header: any
+  private apiurl:any = `http://localhost:8000/api`
 
   // get all products
   getAllProduct():Observable<Products[]>{
@@ -50,9 +52,22 @@ updateProduct(pro: Products): Observable<Products> {
 }
 
 // get seller state
-getSellerStats(): Observable<Seller[]> {
-  return this.http.get<Seller[]>(this.sellerState_url);
+/*
+getSellerStats(sellerId: string): Observable<Seller> {
+  return this.http.get<Seller>(`${this.sellerState_url}/${sellerId}`);
+}*/
+/*
+getSellerStats(sellerId: string): Observable<{ month: number; totalSales: number; totalProfits: number }[]> {
+  return this.http.get<{ month: number; totalSales: number; totalProfits: number }[]>(`${this.sellerState_url}/${sellerId}`);
+}*/
+getSellerStats(sellerId: string): Observable<{ month: number; totalSales: number; totalProfits: number }[]> {
+  return this.http.get<{ month: number; totalSales: number; totalProfits: number }[]>(`${this.sellerState_url}/stats/${sellerId}`);
 }
+
+getSellerDashboard(sellerId: string): Observable<Seller> {
+  return this.http.get<Seller>(`http://localhost:8000/api/seller/dashboard/${sellerId}`);
+}
+
 
 getProductBySellerId(id:string):Observable<any>  {
   return this.http.get(`http://localhost:8000/products/seller/${id}`);
@@ -93,6 +108,8 @@ getPendingProducts(sellerId: string): Observable<any> {
 getTotalSales(sellerId: string): Observable<any> {
   return this.http.get(`http://localhost:8000/seller/totalSales/${sellerId}`);
 }
+
+
 
 
 }

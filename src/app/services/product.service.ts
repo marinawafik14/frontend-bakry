@@ -60,7 +60,7 @@
 //     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 //     return this.http.post(this.createpro_url, formData, { headers });
 //   }
-  
+
 
 //   checkBranchCapacity(branchName: string, quantity: number): Observable<any> {
 //     return this.http.post<any>(`http://localhost:8000/check-branch-capacity`, { branch: branchName, quantity: quantity });
@@ -100,7 +100,7 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
   getProducts(): Observable<Products[]> {
     return this.http.get<Products[]>(this.topPro_url);
   }
-  // return all data from main inventory 
+  // return all data from main inventory
   getAllProducts(): Observable<Products[]> {
     return this.http.get<Products[]>(this.allProduct_url);
   }
@@ -138,4 +138,7 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
     checkBranchCapacity(branchName: string, quantity: number): Observable<any> {
     return this.http.post<any>(`http://localhost:8000/check-branch-capacity`, { branch: branchName, quantity: quantity });
   }
+
+  
+
 }

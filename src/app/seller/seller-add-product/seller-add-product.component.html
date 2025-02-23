@@ -32,36 +32,38 @@
     </div> -->
 
     <div class="form-field col-lg-6">
-      <input 
-        id="quantity" 
-        [(ngModel)]="productAdd.stock" 
-        name="quantity" 
-        type="number" 
-        class="input-text js-input" 
-        required 
-        min="1" 
+      <input
+        id="quantity"
+        [(ngModel)]="productAdd.stock"
+        name="quantity"
+        type="number"
+        class="input-text js-input"
+        required
+        min="1"
         placeholder="Enter product quantity"
         (blur)="checkBranchCapacity(productAdd.branch, productAdd.stock)" />
       <label class="label" for="quantity">Quantity</label>
     </div>
-    
+
     <div class="form-field col-lg-6">
-      <input 
-        id="branches" 
-        [(ngModel)]="productAdd.branch" 
-        name="branches" 
-        class="input-text js-input" 
-        type="text" 
-        placeholder="Enter branch names (comma separated)" 
-        required 
+      <input
+        id="branches"
+        [(ngModel)]="productAdd.branch"
+        name="branches"
+        class="input-text js-input"
+        type="text"
+        placeholder="Enter branch names (comma separated)"
+        required
         (blur)="processBranchesInput(productAdd.branch)" />
       <label class="label" for="branches">Branches</label>
     </div>
-    
+
     <!-- Display capacity errors -->
     <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
       <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
     </div>
+
+    
 
     <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productAdd.flavor" name="flavor" class="input-text js-input" type="text"

@@ -1,5 +1,5 @@
 <section class="get-in-touch">
- 
+
   <form class="contact-form row" #productForm="ngForm" (ngSubmit)="updateProductone()" novalidate>
     <div class="form-field col-lg-6">
       <input id="name" [(ngModel)]="productUP.name" name="name" class="input-text js-input" type="text" required />
@@ -14,9 +14,24 @@
       <label class="label" for="price">Price</label>
     </div>
     <div class="form-field col-lg-6">
-      <input id="stock" [(ngModel)]="productUP.stock" name="stock" class="input-text js-input" type="number" required min="1" />
-      <label class="label" for="stock">Stock number</label>
+      <input id="price" [(ngModel)]="productUP.previousprice" name="price" class="input-text js-input" type="number" required min="1" />
+      <label class="label" for="price">Previous Price</label>
     </div>
+    <div class="form-field col-lg-6">
+      <input id="stock" [(ngModel)]="productUP.stock" name="quanity" class="input-text js-input" type="number" required min="1" />
+      <label class="label" for="stock">quantity number</label>
+    </div>
+
+     <!-- Branch Section -->
+<div class="form-field col-lg-6">
+  <label class="label">Branches</label>
+  <div class="branch-group">
+    <input type="text" class="form-control" [(ngModel)]="productUP.branch" name="branch" class="input-text js-input"  required />
+  </div>
+
+</div>
+
+
     <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productUP.flavor" name="flavor" class="input-text js-input" type="text" required />
       <label class="label" for="flavor">Flavor</label>
