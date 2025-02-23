@@ -9,9 +9,10 @@
       <th>Price</th>
       <th>Sales</th>
       <th>StockIN</th>
-      <th>Stockout</th>
+      <th>StockOut</th>
       <th>Status</th>
       <th>Created At</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,11 @@
       <td>{{ product.stockOut }}</td>
       <td>{{ product.status }}</td>
       <td>{{ product.createdAt | date }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" (click)="requestStock(product._id)">
+           <i class="fas fa-plus"></i>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.loadUserData();
-    this.cartService.loadCartCount();
+    this.cartService.refreshCartCount();
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });
