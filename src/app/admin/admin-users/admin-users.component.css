@@ -55,8 +55,8 @@
 }
 
 .role-cashier {
-    background-color: #d4edda !important; /* Light green */
-    color: #155724 !important; /* Dark green */
+  background-color: #b28fcf !important; /* Light green */
+  color: #5f1c97 !important; /* Dark green text */
     font-weight: bold;
     border-radius: 5px;
     padding: 5px 10px;
@@ -84,3 +84,12 @@
     display: inline-block;
 }
 
+.role-customer {
+  background-color: #d4edda !important; /* Light green */
+  color: #155724 !important; /* Dark green text */
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+}
