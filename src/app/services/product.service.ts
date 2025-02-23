@@ -81,7 +81,7 @@ import { ProductToAdmin } from '../models/productToAdmin';
 export class ProductService {
   private topPro_url: string = 'http://localhost:8000/top-products'; //top product
   private createpro_url = 'http://localhost:8000/products'; // Your backend API for create product
-  private allProduct_url = 'http://localhost:8000/api/inventory/all';
+  private allProduct_url = 'http://localhost:8000/allproducts';
   private delete_url = 'http://localhost:8000/products'; // get all products
   //  // get all products
   private URLCategory = 'http://localhost:8000/category'; //api category
@@ -107,10 +107,6 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
   getAllProductsToadmin(): Observable<ProductToAdmin[]> {
     return this.http.get<ProductToAdmin[]>(this.allProduct_url);
   }
-
-  // getAllProductsToadmin(): Observable<ProductToAdmin[]> {
-  //   return this.http.get<ProductToAdmin[]>('http://localhost:8000/allproducts');
-  // }
 
   getProductsByCategory(categoryName: string): Observable<any> {
     return this.http.get(`http://localhost:8000/products?category=${categoryName}`);
