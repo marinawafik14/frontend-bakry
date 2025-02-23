@@ -69,6 +69,7 @@ export class CashierCheckoutComponent implements OnInit {
         this.notyf.success("Order placed successfully!");
         this.clearCart();
         this.router.navigate(['/cashier']);
+        this.cartService.refreshCartCount();
       },
       (error) => {
         console.error('Error placing the order:', error);
@@ -86,6 +87,7 @@ export class CashierCheckoutComponent implements OnInit {
           localStorage.removeItem('guestCart');
           this.cartItems = [];
           this.cartCount.next(0);
+          this.cartService.refreshCartCount();
         },
         (error) => {
           console.error('Error clearing the cart:', error);

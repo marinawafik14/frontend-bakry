@@ -108,6 +108,10 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
     return this.http.get<ProductToAdmin[]>(this.allProduct_url);
   }
 
+  // getAllProductsToadmin(): Observable<ProductToAdmin[]> {
+  //   return this.http.get<ProductToAdmin[]>('http://localhost:8000/allproducts');
+  // }
+
   getProductsByCategory(categoryName: string): Observable<any> {
     return this.http.get(`http://localhost:8000/products?category=${categoryName}`);
   }

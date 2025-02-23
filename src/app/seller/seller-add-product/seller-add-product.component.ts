@@ -20,7 +20,6 @@ export class SellerAddProductComponent implements OnInit {
   alternativeBranches: any[] = [];
   branchCapacityErrors: string[] = [];
   branchesWithCapacity: { [branchName: string]: number } = {};
-
   productAdd: Products = new Products(
     '', '', '', 0, '', 0, 0, 0,'' ,'', false,'','', new Date(), new Date(), [], '', []
   );
