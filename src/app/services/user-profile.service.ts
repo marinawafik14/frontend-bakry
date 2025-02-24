@@ -18,7 +18,7 @@ export class UserProfileService {
       console.error('User ID is undefined'); // Debugging
       return throwError('User ID is undefined');
     }
-    return this.http.get(`${this.apiUrl}/${userId}`);
+    return this.http.get(`${this.apiUrl}/profile/${userId}`);
   }
 
   updateUserProfile(userId: string, profileData: any): Observable<any> {

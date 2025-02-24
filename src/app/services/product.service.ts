@@ -11,7 +11,11 @@ import { ProductToAdmin } from '../models/productToAdmin';
 export class ProductService {
   private topPro_url: string = 'http://localhost:8000/top-products'; //top product
   private createpro_url = 'http://localhost:8000/products'; // Your backend API for create product
-  private allProduct_url = 'http://localhost:8000/allproducts';
+  private allProduct_url = 'http://localhost:8000/api/inventory/all';
+  private allall = 'http://localhost:8000/allproducts';
+ // private allProduct_url = 'http://localhost:8000/allproducts';
+
+//  private allProduct_url = 'http://localhost:8000/allproducts';
   private delete_url = 'http://localhost:8000/products'; // get all products
   //  // get all products
   private URLCategory = 'http://localhost:8000/category'; //api category
@@ -20,26 +24,33 @@ export class ProductService {
   // function get top products
   // return all data from main inventory
 
-changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
-  const url = `http://localhost:8000/product/changeproductstatus/${_id}`;
-  return this.http.patch<ProductToAdmin>(url, { status: status });
-}
+  changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
+    const url = `http://localhost:8000/product/changeproductstatus/${_id}`;
+    return this.http.patch<ProductToAdmin>(url, { status: status });
+  }
 
-
+  // getallproduct in product schema 
+  getallallproducts(): Observable<ProductToAdmin[]> {
+    return this.http.get<ProductToAdmin[]>(this.allall);
+  }
 
   getProducts(): Observable<Products[]> {
     return this.http.get<Products[]>(this.topPro_url);
   }
-  // return all data from main inventory 
+  // return all data from main inventory
   getAllProducts(): Observable<Products[]> {
     return this.http.get<Products[]>(this.allProduct_url);
   }
+
+  // get all products from main inventory
   getAllProductsToadmin(): Observable<ProductToAdmin[]> {
     return this.http.get<ProductToAdmin[]>(this.allProduct_url);
   }
 
   getProductsByCategory(categoryName: string): Observable<any> {
-    return this.http.get(`http://localhost:8000/products?category=${categoryName}`);
+    return this.http.get(
+      `http://localhost:8000/products?category=${categoryName}`
+    );
   }
 
   getProductById(id: string): Observable<any> {
@@ -59,13 +70,16 @@ changeproductStatus(_id: string, status: string): Observable<ProductToAdmin> {
   createProduct(formData: FormData) {
     const token = sessionStorage.getItem('tokenkey');
     if (!token) {
-      throw new Error("Unauthorized: No token found");
+      throw new Error('Unauthorized: No token found');
     }
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.createpro_url, formData, { headers });
   }
 
-    checkBranchCapacity(branchName: string, quantity: number): Observable<any> {
-    return this.http.post<any>(`http://localhost:8000/check-branch-capacity`, { branch: branchName, quantity: quantity });
+  checkBranchCapacity(branchName: string, quantity: number): Observable<any> {
+    return this.http.post<any>(`http://localhost:8000/check-branch-capacity`, {
+      branch: branchName,
+      quantity: quantity,
+    });
   }
 }
