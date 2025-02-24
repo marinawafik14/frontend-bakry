@@ -64,7 +64,7 @@ export class AdminRequestsComponent implements OnInit {
               }
             },
             error: (err) => {
-              console.error('Error updating status:', err);
+              console.error('Error updating status:', err.message);
               Swal.fire(
                 'Error',
                 'Failed to update the request status.',
@@ -78,14 +78,24 @@ export class AdminRequestsComponent implements OnInit {
 
   transferStock(request: RestockRequest) {
     this.restockService.transferStock(request._id).subscribe({
-      next: () => {
-        Swal.fire('Success!', 'Stock has been transferred.', 'success');
-        this.loadRequests();
+      next: (response) => {
+        console.log(response);
+        
+        if (response.message.status === 200) {
+          Swal.fire('Success!', response.message.message, 'success');
+        } else {
+          Swal.fire('Warning!', response.message.message, 'warning');
+        }
+        this.loadRequests(); // Refresh list
       },
       error: (err) => {
         console.error('Error transferring stock:', err);
-        Swal.fire('Error', 'Failed to transfer stock.', 'error');
+        Swal.fire('Error', err.error?.message || 'Failed to transfer stock.', 'error');
       },
     });
   }
+    
+
+
+
 }
