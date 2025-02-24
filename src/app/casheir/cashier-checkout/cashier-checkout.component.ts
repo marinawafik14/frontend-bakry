@@ -5,6 +5,7 @@ import { CartApiService } from '../../services/cart-api.service';
 import { OrdersService } from '../../services/order.service';
 import { BehaviorSubject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-cashier-checkout',
@@ -38,6 +39,12 @@ export class CashierCheckoutComponent implements OnInit {
     }
   }
 
+    public notyf = new Notyf({
+      duration: 3000,
+      position: { x: 'center', y: 'bottom' }
+    });
+  
+
   calculateTotal(): void {
     this.subtotal = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     this.totalAmount = this.subtotal;
@@ -58,9 +65,11 @@ export class CashierCheckoutComponent implements OnInit {
   
     this.orderService.createOrder(orderData).subscribe(
       (response) => {
-        alert('Order placed successfully!');
+        // alert('Order placed successfully!');
+        this.notyf.success("Order placed successfully!");
         this.clearCart();
         this.router.navigate(['/cashier']);
+        this.cartService.refreshCartCount();
       },
       (error) => {
         console.error('Error placing the order:', error);
@@ -78,6 +87,7 @@ export class CashierCheckoutComponent implements OnInit {
           localStorage.removeItem('guestCart');
           this.cartItems = [];
           this.cartCount.next(0);
+          this.cartService.refreshCartCount();
         },
         (error) => {
           console.error('Error clearing the cart:', error);

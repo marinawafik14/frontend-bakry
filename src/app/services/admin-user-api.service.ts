@@ -40,4 +40,8 @@ export class AdminUserApiService {
   getDashboardStats():Observable<any>{
     return this.httpClient.get<any>(`${this.apiurl}/admin/dashboard/stats`);
   }
+
+  getBranchInfo(){
+    return this.httpClient.get<any>(`${this.apiurl}/inventory/branches`);
+  }
 }

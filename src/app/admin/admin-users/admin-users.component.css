@@ -35,61 +35,81 @@
   
 
   .role-admin {
-    background-color: #f8d7da !important; /* Light red */
-    color: #721c24 !important; /* Dark red */
+    background-color: #ffccd5 !important; /* Softer Red */
+    color: #8b0000 !important; /* Dark Red */
     font-weight: bold;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     text-align: center;
     display: inline-block;
 }
 
 .role-manager {
-    background-color: #cce5ff !important; /* Light blue */
-    color: #004085 !important; /* Dark blue */
+    background-color: #cce5ff !important; /* Light Blue */
+    color: #0056b3 !important; /* Deep Blue */
     font-weight: bold;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     text-align: center;
     display: inline-block;
 }
 
 .role-cashier {
-  background-color: #b28fcf !important; /* Light green */
-  color: #5f1c97 !important; /* Dark green text */
+    background-color: #f3e5f5 !important; /* Light Purple */
+    color: #6a1b9a !important; /* Deep Purple */
     font-weight: bold;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     text-align: center;
     display: inline-block;
 }
 
 .role-sales {
-    background-color: #e2d9f3 !important; /* Light purple */
-    color: #4b0082 !important; /* Dark purple */
+    background-color: #fdecc8 !important; /* Soft Orange */
+    color: #d35400 !important; /* Dark Orange */
     font-weight: bold;
     border-radius: 5px;
-    padding: 5px 10px;
-    text-align: center;
-    display: inline-block;
-}
-
-.role-default {
-    background-color: #e2e3e5 !important; /* Light gray */
-    color: #383d41 !important; /* Dark gray */
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     text-align: center;
     display: inline-block;
 }
 
 .role-customer {
-  background-color: #d4edda !important; /* Light green */
-  color: #155724 !important; /* Dark green text */
-  font-weight: bold;
-  border-radius: 5px;
-  padding: 5px 10px;
-  text-align: center;
-  display: inline-block;
+    background-color: #d4edda !important; /* Light Green */
+    color: #1e4620 !important; /* Dark Green */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-clerk {
+    background-color: #f9f9d2 !important; /* Soft Yellow */
+    color: #7c6f00 !important; /* Dark Yellow */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-supplier {
+    background-color: #cfe2f3 !important; /* Light Blue-Gray */
+    color: #203a5e !important; /* Deep Navy */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
+}
+
+.role-default {
+    background-color: #e2e3e5 !important; /* Light Gray */
+    color: #383d41 !important; /* Dark Gray */
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
 }

@@ -7,6 +7,8 @@ import { Products } from '../../models/products';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { OrderTo } from '../../models/orderTo';
+import { OrdersService } from '../../services/order.service';
 
 @Component({
   selector: 'app-dashbord-seller',
@@ -25,14 +27,14 @@ totalOrders: number = 0;
 totalProducts: number = 0;
 pendingProducts: number = 0;
 totalSales: number = 0;
+orders: OrderTo[] = [];
+//  // Progress bar values
+//  progressOrders: number = 0;
+//  progressProducts: number = 0;
+//  progressPending: number = 0;
+//  progressSales: number = 0;
 
- // Progress bar values
- progressOrders: number = 0;
- progressProducts: number = 0;
- progressPending: number = 0;
- progressSales: number = 0;
-
-  constructor( public productSer:SellerServicesService,private router :Router, public authService:AuthService) {}
+  constructor( public productSer:SellerServicesService,private router :Router, public authService:AuthService, public orderservice: OrdersService) {}
 
   ngOnInit(): void {
     this.sellerId = this.productSer.getSellerIdFromToken();  // Get seller ID from token
@@ -47,6 +49,16 @@ totalSales: number = 0;
     }
 
     this.loadDashboardData();
+
+     // Load orders for checking pending status
+     this.orderservice.getallordersP().subscribe({
+      next: (response) => {
+        this.orders = response.order; // Access the nested order array
+      },
+      error: (err) => {
+        console.error('Error fetching orders', err);
+      },
+    });
   }
 
   checkUserRole() {
@@ -114,24 +126,71 @@ confirmAction() {
   });
 }
 
-delete(id: string) {
-  this.confirmAction().then((result) => {
-    if (result.isConfirmed) {
-      this.productSer.deleteById(id).subscribe({
-        next: () => {
-          Swal.fire('Done!', 'Your action was successful.', 'success');
+// delete(id: string) {
+//   this.confirmAction().then((result) => {
+//     if (result.isConfirmed) {
+//       this.productSer.deleteById(id).subscribe({
+//         next: () => {
+//           Swal.fire('Done!', 'Your action was successful.', 'success');
 
-          this.selectedPro = this.selectedPro.filter(product => product._id !== id);
-        },
-        error: (err) => {
-          Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+//           this.selectedPro = this.selectedPro.filter(product => product._id !== id);
+//         },
+//         error: (err) => {
+//           Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+//         }
+//       });
+//     } else if (result.dismiss === Swal.DismissReason.cancel) {
+//       Swal.fire('Cancelled', 'Your action has been canceled.', 'info');
+//     }
+//   });
+// }
+
+
+
+delete(productId: string): void {
+    const isInPendingOrder = this.orders.some(
+      (order) =>
+        order.orderStatus === 'pending' &&
+        order.items.some((item) => item.productId === productId)
+    );
+
+    console.log("orderrrrrrs: ", this.orders);
+
+    console.log("isInPendingOrder: ", isInPendingOrder);
+
+    if (isInPendingOrder) {
+      Swal.fire({
+        title: 'Cannot Delete!',
+        text: 'This product is associated with a pending order and cannot be deleted.',
+        icon: 'error',
+        showConfirmButton: true,
+      });
+    } else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action will delete the product permanently.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.productSer.deleteById(productId).subscribe({
+            next: () => {
+              Swal.fire('Deleted!', 'Product has been deleted.', 'success');
+              this.selectedPro = this.selectedPro.filter(
+                (product) => product._id !== productId
+              );
+              // this.filteredProducts = [...this.selectedPro];
+            },
+            error: (err) => {
+              Swal.fire('Error!', 'Failed to delete product.', 'error');
+            },
+          });
         }
       });
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire('Cancelled', 'Your action has been canceled.', 'info');
     }
-  });
-}
+  }
 
 
 update(id: string): void {

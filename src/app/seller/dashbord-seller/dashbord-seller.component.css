@@ -78,12 +78,32 @@ tbody tr:hover {
 
 .btndash{
   border: none;
-background-color: #F0A04B;
-color: white;
-font-size: 16px;
-padding: 5px 10px;
-margin-bottom: 10px;
+  background-color: goldenrod;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
 }
 .btndash:hover{
-  background-color: #DF9755;
+  background-color: rgba(218, 165, 32, 0.705);
+}
+
+.card1{
+  background-color: #c3c54185;
+  box-shadow: 5px 5px 10px rgba(44, 40, 49, 0.425);
+}
+
+.card2{
+  background-color: #e4c309b6;
+  box-shadow: 5px 5px 10px rgba(105, 80, 11, 0.425);
+}
+
+.card3{
+  background-color:#d97416a4;
+  box-shadow: 5px 5px 10px rgba(160, 62, 6, 0.582);
+}
+
+.card4{
+  background-color:#d1a082a1;;
+  box-shadow: 5px 5px 10px rgba(82, 63, 2, 0.425);
 }

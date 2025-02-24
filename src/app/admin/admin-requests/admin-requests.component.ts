@@ -55,9 +55,13 @@ export class AdminRequestsComponent implements OnInit {
         this.restockService
           .updateRequestStatus(request._id, status, result.value)
           .subscribe({
-            next: (response) => {
-              Swal.fire('Success!', `Request has been ${status}.`, 'success');
-              this.loadRequests(); // Refresh the list
+            next: () => {
+              if (status === 'approved') {
+                this.transferStock(request);
+              } else {
+                Swal.fire('Rejected!', 'Request has been rejected.', 'success');
+                this.loadRequests();
+              }
             },
             error: (err) => {
               console.error('Error updating status:', err);
@@ -69,6 +73,19 @@ export class AdminRequestsComponent implements OnInit {
             },
           });
       }
+    });
+  }
+
+  transferStock(request: RestockRequest) {
+    this.restockService.transferStock(request._id).subscribe({
+      next: () => {
+        Swal.fire('Success!', 'Stock has been transferred.', 'success');
+        this.loadRequests();
+      },
+      error: (err) => {
+        console.error('Error transferring stock:', err);
+        Swal.fire('Error', 'Failed to transfer stock.', 'error');
+      },
     });
   }
 }

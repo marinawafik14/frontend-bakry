@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { AuthService } from './auth.service';
 
@@ -27,6 +27,9 @@ cartCount$ = this.cartCount.asObservable();
   removeCartItem(userId:string, productId:string):Observable<any>{
 
     return this.httpClient.delete<any>(`${environment.BASE_URL}/cart/items/${productId}?userId=${userId}`)
+    .pipe(
+      tap(() => this.refreshCartCount()) // Refresh count after removing
+  );
   }
 
   getProuctById(productId:string):Observable<any>{
@@ -48,7 +51,10 @@ cartCount$ = this.cartCount.asObservable();
       const headers = this.getAuthHeaders();
       const requestBody = { userId, quantity };
       
-      return this.httpClient.put<any>(`${environment.BASE_URL}/cart/update/${productId}`, requestBody, { headers });
+      return this.httpClient.put<any>(`${environment.BASE_URL}/cart/update/${productId}`, requestBody, { headers })
+      .pipe(
+        tap(() => this.refreshCartCount()) // Refresh after quantity update
+    );
     } else {
       // Guest user: Update guest cart in localStorage
       let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
@@ -63,11 +69,11 @@ cartCount$ = this.cartCount.asObservable();
         // If the item does not exist, add it
         guestCart.push({ productId, quantity, price: 0 });
       }
-  
+     
       // Save the updated guest cart back to localStorage
       localStorage.setItem("guestCart", JSON.stringify(guestCart));
       console.log("🛒 Updated guest cart:", guestCart);
-  
+      this.refreshCartCount();
       // Return the updated cart
       return of(guestCart);
     }
@@ -75,18 +81,20 @@ cartCount$ = this.cartCount.asObservable();
   
 
   clearCart(userId:string):Observable<any>{
-    return this.httpClient.delete(`${environment.BASE_URL}/cart/clear/${userId}`)
+    return this.httpClient.delete(`${environment.BASE_URL}/cart/clear/${userId}`)    .pipe(
+      tap(() => this.refreshCartCount()) // Refresh after quantity update
+  );
   }
 
     // Get cart items
-    getCartItems() {
-      return this.cartItems;
-    }
+    // getCartItems() {
+    //   return this.cartItems;
+    // }
 
-    // Get current cart count
-    getCartCount() {
-      return this.cartCount.value;
-    }
+    // // Get current cart count
+    // getCartCount() {
+    //   return this.cartCount.value;
+    // }
 
     private getAuthHeaders(): HttpHeaders {
       const token = sessionStorage.getItem('tokenkey');
@@ -107,7 +115,10 @@ cartCount$ = this.cartCount.asObservable();
         const headers = this.getAuthHeaders();
         const requestBody = { productId, quantity, price };
     
-        return this.httpClient.post<any>(`${this.apiUrl}`, requestBody, { headers });
+        return this.httpClient.post<any>(`${this.apiUrl}`, requestBody, { headers })
+        .pipe(
+          tap(() => this.refreshCartCount()) // Refresh count after adding
+      );
       } else {
         let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     
@@ -120,21 +131,23 @@ cartCount$ = this.cartCount.asObservable();
     
         localStorage.setItem("guestCart", JSON.stringify(guestCart));
         console.log("Item added to guest cart:", guestCart);
-    
+        
+        this.refreshCartCount();
         return of(guestCart);
       }
     }
 
-    loadCartCount() {
-      const token = sessionStorage.getItem('tokenkey'); 
-      if (token) {
-        const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
-        this.cartCount.next(decodedToken.cartItems?.length || 0); 
-      } else {
-        const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
-        this.cartCount.next(guestCart.length); 
-      }
+  refreshCartCount() {
+    const token = sessionStorage.getItem('tokenkey'); 
+    if (token) {
+      const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
+      this.cartCount.next(decodedToken.cartItems?.length || 0); 
+    } else {
+      const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+      this.cartCount.next(guestCart.length); 
     }
+}
+ 
     
 }
 
