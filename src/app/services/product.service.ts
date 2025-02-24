@@ -84,6 +84,8 @@ export class ProductService {
   private allProduct_url = 'http://localhost:8000/api/inventory/all';
   private allall = 'http://localhost:8000/allproducts';
  // private allProduct_url = 'http://localhost:8000/allproducts';
+
+//  private allProduct_url = 'http://localhost:8000/allproducts';
   private delete_url = 'http://localhost:8000/products'; // get all products
   //  // get all products
   private URLCategory = 'http://localhost:8000/category'; //api category
