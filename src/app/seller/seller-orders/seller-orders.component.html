@@ -21,7 +21,7 @@
             <!-- <td>
               {{ order.customername === 'Offline User' ? "Offline User" : (order.customername?.firstname + ' ' + order.customername?.lastname) }}
             </td> -->
-            <td>{{ order.createdAt | date: 'short' }}</td>
+            <td>{{ order.updatedAt| date: 'short' }}</td>
             <td>${{ order.totalAmount }}</td>
             <td [ngClass]="{
               'pending': order.orderStatus === 'pending',

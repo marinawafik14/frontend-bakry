@@ -28,11 +28,6 @@ totalProducts: number = 0;
 pendingProducts: number = 0;
 totalSales: number = 0;
 orders: OrderTo[] = [];
-//  // Progress bar values
-//  progressOrders: number = 0;
-//  progressProducts: number = 0;
-//  progressPending: number = 0;
-//  progressSales: number = 0;
 
   constructor( public productSer:SellerServicesService,private router :Router, public authService:AuthService, public orderservice: OrdersService) {}
 
@@ -61,16 +56,16 @@ orders: OrderTo[] = [];
     });
   }
 
-  checkUserRole() {
-    if (this.authService.isSeller()) {
-      this.isSeller = true;
-      console.log("Welcome, Seller!");
-    } else {
-      this.isSeller = false;
-      console.log("you are not seller")
-      this.router.navigateByUrl('/home');
-    }
-  }
+  // checkUserRole() {
+  //   if (this.authService.isSeller()) {
+  //     this.isSeller = true;
+  //     console.log("Welcome, Seller!");
+  //   } else {
+  //     this.isSeller = false;
+  //     console.log("you are not seller")
+  //     this.router.navigateByUrl('/home');
+  //   }
+  // }
 
   getCategoryName(categoryid: string | { _id: string; name: string }): string {
     if (typeof categoryid === 'object') {

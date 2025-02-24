@@ -63,6 +63,25 @@ clearCashierCart(token: string): Observable<any> {
   return this.http.post<any>(`http://localhost:8000/cashier/clear-cart`, {}, { headers });  // Assuming you're sending the token for authentication
 }
 
+getOfflineOrders(): Observable<any> {
+  return this.http.get(`http://localhost:8000/orders`);
+}
+
+  // New API method to cancel an order if within 24 hours
+  cancelOrder(orderId: string): Observable<any> {
+    return this.http.patch(`http://localhost:8000/orders/${orderId}/cancel`, {});
+  }
+
+  // New API method to update order items (delete product or swap products)
+  updateOrder(orderId: string, items: any[]): Observable<any> {
+    return this.http.patch(`http://localhost:8000/orders/${orderId}/update`, { items });
+  }
+
+  deleteOrder(orderId: string): Observable<any> {
+    return this.http.delete(`http://localhost:8000/orders/${orderId}`);
+  }
+  
+
 // clearCartInToken(token: string): Observable<any> {
 //   const headers = { Authorization: `Bearer ${token}` };  // Attach the token for authorization
 //   return this.http.post<any>(`http://localhost:8000/clear-cart-token`, {}, { headers });

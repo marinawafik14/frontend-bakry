@@ -68,7 +68,7 @@ export class CashierCheckoutComponent implements OnInit {
         // alert('Order placed successfully!');
         this.notyf.success("Order placed successfully!");
         this.clearCart();
-        this.router.navigate(['/cashier']);
+        this.router.navigate(['/cashier/cashier-orders']);
         this.cartService.refreshCartCount();
       },
       (error) => {
