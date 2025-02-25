@@ -22,14 +22,58 @@
       <label class="label" for="stock">quantity number</label>
     </div>
 
-     <!-- Branch Section -->
-<div class="form-field col-lg-6">
-  <label class="label">Branches</label>
-  <div class="branch-group">
-    <input type="text" class="form-control" [(ngModel)]="productUP.branch" name="branch" class="input-text js-input"  required />
-  </div>
+    <div formArrayName="branchInputs">
+      <div *ngFor="let branchInput of branchInputs; let i = index" class="branch-container">
 
-</div>
+        <!-- Branch Dropdown -->
+        <div class="form-field ">
+          <select
+            id="branch{{i}}"
+            [(ngModel)]="branchInput.branch"
+            name="branch{{i}}"
+            class="input-text js-input"
+            required
+          >
+            <option value="" disabled selected>Select a branch</option>
+            <option *ngFor="let branch of allowedBranches" [value]="branch">
+              {{ branch }}
+            </option>
+          </select>
+
+        </div>
+
+        <!-- Quantity Input -->
+        <div class="form-field">
+          <input
+            id="quantity{{i}}"
+            [(ngModel)]="branchInput.quantity"
+            name="quantity{{i}}"
+            class="input-text js-input"
+            type="number"
+            required
+            min="1"
+            placeholder="Enter quantity"
+            (blur)="onBranchInputChange(i)"
+          />
+          <label class="label" for="quantity{{i}}">Quantity</label>
+        </div>
+
+        <!-- Remove Branch Button -->
+        <button type="button" class="remove-btn" *ngIf="branchInputs.length > 1" (click)="removeBranch(i)">Remove</button>
+      </div>
+    </div>
+
+    <!-- Add New Branch Button -->
+    <button type="button" class="add-btn" (click)="addBranch()">+ Add Branch</button>
+
+
+
+
+
+    <!-- Display capacity errors -->
+    <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
+      <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
+    </div>
 
 
     <div class="form-field col-lg-6">

@@ -60,7 +60,8 @@ th {
 }
 
 tbody tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(242, 202, 82, 0.102);
+
 }
 
 tbody tr:hover {
@@ -86,24 +87,29 @@ tbody tr:hover {
 }
 .btndash:hover{
   background-color: rgba(218, 165, 32, 0.705);
+
 }
 
 .card1{
   background-color: #c3c54185;
   box-shadow: 5px 5px 10px rgba(44, 40, 49, 0.425);
+  background: linear-gradient(to left,gold,rgb(245, 163, 12));
 }
 
 .card2{
   background-color: #e4c309b6;
   box-shadow: 5px 5px 10px rgba(105, 80, 11, 0.425);
+  background: linear-gradient(to left,rgb(245, 177, 148),rgba(231, 173, 67, 0.845));
 }
 
 .card3{
   background-color:#d97416a4;
   box-shadow: 5px 5px 10px rgba(160, 62, 6, 0.582);
+  background: linear-gradient(to left,rgba(85, 73, 5, 0.862),rgb(243, 183, 72));
 }
 
 .card4{
   background-color:#d1a082a1;;
   box-shadow: 5px 5px 10px rgba(82, 63, 2, 0.425);
+  background: linear-gradient(to left,rgb(210, 180, 6),rgba(233, 9, 9, 0.831));
 }

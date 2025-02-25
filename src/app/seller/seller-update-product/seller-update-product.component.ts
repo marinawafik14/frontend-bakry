@@ -4,6 +4,7 @@ import { SellerServicesService } from '../../services/seller-services.service';
 import { Products } from '../../models/products';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -15,14 +16,25 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, Validators } from '@ang
 export class SellerUpdateProductComponent implements OnInit {
   productUP: Products = new Products('','','',0,'',0,0,0,'','',false,'','',new Date(),new Date(),[],'',[])
 
-  categories: Products[] = [];
+  //categories: Products[] = [];
 
-  maxBranches = 5;
+// Stores dynamic branches and quantities
+branchInputs: { branch: string; quantity: number }[] = [{ branch: '', quantity: 1 }];
+categories: Array<{ _id: string; name: string }> = [];
+  branchError: string | null = null;
+  alternativeBranches: any[] = [];
+  branchCapacityErrors: string[] = [];
+  branchesWithCapacity: { [branchName: string]: number } = {};
+// List of allowed branches
+allowedBranches: string[] = ['Cairo Branch', 'Mansoura Branch'];
+
+
+
   constructor(
     private updateProSrv: SellerServicesService,
     private route: ActivatedRoute,
     private router: Router,
-
+private ProductService : ProductService
 
   ) {}
 
@@ -61,6 +73,7 @@ export class SellerUpdateProductComponent implements OnInit {
 
 
   updateProductone(): void {
+    this.productUP.branch = this.branchInputs.map(branchInput => branchInput.branch);
     console.log("Updating product:", this.productUP);
     this.updateProSrv.updateProduct(this.productUP).subscribe(
       (response) => {
@@ -104,17 +117,71 @@ onPositiveNumber(event: any): void {
     event.target.value = value.slice(0, -1); // Remove the invalid character
   }
 }
-
-
-addBranch(): void {
-  if (this.productUP.branch.length < this.maxBranches) {
-    this.productUP.branch.push(''); // Add an empty branch input
-  }
+ // Method to add a new branch input field
+ addBranch(): void {
+  this.branchInputs.push({ branch: '', quantity: 1 });
 }
 
-/** ✅ Remove branch at a specific index */
+// Method to remove a branch input field
 removeBranch(index: number): void {
-  this.productUP.branch.splice(index, 1);
+  this.branchInputs.splice(index, 1);
+}
+
+
+checkBranchCapacity(branches: string[], quantities: number[]): Promise<void> {
+  this.branchCapacityErrors = [];
+  this.branchesWithCapacity = {};
+
+  //Remove duplicate branch names to avoid multiple calls
+  const uniqueBranches = Array.from(new Set(branches));
+
+  const capacityCheckPromises = uniqueBranches.map((branchName, index) => {
+    return new Promise<void>((resolve, reject) => {
+      this.ProductService.checkBranchCapacity(branchName, quantities[index]).subscribe(
+        (response) => {
+          if (response.exceedsCapacity) {
+            const errorMsg = `Branch ${branchName} has insufficient capacity. Available: ${response.availableCapacity}`;
+
+            //  Ensure each error is added only once
+            if (!this.branchCapacityErrors.includes(errorMsg)) {
+              this.branchCapacityErrors.push(errorMsg);
+            }
+          } else {
+            this.branchesWithCapacity[branchName] = response.availableCapacity;
+          }
+          resolve();
+        },
+        (error) => {
+          const errorMsg = `Error checking capacity for branch: ${branchName}`;
+          if (!this.branchCapacityErrors.includes(errorMsg)) {
+            this.branchCapacityErrors.push(errorMsg);
+          }
+          reject(error);
+        }
+      );
+    });
+  });
+
+  return Promise.all(capacityCheckPromises).then(() => {});
+}
+
+
+
+
+// Called when a branch name or quantity is updated
+onBranchInputChange(index: number): void {
+const branch = this.branchInputs[index].branch;
+const quantity = this.branchInputs[index].quantity;
+
+if (branch && quantity > 0) {
+  clearTimeout((this as any).branchCheckTimeout);
+  (this as any).branchCheckTimeout = setTimeout(() => {
+    this.checkBranchCapacity(
+      this.branchInputs.map(b => b.branch),
+      this.branchInputs.map(b => b.quantity)
+    );
+  }, 300); // Delay prevents excessive function calls
+}
 }
 
 

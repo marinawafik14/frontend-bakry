@@ -1,0 +1,31 @@
+<div class="admin-container">
+  <h2 class="text-center p-2 "> Comments</h2>
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered " *ngIf="comments.length > 0">
+      <thead class="table-light text-center">
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">Email</th>
+          <th scope="col">Comment</th>
+          <th scope="col">CreatedAt</th>
+          <th scope="col">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="selected" *ngFor="let comment of comments">
+          <td scope="row">{{comment.userId}}</td>
+          <td>{{comment.email}}</td>
+          <td>{{comment.message}}</td>
+            <td>{{comment.createdAt}}</td>
+            <td>
+              <button *ngIf="comment._id" (click)="deleteComment(comment._id)">🗑 Delete</button>
+            </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <p *ngIf="comments.length === 0">No comments found.</p>
+  </div>
+
+

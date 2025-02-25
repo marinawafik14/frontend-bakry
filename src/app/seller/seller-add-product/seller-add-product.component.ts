@@ -46,7 +46,7 @@ export class SellerAddProductComponent implements OnInit {
     addBranch(): void {
       this.branchInputs.push({ branch: '', quantity: 1 });
     }
-  
+
     // Method to remove a branch input field
     removeBranch(index: number): void {
       this.branchInputs.splice(index, 1);
@@ -136,17 +136,17 @@ export class SellerAddProductComponent implements OnInit {
   checkBranchCapacity(branches: string[], quantities: number[]): Promise<void> {
     this.branchCapacityErrors = [];
     this.branchesWithCapacity = {};
-  
+
     // ✅ Fix: Remove duplicate branch names to avoid multiple calls
     const uniqueBranches = Array.from(new Set(branches));
-  
+
     const capacityCheckPromises = uniqueBranches.map((branchName, index) => {
       return new Promise<void>((resolve, reject) => {
         this.ProductService.checkBranchCapacity(branchName, quantities[index]).subscribe(
           (response) => {
             if (response.exceedsCapacity) {
               const errorMsg = `Branch ${branchName} has insufficient capacity. Available: ${response.availableCapacity}`;
-  
+
               // ✅ Fix: Ensure each error is added only once
               if (!this.branchCapacityErrors.includes(errorMsg)) {
                 this.branchCapacityErrors.push(errorMsg);
@@ -166,12 +166,12 @@ export class SellerAddProductComponent implements OnInit {
         );
       });
     });
-  
+
     return Promise.all(capacityCheckPromises).then(() => {});
   }
-  
-  
-  
+
+
+
 
 // Called when a branch name or quantity is updated
 onBranchInputChange(index: number): void {
