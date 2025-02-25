@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
     });
 
   }
+  userId: any;
   userEmail: string | null = null;
 
   // wanna to check if there token in session or not
@@ -45,6 +46,12 @@ export class HeaderComponent implements OnInit {
       this.userEmail = decodedToken?.email || null;
       console.log(this.userEmail);
       console.log(decodedToken.email);
+
+      // id
+      const decodedToken2 = this.authService.getDecodedToken();
+      this.userId = decodedToken2?.userId;
+      
+            
     }
   }
   // this method to remove token from session

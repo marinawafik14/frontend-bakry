@@ -1,33 +1,58 @@
 <div class="container my-5">
-  <h2 class="text-center">Users</h2>
-  <!-- <div class="dropdown">
+  <h2 class="text-center bg-success-subtle text-black">Users</h2>
+  <p class="lead">{{ users.length }} {{ selectedRole }}</p>
+
+  <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Role
+      {{ selectedRole }}
+      
     </button>
-     <ul class="dropdown-menu" role="menu">
-        <li *ngFor="let role of availableRoles">
-=======
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <label class="dropdown-item">
-                <input type="checkbox" [value]="role" (change)="toggleRoleFilter(role, $event)"> {{ role | titlecase }}
-            </label>
-        </li>
-    </ul>
-    <ul class="dropdown-menu" role="menu">
-      <li><a class="dropdown-item" (click)="getUserRole('Customer')">Customers</a></li>
-      <li><a class="dropdown-item" (click)="getUserRole('Seller')">Sellers</a></li>
-      <li><a class="dropdown-item" (click)="getUserRole('Admin')">Admins</a></li>
-      <li><a class="dropdown-item" (click)="getUserRole('Cashier')">Cashiers</a></li>
-    </ul>
-<<<<<<< HEAD
-  </div>
-=======
-  </div> -->
   
-  <div class="table-responsive table-bordered">
-        <table class="table table-hover">
-            <thead class="table-danger text-white">
+    <ul class="dropdown-menu" role="menu">
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item" (click)="getAllUsers()" [class.active]="selectedRole === 'All Users'">
+          All Users
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Customer')" [class.active]="selectedRole === 'Customer'">
+          Customers
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Seller')" [class.active]="selectedRole === 'Seller'">
+          Sellers
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Admin')" [class.active]="selectedRole === 'Admin'">
+          Admins
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Cashier')" [class.active]="selectedRole === 'Cashier'">
+          Cashiers
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Clerk')" [class.active]="selectedRole === 'Clerk'">
+          Clerks
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="getUserRole('Supplier')" [class.active]="selectedRole === 'Supplier'">
+          Suppliers
+        </a>
+      </li>
+    </ul>
+    
+  </div>
+  
+  
+  <div class="table-responsive table-bordered table-striped">
+        <table class="table table-hover table-striped">
+            <thead class="table-success text-white">
               <tr class>
                 <td>Id</td>
                 <th>Email</th>
@@ -40,7 +65,7 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="">
               @for (user of users; track $index) {
                 <tr>
                   <td>{{ user._id | slice:-3 }}</td>

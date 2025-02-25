@@ -16,6 +16,8 @@ export class AdminUsersComponent implements OnInit {
   filteredUsers: User[] = [];
   selectedRoles: string[] = [];
   availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
+  userNumberMessage: any;
+  selectedRole: string = 'Users'; 
 
   constructor(private _adminUsersApi: AdminUserApiService) {}
 
@@ -30,6 +32,7 @@ export class AdminUsersComponent implements OnInit {
         if (res && res.users) {
           this.users = res.users;
           this.filteredUsers = this.users; // Ensure filtered list is initialized
+          this.selectedRole = 'Users'
         } else {
           console.error("Unexpected API response format:", res);
         }
@@ -93,6 +96,7 @@ export class AdminUsersComponent implements OnInit {
         if (res && res.users) {
           this.users = res.users;
           this.filteredUsers = this.users;
+          this.selectedRole = role;
         } else {
           console.error("Unexpected API response format:", res);
         }
@@ -115,6 +119,8 @@ export class AdminUsersComponent implements OnInit {
         return 'role-sales';
       case 'customer':
           return 'role-customer';
+      case 'supplier':
+          return 'role-supplier';
       default:
         return 'role-default';
     }

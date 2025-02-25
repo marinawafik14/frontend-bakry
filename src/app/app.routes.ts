@@ -56,7 +56,6 @@ export const routes: Routes = [
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
   },
   { path: 'dashboard', component: DashbordSellerComponent },
-
  //admin route
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminDashboardComponent},
@@ -64,12 +63,13 @@ export const routes: Routes = [
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
-  {path:'inventory' , component:InventoryComponent},
+  {path:'productstoadmin' , component:InventoryComponent},
   {path:'requests' , component:AdminRequestsComponent},
   {path:'test' , component:TestComponent},
   {path:'admin/branch/:id', component:BranchesComponent},
+  {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
-  {path: "**", redirectTo:"dashboard"}
+  {path: "**", redirectTo:"notfound"}
 ]},
 
   { path: '**', component: NotFoundComponent },
