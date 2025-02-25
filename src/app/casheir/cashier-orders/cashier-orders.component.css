@@ -1,0 +1,118 @@
+
+.orders-container {
+    padding: 20px;
+    /* background-color: #e6e5e38c; */
+  }
+
+  .bigContainer{
+    background-color: white;
+  }
+  table {
+    width: 80%;
+    margin-top: 20px;
+    margin: auto;
+  }
+  
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  th {
+    background-color: #ccc7c3;
+  }
+  
+  td {
+    background-color: #eee9e4;
+    /* border: 1px solid #eee9e4; */
+  }
+  
+  .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: row ; */
+    gap: 10px;
+  }
+  
+  .item-card {
+    background-color: #dbd8d5;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .item-card h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .item-card p {
+    margin: 5px 0;
+  }
+  
+  .canceled {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .delivered{
+    color: green;
+    font-weight: bold;
+  
+  }
+  
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .btn-warning {
+    background-color: #b94d2c;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .btn-success:hover,
+  .btn-danger:hover {
+    opacity: 0.9;
+  }
+  
+  @media (min-width: 576px) {
+    .item-card {
+      width: 50%; /* Two items per row on medium screens */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .item-card {
+      width: 30%; /* Four items per row on larger screens */
+    }
+  }

@@ -14,7 +14,13 @@ export class BranchesService {
     'http://localhost:8000/api/inventory/branch/info/:branchId';
   private getProductsByBranchId_url = `http://localhost:8000/api/inventory/branch/`;
   private request_url = 'http://localhost:8000/api/inventory/clerk/request';
+  private apiUrl = 'http://localhost:8000/api/inventory/transfer';
   private requests_url = `http://localhost:8000/api/inventory/requests`;
+  private admintobranch_url =
+    'http://localhost:8000/api/inventory/transferfromadmintobranch';
+  private changeRequestStatus_url =
+    'http://localhost:8000/api/inventory/stockReq';
+
   constructor(private http: HttpClient) {}
 
   // return all branches
@@ -54,5 +60,29 @@ export class BranchesService {
           response.stockRequests.map((req) => new RestockRequest(req))
         )
       );
+  }
+
+  updateRequestStatus(
+    requestId: string,
+    status: string,
+    message: string
+  ): Observable<any> {
+    return this.http.put(`${this.changeRequestStatus_url}/${requestId}`, {
+      status,
+      message,
+    });
+  }
+
+  transferStock(requestId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${requestId}`, {});
+  }
+
+  transferStockfromadmin(
+    productId: string,
+    branchId: string,
+    quantity: number
+  ): Observable<any> {
+    const url = `${this.admintobranch_url}`;
+    return this.http.post(url, { productId, branchId, quantity });
   }
 }

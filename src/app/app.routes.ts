@@ -30,7 +30,12 @@ import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-che
 import { InventoryComponent } from './admin/inventory/inventory.component';
 import { BranchesComponent } from './admin/branches/branches.component';
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
+<<<<<<< HEAD
 import { CommentsComponent } from './admin/comments/comments.component';
+=======
+import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
+// import { CashierGuard } from './guard/cashier.guard'; 
+>>>>>>> ea53229882130a75e6a57f6da3703448a2d19d71
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -45,15 +50,16 @@ export const routes: Routes = [
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
+  // {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [CashierGuard]},
   {path: 'cashier/category/:name', component:CashierProductsComponent},
   {path: 'cashier/cashier-cart', component:CashierCartComponent},
   {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
+  {path: 'cashier/cashier-orders', component:CashierOrdersComponent},
   {
     path: 'dashboard',
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
   },
   { path: 'dashboard', component: DashbordSellerComponent },
-
  //admin route
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminDashboardComponent},
@@ -61,13 +67,14 @@ export const routes: Routes = [
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
-  {path:'inventory' , component:InventoryComponent},
+  {path:'productstoadmin' , component:InventoryComponent},
   {path:'requests' , component:AdminRequestsComponent},
   {path:'comments',component:CommentsComponent},
   {path:'test' , component:TestComponent},
   {path:'admin/branch/:id', component:BranchesComponent},
+  {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
-  {path: "**", redirectTo:"dashboard"}
+  {path: "**", redirectTo:"notfound"}
 ]},
 
   { path: '**', component: NotFoundComponent },

@@ -1,0 +1,147 @@
+<div class="orders-container mt-5 bigContainer">
+  <!-- <h2 style="text-align: center; color: rgb(117, 108, 24);">Cashier Orders</h2> -->
+
+  <!-- Search Field -->
+  <div class="text-center mb-3">
+    <input 
+      type="text" 
+      placeholder="Search here .." 
+      [(ngModel)]="searchText" 
+      (input)="applyOrderFilters()"
+      class="form-control"
+      style="max-width: 700px; margin: 0 auto;"
+    />
+  </div>
+
+  <!-- Delivered Orders Section -->
+  <div class="orders-container mt-5">
+    <h2 style="text-align: center; color: green;">Delivered Orders</h2>
+    <div *ngFor="let order of deliveredOrders" class="order-table-container">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <h4 class="mt-5">Order {{ order._id }}</h4>
+            <tr>
+              <th>Invoice</th>
+              <th>Purchase On</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ order._id }}</td>
+              <td>{{ order.updatedAt | date: 'short' }}</td>
+              <td>${{ order.totalAmount }}</td>
+              <td [ngClass]="{
+                'delivered': order.orderStatus === 'delivered'
+              }">
+                {{ order.orderStatus }}
+              </td>
+              <td>
+                <!-- Buttons for delivered orders -->
+                <button
+                  (click)="cancelOrder(order)"
+                  [disabled]="order.orderStatus === 'canceled' || !canEditOrder(order)"
+                  class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+                <button
+                  (click)="toggleEdit(order)"
+                  [disabled]="order.orderStatus === 'canceled' || !canEditOrder(order)"
+                  [class.btn-success]="!order.isEditing"
+                  [class.btn-primary]="order.isEditing"
+                  class="btn btn-sm">
+                  {{ order.isEditing ? 'OK' : 'Update' }}
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th>Items</th>
+              <td colspan="5">
+                <div class="items-container">
+                  <div class="item-card" *ngFor="let item of order.items; let idx = index">
+                    <h5>{{ item.productId.name }}</h5>
+                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                    <p><strong>Price:</strong> ${{ item.productId.price }}</p>
+                    <p><strong>Total:</strong> ${{ item.quantity * item.productId.price }}</p>
+                    <button
+                      *ngIf="order.isEditing"
+                      (click)="removeItem(order, idx)"
+                      [disabled]="!canEditOrder(order)"
+                      class="btn btn-warning btn-sm">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canceled Orders Section -->
+  <div class="orders-container mt-5">
+    <h2 style="text-align: center; color: red;">Canceled Orders</h2>
+    <div *ngFor="let order of canceledOrders" class="order-table-container">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <h4 class="mt-5">Order {{ order._id }}</h4>
+            <tr>
+              <th>Invoice</th>
+              <th>Purchase On</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ order._id }}</td>
+              <td>{{ order.updatedAt | date: 'short' }}</td>
+              <td>${{ order.totalAmount }}</td>
+              <td [ngClass]="{
+                'canceled': order.orderStatus === 'canceled'
+              }">
+                {{ order.orderStatus }}
+              </td>
+              <td>
+                <!-- For canceled orders, you might only allow removal -->
+                <button
+                  (click)="removeOrder(order)"
+                  class="btn btn-warning btn-sm">
+                  Remove
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th>Items</th>
+              <td colspan="5">
+                <div class="items-container">
+                  <div class="item-card" *ngFor="let item of order.items; let idx = index">
+                    <h5>{{ item.productId.name }}</h5>
+                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                    <p><strong>Price:</strong> ${{ item.productId.price }}</p>
+                    <p><strong>Total:</strong> ${{ item.quantity * item.productId.price }}</p>
+                    <!-- Optionally, remove buttons for canceled orders if editing is allowed -->
+                    <button
+                      *ngIf="order.isEditing"
+                      (click)="removeItem(order, idx)"
+                      [disabled]="!canEditOrder(order)"
+                      class="btn btn-warning btn-sm">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Product List</h2>
+
+  <table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Stock</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product._id?.slice(-3) }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+          <span class="badge" [ngClass]="{
+            'bg-success': product.status === 'Approved',
+            'bg-danger': product.status === 'Rejected',
+            'bg-warning': product.status === 'Pending'
+          }">
+            {{ product.status }}
+          </span>
+        </td>
+        <td>
+          <button 
+            class="btn btn-success btn-sm me-2" 
+            (click)="approveProduct(product)" 
+            [disabled]="product.status === 'approved'"
+          >
+            Change
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
