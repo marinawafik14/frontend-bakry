@@ -50,16 +50,6 @@
     margin: 5px 0;
   }
   
-  .pending {
-    color: brown;
-    font-weight: bold;
-  }
-  
-  .shipped {
-    color: blue;
-    font-weight: bold;
-  }
-  
   .canceled {
     color: red;
     font-weight: bold;
@@ -84,6 +74,17 @@
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
+    margin: 10px;
+  }
+
+  .btn-warning {
+    background-color: #b94d2c;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
   }
   
   .btn-danger {
@@ -93,6 +94,7 @@
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
+    margin: 10px;
   }
   
   .btn-success:hover,
