@@ -1,15 +1,15 @@
-<div class="orders-container mt-5">
-  <h2 style="text-align: center; color: rgb(117, 108, 24);">Recent Orders</h2>
+<div class="orders-container mt-5 bigContainer">
+  <!-- <h2 style="text-align: center; color: rgb(117, 108, 24);">Cashier Orders</h2> -->
 
   <!-- Search Field -->
   <div class="text-center mb-3">
     <input 
       type="text" 
-      placeholder="Search by Order ID..." 
+      placeholder="Search here .." 
       [(ngModel)]="searchText" 
       (input)="applyOrderFilters()"
       class="form-control"
-      style="max-width: 300px; margin: 0 auto;"
+      style="max-width: 700px; margin: 0 auto;"
     />
   </div>
 
