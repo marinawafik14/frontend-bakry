@@ -25,8 +25,8 @@ export class CashierCartComponent implements OnInit{
   }
 
   private notyf = new Notyf({
-    duration: 3000,  // Notification duration in milliseconds
-    position: { x: 'center', y: 'bottom' } // Position on the screen
+    duration: 3000,
+    position: { x: 'center', y: 'bottom' }
   });
 
   ngOnInit(): void {

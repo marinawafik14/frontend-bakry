@@ -3,6 +3,8 @@ import { OrdersService } from '../../services/order.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { ProductService } from '../../services/product.service';
+import { FormsModule } from '@angular/forms';
 
 interface Product {
   _id: string;
@@ -22,70 +24,97 @@ interface Order {
   items: OrderItem[];
   totalAmount: number;
   orderStatus: string;
-  createdAt: string;
-  // Optional flag to track editing state
+  updatedAt: string;
+  createdAt:string;
   isEditing?: boolean;
 }
 
 
 @Component({
   selector: 'app-cashier-orders',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cashier-orders.component.html',
   styleUrl: './cashier-orders.component.css'
 })
 export class CashierOrdersComponent {
 
   orders: Order[] = [];
-  sellerId: string = '';
+  deliveredOrders: Order[] = [];
+  canceledOrders: Order[] = [];
+  cashierId: any;
   counter:number = 1;
+  searchText: string = '';
 
-   constructor(public orderService: OrdersService, public authService: AuthService) {}
+   constructor(public orderService: OrdersService, public authService: AuthService , public productService: ProductService,) {}
   
     ngOnInit(): void {
-      this.sellerId = this.getSellerIdFromToken();
-      this.fetchOrders();
+      this.cashierId = this.getCashierIdFromToken();
+      this.fetchCashierOrders();
     }
-  
-    fetchOrders(): void {
-      console.log("Seller ID: ", this.sellerId);
-      this.orderService.getOfflineOrders().subscribe({
+
+    fetchCashierOrders(): void {
+      this.productService.getCashierOrders(this.cashierId).subscribe({
         next: (res) => {
-          console.log('Response:', res);
-          this.orders = res;
-        },
+          console.log("orrrder", res.orders);
+          this.orders = res.orders.map((order: any) => {
+            return {
+              _id: order._id,
+              Address: order.Address,           
+              orderStatus: order.orderStatus,   
+              totalAmount: order.totalAmount,   
+              createdAt: order.createdAt,
+              updatedAt: order.updatedAt,
+              items: order.items,
+            };
+          });
+        // Partition orders
+        this.deliveredOrders = this.orders.filter(o => o.orderStatus !== 'canceled');
+        this.canceledOrders = this.orders.filter(o => o.orderStatus === 'canceled');
+      },
         error: (error) => {
-          console.error('Error fetching orders:', error);
+          console.error('Error fetching cashier orders:', error);
         }
       });
     }
+    
+
+    applyOrderFilters(): void {
+      const searchLower = this.searchText.toLowerCase();
+      
+      // Helper function to check if an order matches the search criteria
+      const matchesSearch = (order: Order): boolean => {
+        // Check invoice (_id)
+        const invoiceMatch = order._id.toLowerCase().includes(searchLower);
+        // Check totalAmount (convert to string)
+        const amountMatch = order.totalAmount.toString().toLowerCase().includes(searchLower);
+        // Check Purchase On: using createdAt (you can also use updatedAt if needed)
+        const purchaseOnMatch = new Date(order.createdAt)
+          .toLocaleString()
+          .toLowerCase()
+          .includes(searchLower);
+        
+        return invoiceMatch || amountMatch || purchaseOnMatch;
+      };
+    
+      // Filter delivered orders and canceled orders separately based on search text
+      this.deliveredOrders = this.orders.filter(
+        o => o.orderStatus !== 'canceled' && matchesSearch(o)
+      );
+      this.canceledOrders = this.orders.filter(
+        o => o.orderStatus === 'canceled' && matchesSearch(o)
+      );
+    }
+    
+
   
-    getSellerIdFromToken(): string {
+    getCashierIdFromToken(): string {
       const decodedToken = this.authService.getDecodedToken();
       return decodedToken?.userId || '';
     }
   
     getItemsForCurrentCashier(order: Order): OrderItem[] {
       return order.items.filter(item => item.productId);
-      // return order.items.filter(item => item.productId && item.productId.sellerId !== null && item.productId.sellerId === this.sellerId);
     }
-
-     // Method to cancel an order
-  // cancelOrder(order: Order): void {
-  //   this.orderService.cancelOrder(order._id).subscribe({
-  //     next: (res) => {
-  //       console.log('Order canceled:', res);
-  //       // Update local order status to "canceled"
-  //       const updatedOrder = this.orders.find(o => o._id === order._id);
-  //       if (updatedOrder) {
-  //         updatedOrder.orderStatus = 'canceled';
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error canceling order:', error);
-  //     }
-  //   });
-  // }
 
 
   cancelOrder(order: Order): void {
@@ -115,40 +144,6 @@ export class CashierOrdersComponent {
   }
   
 
-
-  //  // Method to update order items.
-  // // In a real application, you would gather new items from a form or modal.
-  // updateOrder(order: Order, newItems: OrderItem[]): void {
-  //   this.orderService.updateOrder(order._id, newItems).subscribe({
-  //     next: (res) => {
-  //       console.log('Order updated:', res);
-  //       // Assuming the response returns the updated order object:
-  //       const updatedOrder = this.orders.find(o => o._id === order._id);
-  //       if (updatedOrder) {
-  //         updatedOrder.items = res.order.items;
-  //         updatedOrder.totalAmount = res.order.totalAmount;
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error updating order:', error);
-  //     }
-  //   });
-  // }
-
-
-  //  // Stub method to open an update modal (or similar UI) to edit order items.
-  // // Here you would implement the UI logic to get the new list of items.
-  // openUpdateModal(order: Order): void {
-  //   // For demonstration purposes, we assume a newItems array is created.
-  //   // In practice, implement a form/modal where the cashier can adjust the items.
-  //   const newItems: OrderItem[] = order.items.filter(item => {
-  //     // Example: remove an item if needed. Adjust as required.
-  //     return item.productId._id !== 'ID_OF_PRODUCT_TO_REMOVE';
-  //   });
-  //   this.updateOrder(order, newItems);
-  // }
-
-
   // Toggle editing state. If turning OFF editing, call update API.
   toggleEdit(order: Order): void {
     // If we're switching from non-edit to edit, just set the flag.
@@ -170,11 +165,20 @@ export class CashierOrdersComponent {
 
   // Remove an item from the order
   removeItem(order: Order, index: number): void {
+    if (!this.canEditOrder(order)) {
+      Swal.fire({
+        title: 'Not Allowed!',
+        text: 'You cannot modify this order after 24 hours.',
+        icon: 'warning',
+        showConfirmButton: true
+      });
+      return;
+    }
     order.items.splice(index, 1);
     order.totalAmount = this.calculateTotal(order.items);
   }
+  
 
-  // Method that calls your existing updateOrder API
   updateOrder(order: Order, updatedItems: OrderItem[]): void {
     this.orderService.updateOrder(order._id, updatedItems).subscribe({
       next: (res) => {
@@ -237,6 +241,18 @@ export class CashierOrdersComponent {
       }
     });
   }
+
+
+  // Returns true if the order’s most recent timestamp is within 24 hours from now.
+canEditOrder(order: Order): boolean {
+  const created = new Date(order.createdAt);
+  const updated = new Date(order.updatedAt);
+  const effectiveDate = updated > created ? updated : created;
+  const now = new Date();
+  const diff = now.getTime() - effectiveDate.getTime();
+  return diff < 24 * 60 * 60 * 1000;
+}
+
   
 
     

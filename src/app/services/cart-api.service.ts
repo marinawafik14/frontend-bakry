@@ -137,6 +137,34 @@ cartCount$ = this.cartCount.asObservable();
       }
     }
 
+    // addToCart(productId: string, quantity: number, price: number): Observable<any> {
+    //   const token = sessionStorage.getItem("tokenkey");
+    
+    //   if (token) {
+    //     const headers = this.getAuthHeaders();
+    //     const requestBody = { productId, quantity, price };
+    
+    //     console.log('CartApiService addToCart URL:', this.apiUrl);
+    //     return this.httpClient.post<any>(this.apiUrl, requestBody, { headers })
+    //       .pipe(
+    //         tap(() => this.refreshCartCount()) // Refresh count after adding
+    //     );
+    //   } else {
+    //     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+    //     const existingItem = guestCart.find((item: any) => item.productId === productId);
+    //     if (existingItem) {
+    //       existingItem.quantity += quantity;
+    //     } else {
+    //       guestCart.push({ productId, quantity, price });
+    //     }
+    //     localStorage.setItem("guestCart", JSON.stringify(guestCart));
+    //     console.log("Item added to guest cart:", guestCart);
+    //     this.refreshCartCount();
+    //     return of(guestCart);
+    //   }
+    // }
+    
+
   refreshCartCount() {
     const token = sessionStorage.getItem('tokenkey'); 
     if (token) {

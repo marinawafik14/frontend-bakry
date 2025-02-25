@@ -6,6 +6,7 @@ import { OrdersService } from '../../services/order.service';
 import { BehaviorSubject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Notyf } from 'notyf';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cashier-checkout',
@@ -16,18 +17,19 @@ import { Notyf } from 'notyf';
 export class CashierCheckoutComponent implements OnInit {
   cartItems: any[] = [];
   subtotal: number = 0;
+  // cashierId: any;
   cartCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  //shipping: number = 10.0; // Or any logic for shipping
   totalAmount: number = 0;
-  paymentMethod: string = "cash";  // Default payment method
+  paymentMethod: string = "cash";
 
-  paymentMethods = ["Credit Card", "PayPal", "Vodafone Cash", "cash"]; // Available payment methods
+  paymentMethods = ["Credit Card", "PayPal", "Vodafone Cash", "cash"];
 
   constructor(
     private cartService: CartApiService,
     private orderService: OrdersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class CashierCheckoutComponent implements OnInit {
   }
 
   completePurchase() {
+    const cashierId = this.getCashierIdFromToken();
     const orderData = {
       items: this.cartItems.map(item => ({
         productId: item.productId,
@@ -61,6 +64,7 @@ export class CashierCheckoutComponent implements OnInit {
       Address: "Cairo",
       paymentMethod: this.paymentMethod,
       orderStatus: 'delivered',
+      cashier: cashierId 
     };
   
     this.orderService.createOrder(orderData).subscribe(
@@ -95,7 +99,10 @@ export class CashierCheckoutComponent implements OnInit {
       );
   }}
 
+  getCashierIdFromToken(): string {
+    const decodedToken = this.authService.getDecodedToken();
+    return decodedToken?.userId || '';
+  }
 
-  
   
 }

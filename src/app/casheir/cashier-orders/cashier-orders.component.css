@@ -1,9 +1,12 @@
+
 .orders-container {
     padding: 20px;
-    background-color: #e6e5e38c;
+    /* background-color: #e6e5e38c; */
   }
-  
-  
+
+  .bigContainer{
+    background-color: white;
+  }
   table {
     width: 80%;
     margin-top: 20px;
@@ -16,12 +19,12 @@
   }
   
   th {
-    background-color: #c9be78f8;
+    background-color: #ccc7c3;
   }
   
   td {
-    background-color: #ddd9bf;
-    border: 1px solid #ddd9bf;
+    background-color: #eee9e4;
+    /* border: 1px solid #eee9e4; */
   }
   
   .items-container {
@@ -32,7 +35,7 @@
   }
   
   .item-card {
-    background-color: #f1efe0;
+    background-color: #dbd8d5;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -48,16 +51,6 @@
   
   .item-card p {
     margin: 5px 0;
-  }
-  
-  .pending {
-    color: brown;
-    font-weight: bold;
-  }
-  
-  .shipped {
-    color: blue;
-    font-weight: bold;
   }
   
   .canceled {
@@ -84,6 +77,17 @@
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
+    margin: 10px;
+  }
+
+  .btn-warning {
+    background-color: #b94d2c;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
   }
   
   .btn-danger {
@@ -93,6 +97,7 @@
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
+    margin: 10px;
   }
   
   .btn-success:hover,
