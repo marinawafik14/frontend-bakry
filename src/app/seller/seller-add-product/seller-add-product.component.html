@@ -1,5 +1,5 @@
 <section class="get-in-touch">
-
+  <h1 class="title">ADD PRODUCT</h1>
   <form class="contact-form row" #productForm="ngForm" (ngSubmit)="save()" novalidate>
     <div class="form-field col-lg-6">
       <input id="name" [(ngModel)]="productAdd.name" name="name" class="input-text js-input" type="text" required />
@@ -16,11 +16,10 @@
       <label class="label" for="price">Price</label>
     </div>
     <div class="form-field col-lg-6">
-      <input id="previousprice" [(ngModel)]="productAdd.previousprice" name="previousprice" class="input-text js-input" type="number" required
+      <input id="stock" [(ngModel)]="productAdd.stock" name="stock" class="input-text js-input" type="number" required
         min="1" (input)="onPositiveNumber($event)" />
-      <label class="label" for="previousprice">Previous Price</label>
+      <label class="label" for="stock">Stock number</label>
     </div>
-
     <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productAdd.flavor" name="flavor" class="input-text js-input" type="text"
         required />
@@ -31,78 +30,22 @@
         required />
       <label class="label" for="createdAt">Created At</label>
     </div>
-
-    <div formArrayName="branchInputs">
-      <div *ngFor="let branchInput of branchInputs; let i = index" class="branch-container">
-        
-        <!-- Branch Name Input -->
-        <div class="form-field">
-          <input 
-            id="branch{{i}}" 
-            [(ngModel)]="branchInput.branch" 
-            name="branch{{i}}" 
-            class="input-text js-input" 
-            type="text" 
-            required 
-            placeholder="Enter branch name"
-          />
-          <label class="label" for="branch{{i}}">Branch Name</label>
-        </div>
-    
-        <!-- Quantity Input -->
-        <div class="form-field">
-          <input 
-            id="quantity{{i}}" 
-            [(ngModel)]="branchInput.quantity" 
-            name="quantity{{i}}" 
-            class="input-text js-input" 
-            type="number" 
-            required 
-            min="1" 
-            placeholder="Enter quantity"
-            (blur)="onBranchInputChange(i)"
-          />
-          <label class="label" for="quantity{{i}}">Quantity</label>
-        </div>
-    
-        <!-- Remove Branch Button -->
-        <button type="button" class="remove-btn" *ngIf="branchInputs.length > 1" (click)="removeBranch(i)">Remove</button>
-      </div>
-    </div>
-    
-    <!-- Add New Branch Button -->
-    <button type="button" class="add-btn" (click)="addBranch()">+ Add Branch</button>
-    
-    <!-- Display Capacity Errors -->
-    <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
-      <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">
-        {{ error }}
-      </p>
-    </div>
- 
-    <!-- Display capacity errors -->
-    <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
-      <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
-    </div>
-
-    <div class="form-field col-lg-12" style="color: #eeb928;">Select a Category
-      <select [(ngModel)]="productAdd.categoryid" name="category" class="form-select mt-3 w-25" id="category" required >
-        <option value="Select a Category" disabled selected>Select a Category</option>
+    <div class="form-field col-lg-12">
+      <select [(ngModel)]="productAdd.categoryid" name="category" class="form-select mt-3 w-25" id="category" required>
+        <option value="" disabled selected>Select a Category</option>
         <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
       </select>
     </div>
-
-    <div class="input-container ic2 yellow" style="color: #eeb928;"> Discount
+    <div class="input-container ic2 yellow"> Discount
       <input id="discount" [(ngModel)]="productAdd.discounted" class="input" type="checkbox" name="discount" />
     </div>
-
     <div class="col-lg-6" style="color: #5543ca;">
       <input id="img1" (change)="onFileSelected($event)" name="image1" class="m-1" type="file" accept="image/*"
         required /> Image 1
       <input id="img2" (change)="onFileSelected($event)" name="image2" class="m-1" type="file" accept="image/*"
         required /> Image 2
     </div>
-
+    
     <div class="form-field col-lg-12">
       <input class="submit-btn" type="submit" value="Submit" [disabled]="!productForm.valid" />
     </div>

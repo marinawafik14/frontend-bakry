@@ -92,3 +92,12 @@ ul {
   .category .btn-sm:hover{
     background-color: gold;
   }
+
+  .btndash{
+    border: none;
+    background-color: goldenrod;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 5px 10px;
+    margin-bottom: 6px;
+  }
