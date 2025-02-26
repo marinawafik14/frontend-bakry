@@ -73,7 +73,7 @@ orders: OrderTo[] = [];
     }
     return 'Unknown';
   }
-  
+
   getSellerName(sellerId: string | { _id: string; username?: string; profile?: { firstName?: string; lastName?: string } }): string {
     if (typeof sellerId === 'object') {
       if (sellerId.profile && sellerId.profile.firstName && sellerId.profile.firstName) {
@@ -101,7 +101,7 @@ orders: OrderTo[] = [];
       this.totalSales = data.totalSales;
     });
   }
-  
+
 
   save(){
     if(this.prods){
