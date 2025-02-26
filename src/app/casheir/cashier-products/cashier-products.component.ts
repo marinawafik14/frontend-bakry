@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Notyf } from 'notyf';
 import { CartApiService } from '../../services/cart-api.service';
 import { AuthService } from '../../services/auth.service';
-import { Product } from '../../../../frontend-bakry/src/app/_models/product';
+import { Products } from '../../models/products';
 
 @Component({
   selector: 'app-cashier-products',

@@ -30,12 +30,9 @@ import { CashierCheckoutComponent } from './casheir/cashier-checkout/cashier-che
 import { InventoryComponent } from './admin/inventory/inventory.component';
 import { BranchesComponent } from './admin/branches/branches.component';
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
-<<<<<<< HEAD
 import { CommentsComponent } from './admin/comments/comments.component';
-=======
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
 // import { CashierGuard } from './guard/cashier.guard'; 
->>>>>>> ea53229882130a75e6a57f6da3703448a2d19d71
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
