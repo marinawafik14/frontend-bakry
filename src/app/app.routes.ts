@@ -31,7 +31,8 @@ import { InventoryComponent } from './admin/inventory/inventory.component';
 import { BranchesComponent } from './admin/branches/branches.component';
 import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.component';
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
-// import { CashierGuard } from './guard/cashier.guard'; 
+// import { cashierGuard } from './guard/cashier.guard';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -46,8 +47,12 @@ export const routes: Routes = [
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
-  // {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [CashierGuard]},
+//   {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [cashierGuard]},
   {path: 'cashier/category/:name', component:CashierProductsComponent},
+//   {path: 'cashier/cashier-cart', component:CashierCartComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/cashier-orders', component:CashierOrdersComponent, canActivate: [cashierGuard]},
+
   {path: 'cashier/cashier-cart', component:CashierCartComponent},
   {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
   {path: 'cashier/cashier-orders', component:CashierOrdersComponent},
