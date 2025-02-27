@@ -85,7 +85,7 @@ export class CartComponent implements OnInit{
   removeCartItem(productId:string){
     if (this.userId) {
       // For logged-in user, make backend API call
-      this.cartServiceApi.removeCartItem(this.userId, productId).subscribe({
+      this.cartServiceApi.removehomeCartItem(this.userId, productId).subscribe({
         next: (res) => {
           this.notyf.success("Remove Item successfully");
           this.getCartData(); // Refresh cart data
@@ -106,7 +106,7 @@ export class CartComponent implements OnInit{
 
   updateCartQuantities(){
       for(let item of this.cartItems){
-          this.cartServiceApi.updateCartItemQuantity(this.userId, item.productId, Number(item.quantity))
+          this.cartServiceApi.updatehomeCartItemQuantity(this.userId, item.productId, Number(item.quantity))
           .subscribe({
             next: (res)=>{
                 console.log(res);
@@ -171,7 +171,7 @@ export class CartComponent implements OnInit{
   clearCart() {
     this.notyf.success("Clearing cart...");
     if (this.userId) {
-      this.cartServiceApi.clearCart(this.userId).subscribe({
+      this.cartServiceApi.clearhomeCart(this.userId).subscribe({
         next: (res) => {
           this.getCartData();
           this.notyf.success("Cart cleared successfully");
