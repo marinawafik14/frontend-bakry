@@ -97,6 +97,7 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
   ) {}
   ngOnInit(): void {
       this.fetchCartItems();
+      
   }
   order: Order = new Order(
     '', // firstname
@@ -110,6 +111,9 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
     '', // promoCode
     { governorate: '', city: '' } // shippingAddress
   );
+
+
+
 
   // get userid after decode token
 

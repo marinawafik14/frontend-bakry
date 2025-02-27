@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CartApiService } from '../services/cart-api.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
@@ -9,7 +9,7 @@ import 'notyf/notyf.min.css';
 
 @Component({
   selector: 'app-cart',
-  imports:[FormsModule],
+  imports:[FormsModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'

@@ -77,10 +77,13 @@ export class LoginComponent {
             if(this._authservice.getDecodedToken()?.role === 'Seller') {
               this.router.navigateByUrl('/dashboard');
             }
-            else if(this._authservice.getDecodedToken()?.role === 'Admin') {
+            else if(this._authservice.getDecodedToken()?.role === 'admin') {
               this.router.navigateByUrl('admin/dashboard');
             }else if(this._authservice.getDecodedToken()?.role === 'Cashier') {
               this.router.navigateByUrl("/cashier");
+            }
+            else if(this._authservice.getDecodedToken()?.role === 'Clerk') {
+              this.router.navigateByUrl("/admin");
             }
             else {  
               this.router.navigateByUrl("/home");
