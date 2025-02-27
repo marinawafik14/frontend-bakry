@@ -16,7 +16,7 @@
           <td>{{ item.productId?.name }}</td>
           <td>{{ item.currentStock }}</td>
           <td>{{ item.price }}</td>
-          <td>{{ item.capacity }}</td>
+          <td>{{ item.stockIn }}</td>
         </tr>
         <tr *ngIf="sellerInventory.length === 0">
           <td colspan="5" class="text-center">No inventory records found.</td>

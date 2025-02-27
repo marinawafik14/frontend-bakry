@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-cashier-cart',
@@ -19,7 +20,7 @@ export class CashierCartComponent implements OnInit{
   total:number = 0
   quantityErrorMessage:boolean = false;
   decodedToken:any
-  constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService){
+  constructor(public cartServiceApi:CartApiService, public router:Router, public _authServie:AuthService, public productServ:ProductService){
     this.getUserId();
     this.getCartData();
   }
@@ -60,24 +61,45 @@ export class CashierCartComponent implements OnInit{
     });
   
 }
-  checkQuantity(quantity:number ,productId:string){
-    this.cartServiceApi.getProuctById(productId).subscribe({
-      next: (res)=>{
-       const stock = res.stock;
-       if(quantity > stock)
-       {
-        this.notyf.error('Not enough stock available');
-        this.quantityErrorMessage = true;
-       }
-       else{
-        this.quantityErrorMessage = false;
-       }
+  // checkQuantity(quantity:number ,productId:string){
+  //   this.cartServiceApi.getProuctById(productId).subscribe({
+  //     next: (res)=>{
+  //      const stock = res;
+  //      if(quantity > stock)
+  //      {
+  //       this.notyf.error('Not enough stock available');
+  //       this.quantityErrorMessage = true;
+  //      }
+  //      else{
+  //       this.quantityErrorMessage = false;
+  //      }
+  //     },
+  //     error: (err)=>{
+  //       console.log(err);
+  //     }
+  //   })
+  // }
+
+  checkQuantity(quantity: number, productId: string) {
+    this.productServ.getInventoryByProduct(productId).subscribe({
+      next: (res) => {
+        const currentStock = res.currentStock;
+        if (quantity > currentStock) {
+          this.notyf.error('Not enough stock available');
+          this.quantityErrorMessage = true;
+        } else {
+          this.quantityErrorMessage = false;
+        }
       },
-      error: (err)=>{
-        console.log(err);
+      error: (err) => {
+        console.error(err);
       }
-    })
+    });
   }
+  
+
+ 
+  
 
   removeCartItem(productId:string){
     if (this.userId) {
