@@ -15,6 +15,15 @@ th, td {
   vertical-align: middle;
 }
 
+.btndash{
+  border: none;
+  background-color: goldenrod;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
 th {
   background-color: #c9be78f8;
 }

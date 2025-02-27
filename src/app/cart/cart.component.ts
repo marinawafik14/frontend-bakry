@@ -63,24 +63,6 @@ export class CartComponent implements OnInit{
       });
     
   }
-  checkQuantity(quantity:number ,productId:string){
-    this.cartServiceApi.getProuctById(productId).subscribe({
-      next: (res)=>{
-       const stock = res.stock;
-       if(quantity > stock)
-       {
-        this.notyf.error('Not enough stock available');
-        this.quantityErrorMessage = true;
-       }
-       else{
-        this.quantityErrorMessage = false;
-       }
-      },
-      error: (err)=>{
-        console.log(err);
-      }
-    })
-  }
 
   removeCartItem(productId:string){
     if (this.userId) {
@@ -104,6 +86,24 @@ export class CartComponent implements OnInit{
     }
   }
 
+  checkQuantity(quantity:number ,productId:string){
+    this.cartServiceApi.getProuctById(productId).subscribe({
+      next: (res)=>{
+       const stock = res.stock;
+       if(quantity > stock)
+       {
+        this.notyf.error('Not enough stock available');
+        this.quantityErrorMessage = true;
+       }
+       else{
+        this.quantityErrorMessage = false;
+       }
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
   updateCartQuantities(){
       for(let item of this.cartItems){
           this.cartServiceApi.updatehomeCartItemQuantity(this.userId, item.productId, Number(item.quantity))

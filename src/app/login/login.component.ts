@@ -77,7 +77,7 @@ export class LoginComponent {
             if(this._authservice.getDecodedToken()?.role === 'Seller') {
               this.router.navigateByUrl('/dashboard');
             }
-            else if(this._authservice.getDecodedToken()?.role === 'admin') {
+            else if(this._authservice.getDecodedToken()?.role === 'Admin') {
               this.router.navigateByUrl('admin/dashboard');
             }else if(this._authservice.getDecodedToken()?.role === 'Cashier') {
               this.router.navigateByUrl("/cashier");

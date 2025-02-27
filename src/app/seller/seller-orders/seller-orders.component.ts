@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../services/order.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 interface Product {
   _id: string;
@@ -26,7 +27,7 @@ interface Order {
 
 @Component({
   selector: 'app-seller-orders',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './seller-orders.component.html',
   styleUrls: ['./seller-orders.component.css']
 })
