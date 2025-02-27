@@ -32,17 +32,19 @@ cartCount$ = this.cartCount.asObservable();
   );
   }
 
+  removehomeCartItem(userId:string, productId:string):Observable<any>{
+
+    return this.httpClient.delete<any>(`http://localhost:8000/homeitems/${productId}?userId=${userId}`)
+    .pipe(
+      tap(() => this.refreshCartCount()) // Refresh count after removing
+  );
+  }
+  
+
   getProuctById(productId:string):Observable<any>{
     return this.httpClient.get<any>(`${environment.BASE_URL}/products/${productId}`)
   }
 
-  // updateCartItemQuantity(userId:string, productId:string, quantity:number):Observable<any>{
-  //     const requestBody = {
-  //       userId,
-  //       quantity
-  //     }
-  //     return this.httpClient.put(`${environment.BASE_URL}/cart/update/${productId}`, requestBody)
-  // }
   updateCartItemQuantity(userId: string | null, productId: string, quantity: number): Observable<any> {
     const token = sessionStorage.getItem("tokenkey");
     
@@ -52,6 +54,35 @@ cartCount$ = this.cartCount.asObservable();
       const requestBody = { userId, quantity };
       
       return this.httpClient.put<any>(`${environment.BASE_URL}/cart/update/${productId}`, requestBody, { headers })
+      .pipe(
+        tap(() => this.refreshCartCount())
+    );
+    } else {
+      let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+      const existingItem = guestCart.find((item: any) => item.productId === productId);
+  
+      if (existingItem) {
+        existingItem.quantity = quantity;
+      } else {
+        guestCart.push({ productId, quantity, price: 0 });
+      }
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      console.log("Updated guest cart:", guestCart);
+      this.refreshCartCount();
+      return of(guestCart);
+    }
+  }
+  
+
+  updatehomeCartItemQuantity(userId: string | null, productId: string, quantity: number): Observable<any> {
+    const token = sessionStorage.getItem("tokenkey");
+    
+    if (token) {
+      // Logged-in user: Update cart on the server
+      const headers = this.getAuthHeaders();
+      const requestBody = { userId, quantity };
+      
+      return this.httpClient.put<any>(`http://localhost:8000/homeupdate/${productId}`, requestBody, { headers })
       .pipe(
         tap(() => this.refreshCartCount()) // Refresh after quantity update
     );
@@ -80,8 +111,16 @@ cartCount$ = this.cartCount.asObservable();
   }
   
 
+
+
   clearCart(userId:string):Observable<any>{
     return this.httpClient.delete(`${environment.BASE_URL}/cart/clear/${userId}`)    .pipe(
+      tap(() => this.refreshCartCount()) // Refresh after quantity update
+  );
+  }
+
+  clearhomeCart(userId:string):Observable<any>{
+    return this.httpClient.delete(`http://localhost:8000/homeclear/${userId}`)    .pipe(
       tap(() => this.refreshCartCount()) // Refresh after quantity update
   );
   }
@@ -137,32 +176,34 @@ cartCount$ = this.cartCount.asObservable();
       }
     }
 
-    // addToCart(productId: string, quantity: number, price: number): Observable<any> {
-    //   const token = sessionStorage.getItem("tokenkey");
+    addTohomeCart(productId: string, quantity: number, price: number): Observable<any> {
+      const token = sessionStorage.getItem("tokenkey");
     
-    //   if (token) {
-    //     const headers = this.getAuthHeaders();
-    //     const requestBody = { productId, quantity, price };
+      if (token) {
+        const headers = this.getAuthHeaders();
+        const requestBody = { productId, quantity, price };
     
-    //     console.log('CartApiService addToCart URL:', this.apiUrl);
-    //     return this.httpClient.post<any>(this.apiUrl, requestBody, { headers })
-    //       .pipe(
-    //         tap(() => this.refreshCartCount()) // Refresh count after adding
-    //     );
-    //   } else {
-    //     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
-    //     const existingItem = guestCart.find((item: any) => item.productId === productId);
-    //     if (existingItem) {
-    //       existingItem.quantity += quantity;
-    //     } else {
-    //       guestCart.push({ productId, quantity, price });
-    //     }
-    //     localStorage.setItem("guestCart", JSON.stringify(guestCart));
-    //     console.log("Item added to guest cart:", guestCart);
-    //     this.refreshCartCount();
-    //     return of(guestCart);
-    //   }
-    // }
+        return this.httpClient.post<any>(`http://localhost:8000/homecart/add`, requestBody, { headers })
+        .pipe(
+          tap(() => this.refreshCartCount()) // Refresh count after adding
+      );
+      } else {
+        let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
+    
+        const existingItem = guestCart.find((item: any) => item.productId === productId);
+        if (existingItem) {
+          existingItem.quantity += quantity;
+        } else {
+          guestCart.push({ productId, quantity, price });
+        }
+    
+        localStorage.setItem("guestCart", JSON.stringify(guestCart));
+        console.log("Item added to guest cart:", guestCart);
+        
+        this.refreshCartCount();
+        return of(guestCart);
+      }
+    }
     
 
   refreshCartCount() {

@@ -14,6 +14,8 @@ import { CartApiService } from '../services/cart-api.service';
 })
 export class ProductsComponent implements OnInit {
 
+  inventoryItems: any[] = [];
+  selectedCategory: string = 'cakes';
   constructor(public productService: ProductService, public route: ActivatedRoute, public CartService:CartApiService){}
   categoryName: string = '';
   products: any[] = [];
@@ -32,7 +34,7 @@ export class ProductsComponent implements OnInit {
       console.log("Category Name from URL:", this.categoryName);
 
       if (this.categoryName) {
-        this.fetchProducts();
+        this.fetchProductsByCategory();
       } else {
         console.error("Category Name is undefined");
       }
@@ -44,21 +46,46 @@ export class ProductsComponent implements OnInit {
     position: { x: 'center', y: 'bottom' }
   });
 
-  fetchProducts(): void {
-    console.log("Fetching products for category:", this.categoryName);
-
-    this.productService.getProductsByCategory(this.categoryName).subscribe(
-      (data) => {
-        this.products = data;
-        this.filteredProducts = data;
+  fetchProductsByCategory(): void {
+    this.productService.getMainInventoryByCategory(this.categoryName).subscribe({
+      next: (inventoryDocs) => {
+        this.products = inventoryDocs.flatMap((invDoc: any) =>
+          invDoc.products.map((item: any) => ({
+            ...item.productId,
+            inventoryPrice: item.price,
+            stockIn: item.stockIn,
+            stockOut: item.stockOut,
+          }))
+        );
+  
+        this.filteredProducts = [...this.products];
+        console.log("Flattened products:", this.filteredProducts);
         this.extractFlavors();
-        console.log("Fetched Products:", this.products);
       },
-      (error) => {
-        console.error('Error fetching products:', error);
+      error: (err) => {
+        console.error('Error fetching products:', err);
       }
-    );
+    });
   }
+  
+  
+  
+
+  // fetchProducts(): void {
+  //   console.log("Fetching products for category:", this.categoryName);
+
+  //   this.productService.getProductsByCategory(this.categoryName).subscribe(
+  //     (data) => {
+  //       this.products = data;
+  //       this.filteredProducts = data;
+  //       this.extractFlavors();
+  //       console.log("Fetched Products:", this.products);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching products:', error);
+  //     }
+  //   );
+  // }
 
 
   extractFlavors(): void {
@@ -75,12 +102,13 @@ export class ProductsComponent implements OnInit {
       );
     });
   }
+  
 
   addToCart(product: any) {
     const token = sessionStorage.getItem('tokenkey');
     const quantity = 1;
     if (token) {
-      this.CartService.addToCart(product._id, quantity, product.price)
+      this.CartService.addTohomeCart(product._id, quantity, product.price)
         .subscribe({
           next: (response) => {
             console.log("Product added successfully:", response);
