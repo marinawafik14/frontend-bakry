@@ -64,6 +64,7 @@
 // }
 
 
+// import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -148,8 +149,7 @@ export class ProductService {
     });
   }
 
-    //---------------------------------------------------
- 
+    //--------------------------------------------------- 
   // In order.service.ts (or a dedicated cashier.service.ts)
   getBranchProducts(cashierId: string, category: string): Observable<any> {
     const params = new HttpParams().set('category', category);

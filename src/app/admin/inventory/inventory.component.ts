@@ -4,6 +4,10 @@ import { ProductToAdmin } from '../../models/productToAdmin';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { OrdersService } from '../../services/order.service';
+import { Order } from '../../models/order';
+import { orderToAdmin } from '../../models/orderToAdmin';
+import { OrderTo } from '../../models/orderTo';
 
 @Component({
   selector: 'app-product-list',
@@ -13,11 +17,26 @@ import Swal from 'sweetalert2';
 })
 export class InventoryComponent implements OnInit {
   products: ProductToAdmin[] = [];
-
-  constructor(private productService: ProductService) {}
+  orders: OrderTo[] = [];
+  constructor(
+    private productService: ProductService,
+    private orderservice: OrdersService
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
+    // this.orderservice.getallorders().subscribe({
+    //   next: (data) => {
+    //     console.log('Orders fetched:', data);
+    //     if(data){
+    //       this.orders = data;
+    //     }
+    //     //this.orders = data;
+    //   },
+    //   error: (err) => {
+    //     console.error('Error fetching orders:', err);
+    //   },
+    // });
   }
 
   loadProducts(): void {
@@ -74,6 +93,131 @@ export class InventoryComponent implements OnInit {
             Swal.fire('Error', 'Failed to update the product status.', 'error');
           },
         });
+    });
+  }
+
+  // deleteProduct(product: any) {
+  //   this.orderservice.getallordersP().subscribe({
+  //     next: (orders: OrderTo[]) => {
+  //       console.log('Fetched Orders:', orders); // Debugging to check the structure
+
+  //       if (!Array.isArray(orders)) {
+  //         Swal.fire({
+  //           title: 'Error!',
+  //           text: 'Unexpected orders data format.',
+  //           icon: 'error',
+  //         });
+  //         return;
+  //       }
+
+  //       // Ensure orders have items before checking
+  //       const isInPendingOrder = orders.some(
+  //         (order) =>
+  //           order.orderStatus === 'pending' &&
+  //           Array.isArray(order.items) &&
+  //           order.items.some((item) => item.productId === product._id)
+  //       );
+
+  //       if (isInPendingOrder) {
+  //         Swal.fire({
+  //           title: 'Cannot Delete!',
+  //           text: 'This product is in a pending order and cannot be deleted.',
+  //           icon: 'error',
+  //         });
+  //       } else {
+  //         Swal.fire({
+  //           title: 'Are you sure?',
+  //           text: "You won't be able to revert this!",
+  //           icon: 'warning',
+  //           showCancelButton: true,
+  //           confirmButtonColor: '#d33',
+  //           cancelButtonColor: '#3085d6',
+  //           confirmButtonText: 'Yes, delete it!',
+  //         }).then((result) => {
+  //           if (result.isConfirmed) {
+  //             this.productService.Deleteproductbyid(product._id).subscribe({
+  //               next: () => {
+  //                 Swal.fire('Deleted!', 'Product has been deleted.', 'success');
+  //                 this.products = this.products.filter(
+  //                   (p) => p._id !== product._id
+  //                 );
+  //               },
+  //               error: (err) => {
+  //                 console.error('Error deleting product:', err);
+  //                 Swal.fire('Error!', 'Failed to delete product.', 'error');
+  //               },
+  //             });
+  //           }
+  //         });
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching orders:', err);
+  //       Swal.fire('Error!', 'Could not check pending orders.', 'error');
+  //     },
+  //   });
+  // }
+  deleteProduct(product: any) {
+    this.orderservice.getallordersP().subscribe({
+      next: (response) => {
+        console.log('Fetched Orders:', response); // Debugging
+
+        // Ensure response is in the expected format
+        if (!response || !Array.isArray(response.order)) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Unexpected orders data format.',
+            icon: 'error',
+          });
+          return;
+        }
+
+        const orders: OrderTo[] = response.order; // Extract orders array
+
+        // Check if the product exists in any pending orders
+        const isInPendingOrder = orders.some(
+          (order) =>
+            order.orderStatus === 'pending' &&
+            order.items.some((item) => item.productId === product._id)
+        );
+
+        if (isInPendingOrder) {
+          Swal.fire({
+            title: 'Cannot Delete!',
+            text: 'This product is in a pending order and cannot be deleted.',
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.productService.Deleteproductbyid(product._id).subscribe({
+                next: () => {
+                  Swal.fire('Deleted!', 'Product has been deleted.', 'success');
+                  this.products = this.products.filter(
+                    (p) => p._id !== product._id
+                  );
+                },
+                error: (err) => {
+                  console.error('Error deleting product:', err);
+                  Swal.fire('Error!', 'Failed to delete product.', 'error');
+                },
+              });
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching orders:', err);
+        Swal.fire('Error!', 'Could not check pending orders.', 'error');
+      },
     });
   }
 }
