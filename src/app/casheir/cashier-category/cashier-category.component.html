@@ -7,7 +7,21 @@
     </li>
   </ul>
   <section class="category">
-    <div class="container mt-100">
+    <div id="Inputs" class="row mt-5 container" style="margin: auto;">
+
+      <div class=" col-6 col-md-3 col-sm-12 ">
+        <a [routerLink]="['/cashier/cashier-cart']"  id="chart" class="form-control btn  btndash w-75"
+          data-bs-toggle="modal" data-bs-target="">Cart</a>
+      </div>
+      <div class=" col-6 col-md-6 col-sm-12"></div>
+      <!-- <div class=" col-6 col-md-3 col-sm-12"></div> -->
+      <div class=" col-6 col-md-3 col-sm-12">
+        <a [routerLink]="['/cashier/cashier-orders']"  id="add-Product" class="form-control btn btndash w-75"
+          data-bs-toggle="modal" data-bs-target="#addProductModal">Orders</a>
+      </div>
+    
+    </div>
+    <div class="container mt-5">
       <div class="row ">
         <!-- Cookies Card -->
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -73,6 +87,8 @@
         </div>
       </div>
     </div>
+
   </section>
+
   <router-outlet></router-outlet>
   <!-- end category-->

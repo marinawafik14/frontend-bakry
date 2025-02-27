@@ -75,7 +75,7 @@ input{
 /* Branch & Quantity Container */
 .branch-container {
   display: flex;
-  gap: 15px; /* Space between branch and quantity */
+  gap: 15px; 
   align-items: center;
   width: 100%;
 }
@@ -88,9 +88,13 @@ input{
 /* Label Styling */
 .contact-form .label {
   position: absolute;
-  top: -18px;
+  top: -30px;
   left: 5px;
+
+  font-size: 17px;
+
   font-size: 16px;
+
   font-weight: bold;
   color: white;
   transition: all 0.2s ease-in-out;

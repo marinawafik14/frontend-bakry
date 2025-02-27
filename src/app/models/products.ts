@@ -16,7 +16,6 @@ export class Products {
     public createdAt:Date,
     public updatedAt:Date,
     public images:string[],
-    public accentColor:string,
-    public branch:string[]
+    public accentColor:string
 ){}
 }
