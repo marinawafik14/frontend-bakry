@@ -52,7 +52,12 @@ export class LoginComponent {
           sessionStorage.setItem("tokenkey", response.token); // Store new token
           localStorage.removeItem("guestCart"); // Clear guest cart after merging
           console.log("✅ Token stored:", response.token);
+          console.log("✅ User logged in:", this._authservice.getDecodedToken()?.role);
           console.log(this._authservice.getDecodedToken());
+        //  const userData = this._authservice.getDecodedToken();
+
+          // will return data from token after decode it 
+
         } else {
           console.warn("⚠️ No token received from the API.");
         }
@@ -69,8 +74,19 @@ export class LoginComponent {
           timer: 3000,
         }).then(() => {
           setTimeout(() => {
-            this.router.navigateByUrl("/home");
-          }, 1800);
+            if(this._authservice.getDecodedToken()?.role === 'Seller') {
+              this.router.navigateByUrl('/dashboard');
+            }
+            else if(this._authservice.getDecodedToken()?.role === 'Admin') {
+              this.router.navigateByUrl('admin/dashboard');
+            }else if(this._authservice.getDecodedToken()?.role === 'Cashier') {
+              this.router.navigateByUrl("/cashier");
+            }
+            else {  
+              this.router.navigateByUrl("/home");
+            }
+           // this.router.navigateByUrl("/home");
+          }, 1500);
         });
       },
       error: (err) => {

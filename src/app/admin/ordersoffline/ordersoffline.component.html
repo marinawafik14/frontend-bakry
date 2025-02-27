@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Offline Orders</h2>
+
+  <table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Total Amount</th>
+        <th>Address</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order._id?.slice(-5) }}</td>
+        <td>${{ order.totalAmount }}</td>
+        <td>{{ order.address }}</td>
+        <td>{{ order.paymentMethod }}</td>
+        <td>
+          <span class="badge" [ngClass]="{
+            'bg-success': order.orderStatus === 'delivered',
+            'bg-danger': order.orderStatus === 'canceled'
+          }">
+            {{ order.orderStatus }}
+          </span>
+        </td>
+        <td>{{ order.createdAt | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

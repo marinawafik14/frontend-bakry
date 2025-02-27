@@ -34,6 +34,7 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
 import { CommentsComponent } from './admin/comments/comments.component';
 
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
+import { OrdersofflineComponent } from './admin/ordersoffline/ordersoffline.component';
 
 // import { cashierGuard } from './guard/cashier.guard';
 
@@ -78,7 +79,7 @@ export const routes: Routes = [
   {path:'requests' , component:AdminRequestsComponent},
   {path:'comments',component:CommentsComponent},
   {path:'test' , component:TestComponent},
-  {path:'admin/branch/:id', component:BranchesComponent},
+  {path:'admin/branch/:id', component:BranchesComponent },
   {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"notfound"}
@@ -86,3 +87,10 @@ export const routes: Routes = [
 
   { path: '**', component: NotFoundComponent },
 ];
+
+
+
+
+
+
+
