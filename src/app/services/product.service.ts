@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 // @Injectable({
 //   providedIn: 'root',
 // })
@@ -65,10 +64,8 @@
 // }
 
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-=======
+// import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
->>>>>>> ea53229882130a75e6a57f6da3703448a2d19d71
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Products } from '../models/products';
@@ -152,11 +149,7 @@ export class ProductService {
     });
   }
 
-<<<<<<< HEAD
-  
-=======
-  //---------------------------------------------------
- 
+    //--------------------------------------------------- 
   // In order.service.ts (or a dedicated cashier.service.ts)
   getBranchProducts(cashierId: string, category: string): Observable<any> {
     const params = new HttpParams().set('category', category);
@@ -166,7 +159,6 @@ export class ProductService {
   getCashierOrders(cashierId: string): Observable<any> {
     return this.http.get<any>(`http://localhost:8000/cashier/${cashierId}/orders`);
   }
->>>>>>> ea53229882130a75e6a57f6da3703448a2d19d71
 
   getInventoryByProduct(productId: string): Observable<any> {
     return this.http.get<any>(`http://localhost:8000/inventory/${productId}`);

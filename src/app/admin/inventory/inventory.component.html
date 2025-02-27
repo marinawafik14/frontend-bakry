@@ -31,15 +31,21 @@
             {{ product.status }}
           </span>
         </td>
-        <td>
-          <button 
-            class="btn btn-success btn-sm me-2" 
-            (click)="approveProduct(product)" 
-            [disabled]="product.status === 'approved'"
-          >
-            Change
-          </button>
-        </td>
+       <td class="d-inline-flex gap-2">
+  <button 
+    class="btn btn-success btn-sm" 
+    (click)="approveProduct(product)" 
+    [disabled]="product.status === 'approved'">
+    Change
+  </button>
+
+  <button 
+    class="btn btn-danger btn-sm" 
+    (click)="deleteProduct(product)">
+    Delete
+  </button>
+</td>
+
       </tr>
     </tbody>
   </table>
