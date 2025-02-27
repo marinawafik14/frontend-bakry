@@ -34,6 +34,7 @@ import { OfflineordersComponent } from './admin/offlineorders/offlineorders.comp
 import { cashierGuard } from './guard/cashier.guard';
 import { sellerGuard } from './guard/seller.guard';
 import { adminGuard } from './guard/admin.guard';
+import { ClerkrequestComponent } from './admin/clerkrequest/clerkrequest.component';
 
 // import { CashierGuard } from './guard/cashier.guard'; 
 
@@ -77,6 +78,7 @@ export const routes: Routes = [
   {path:'test' , component:TestComponent},
   {path:'branch/:id', component:BranchesComponent },
   {path:'offlineorders/:id', component:OfflineordersComponent },
+  {path:'clerk/request', component:ClerkrequestComponent },
   {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"notfound"}

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BranchesService } from '../../services/branches.service';
 
 @Component({
   selector: 'app-clerkrequest',
