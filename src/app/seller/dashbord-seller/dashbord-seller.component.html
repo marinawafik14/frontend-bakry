@@ -98,11 +98,12 @@
 </div>
 
 <div id="Inputs" class="row mt-5 mb-3 container" style="margin: auto;">
-
+<!--
   <div class=" col-6 col-md-3 col-sm-12">
     <a [routerLink]="['/dashboard/chart-seller']"  id="chart" class="form-control btn  btndash w-75"
       data-bs-toggle="modal" data-bs-target="">Chart</a>
   </div>
+-->
   <div class=" col-6 col-md-3 col-sm-12">
     <a [routerLink]="['/dashboard/add']"   id="add-Product" class="form-control btn btndash w-75"
       data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
@@ -149,7 +150,7 @@
           <!-- <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th> -->
           <th (click)="sortTable('category')" style="cursor: pointer;">Category</th>
           <th (click)="sortTable('flavor')" style="cursor: pointer;">flavor</th>
-          <th style="cursor: pointer;">Seller Name</th>
+          <th style="cursor: pointer;">Branch</th>
           <th (click)="sortTable('images')" style="cursor: pointer;">Images</th>
           <th (click)="sortTable('createdAt')" style="cursor: pointer;">Created At</th>
           <th >Status</th>
@@ -169,8 +170,7 @@
           <td>{{item.discounted}}</td>
           <td>{{ getCategoryName(item.categoryid) }}</td>
           <td>{{item.flavor}}</td>
-          <td>{{ getSellerName(item.sellerId)}}</td>
-
+          <td>{{item.branch}}</td>
             <td>
               <img [src]="item.images[0]" width="50" *ngIf="item.images && item.images.length > 0" />
             </td>

@@ -1,5 +1,5 @@
 <section class="get-in-touch">
- 
+
   <form class="contact-form row" #productForm="ngForm" (ngSubmit)="updateProductone()" novalidate>
     <div class="form-field col-lg-6">
       <input id="name" [(ngModel)]="productUP.name" name="name" class="input-text js-input" type="text" required />
@@ -14,9 +14,68 @@
       <label class="label" for="price">Price</label>
     </div>
     <div class="form-field col-lg-6">
-      <input id="stock" [(ngModel)]="productUP.stock" name="stock" class="input-text js-input" type="number" required min="1" />
-      <label class="label" for="stock">Stock number</label>
+      <input id="price" [(ngModel)]="productUP.previousprice" name="price" class="input-text js-input" type="number" required min="1" />
+      <label class="label" for="price">Previous Price</label>
     </div>
+    <div class="form-field col-lg-6">
+      <input id="stock" [(ngModel)]="productUP.stock" name="quanity" class="input-text js-input" type="number" required min="1" />
+      <label class="label" for="stock">quantity number</label>
+    </div>
+
+    <div formArrayName="branchInputs">
+      <div *ngFor="let branchInput of branchInputs; let i = index" class="branch-container">
+
+        <!-- Branch Dropdown -->
+        <div class="form-field ">
+          <select
+            id="branch{{i}}"
+            [(ngModel)]="branchInput.branch"
+            name="branch{{i}}"
+            class="input-text js-input"
+            required
+          >
+            <option value="" disabled selected>Select a branch</option>
+            <option *ngFor="let branch of allowedBranches" [value]="branch">
+              {{ branch }}
+            </option>
+          </select>
+
+        </div>
+
+        <!-- Quantity Input -->
+        <div class="form-field">
+          <input
+            id="quantity{{i}}"
+            [(ngModel)]="branchInput.quantity"
+            name="quantity{{i}}"
+            class="input-text js-input"
+            type="number"
+            required
+            min="1"
+            placeholder="Enter quantity"
+            (blur)="onBranchInputChange(i)"
+          />
+          <label class="label" for="quantity{{i}}">Quantity</label>
+        </div>
+
+        <!-- Remove Branch Button -->
+        <button type="button" class="remove-btn" *ngIf="branchInputs.length > 1" (click)="removeBranch(i)">Remove</button>
+      </div>
+    </div>
+
+    <!-- Add New Branch Button -->
+    <button type="button" class="add-btn" (click)="addBranch()">+ Add Branch</button>
+
+
+
+
+
+    <!-- Display capacity errors -->
+    <div *ngIf="branchCapacityErrors.length > 0" class="error-message">
+      <p *ngFor="let error of branchCapacityErrors" [style.color]="error.includes('available capacity') ? 'green' : 'red'">{{ error }}</p>
+    </div>
+
+
     <div class="form-field col-lg-6">
       <input id="flavor" [(ngModel)]="productUP.flavor" name="flavor" class="input-text js-input" type="text" required />
       <label class="label" for="flavor">Flavor</label>
