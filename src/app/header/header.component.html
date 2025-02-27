@@ -17,6 +17,9 @@
       <div class="collapse navbar-collapse" id="main-nav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
+            <span class="nav-link">Hello, {{ userEmail }}</span>
+          </li>
+          <li class="nav-item">
             <a
               [routerLink]="['/home']"
               routerLinkActive="router-link-active"
@@ -62,9 +65,6 @@
           <!-- Show Logout if logged in -->
           <ng-container *ngIf="islogged()">
             <li class="nav-item">
-              <span class="nav-link">Hello, {{ userEmail }}</span>
-            </li>
-            <li class="nav-item">
               <a (click)="logout()" class="nav-link">Logout</a>
             </li>
           </ng-container>
@@ -73,12 +73,11 @@
             <a [routerLink]="['/checkout']" class="nav-link">Checkout</a>
           </li>
 
-          <li class="nav-item">
-  <a [routerLink]="['/admin/admin-base']" routerLinkActive="router-link-active" class="nav-link">
-    Admin Dashboard
-  </a>
-</li>
-
+          <!-- <li class="nav-item">
+            <a [routerLink]="['/admin/admin-base']" routerLinkActive="router-link-active" class="nav-link">
+              Admin Dashboard
+            </a>
+          </li> -->
 
           <!-- <li class="nav-item" *ngIf="isSeller"> -->
           <li class="nav-item">
@@ -89,13 +88,13 @@
               >Dashboard</a>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a [routerLink]="['/cashier']" routerLinkActive="router-link-active" class="nav-link">Cashier</a>
           </li>
 
           <li class="nav-item">
             <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link">Admin</a>
-          </li>
+          </li> -->
 
           <!-- <li class="nav-item">
             <a [routerLink]="['/cart']" class="nav-link"><i class="fa-solid fa-cart-shopping fa-xl"></i></a>

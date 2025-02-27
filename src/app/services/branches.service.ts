@@ -23,8 +23,6 @@ export class BranchesService {
 
   constructor(private http: HttpClient) {}
 
-  // return all branches
-
   getallbranches(): Observable<Branch[]> {
     return this.http.get<Branch[]>(this.allBranches_url);
   }

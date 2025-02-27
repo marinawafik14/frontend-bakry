@@ -123,6 +123,8 @@ export class ProductsComponent implements OnInit {
       this.CartService.refreshCartCount();
     }
   }
+
+  
   
 
 }
