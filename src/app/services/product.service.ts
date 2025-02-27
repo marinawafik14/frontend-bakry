@@ -149,9 +149,7 @@ export class ProductService {
     });
   }
 
-  
-  //---------------------------------------------------
- 
+    //--------------------------------------------------- 
   // In order.service.ts (or a dedicated cashier.service.ts)
   getBranchProducts(cashierId: string, category: string): Observable<any> {
     const params = new HttpParams().set('category', category);

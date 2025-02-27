@@ -20,7 +20,6 @@ export class SellerUpdateProductComponent implements OnInit {
     private updateProSrv: SellerServicesService,
     private route: ActivatedRoute,
     private router: Router,
-
   ) {}
 
   ngOnInit(): void {

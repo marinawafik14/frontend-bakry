@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Notyf } from 'notyf';
 import { CartApiService } from '../../services/cart-api.service';
 import { AuthService } from '../../services/auth.service';
-import { Products } from '../../../../src/app/models/products';
+import { Products } from '../../models/products';
 
 @Component({
   selector: 'app-cashier-products',

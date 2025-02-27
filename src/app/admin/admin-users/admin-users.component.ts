@@ -79,6 +79,8 @@ export class AdminUsersComponent implements OnInit {
               text: res.message,
               icon: 'success',
             });
+            console.log(res);
+            
             this.getAllUsers();
           },
           error: (err) => {
