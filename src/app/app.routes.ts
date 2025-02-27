@@ -39,11 +39,11 @@ import { OrdersofflineComponent } from './admin/ordersoffline/ordersoffline.comp
 // import { CashierGuard } from './guard/cashier.guard'; 
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactUsComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:userId', component: ProfileFormComponent },
   { path: 'cart', component: CartComponent },
