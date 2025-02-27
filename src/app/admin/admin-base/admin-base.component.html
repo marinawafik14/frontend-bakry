@@ -8,7 +8,12 @@
         href="/"
         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
-          <span class="fs-5 d-none d-sm-inline"> Bakery Admin</span>
+          @if(loggedRole == 'Admin'){
+            <span class="fs-5 d-none d-sm-inline"> Bakery Admin</span>
+          }
+          @else {
+            <span class="fs-5 d-none d-sm-inline"> Branch Admin</span>
+          }
         </a>
         <ul
           class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
@@ -21,88 +26,73 @@
             </a>
           </li>
           <li>
-            <a
+            @if(loggedRole == 'Admin'){
+              <a
               href="#submenu1"
               data-bs-toggle="collapse"
-              class="nav-link px-0 align-middle"
-            >
+              class="nav-link px-0 align-middle">
               <i class="fs-4 bi-speedometer2"></i>
               <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+              </a>
+            }
+
+
+            <!-- Branch -->
+            @if(loggedRole == 'Clerk'){
+              <!-- <ul
+              class="collapse show nav flex-column ms-1"
+               id="submenu1"
+              data-bs-parent="#menu">
+              <li *ngFor="let branch of branches" class="w-100">
+              <a [routerLink]="['admin/branch',branch._id]" class="nav-link px-0">
+              <span class="d-none d-sm-inline">{{ branch.name }}</span>
+              </a>
+             </li>
+             </ul> -->
+
+             <a *ngIf="branchFound" [routerLink]="['branch', branchFound._id]" class="nav-link px-0">
+              <span class="d-none d-sm-inline">{{ branchFound.name }}</span>
             </a>
-            <ul
-  class="collapse show nav flex-column ms-1"
-  id="submenu1"
-  data-bs-parent="#menu"
->
-  <li *ngFor="let branch of branches" class="w-100">
-    <a [routerLink]="['admin/branch',branch._id]" class="nav-link px-0">
-      <span class="d-none d-sm-inline">{{ branch.name }}</span>
-    </a>
-  </li>
-</ul>
+            
+            }
+            
 
           </li>
-          <li >
-            <a [routerLink]="'/admin/orders'" href="#"  class="nav-link px-0 align-middle">
-              <i class="fs-4 bi-table"></i>
-              <span  class="ms-1 d-none d-sm-inline ">Orders</span></a
-            >
-          </li>
-          
+          @if(loggedRole == 'Admin'){
+            <li>
+              <a [routerLink]="'/admin/orders'" href="#"  class="nav-link px-0 align-middle">
+                <i class="fs-4 bi-table"></i>
+                <span class="ms-1 d-none d-sm-inline ">Orders</span></a>
+            </li>
+            
           <li>
-            <a
-            [routerLink]="'/admin/products'"
+            <a [routerLink]="'/admin/products'"
               href="#submenu3"
               data-bs-toggle="collapse"
-              class="nav-link px-0 align-middle"
-            >
+              class="nav-link px-0 align-middle">
               <i class="fs-4 bi-grid"></i>
               <span class="ms-1 d-none d-sm-inline">inventory</span>
             </a>
-            <ul
-              class="collapse nav flex-column ms-1"
-              id="submenu3"
-              data-bs-parent="#menu"
-            >
-              <li class="w-100">
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Product</span> 1</a
-                >
-              </li>
-              <li>
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Product</span> 2</a
-                >
-              </li>
-              <li>
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Product</span> 3</a
-                >
-              </li>
-              <li>
-                <a href="#" class="nav-link px-0">
-                  <span class="d-none d-sm-inline">Product</span> 4</a
-                >
-              </li>
-            </ul>
           </li>
           <a class="nav-link px-0 align-middle" [routerLink]="'/admin/users'">
             <i class="fs-4 bi-people"></i>
             <span class="ms-1 d-none d-sm-inline">Customers</span>
           </a>
           <a class="nav-link px-0 align-middle" [routerLink]="'/admin/productstoadmin'">
-            <i class="fs-5 bi-people"></i>
-            <span class="ms-1 d-none d-sm-inline">products</span>
+            <i class="fs-4 bi-grid"></i>
+            <span class="ms-1 d-none d-sm-inline">Products</span>
           </a>
           <a class="nav-link px-0 align-middle" [routerLink]="'/admin/requests'">
-            <i class="fs-5 bi-people"></i>
+            <i class="fs-4 bi-grid"></i>
             <span class="ms-1 d-none d-sm-inline">Requests</span>
           </a>
           <a class="nav-link px-0 align-middle" [routerLink]="'/admin/comments'">
-            <i class="fs-5 bi-people"></i>
+            <i class="fs-4 bi-people"></i>
             <span class="ms-1 d-none d-sm-inline">Comments</span>
           </a>
+          }
         </ul>
+          
         <hr />
         <div class="dropdown pb-4">
           <a
@@ -119,15 +109,13 @@
               height="30"
               class="rounded-circle"
             />
-            <span class="d-none d-sm-inline mx-1">loser</span>
+            <span class="d-none d-sm-inline mx-1">{{loggedEmail}}</span>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-dark text-small shadow"
             aria-labelledby="dropdownUser1"
           >
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
             <li>
               <hr class="dropdown-divider" />
             </li>

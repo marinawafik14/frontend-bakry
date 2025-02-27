@@ -1,11 +1,17 @@
 <div class="container mt-4">
   <h3>Branch Inventory</h3>
-  <p><strong>Capacity:</strong> {{ productsinbranch?.capacity }} items</p>
+  <!-- <p><strong>Capacity:</strong> {{ productsinbranch?.capacity }} items</p> -->
+  <p><strong>Capacity:</strong> 500 items</p>
 
   <div class="d-flex align-items-center mb-3">
-    <button class="btn btn-info me-2" [routerLink]="['products']">Products</button>
-    <button class="btn btn-warning me-3" [routerLink]="['orders']">Orders</button>
+    <button class="btn btn-info me-2">Products</button>
+    <button 
+    class="btn btn-warning me-3" 
+    [routerLink]="['/admin/offlineorders', branchId]">
+    Orders
+  </button>
 
+  
     <!-- Notification Bell -->
     <div class="dropdown">
       <button class="btn btn-light position-relative" data-bs-toggle="dropdown" (click)="unreadRequests = 0">
@@ -21,6 +27,7 @@
           </a>
         </li>
         <li *ngIf="requests.length === 0" class="dropdown-item text-muted">No notifications</li>
+       
       </ul>
     </div>
   </div>

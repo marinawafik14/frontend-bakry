@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
   userId: any;
   userEmail: string | null = null;
-
+  
   // wanna to check if there token in session or not
   // if there will customize nav
 

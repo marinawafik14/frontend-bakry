@@ -38,3 +38,9 @@
     width: calc(100% - 250px); /* Adjust width dynamically */
     padding: 20px;
 }
+
+.nav-link.active {
+    background-color: #007bff; /* Change to your preferred active color */
+    color: white;
+  }
+  
