@@ -18,6 +18,7 @@ export class AdminUsersComponent implements OnInit {
   availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
   userNumberMessage: any;
   selectedRole: string = 'Users'; 
+  Role: string = ''
 
   constructor(private _adminUsersApi: AdminUserApiService) {}
 

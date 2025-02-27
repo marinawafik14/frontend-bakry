@@ -17,7 +17,7 @@ export class BranchesComponent implements OnInit {
   branchId!: string | null;
   productsinbranch!: BranchInventory;
   unreadRequests: number = 0;
-  requests: givememyrequests[] = [];
+  requests: any[] = [];
   responseMessages: string[] = [];
   constructor(
     private branchesservice: BranchesService,
@@ -25,20 +25,22 @@ export class BranchesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let branchid = this.router.snapshot.paramMap.get('id');
-    if (branchid) {
-      this.branchesservice.getProductsByBranchId(branchid).subscribe({
+    this.branchId = this.router.snapshot.paramMap.get('id'); // Get branch ID from URL
+
+    if (this.branchId) {
+      this.branchesservice.getProductsByBranchId(this.branchId).subscribe({
         next: (data) => {
           this.productsinbranch = data;
           console.log('Products fetched:', this.productsinbranch);
+          this.loadRestockRequests();
         },
         error: (err) => {
           console.error('Error fetching products', err);
         },
       });
     }
-    this.loadRestockRequests();
   }
+
   //
 
   //   if (this.branchId) {
@@ -73,24 +75,40 @@ export class BranchesComponent implements OnInit {
   //   }
   // }
 
+  // loadRestockRequests() {
+  //   if (this.branchId) {
+  //     this.branchesservice.getRestockRequests(this.branchId).subscribe({
+  //       next: (data) => {
+  //         this.requests = data.requests;
+
+  //         this.responseMessages = this.requests
+  //           .map((req) => req.responseMessage ?? '') 
+  //           .filter((msg) => msg !== ''); // Remove empty strings
+
+  //         this.unreadRequests = this.responseMessages.length; // ✅ Count unread messages
+  //         console.log("req: " +data);
+          
+  //       },
+  //       error: (err) => {
+  //         console.error('Error fetching requests', err);
+  //       },
+  //     });
+  //   }
+  // }
+  
   loadRestockRequests() {
     if (this.branchId) {
-      this.branchesservice.getRestockRequests(this.branchId).subscribe({
+      this.branchesservice.getRequestsForBranch(this.branchId).subscribe({
         next: (data) => {
-          this.requests = data.requests;
-
-          this.responseMessages = this.requests
-            .map((req) => req.responseMessage ?? '') 
-            .filter((msg) => msg !== ''); // Remove empty strings
-
-          this.unreadRequests = this.responseMessages.length; // ✅ Count unread messages
+          console.log("Restock Requests:", data);
         },
         error: (err) => {
-          console.error('Error fetching requests', err);
-        },
+          console.error("Error fetching restock requests:", err);
+        }
       });
     }
   }
+
 
   requestStock(productId: string) {
     Swal.fire({

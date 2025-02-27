@@ -1,0 +1,62 @@
+<div class="container mt-4">
+    <h3></h3>
+  
+    <div class="d-flex align-items-center mb-3">  
+      <!-- Notification Bell -->
+      <div class="dropdown">
+        <!-- <button class="btn btn-light position-relative" data-bs-toggle="dropdown" (click)="unreadRequests = 0"> -->
+          <i class="fas fa-bell fa-lg"></i>
+          <!-- <span *ngIf="unreadRequests > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+            {{ unreadRequests }}
+          </span> -->
+        <!-- </button> -->
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li *ngFor="let request of requests">
+            <a class="dropdown-item">
+              <strong>{{ request.items }}</strong> - {{ request.responseMessage || 'No response yet' }}
+            </a>
+          </li>
+          <li *ngIf="requests.length === 0" class="dropdown-item text-muted">No notifications</li>
+         
+        </ul>
+      </div>
+    </div>
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Sales</th>
+          <th>StockIN</th>
+          <th>StockOut</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productsinbranch?.products">
+          <td>{{ product._id?.slice(-3) }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.sales }}</td>
+          <td>
+            <!-- <span [ngClass]="{'bg-danger text-white p-1': product.stockIn < 10}">
+              {{ product.stockIn }}
+            </span> -->
+          </td>
+          <td>{{ product.stockOut }}</td>
+          <td>{{ product.status }}</td>
+          <!-- <td>{{ product.createdAt | date }}</td> -->
+          <td>
+            <!-- <button class="btn btn-primary btn-sm" (click)="requestStock(product._id)">
+              <i class="fas fa-plus"></i>
+            </button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

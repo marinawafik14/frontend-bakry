@@ -23,6 +23,16 @@ overflow: hidden;
   margin-left: 10px;
 } */
 
+.navbar {
+  padding: 10px 0;
+  /*margin-left: 10px;*/
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+  width: 100%;
+}
+
+
 .navbar-dark .nav-link {
   color: black;
   font-size: 14px;

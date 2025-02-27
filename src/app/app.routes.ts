@@ -28,14 +28,20 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
 import { CommentsComponent } from './admin/comments/comments.component';
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
 import { OrdersofflineComponent } from './admin/ordersoffline/ordersoffline.component';
+import { OfflineordersComponent } from './admin/offlineorders/offlineorders.component';
+
+// import { cashierGuard } from './guard/cashier.guard';
 import { cashierGuard } from './guard/cashier.guard';
 import { sellerGuard } from './guard/seller.guard';
 import { adminGuard } from './guard/admin.guard';
+import { ClerkrequestComponent } from './admin/clerkrequest/clerkrequest.component';
 
 // import { CashierGuard } from './guard/cashier.guard'; 
 
 export const routes: Routes = [
+
   { path: 'login', component: LoginComponent },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -72,7 +78,9 @@ export const routes: Routes = [
   {path:'requests' , component:AdminRequestsComponent},
   {path:'comments',component:CommentsComponent},
   {path:'test' , component:TestComponent},
-  {path:'admin/branch/:id', component:BranchesComponent },
+  {path:'branch/:id', component:BranchesComponent },
+  {path:'offlineorders/:id', component:OfflineordersComponent },
+  {path:'clerk/request', component:ClerkrequestComponent },
   {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"notfound"}
