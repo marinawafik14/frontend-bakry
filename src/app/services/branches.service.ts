@@ -92,10 +92,14 @@ export class BranchesService {
     branchId: string
   ): Observable<{ status: number; requests: givememyrequests[] }> {
     return this.http.get<{ status: number; requests: givememyrequests[] }>(
-      `${this.baseUrl}/orders/${branchId}`
+      `${this.baseUrl}/requests/${branchId}`
     );
   }
 
+  getRequestsForBranch(branchId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/requests/${branchId}`);
+  }
+  
   // Fetch orders by cashier ID
   getOrdersByCashier(
     cashierId: string

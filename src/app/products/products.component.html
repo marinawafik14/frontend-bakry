@@ -59,10 +59,10 @@
           <h5 class="card-title fw-bold">{{ product.name }}</h5>
           <p class="text-muted">Flavor: {{ product.flavor }}</p>
           <p class="fw-bold "><strong>Price:</strong> {{ product.price }}$</p>
-          <button class="btn btn-order w-50" (click)="addToCart(product)" [disabled]="product.stock <= 0">
+          <button class="btn btn-order w-50" (click)="addToCart(product)" [disabled]="product.currentStock <= 0">
             Order Now
           </button>
-          <p *ngIf="product.stock <= 0" class="out-of-stock text-danger">Out of Stock</p>
+          <p *ngIf="product.currentStock <= 0" class="out-of-stock text-danger">Out of Stock</p>          
         </div>
       </div>
     </div>

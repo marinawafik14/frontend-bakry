@@ -14,11 +14,8 @@ import { takeUntil } from 'rxjs';
   styleUrl: './products.component.css',
 })
 export class ProductsComponent implements OnInit {
-  constructor(
-    public productService: ProductService,
-    public route: ActivatedRoute,
-    public CartService: CartApiService
-  ) {}
+
+  constructor(public productService: ProductService, public route: ActivatedRoute, public CartService:CartApiService){}
   categoryName: string = '';
   products: any[] = [];
   filteredProducts: any[] = [];
@@ -36,7 +33,7 @@ export class ProductsComponent implements OnInit {
       console.log('Category Name from URL:', this.categoryName);
 
       if (this.categoryName) {
-        this.fetchProducts();
+        this.fetchProductsByCategory();
       } else {
         console.error('Category Name is undefined');
       }
@@ -48,21 +45,46 @@ export class ProductsComponent implements OnInit {
     position: { x: 'center', y: 'bottom' },
   });
 
-  fetchProducts(): void {
-    console.log("Fetching products for category:", this.categoryName);
-
-    this.productService.getProductsByCategory(this.categoryName).subscribe(
-      (data) => {
-        this.products = data;
-        this.filteredProducts = data;
+  fetchProductsByCategory(): void {
+    this.productService.getMainInventoryByCategory(this.categoryName).subscribe({
+      next: (inventoryDocs) => {
+        this.products = inventoryDocs.flatMap((invDoc: any) =>
+          invDoc.products.map((item: any) => ({
+            ...item.productId,
+            inventoryPrice: item.price,
+            stockIn: item.stockIn,
+            stockOut: item.stockOut,
+          }))
+        );
+  
+        this.filteredProducts = [...this.products];
+        console.log("Flattened products:", this.filteredProducts);
         this.extractFlavors();
-        console.log("Fetched Products:", this.products);
       },
-      (error) => {
-        console.error('Error fetching products:', error);
+      error: (err) => {
+        console.error('Error fetching products:', err);
       }
-    );
+    });
   }
+  
+  
+  
+
+  // fetchProducts(): void {
+  //   console.log("Fetching products for category:", this.categoryName);
+
+  //   this.productService.getProductsByCategory(this.categoryName).subscribe(
+  //     (data) => {
+  //       this.products = data;
+  //       this.filteredProducts = data;
+  //       this.extractFlavors();
+  //       console.log("Fetched Products:", this.products);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching products:', error);
+  //     }
+  //   );
+  // }
 
   // fetchProducts(): void {
   //   console.log('Fetching products for category:', this.categoryName);
@@ -100,35 +122,33 @@ export class ProductsComponent implements OnInit {
       );
     });
   }
+  
 
   addToCart(product: any) {
     const token = sessionStorage.getItem('tokenkey');
     const quantity = 1;
     if (token) {
-      this.CartService.addToCart(
-        product._id,
-        quantity,
-        product.price
-      ).subscribe({
-        next: (response) => {
-          console.log('Product added successfully:', response);
-          this.notyf.success('Product added successfully');
-
-          // If response contains a new token, update the session storage
-          if (response.token) {
-            console.log('Updating token in session storage:', response.token);
-            sessionStorage.setItem('tokenkey', response.token); //Store new token
-          } else {
-            console.warn('No new token received in response.');
+      this.CartService.addToCart(product._id, quantity, product.price)
+        .subscribe({
+          next: (response) => {
+            console.log("Product added successfully:", response);
+            this.notyf.success("Product added successfully");
+  
+            // If response contains a new token, update the session storage
+            if (response.token) {
+              console.log("Updating token in session storage:", response.token);
+              sessionStorage.setItem('tokenkey', response.token); //Store new token
+            } else {
+              console.warn("No new token received in response.");
+            }
+  
+            this.CartService.refreshCartCount();
+          },
+          error: (err) => {
+            this.notyf.error("Error adding to cart");
+            console.error("Error adding to cart:", err);
           }
-
-          this.CartService.refreshCartCount();
-        },
-        error: (err) => {
-          this.notyf.error('Error adding to cart');
-          console.error('Error adding to cart:', err);
-        },
-      });
+        });
     } else {
       // If no token, treat as a guest and add product to guest cart in localStorage
       let guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');

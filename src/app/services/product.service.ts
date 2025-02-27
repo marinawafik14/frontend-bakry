@@ -164,4 +164,9 @@ export class ProductService {
     return this.http.get<any>(`http://localhost:8000/inventory/${productId}`);
   }
 
+  getMainInventoryByCategory(category: string): Observable<any> {
+    const params = new HttpParams().set('category', category);
+    return this.http.get<any>(`http://localhost:8000/inventory`, { params });
+  }
+
 }
