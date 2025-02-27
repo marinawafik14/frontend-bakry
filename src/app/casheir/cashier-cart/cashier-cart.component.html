@@ -19,18 +19,27 @@
                         </div>
 
                         <div class="col-md-2">
-                            <div class="input-group">
-                              <!-- Decrease Quantity Button -->
+                            <!-- <div class="input-group">
+
                               <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, item.productId, -1)">-</button>
                               
-                              <!-- Quantity Input with Two-Way Binding -->
                               <input style="max-width:50px" type="number" class="form-control form-control-sm text-center quantity-input"
                               [(ngModel)]="item.quantity" disabled="" #quantity>
                             
-
-                              <!-- Increase Quantity Button -->
                               <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, item.productId, 1)">+</button>
-                            </div>
+
+                            </div> -->
+
+                            <div class="input-group">
+                                <!-- Decrease Quantity Button -->
+                                <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, item.productId, -1)">-</button>
+                                
+                                <!-- Quantity Input (disabled for now) -->
+                                <input type="number" class="form-control form-control-sm text-center" style="max-width:50px" [(ngModel)]="item.quantity" disabled>
+                                
+                                <!-- Increase Quantity Button -->
+                                <button class="btn btn-outline-secondary btn-sm" type="button" (click)="updateQuantity(item, item.productId, 1)">+</button>
+                              </div>
                           </div>
                           
                         <div class="col-md-2 text-end">

@@ -26,8 +26,6 @@ export class BranchesService {
   private baseUrl = 'http://localhost:8000/api/inventory/branch';
   constructor(private http: HttpClient) {}
 
-  // return all branches
-
   getallbranches(): Observable<Branch[]> {
     return this.http.get<Branch[]>(this.allBranches_url);
   }

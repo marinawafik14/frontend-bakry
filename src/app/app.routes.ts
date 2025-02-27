@@ -7,12 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileFormComponent } from './profile/profile.component';
 import { CartComponent } from './cart/cart.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { CookiesComponent } from './category/cookies/cookies.component';
-import { CakesComponent } from './category/cakes/cakes.component';
-import { CupcakesComponent } from './category/cupcakes/cupcakes.component';
 import { DashbordSellerComponent } from './seller/dashbord-seller/dashbord-seller.component';
-
-import { canloginGuard } from './guard/canlogin.guard';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
@@ -51,9 +46,9 @@ export const routes: Routes = [
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
-//   {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [cashierGuard]},
   {path: 'cashier/category/:name', component:CashierProductsComponent},
-//   {path: 'cashier/cashier-cart', component:CashierCartComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/cashier-cart', component:CashierCartComponent, canActivate: [cashierGuard]},
 // {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent, canActivate: [cashierGuard]},
 // {path: 'cashier/cashier-orders', component:CashierOrdersComponent, canActivate: [cashierGuard]},
 

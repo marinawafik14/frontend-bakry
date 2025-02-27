@@ -160,4 +160,8 @@ export class ProductService {
     return this.http.get<any>(`http://localhost:8000/cashier/${cashierId}/orders`);
   }
 
+  getInventoryByProduct(productId: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:8000/inventory/${productId}`);
+  }
+
 }
