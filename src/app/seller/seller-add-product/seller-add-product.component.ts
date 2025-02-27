@@ -97,11 +97,11 @@ export class SellerAddProductComponent implements OnInit {
     const regex = /^[+]?\d+(\.\d+)?$/;
 
 
+
     if (!regex.test(value)) {
       event.target.value = value.slice(0, -1); // Remove the invalid character
     }
+
+
   }
-
-
-
 }

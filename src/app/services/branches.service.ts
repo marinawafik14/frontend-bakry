@@ -4,6 +4,8 @@ import { Branch } from '../models/branches';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BranchInventory } from '../models/ProductsInbranch';
 import { RestockRequest } from '../models/restockrequesr';
+import { orderoffline } from '../models/ordersoffline';
+import { givememyrequests } from '../models/givememyrequests';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,7 @@ export class BranchesService {
   private changeRequestStatus_url =
     'http://localhost:8000/api/inventory/stockReq';
 
+  private baseUrl = 'http://localhost:8000/api/inventory/branch';
   constructor(private http: HttpClient) {}
 
   // return all branches
@@ -84,5 +87,23 @@ export class BranchesService {
   ): Observable<any> {
     const url = `${this.admintobranch_url}`;
     return this.http.post(url, { productId, branchId, quantity });
+  }
+
+  // to get all messages
+  getRestockRequests(
+    branchId: string
+  ): Observable<{ status: number; requests: givememyrequests[] }> {
+    return this.http.get<{ status: number; requests: givememyrequests[] }>(
+      `${this.baseUrl}/orders/${branchId}`
+    );
+  }
+
+  // Fetch orders by cashier ID
+  getOrdersByCashier(
+    cashierId: string
+  ): Observable<{ orders: orderoffline[] }> {
+    return this.http.get<{ orders: orderoffline[] }>(
+      `${this.baseUrl}/requests/${cashierId}`
+    );
   }
 }
