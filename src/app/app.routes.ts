@@ -28,42 +28,42 @@ import { AdminRequestsComponent } from './admin/admin-requests/admin-requests.co
 import { CommentsComponent } from './admin/comments/comments.component';
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
 import { OrdersofflineComponent } from './admin/ordersoffline/ordersoffline.component';
-import { cashierGuard } from './guard/cashier.guard';
-import { sellerGuard } from './guard/seller.guard';
-import { adminGuard } from './guard/admin.guard';
+import { OfflineordersComponent } from './admin/offlineorders/offlineorders.component';
+
+// import { cashierGuard } from './guard/cashier.guard';
 
 // import { CashierGuard } from './guard/cashier.guard'; 
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactUsComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:userId', component: ProfileFormComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'category/:name', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
-  { path: 'cashier', component: CashierCategoryComponent, title: "Cashier", canActivate: [cashierGuard]},
-  {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [cashierGuard]},
-  {path: 'cashier/cashier-cart', component:CashierCartComponent, canActivate: [cashierGuard]},
-  {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent, canActivate: [cashierGuard]},
-  {path: 'cashier/cashier-orders', component:CashierOrdersComponent, canActivate: [cashierGuard]},
+  { path: 'cashier', component: CashierCategoryComponent, title: "Cashier"},
+// {path: 'cashier/category/:name', component:CashierProductsComponent, canActivate: [cashierGuard]},
+  {path: 'cashier/category/:name', component:CashierProductsComponent},
+// {path: 'cashier/cashier-cart', component:CashierCartComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent, canActivate: [cashierGuard]},
+// {path: 'cashier/cashier-orders', component:CashierOrdersComponent, canActivate: [cashierGuard]},
 
-  // {path: 'cashier/category/:name', component:CashierProductsComponent},
-  // {path: 'cashier/cashier-cart', component:CashierCartComponent},
-  // {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
-  // {path: 'cashier/cashier-orders', component:CashierOrdersComponent},
+  {path: 'cashier/cashier-cart', component:CashierCartComponent},
+  {path: 'cashier/cashier-checkout', component:CashierCheckoutComponent},
+  {path: 'cashier/cashier-orders', component:CashierOrdersComponent},
   {
-    path: 'dashboard',canActivate: [sellerGuard],
+    path: 'dashboard',
     loadChildren: () => import('./seller/seller.routes').then((s) => s.routes),
   },
   { path: 'dashboard', component: DashbordSellerComponent },
  //admin route
-{path:"admin",component:AdminBaseComponent, title: "Admin Panel", canActivate: [adminGuard],children:[
-  {path:'dashboard', component:AdminDashboardComponent} ,
+{path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
+  {path:'dashboard', component:AdminDashboardComponent},
   {path:'users', component:AdminUsersComponent},
   { path: "users/edit/:id", component: AdminUserEditComponent },
   {path: 'orders', component: OrdersComponent },
@@ -72,7 +72,8 @@ export const routes: Routes = [
   {path:'requests' , component:AdminRequestsComponent},
   {path:'comments',component:CommentsComponent},
   {path:'test' , component:TestComponent},
-  {path:'admin/branch/:id', component:BranchesComponent },
+  {path:'branch/:id', component:BranchesComponent },
+  {path:'offlineorders/:id', component:OfflineordersComponent },
   {path:'notfound', component:NotFoundComponent},
   {path: "", pathMatch: "full", redirectTo:"dashboard",},
   {path: "**", redirectTo:"notfound"}
@@ -80,10 +81,3 @@ export const routes: Routes = [
 
   { path: '**', component: NotFoundComponent },
 ];
-
-
-
-
-
-
-

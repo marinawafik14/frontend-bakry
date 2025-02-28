@@ -108,10 +108,14 @@ export class ProductService {
     return this.http.get<Products[]>(this.allProduct_url);
   }
 
-  // get all products from main inventory
+  //get all products from main inventory
   getAllProductsToadmin(): Observable<ProductToAdmin[]> {
     return this.http.get<ProductToAdmin[]>(this.allProduct_url);
   }
+
+  // getAllProductsToadminFinal(): Observable<ProductToAdmin[]> {
+  //   return this.http.get<ProductToAdmin[]>(this.allProduct_url);
+  // }
 
   getProductsByCategory(categoryName: string): Observable<any> {
     return this.http.get(

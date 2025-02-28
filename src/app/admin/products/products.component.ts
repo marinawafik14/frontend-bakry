@@ -19,6 +19,8 @@ import { Branch } from '../../models/branches';
   styleUrl: './products.component.css',
 })
 export class ProductosComponent implements OnInit {
+  currentPage: number = 1;
+rowCount: number = 10;
   products: ProductToAdmin[] = [];
   branches: Branch[] = [];
   orders: OrderTo[] = [];
@@ -56,19 +58,60 @@ this.loadproducts();
     });
   }
 
+// loadproducts(){
+//     this.productservice.getAllProductsToadminFinal().subscribe({
+//       next: (data: ProductToAdmin[]) => {
+//         this.products = data;
+//         this.filteredProducts = data;
+//         console.log('Products fetched:', this.products);
+//         console.log(this.filteredProducts);
+//         console.log(this.products);
+//       },
+//       error: (err) => {
+//         console.error('Error fetching products', err);
+//       },
+//     });
+// }
+
+// loadproducts(): void {
+//   this.productservice.getAllProductsToadminFinal().subscribe({
+//     next: (data: any[]) => {
+//       // Flatten the inventory data so that each product is a separate object.
+//       // For each inventory document, iterate over its products array.
+//       const flattenedProducts = data.flatMap((inventory: any) =>
+//         inventory.products.map((prod: any) => ({
+//           ...prod.productId,          // Spread all product details
+//           inventoryPrice: prod.price, // Inventory's price (if different from product.price)
+//           stockIn: prod.stockIn,
+//           stockOut: prod.stockOut,
+//           inventoryId: prod._id,      // ID of the inventory subdocument
+//           // Optionally, you can add inventory-level data here if needed.
+//         }))
+//       );
+
+//       this.products = flattenedProducts;
+//       this.filteredProducts = [...flattenedProducts];
+//       console.log('Products fetched:', this.products);
+//     },
+//     error: (err) => {
+//       console.error('Error fetching products', err);
+//     },
+//   });
+// }
+
 loadproducts(){
-      this.productservice.getAllProductsToadmin().subscribe({
-        next: (data: ProductToAdmin[]) => {
-          this.products = data;
-          this.filteredProducts = data;
-          console.log('Products fetched:', this.products);
-          console.log(this.filteredProducts);
-          console.log(this.products);
-        },
-        error: (err) => {
-          console.error('Error fetching products', err);
-        },
-      });
+  this.productservice.getAllProductsToadmin().subscribe({
+    next: (data: ProductToAdmin[]) => {
+      this.products = data;
+      this.filteredProducts = data;
+      console.log('Products fetched:', this.products);
+      console.log(this.filteredProducts);
+      console.log(this.products);
+    },
+    error: (err) => {
+      console.error('Error fetching products', err);
+    },
+  });
 
 }
 
@@ -301,4 +344,25 @@ loadproducts(){
   //     }
   //   });
   // }
+
+  get pagedProducts(): any[] {
+    const startIndex = (this.currentPage - 1) * this.rowCount;
+    return this.filteredProducts.slice(startIndex, startIndex + this.rowCount);
+  }
+  
+  get totalPages(): number {
+    return Math.ceil(this.filteredProducts.length / this.rowCount);
+  }
+  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+  
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 }

@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class AdminRequestsComponent implements OnInit {
   requests: RestockRequest[] = [];
+  currentPage: number = 1;
+  pageSize: number = 10;
 
   constructor(private restockService: BranchesService) {}
 
@@ -96,6 +98,27 @@ export class AdminRequestsComponent implements OnInit {
   }
     
 
+   // Getter to return only the items for the current page.
+   get pagedRequests(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.requests.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.requests.length / this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 
 
 }

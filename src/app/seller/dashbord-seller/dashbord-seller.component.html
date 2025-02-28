@@ -124,13 +124,14 @@
 
   <div class="col-md-1 col-sm-12 mb-1"></div>
   <div class="col-md-2 col-sm-12 mb-1">
+    <label>row count</label>
     <input type="number" name="RowCount"  [(ngModel)]="rowCount" id="ProductCounterInput" value="10" min="1"
       class="form-control border-1 border-black" placeholder="Rows per page" (input)="onPositiveNumber($event)">
   </div>
   <div class="col-md-4 col-sm-12 mb-1"></div>
   <div class="col-md-4 col-sm-12 mb-1">
     <input type="text" name="Search" id="ProductsearchInput" class="form-control border-1 border-black"
-  placeholder="Search" [(ngModel)]="searchTerm">
+  placeholder="Search by name " [(ngModel)]="searchTerm">
 
   </div>
   <div class="col-md-2 col-sm-12 mb-2"></div>
@@ -143,8 +144,7 @@
         <tr>
 
           <th (click)="sortTable('name')" style="cursor: pointer;">Name</th>
-          <th (click)="sortTable('description')" style="cursor: pointer;">Description</th>
-          <th (click)="sortTable('previousprice')" style="cursor: pointer;">previous price</th>
+          
           <th (click)="sortTable('price')" style="cursor: pointer;">Price</th>
           <th (click)="sortTable('discounted')" style="cursor: pointer;">discounted</th>
           <!-- <th (click)="sortTable('stock')" style="cursor: pointer;">Stock</th> -->
@@ -164,8 +164,7 @@
           <tr *ngFor="let item of filteredProducts().slice(0, rowCount)">
 
           <td>{{item.name}}</td>
-          <td>{{item.description}}</td>
-          <td>{{item.previousprice}}</td>
+          
           <td>{{item.price}}</td>
           <td>{{item.discounted}}</td>
           <td>{{ getCategoryName(item.categoryid) }}</td>
