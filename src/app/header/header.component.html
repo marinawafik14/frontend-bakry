@@ -108,7 +108,13 @@
               ><i class="fa-solid fa-user fa-xl"></i
             ></a>
           </li>
-          
+
+          <li class="nav-item">
+            <a [routerLink]="['/orderhistory', customerId]" class="nav-link">
+              <i class="fa-solid fa-box fa-xl"></i> Order History
+            </a>
+          </li>
+
           <li class="nav-item">
             <a
               [routerLink]="['/cart']"

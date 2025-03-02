@@ -29,10 +29,11 @@ import { CommentsComponent } from './admin/comments/comments.component';
 import { CashierOrdersComponent } from './casheir/cashier-orders/cashier-orders.component';
 import { OrdersofflineComponent } from './admin/ordersoffline/ordersoffline.component';
 import { OfflineordersComponent } from './admin/offlineorders/offlineorders.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 // import { cashierGuard } from './guard/cashier.guard';
 
-// import { CashierGuard } from './guard/cashier.guard'; 
+// import { CashierGuard } from './guard/cashier.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -42,6 +43,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:userId', component: ProfileFormComponent },
+   {path:'orderhistory/:customerId', component:OrderHistoryComponent},
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'category/:name', component: ProductsComponent },
@@ -65,7 +67,7 @@ export const routes: Routes = [
 {path:"admin",component:AdminBaseComponent, title: "Admin Panel", children:[
   {path:'dashboard', component:AdminDashboardComponent},
   {path:'users', component:AdminUsersComponent},
-  { path: "users/edit/:id", component: AdminUserEditComponent },
+  {path: "users/edit/:id", component: AdminUserEditComponent},
   {path: 'orders', component: OrdersComponent },
   {path:'products' , component:ProductosComponent},
   {path:'productstoadmin' , component:InventoryComponent},

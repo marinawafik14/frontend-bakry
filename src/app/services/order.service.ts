@@ -80,7 +80,7 @@ getOfflineOrders(): Observable<any> {
   deleteOrder(orderId: string): Observable<any> {
     return this.http.delete(`http://localhost:8000/orders/${orderId}`);
   }
-  
+
 
 // clearCartInToken(token: string): Observable<any> {
 //   const headers = { Authorization: `Bearer ${token}` };  // Attach the token for authorization
@@ -95,5 +95,10 @@ getOfflineOrders(): Observable<any> {
 // }
 
 
+//getOrderHistory
+
+getOrderHistory(customerId: string): Observable<Order[]> {
+  return this.http.get<Order[]>(`http://localhost:8000/api/order/history/${customerId}`);
+}
 
 }

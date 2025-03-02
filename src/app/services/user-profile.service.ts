@@ -1,28 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { User } from '../_models/user';
+import { catchError } from 'rxjs/operators';
+import { User } from '../_models/user'; // Import the User model
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserProfileService {
-  checkEmailExists(value: any) {
-    throw new Error('Method not implemented.');
-  }
-  private apiUrl = 'http://localhost:8000/api/users';
+  private apiUrl = 'http://localhost:8000/api'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
-  getUserProfile(userId: string): Observable<any> {
+  // Fetch profile data
+  getProfile(userId: string): Observable<User> {
     if (!userId) {
-      console.error('User ID is undefined'); // Debugging
-      return throwError('User ID is undefined');
+      return throwError(() => new Error('User ID is undefined'));
     }
-    return this.http.get(`${this.apiUrl}/profile/${userId}`);
+    return this.http.get<User>(`${this.apiUrl}/profile/${userId}`).pipe(
+      catchError((error: any) => {
+        console.error('Error fetching profile:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateUserProfile(userId: string, profileData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${userId}`, profileData);
+  // Update profile data
+  updateUserProfile(userId: string, profileData: User): Observable<User> {
+    if (!userId) {
+      return throwError(() => new Error('User ID is undefined'));
+    }
+    return this.http.put<User>(`${this.apiUrl}/profile/${userId}`, profileData).pipe(
+      catchError((error: any) => {
+        console.error('Error updating profile:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }
-

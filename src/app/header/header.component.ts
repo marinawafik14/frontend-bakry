@@ -17,6 +17,7 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnInit {
   cartCount: number = 0;
   isSeller:boolean = false;
+customerId: any|string;
   constructor(public router: Router, private cartService: CartApiService, private authService:AuthService) {
     this.loadUserData();
   }
@@ -25,12 +26,14 @@ export class HeaderComponent implements OnInit {
     this.cartService.refreshCartCount();
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
+      this.customerId = this.userId; // Set customerId to userId
+      console.log('Customer ID:', this.customerId); // Debugging
     });
 
   }
   userId: any;
   userEmail: string | null = null;
-  
+
   // wanna to check if there token in session or not
   // if there will customize nav
 
@@ -50,8 +53,8 @@ export class HeaderComponent implements OnInit {
       // id
       const decodedToken2 = this.authService.getDecodedToken();
       this.userId = decodedToken2?.userId;
-      
-            
+
+
     }
   }
   // this method to remove token from session

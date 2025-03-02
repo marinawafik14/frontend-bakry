@@ -1,0 +1,60 @@
+
+<div class="container mt-4">
+  <h2 class="mb-4 mt-5 text-center">Order History</h2>
+
+  <div *ngIf="orders.length === 0" class="alert alert-info text-center">
+    No orders found for this customer.
+  </div>
+
+  <div *ngIf="orders.length > 0" class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Order ID</th>
+          <th class="items">Items</th>
+          <th>Total Amount</th>
+          <th>Order Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order._id }}</td>
+          <td>
+            <ul class="list-unstyled">
+              <li *ngFor="let item of order.items">
+                <strong>Product ID:</strong> {{ item.productId }},
+                <strong>Quantity:</strong> {{ item.quantity }},
+                <strong>Price:</strong> {{ item.price | currency }}
+              </li>
+            </ul>
+          </td>
+          <td>{{ order.totalAmount | currency }}</td>
+          <td>
+            <!-- <span [ngClass]="{
+              'badge bg-warning': order.orderStatus === 'pending',
+              'badge bg-success': order.orderStatus === 'delivered',
+              'badge bg-danger': order.orderStatus === 'canceled',
+              'badge bg-info': order.orderStatus === 'shipped'
+            }"> -->
+            <span [class]="getStatusClass(order.orderStatus)">
+              {{ order.orderStatus }}
+            </span>
+          </td>
+          <td>{{ order.createdAt | date:'medium' }}</td>
+
+          <td>
+            <button
+              *ngIf="order.orderStatus === 'pending'"
+              class="btn btn-danger btn-sm"
+              (click)="cancelOrder(order._id)"
+            >
+              Cancel Order
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -30,3 +30,14 @@ export class Profile {
   constructor(public firstName?: string, public lastName?: string, public gender?:string, public dateOfBirth?: Date | string, public address?: address, public mobile?: string) {
 }
 }
+export interface User {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  gender: string;
+  contactNo: string;
+  currentPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
+}

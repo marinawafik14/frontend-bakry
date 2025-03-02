@@ -1,41 +1,99 @@
-*{
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
   overflow: hidden;
 }
 
-input{
-border: none;
-outline: none;
-border: 2px solid rgb(234, 153, 13);
-margin-top: 10px;
-width: 250px;
-border-radius: none;
-}
-input:focus{
-  outline: none;
-  border: none;
-}
-label{
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-button[type='submit']
-{
-  background-color: rgb(234, 153, 13);
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-left: 5px;
-  color: white;
-  font-weight: bold;
-}
-button[type='button']{
-  background-color: rgb(234, 153, 13);
-  border: none;
-  padding: 5px 15px;
-  cursor: pointer;
-  margin-left: 5px;
-  color: white;
-  font-weight: bold;
-
+.card-header {
+  padding: 1.5rem;
+  text-align: center;
 }
 
+.card-body {
+  padding: 2rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.form-control {
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #ff6b6b;
+  box-shadow: none;
+}
+
+.form-select {
+  border: 2px solid #eaeaea;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #ff6b6b;
+  box-shadow: none;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-danger {
+  background-color: #ff6b6b;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #ff4757;
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}

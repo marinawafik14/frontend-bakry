@@ -28,9 +28,10 @@ export class Order {
     this.mobile = mobile;
     this.addressdetails = addressdetails;
     this.items = items;
-    this.totalAmount = totalAmount; 
-    this.paymentMethod = paymentMethod; 
-    this.paymentCode = paymentCode; 
+    this.totalAmount = totalAmount;
+    this.paymentMethod = paymentMethod;
+    this.paymentCode = paymentCode;
     this.shippingAddress = shippingAddress;
   }
 }
+

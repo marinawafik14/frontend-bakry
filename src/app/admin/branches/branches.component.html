@@ -5,13 +5,13 @@
 
   <div class="d-flex align-items-center mb-3">
     <button class="btn btn-info me-2">Products</button>
-    <button 
-    class="btn btn-warning me-3" 
+    <button
+    class="btn btn-warning me-3"
     [routerLink]="['/admin/offlineorders', branchId]">
     Orders
   </button>
 
-  
+
     <!-- Notification Bell -->
     <div class="dropdown">
       <button class="btn btn-light position-relative" data-bs-toggle="dropdown" (click)="unreadRequests = 0">
@@ -29,7 +29,7 @@
         <li *ngIf="requests.length === 0" class="dropdown-item text-muted">No notifications</li>
         <button>Notifications</button>
         <span class="bg-primary">Notifications</span>
-       
+
       </ul>
     </div>
   </div>
@@ -40,8 +40,8 @@
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
+          <th>StockIN</th>
         <th>Sales</th>
-        <th>StockIN</th>
         <th>StockOut</th>
         <th>Status</th>
         <th>Created At</th>

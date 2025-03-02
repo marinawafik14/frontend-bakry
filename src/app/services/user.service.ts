@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { register } from '../models/register';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Login } from '../models/login';
 
 @Injectable({
@@ -48,6 +48,11 @@ export class UserserviceService {
     return this.http.delete('http://localhost:3000/user', user);
   }
 
+  public getUserbyid(): Observable<string> {
+    return this.http.get<{ id: string }>('http://localhost:8000/api/user').pipe(
+      map((res) => res.id) // ✅ FIXED: Extract only `id`
+    );
 
-  
+
+  }
 }

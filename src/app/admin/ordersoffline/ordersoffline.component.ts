@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-ordersoffline',
   templateUrl: './ordersoffline.component.html',
   styleUrls: ['./ordersoffline.component.css'],
-  imports: [CommonModule, RouterLinkActive, RouterLink],
+  imports: [CommonModule, RouterLink],
 })
 export class OrdersofflineComponent implements OnInit {
   orders: orderoffline[] = [];
