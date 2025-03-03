@@ -1,69 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminUserApiService } from '../../services/admin-user-api.service';
 import { User } from '../../_models/user';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.css'],
-  imports: [CommonModule, RouterLink],
+  imports: [RouterOutlet, RouterLink, CommonModule, RouterLinkActive],
 })
 export class AdminUsersComponent implements OnInit {
   users: User[] = [];
-  filteredUsers: User[] = [];
-  selectedRoles: string[] = [];
-  availableRoles: string[] = ['Customer', 'Admin', 'Cashier', 'Seller'];
-  userNumberMessage: any;
-  selectedRole: string = 'Users'; 
-  Role: string = ''
+  currentPage: number = 1;
+  pageSize: number = 10;
+  selectedRole: string = 'Users';
+  availableRoles: string[] = ['All Users', 'Customer', 'Admin', 'Cashier', 'Seller', 'Clerk', 'Supplier'];
 
-  constructor(private _adminUsersApi: AdminUserApiService) {}
+  constructor(private adminUserApi: AdminUserApiService) {}
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.loadUsers();
   }
 
-  getAllUsers(): void {
-    this._adminUsersApi.getAllUsers().subscribe({
+  loadUsers(): void {
+    this.adminUserApi.getAllUsers().subscribe({
       next: (res) => {
-        console.log("API Response:", res);
+        console.log('Users fetched:', res);
         if (res && res.users) {
           this.users = res.users;
-          this.filteredUsers = this.users; // Ensure filtered list is initialized
-          this.selectedRole = 'Users'
         } else {
-          console.error("Unexpected API response format:", res);
+          console.error('Unexpected API response format:', res);
         }
       },
       error: (err) => {
-        console.log(err.error);
-      }
+        console.error('Error fetching users:', err);
+      },
     });
   }
 
-  toggleRoleFilter(role: string, event: any): void {
-    if (event.target.checked) {
-      this.selectedRoles.push(role);
+  getUserRole(role: string): void {
+    if (role === 'All Users') {
+      this.loadUsers();
     } else {
-      this.selectedRoles = this.selectedRoles.filter((r) => r !== role);
+      this.adminUserApi.getUsersByRole(role).subscribe({
+        next: (res) => {
+          console.log('Filtered users:', res);
+          if (res && res.users) {
+            this.users = res.users;
+            this.selectedRole = role;
+          } else {
+            console.error('Unexpected API response format:', res);
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching users by role:', err);
+        },
+      });
     }
-    this.filterUsers();
   }
 
-  filterUsers(): void {
-    if (this.selectedRoles.length === 0) {
-      this.filteredUsers = this.users;
-    } else {
-      this.filteredUsers = this.users.filter((user) =>
-        this.selectedRoles.includes(user.role)
-      );
-    }
-  }
-
-  removeUser(userId: any): void {
+  removeUser(userId: string): void {
     Swal.fire({
       title: 'Are you sure you want to delete this user?',
       icon: 'warning',
@@ -73,59 +71,99 @@ export class AdminUsersComponent implements OnInit {
       confirmButtonText: 'Yes, delete User!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this._adminUsersApi.removeUser(userId).subscribe({
+        this.adminUserApi.removeUser(userId).subscribe({
           next: (res) => {
-            Swal.fire({
-              title: 'Removed!',
-              text: res.message,
-              icon: 'success',
-            });
-            console.log(res);
-            
-            this.getAllUsers();
+            Swal.fire('Removed!', res.message, 'success');
+            this.loadUsers();
           },
           error: (err) => {
-            Swal.fire(`${err.error.message}`);
+            Swal.fire('Error', err.error.message || 'Failed to delete user.', 'error');
           },
         });
       }
     });
   }
 
-  getUserRole(role: string): void {
-    this._adminUsersApi.getUsersByRole(role).subscribe({
-      next: (res) => {
-        console.log(res);
-        if (res && res.users) {
-          this.users = res.users;
-          this.filteredUsers = this.users;
-          this.selectedRole = role;
-        } else {
-          console.error("Unexpected API response format:", res);
-        }
-      },
-      error: (err) => {
-        console.log(err.error);
-      }
-    });
-  }
-
+  // Assigning badge styles to roles
   getRoleClass(role: string): string {
     switch (role.toLowerCase()) {
       case 'admin':
-        return 'role-admin';
-      case 'manager':
-        return 'role-manager';
-      case 'cashier':
-        return 'role-cashier';
+        return 'bg-primary';
       case 'seller':
-        return 'role-sales';
+        return 'bg-info';
       case 'customer':
-          return 'role-customer';
+        return 'bg-success';
+      case 'cashier':
+        return 'bg-warning';
+      case 'clerk':
+        return 'bg-secondary';
       case 'supplier':
-          return 'role-supplier';
+        return 'bg-dark';
       default:
-        return 'role-default';
+        return 'bg-light';
     }
   }
+
+  // Pagination methods
+  get pagedUsers(): User[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.users.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.users.length / this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+  firstPage(): void {
+    this.currentPage = 1;
+  }
+  
+  lastPage(): void {
+    this.currentPage = this.totalPages();
+  }
+  
+  
+
+  sortField: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  sortUsers(field: string): void {
+    if (this.sortField === field) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
+  
+    this.users.sort((a: any, b: any) => {
+      let valueA = this.getNestedValue(a, field);
+      let valueB = this.getNestedValue(b, field);
+  
+      if (typeof valueA === 'string') valueA = valueA.toLowerCase();
+      if (typeof valueB === 'string') valueB = valueB.toLowerCase();
+  
+      if (this.sortDirection === 'asc') {
+        return valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+      } else {
+        return valueA < valueB ? 1 : valueA > valueB ? -1 : 0;
+      }
+    });
+  }
+  
+  // Helper function to access nested properties
+  getNestedValue(obj: any, path: string): any {
+    return path.split('.').reduce((acc, key) => acc && acc[key], obj);
+  }
+  
 }

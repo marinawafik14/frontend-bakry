@@ -2,35 +2,24 @@
     color: #e6d2ab !important; /* Bakery Color */
 }
 
-.navbar-nav .nav-link:hover {
-    color: #a52a2a !important; /* Darker hover effect */
-}
-
-.navbar-brand {
-    font-weight: bold;
-    color: #c99b3f !important;
-}
 
 /* Default sidebar link */
 .nav-link {
-    color: #c99b3f !important; /* Light brown (default) */
+    color: #f4f4f4 !important; /* Light brown (default) */
     transition: color 0.3s ease-in-out;
 }
 
-/* Darker color when active */
-.nav-link.active{
-    color: #a3752a !important; /* Darker brown */
-    font-weight: bold;
-    background-color: #c99b3f;
-}
 .sidebar {
     position: fixed; /* Fix to the left */
     top: 0;
     left: 0;
     height: 100vh; /* Full height */
-    width: 250px; /* Sidebar width */
+    width: 235px; /* Sidebar width */
     overflow-y: auto; /* Enable scroll if content is long */
     z-index: 1000; /* Keeps sidebar on top */
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
 }
 
 .content {
@@ -39,8 +28,17 @@
     padding: 20px;
 }
 
-.nav-link.active {
-    background-color: #007bff; /* Change to your preferred active color */
-    color: white;
+
+  .active-menu {
+    background-color: #5da709 !important; /* Highlight color */
+    color: black !important;
+    border-radius: 5px;
+    width: 100% !important;
+    display: block !important;
   }
+  
+  .nav-link {
+    transition: all 0.7s ease;
+  }
+  
   

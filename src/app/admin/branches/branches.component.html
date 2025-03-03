@@ -70,4 +70,32 @@
       </tr>
     </tbody>
   </table>
+
+  <h3>Requests</h3>
+  <table class="table table-bordered table-success">
+    <thead>
+      <tr>
+        <th>Request Id</th>
+        <th>Product Id</th>
+        <th>Qyantity</th>
+        <th>Status</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>{{ request._id?.slice(-3) }}</td>
+        <td>{{ request.productId }}</td>
+        <td>{{ request.quantity }}</td>
+        <td>{{ request.Status }}</td>
+        <td>{{ request.responseMessage }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="requestStock(request._id)">
+            <i class="fas fa-plus"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
