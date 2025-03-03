@@ -37,9 +37,13 @@
         <td>{{ product._id?.slice(-3) }}</td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>{{ product.price | currency }}</td>
-        <td>{{ product.stock }}</td>
+
+        <!-- <td>{{ product.price | currency }}</td>
+        <td>{{ product.stock }}</td> -->
         <td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.stockIn }}</td>
           <span class="badge" [ngClass]="{
             'bg-success': product.status === 'Approved',
             'bg-danger': product.status === 'Rejected',
@@ -47,7 +51,6 @@
           }">
             {{ product.status }}
           </span>
-        </td>
         <td>
           <button 
             class="btn btn-sm btn-success me-2" 
@@ -61,7 +64,8 @@
             <i class="bi bi-trash"></i> Delete
           </button>
         </td>
-      </tr>
+
+        </tr>
     </tbody>
   </table>
 

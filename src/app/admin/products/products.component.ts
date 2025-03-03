@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { BranchesService } from '../../services/branches.service';
 import { Branch } from '../../models/branches';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+=======
+import { ProductMainToAdmin } from '../../models/productsmaintoadmin';
 
 @Component({
   imports: [FormsModule, NgxDatatableModule, CommonModule],
@@ -14,6 +16,29 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   styleUrl: './products.component.css',
 })
 export class ProductosComponent implements OnInit {
+  currentPage: number = 1;
+  rowCount: number = 10;
+  products: ProductToAdmin[] = [];
+  mainproducts: ProductMainToAdmin[] = [];
+  branches: Branch[] = [];
+  orders: OrderTo[] = [];
+  filteredProducts: ProductToAdmin[] = [];
+  filteredmainProducts: ProductMainToAdmin[] = [];
+  sortColumn: string = '';
+  sortDirection: boolean = true;
+  filterText: string = '';
+  columns: any[] = [
+    { prop: '_id', name: 'ID' },
+    { prop: 'name', name: 'Name' },
+    { prop: 'price', name: 'Price' },
+    { prop: 'category', name: 'Category' },
+    { prop: 'sales', name: 'Sales' },
+    { prop: 'stock', name: 'Stock' },
+    { prop: 'flavor', name: 'Flavor' },
+    { prop: 'discounted', name: 'Discounted' },
+    { prop: 'createdAt', name: 'Created At' },
+  ];
+
   constructor(
     public productservice: ProductService,
     public branchservice: BranchesService
@@ -30,6 +55,7 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+<<<<<<< HEAD
   }
 
   // Load products from the service
@@ -40,6 +66,10 @@ export class ProductosComponent implements OnInit {
         this.filteredProducts = data;
         this.updatePagedProducts();
         console.log('Products:', this.products);
+    // Load orders for checking pending status
+    this.orderservice.getallordersP().subscribe({
+      next: (response) => {
+        this.orders = response.order; // Access the nested order array
       },
       error: (err) => {
         console.error('Error fetching products', err);
@@ -47,7 +77,46 @@ export class ProductosComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   // Apply search filter
+=======
+  // loadproducts() {
+  //   this.productservice.getAllProductsToadmin().subscribe({
+  //     next: (data: ProductToAdmin[]) => {
+  //       this.products = data;
+  //       this.filteredProducts = data;
+  //       console.log('Products fetched:', this.products);
+  //       console.log(this.filteredProducts);
+  //       console.log(this.products);
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching products', err);
+  //     },
+  //   });
+  // }
+  loadProducts() {
+    this.productservice.getAllProductsToMaininventory().subscribe({
+      next: (response: any) => {
+        console.log('Raw API Response:', response); // Log raw response
+        this.mainproducts = response.data; // Assign main products
+        console.log('Main Products After API:', this.mainproducts);
+
+        // Ensure assignment happens only after data is available
+        if (this.mainproducts && this.mainproducts.length > 0) {
+          this.filteredmainProducts = [...this.mainproducts];
+        } else {
+          console.warn('Main Products is empty!');
+        }
+
+        console.log('Filtered Products:', this.filteredmainProducts);
+      },
+      error: (err) => {
+        console.error('Error fetching products', err);
+      },
+    });
+  }
+
+>>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a
   applyFilter(): void {
     const filterValue = this.filterText.toLowerCase().trim();
     if (!filterValue) {
@@ -165,10 +234,20 @@ export class ProductosComponent implements OnInit {
     Swal.fire({
       title: `Transfer Stock for ${product.name}`,
       input: 'select',
+<<<<<<< HEAD
       inputOptions: branches.reduce<Record<string, string>>((options, branch) => {
         options[branch._id] = branch.name;
         return options;
       }, {}),
+=======
+      inputOptions: this.branches.reduce<Record<string, string>>(
+        (options, branch) => {
+          options[branch._id] = branch.name;
+          return options;
+        },
+        {}
+      ),
+>>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a
       inputPlaceholder: 'Select a branch',
       showCancelButton: true,
       confirmButtonText: 'Transfer Done',
@@ -185,10 +264,18 @@ export class ProductosComponent implements OnInit {
         const transferQuantity = Math.floor(product.stock * 0.1);
 
         this.branchservice
-          .transferStockfromadmin(product._id, selectedBranchId, transferQuantity)
+          .transferStockfromadmin(
+            product.productId._id,
+            selectedBranchId,
+            transferQuantity
+          )
           .subscribe({
             next: () => {
+<<<<<<< HEAD
               Swal.fire('Success!', 'Stock transferred to branch.', 'success');
+=======
+              Swal.fire('Success!', ` stock transferred to branch.`, 'success');
+>>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a
               this.loadProducts(); // Refresh product list
             },
             error: (err) => {
@@ -205,4 +292,28 @@ export class ProductosComponent implements OnInit {
     this.applyFilter();
   }
 
+<<<<<<< HEAD
 }
+=======
+  get pagedProducts(): any[] {
+    const startIndex = (this.currentPage - 1) * this.rowCount;
+    return this.filteredProducts.slice(startIndex, startIndex + this.rowCount);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredProducts.length / this.rowCount);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+}
+>>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a
