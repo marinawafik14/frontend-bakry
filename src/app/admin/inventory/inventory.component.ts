@@ -39,12 +39,46 @@ export class InventoryComponent implements OnInit {
     // });
   }
 
+  // loadProducts(): void {
+  //   this.productService.getAllProducts().subscribe({
+  //     next: (data) => {
+  //       console.log('Products fetched:', data);
+  //       this.products = data;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching products:', err);
+  //     },
+  //   });
+  // }
   loadProducts(): void {
-    this.productService.getallallproducts().subscribe({
-      
+    this.productService.getAllProducts().subscribe({ 
       next: (data) => {
         console.log('Products fetched:', data);
-        this.products = data;
+
+        // Transform API data to match ProductToAdmin structure
+        this.products = data.map(
+          (item: any) =>
+            new ProductToAdmin(
+              item.productId?._id || item._id, // Handle nested productId
+              item.productId?.name || item.name,
+              item.productId?.description || item.description,
+              item.productId?.price || item.price,
+              item.productId?.categoryName || item.categoryName,
+              item.productId?.category || item.category,
+              item.productId?.previousprice || item.previousprice,
+              item.stockOut, // Inventory related
+              item.stockIn, // Inventory related
+              item.productId?.flavor || item.flavor,
+              item.productId?.discounted || item.discounted,
+              item.productId?.status || item.status,
+              new Date(item.productId?.createdAt || item.createdAt), // Ensure date type
+              new Date(item.productId?.updatedAt || item.updatedAt),
+              item.productId?.images || item.images || [], // Ensure images array
+              item.productId?.accentColor || item.accentColor
+            )
+        );
+
+        console.log('Transformed Products:', this.products);
       },
       error: (err) => {
         console.error('Error fetching products:', err);

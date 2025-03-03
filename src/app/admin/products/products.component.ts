@@ -11,6 +11,7 @@ import { OrderTo } from '../../models/orderTo';
 import { branchInventory } from '../../models/branchinventory';
 import { BranchesService } from '../../services/branches.service';
 import { Branch } from '../../models/branches';
+import { ProductMainToAdmin } from '../../models/productsmaintoadmin';
 
 @Component({
   selector: 'app-products',
@@ -20,11 +21,13 @@ import { Branch } from '../../models/branches';
 })
 export class ProductosComponent implements OnInit {
   currentPage: number = 1;
-rowCount: number = 10;
+  rowCount: number = 10;
   products: ProductToAdmin[] = [];
+  mainproducts: ProductMainToAdmin[] = [];
   branches: Branch[] = [];
   orders: OrderTo[] = [];
   filteredProducts: ProductToAdmin[] = [];
+  filteredmainProducts: ProductMainToAdmin[] = [];
   sortColumn: string = '';
   sortDirection: boolean = true;
   filterText: string = '';
@@ -46,7 +49,7 @@ rowCount: number = 10;
     public branchservice: BranchesService
   ) {}
   ngOnInit(): void {
-this.loadproducts();
+    this.loadProducts();
     // Load orders for checking pending status
     this.orderservice.getallordersP().subscribe({
       next: (response) => {
@@ -58,62 +61,41 @@ this.loadproducts();
     });
   }
 
-// loadproducts(){
-//     this.productservice.getAllProductsToadminFinal().subscribe({
-//       next: (data: ProductToAdmin[]) => {
-//         this.products = data;
-//         this.filteredProducts = data;
-//         console.log('Products fetched:', this.products);
-//         console.log(this.filteredProducts);
-//         console.log(this.products);
-//       },
-//       error: (err) => {
-//         console.error('Error fetching products', err);
-//       },
-//     });
-// }
+  // loadproducts() {
+  //   this.productservice.getAllProductsToadmin().subscribe({
+  //     next: (data: ProductToAdmin[]) => {
+  //       this.products = data;
+  //       this.filteredProducts = data;
+  //       console.log('Products fetched:', this.products);
+  //       console.log(this.filteredProducts);
+  //       console.log(this.products);
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching products', err);
+  //     },
+  //   });
+  // }
+  loadProducts() {
+    this.productservice.getAllProductsToMaininventory().subscribe({
+      next: (response: any) => {
+        console.log('Raw API Response:', response); // Log raw response
+        this.mainproducts = response.data; // Assign main products
+        console.log('Main Products After API:', this.mainproducts);
 
-// loadproducts(): void {
-//   this.productservice.getAllProductsToadminFinal().subscribe({
-//     next: (data: any[]) => {
-//       // Flatten the inventory data so that each product is a separate object.
-//       // For each inventory document, iterate over its products array.
-//       const flattenedProducts = data.flatMap((inventory: any) =>
-//         inventory.products.map((prod: any) => ({
-//           ...prod.productId,          // Spread all product details
-//           inventoryPrice: prod.price, // Inventory's price (if different from product.price)
-//           stockIn: prod.stockIn,
-//           stockOut: prod.stockOut,
-//           inventoryId: prod._id,      // ID of the inventory subdocument
-//           // Optionally, you can add inventory-level data here if needed.
-//         }))
-//       );
+        // Ensure assignment happens only after data is available
+        if (this.mainproducts && this.mainproducts.length > 0) {
+          this.filteredmainProducts = [...this.mainproducts];
+        } else {
+          console.warn('Main Products is empty!');
+        }
 
-//       this.products = flattenedProducts;
-//       this.filteredProducts = [...flattenedProducts];
-//       console.log('Products fetched:', this.products);
-//     },
-//     error: (err) => {
-//       console.error('Error fetching products', err);
-//     },
-//   });
-// }
-
-loadproducts(){
-  this.productservice.getAllProductsToadmin().subscribe({
-    next: (data: ProductToAdmin[]) => {
-      this.products = data;
-      this.filteredProducts = data;
-      console.log('Products fetched:', this.products);
-      console.log(this.filteredProducts);
-      console.log(this.products);
-    },
-    error: (err) => {
-      console.error('Error fetching products', err);
-    },
-  });
-
-}
+        console.log('Filtered Products:', this.filteredmainProducts);
+      },
+      error: (err) => {
+        console.error('Error fetching products', err);
+      },
+    });
+  }
 
   applyFilter(): void {
     if (!this.filterText.trim()) {
@@ -257,10 +239,13 @@ loadproducts(){
     Swal.fire({
       title: `Transfer Stock for ${product.name}`,
       input: 'select',
-       inputOptions: this.branches.reduce<Record<string, string>>((options, branch) => {
-      options[branch._id] = branch.name;
-      return options;
-    }, {}),
+      inputOptions: this.branches.reduce<Record<string, string>>(
+        (options, branch) => {
+          options[branch._id] = branch.name;
+          return options;
+        },
+        {}
+      ),
       inputPlaceholder: 'Select a branch',
       showCancelButton: true,
       confirmButtonText: 'Transfer Done',
@@ -277,15 +262,15 @@ loadproducts(){
         const transferQuantity = Math.floor(product.stock * 0.1);
 
         this.branchservice
-          .transferStockfromadmin(product._id, selectedBranchId, transferQuantity)
+          .transferStockfromadmin(
+            product.productId._id,
+            selectedBranchId,
+            transferQuantity
+          )
           .subscribe({
             next: () => {
-              Swal.fire(
-                'Success!',
-                ` stock transferred to branch.`,
-                'success'
-              );
-              this.loadproducts(); // Refresh product list
+              Swal.fire('Success!', ` stock transferred to branch.`, 'success');
+              this.loadProducts(); // Refresh product list
             },
             error: (err) => {
               console.error('Error transferring stock:', err);
@@ -349,17 +334,17 @@ loadproducts(){
     const startIndex = (this.currentPage - 1) * this.rowCount;
     return this.filteredProducts.slice(startIndex, startIndex + this.rowCount);
   }
-  
+
   get totalPages(): number {
     return Math.ceil(this.filteredProducts.length / this.rowCount);
   }
-  
+
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
   }
-  
+
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;

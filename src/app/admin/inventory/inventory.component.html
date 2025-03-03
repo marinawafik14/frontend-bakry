@@ -20,9 +20,9 @@
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>${{ product.price }}</td>
-        <!-- <td>{{ product.categoryid }}</td> -->
-        <td>{{ product.stock }}</td>
-        <td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.stockIn }}</td>
+
           <span class="badge" [ngClass]="{
             'bg-success': product.status === 'Approved',
             'bg-danger': product.status === 'Rejected',
