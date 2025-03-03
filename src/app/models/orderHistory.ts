@@ -19,7 +19,12 @@
 export interface Order {
   _id: string;
   items: {
-    productId: string;
+    productId: {
+      _id: string;
+      name: string;
+      price: number;
+    };
+
     quantity: number;
     price: number;
   }[];
