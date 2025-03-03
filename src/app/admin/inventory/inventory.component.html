@@ -8,7 +8,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <th>Category</th>
+        <!-- <th>Category</th> -->
         <th>Stock</th>
         <th>Status</th>
         <th>Action</th>
@@ -22,7 +22,7 @@
         <td>${{ product.price }}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.stockIn }}</td>
-        <td>
+
           <span class="badge" [ngClass]="{
             'bg-success': product.status === 'Approved',
             'bg-danger': product.status === 'Rejected',

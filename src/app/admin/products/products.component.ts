@@ -20,6 +20,8 @@ import { ProductMainToAdmin } from '../../models/productsmaintoadmin';
   styleUrl: './products.component.css',
 })
 export class ProductosComponent implements OnInit {
+  currentPage: number = 1;
+  rowCount: number = 10;
   products: ProductToAdmin[] = [];
   mainproducts: ProductMainToAdmin[] = [];
   branches: Branch[] = [];
@@ -59,29 +61,14 @@ export class ProductosComponent implements OnInit {
     });
   }
 
-  // loadproducts(){
-  //       this.productservice.getAllProductsToMaininventory().subscribe({
-  //         next: (data: ProductMainToAdmin[]) => {
-  //           this.products = data;
-  //           this.filteredProducts = data;
-  //           console.log('Products fetched:', this.products);
-  //           console.log(this.filteredProducts);
-  //           console.log(this.products);
-  //         },
-  //         error: (err) => {
-  //           console.error('Error fetching products', err);
-  //         },
-  //       });
-
-  // }
-
-  // loadProducts() {
-  //   this.productservice.getAllProductsToMaininventory().subscribe({
-  //     next: (response: any) => {
-  //       this.mainproducts = response.data; // Accessing 'data' instead of 'response'
-  //       console.log('Products fetched:', this.mainproducts);
-  //       this.filteredmainProducts = this.mainproducts;
+  // loadproducts() {
+  //   this.productservice.getAllProductsToadmin().subscribe({
+  //     next: (data: ProductToAdmin[]) => {
+  //       this.products = data;
+  //       this.filteredProducts = data;
   //       console.log('Products fetched:', this.products);
+  //       console.log(this.filteredProducts);
+  //       console.log(this.products);
   //     },
   //     error: (err) => {
   //       console.error('Error fetching products', err);
@@ -342,4 +329,25 @@ export class ProductosComponent implements OnInit {
   //     }
   //   });
   // }
+
+  get pagedProducts(): any[] {
+    const startIndex = (this.currentPage - 1) * this.rowCount;
+    return this.filteredProducts.slice(startIndex, startIndex + this.rowCount);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredProducts.length / this.rowCount);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 }

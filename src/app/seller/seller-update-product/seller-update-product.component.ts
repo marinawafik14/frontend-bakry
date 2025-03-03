@@ -12,25 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class SellerUpdateProductComponent implements OnInit {
-  productUP: Products = new Products(
-    '',
-    '',
-    '',
-    0,
-    '',
-    0,
-    0,
-    0,
-    '',
-    '',
-    false,
-    '',
-    '',
-    new Date(),
-    new Date(),
-    [],
-    ''
-  );
+  productUP: Products = new Products('','','',0,'',0,0,0,'','',false,'','',new Date(),new Date(),[],'')
 
   categories: Products[] = [];
 
@@ -107,3 +89,6 @@ export class SellerUpdateProductComponent implements OnInit {
     }
   }
 }
+
+
+

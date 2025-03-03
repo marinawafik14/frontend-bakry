@@ -59,23 +59,24 @@ export class CashierOrdersComponent {
           this.orders = res.orders.map((order: any) => {
             return {
               _id: order._id,
-              Address: order.Address,           
-              orderStatus: order.orderStatus,   
-              totalAmount: order.totalAmount,   
+              Address: order.Address,
+              orderStatus: order.orderStatus,
+              totalAmount: order.totalAmount,
               createdAt: order.createdAt,
               updatedAt: order.updatedAt,
-              items: order.items,
+              items: order.items.filter((item: any) => item.productId),
             };
           });
-        // Partition orders
-        this.deliveredOrders = this.orders.filter(o => o.orderStatus !== 'canceled');
-        this.canceledOrders = this.orders.filter(o => o.orderStatus === 'canceled');
-      },
+          // Partition orders
+          this.deliveredOrders = this.orders.filter(o => o.orderStatus !== 'canceled');
+          this.canceledOrders = this.orders.filter(o => o.orderStatus === 'canceled');
+        },
         error: (error) => {
           console.error('Error fetching cashier orders:', error);
         }
       });
     }
+    
     
 
     applyOrderFilters(): void {

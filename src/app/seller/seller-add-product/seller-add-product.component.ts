@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Products } from '../../models/products';
 import { ProductService } from '../../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SellerServicesService } from '../../services/seller-services.service';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-seller-add-product',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './seller-add-product.component.html',
   styleUrl: './seller-add-product.component.css',
 })
@@ -32,7 +32,6 @@ export class SellerAddProductComponent implements OnInit {
       console.log(categories)
     });
   }
-
 
 
   onFileSelected(event: any): void {
@@ -104,7 +103,4 @@ export class SellerAddProductComponent implements OnInit {
     }
 
   }
-
-
-
 }

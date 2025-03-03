@@ -90,11 +90,7 @@ input{
   position: absolute;
   top: -30px;
   left: 5px;
-
   font-size: 17px;
-
-  font-size: 16px;
-
   font-weight: bold;
   color: white;
   transition: all 0.2s ease-in-out;
@@ -114,6 +110,8 @@ input{
 .remove-btn:hover {
   background: #b71c1c;
 }
+
+
 
 /* Add Button */
 .add-btn {

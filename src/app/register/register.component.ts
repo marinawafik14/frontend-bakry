@@ -108,7 +108,7 @@ export class RegisterComponent {
             timer: 3000,
           });
           // Navigate to the home page
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/login');
         },
         error: (err) => {
           console.error('Registration Error:', err);
