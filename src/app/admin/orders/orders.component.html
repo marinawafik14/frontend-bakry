@@ -1,56 +1,82 @@
-<h2>Orders</h2>
-<div class="container my-5">
-  <!-- Search Bar -->
+<div class="container mt-4">
+  <h2>Order Management</h2>
+<!-- Search Bar -->
+<div class="mb-3 input-group">
   <input 
     type="text" 
-    placeholder="Search Orders by Name or Address" 
+    placeholder="Search...." 
     [(ngModel)]="filterText" 
     (input)="applyFilter()" 
-    class="form-control mb-3"
+    class="form-control"
   />
+  <button 
+    class="btn btn-outline-secondary" 
+    (click)="clearSearch()" 
+    title="Clear Search"
+  >
+    <i class="bi bi-x-lg"></i>
+  </button>
+</div>
 
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered">
-      <thead class="table-light">
-        <tr>
-          <th class="sortable" (click)="sortTable('_id')">Id</th>
-          <th class="sortable" (click)="sortTable('customername.firstname')">Full Name</th>
-          <th class="sortable" (click)="sortTable('addressdetails')">Address</th>
-          <th class="sortable" (click)="sortTable('totalAmount')">Total Price</th>
-          <th class="sortable" (click)="sortTable('orderStatus')">Status</th>
-          <th>OK</th>
-          <th>Cancel</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of filteredOrders">
-          <td>{{ order._id | slice: -3 }}</td>
-          <td>{{ order.customername.firstname }} {{ order.customername.lastname }}</td>
-          <td>{{ order.addressdetails || '' }}</td>
-          <td>{{ order.totalAmount | currency }}</td>
-          <td>
-            <span class="badge" 
-                  [ngClass]="{
-                    'bg-warning text-dark': order.orderStatus === 'pending',
-                    'bg-primary': order.orderStatus === 'shipped',
-                    'bg-danger': order.orderStatus === 'canceled',
-                    'bg-success': order.orderStatus === 'delivered'
-                  }">
-              {{ order.orderStatus | titlecase }}
-            </span>
-          </td>
-          <td>
-            <button (click)="markAsShipped(order._id)" class="btn btn-success btn-sm" title="Mark as OK">
-              <i class="bi bi-check-lg"></i> OK
-            </button>
-          </td>
-          <td>
-            <button (click)="markAscanceled(order._id)" class="btn btn-danger btn-sm" title="Cancel Order">
-              <i class="bi bi-x-lg"></i> Cancel
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Orders Table -->
+  <table class="table table-bordered mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th (click)="sortTable('_id')">ID <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('customername.firstname')">Full Name <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('addressdetails')">Address <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('totalAmount')">Total Price <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('orderStatus')">Status <i class="fas fa-sort"></i></th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of pagedOrders">
+        <td>{{ order._id | slice: -4 }}</td>
+        <td>{{ order.customername?.firstname || '' }} {{ order.customername?.lastname || '' }}</td>
+        <td>{{ order.addressdetails || 'N/A' }}</td>
+        <td>{{ order.totalAmount | currency }}</td>
+        <td>
+          <span class="badge" 
+                [ngClass]="{
+                  'bg-warning text-dark': order.orderStatus === 'pending',
+                  'bg-primary': order.orderStatus === 'shipped',
+                  'bg-danger': order.orderStatus === 'canceled',
+                  'bg-success': order.orderStatus === 'delivered'
+                }">
+            {{ order.orderStatus | titlecase }}
+          </span>
+        </td>
+        <td>
+          <button (click)="markAsShipped(order._id)" class="btn btn-sm btn-success me-2" title="Mark as OK">
+            <i class="bi bi-check-lg"></i> OK
+          </button>
+          <button (click)="markAsCanceled(order._id)" class="btn btn-sm btn-danger" title="Cancel Order">
+            <i class="bi bi-x-lg"></i> Cancel
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="firstPage()">First</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="prevPage()">&laquo;</a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">{{ currentPage }} of {{ totalPages() }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+        <a class="page-link" (click)="nextPage()">&raquo;</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+        <a class="page-link" (click)="lastPage()">Last</a>
+      </li>
+    </ul>
+  </nav>
 </div>

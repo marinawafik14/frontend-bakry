@@ -70,6 +70,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Products } from '../models/products';
 import { ProductToAdmin } from '../models/productToAdmin';
+import { ProductMainToAdmin } from '../models/productsmaintoadmin';
 
 @Injectable({
   providedIn: 'root',
@@ -78,10 +79,11 @@ export class ProductService {
   private topPro_url: string = 'http://localhost:8000/top-products'; //top product
   private createpro_url = 'http://localhost:8000/products'; // Your backend API for create product
   private allProduct_url = 'http://localhost:8000/api/inventory/all';
+  private allinventoryProduct_url = 'http://localhost:8000/api/inventory/allfinal';
   private allall = 'http://localhost:8000/allproducts';
- // private allProduct_url = 'http://localhost:8000/allproducts';
+  // private allProduct_url = 'http://localhost:8000/allproducts';
 
-//  private allProduct_url = 'http://localhost:8000/allproducts';
+  //  private allProduct_url = 'http://localhost:8000/allproducts';
   private delete_url = 'http://localhost:8000/products'; // get all products
   //  // get all products
   private URLCategory = 'http://localhost:8000/category'; //api category
@@ -95,7 +97,7 @@ export class ProductService {
     return this.http.patch<ProductToAdmin>(url, { status: status });
   }
 
-  // getallproduct in product schema 
+  // getallproduct in product schema
   getallallproducts(): Observable<ProductToAdmin[]> {
     return this.http.get<ProductToAdmin[]>(this.allall);
   }
@@ -111,6 +113,10 @@ export class ProductService {
   //get all products from main inventory
   getAllProductsToadmin(): Observable<ProductToAdmin[]> {
     return this.http.get<ProductToAdmin[]>(this.allProduct_url);
+  }
+  // get all products from main inventory
+  getAllProductsToMaininventory(): Observable<ProductMainToAdmin[]> {
+    return this.http.get<ProductMainToAdmin[]>(this.allinventoryProduct_url);
   }
 
   // getAllProductsToadminFinal(): Observable<ProductToAdmin[]> {
@@ -153,15 +159,20 @@ export class ProductService {
     });
   }
 
-    //--------------------------------------------------- 
+  //---------------------------------------------------
   // In order.service.ts (or a dedicated cashier.service.ts)
   getBranchProducts(cashierId: string, category: string): Observable<any> {
     const params = new HttpParams().set('category', category);
-    return this.http.get<any>(`http://localhost:8000/cashier/${cashierId}/products`, { params });
+    return this.http.get<any>(
+      `http://localhost:8000/cashier/${cashierId}/products`,
+      { params }
+    );
   }
 
   getCashierOrders(cashierId: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:8000/cashier/${cashierId}/orders`);
+    return this.http.get<any>(
+      `http://localhost:8000/cashier/${cashierId}/orders`
+    );
   }
 
   getInventoryByProduct(productId: string): Observable<any> {
@@ -172,5 +183,4 @@ export class ProductService {
     const params = new HttpParams().set('category', category);
     return this.http.get<any>(`http://localhost:8000/inventory`, { params });
   }
-
 }
