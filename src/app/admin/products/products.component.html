@@ -1,4 +1,4 @@
-<h2>Products</h2>
+<!-- <h2>Products</h2>
 <div class="container my-5">
   <input
     type="text"
@@ -7,7 +7,7 @@
     (input)="applyFilter()"
     class="form-control mb-3"
   />
-<!-- 
+
   <ngx-datatable
     [rows]="filteredProducts"
     [columns]="columns"
@@ -25,21 +25,19 @@
           <th class="sortable" (click)="sortTable('_id')">Id</th>
           <th class="sortable" (click)="sortTable('name')">Name</th>
           <th class="sortable" (click)="sortTable('price')">Price</th>
-          <th class="sortable" (click)="sortTable('status')">status</th>
-          <th class="sortable" (click)="sortTable('sales')">Sales</th>
-          <th class="sortable" (click)="sortTable('stock')">Stock</th>
+          <th class="sortable" (click)="sortTable('stockOut')">stockout</th>
+          <th class="sortable" (click)="sortTable('stockIn')">StockIn</th>
           <th class="sortable" (click)="sortTable('flavor')">Flavor</th>
-          <th class="sortable" (click)="sortTable('discounted')">Discounted</th>
           <th class="sortable" (click)="sortTable('createdAt')">Created At</th>
           <th>action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of filteredProducts; let i = index">
-          <td>{{ product._id?.slice(-3) }}</td>
-          <td>{{ product.name }}</td>
+        <tr *ngFor="let product of filteredmainProducts; let i = index">
+          <td>{{ product.productId._id?.slice(-3) }}</td>
+          <td>{{ product.productId.name }}</td>
           <td>{{ product.price }}</td>
-          <td>
+          <!-- <td>
              <span [ngClass]="{
     'bg-warning text-dark': product.status === 'Pending',
     'bg-success text-white': product.status === 'Approved',
@@ -48,12 +46,11 @@
   }" class="p-.5 rounded">
     {{ product.status }}
   </span>
-          </td>
-          <td>{{ product.sales }}</td>
-          <td>{{ product.stock }}</td>
-          <td>{{ product.flavor }}</td>
-          <td>{{ product.discounted }}</td>
-          <td>{{ product.createdAt }}</td>
+          </td> -->
+          <td>{{ product.stockOut }}</td>
+          <td>{{ product.stockIn }}</td>
+          <td>{{ product.productId.flavor }}</td>
+          <td>{{ product.productId.createdAt }}</td>
            <td>
             <!-- Update Button -->
 <!-- (click)="approve(product._id)" -->
@@ -84,4 +81,4 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> 
