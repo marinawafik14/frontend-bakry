@@ -114,13 +114,19 @@ cartCount$ = this.cartCount.asObservable();
 
 
   clearCart(userId:string):Observable<any>{
-    return this.httpClient.delete(`${environment.BASE_URL}/cart/clear/${userId}`)    .pipe(
+    return this.httpClient.delete(`${environment.BASE_URL}/cart/clear/${userId}`).pipe(
       tap(() => this.refreshCartCount()) // Refresh after quantity update
   );
   }
 
   clearhomeCart(userId:string):Observable<any>{
-    return this.httpClient.delete(`http://localhost:8000/homeclear/${userId}`)    .pipe(
+    return this.httpClient.delete(`http://localhost:8000/homeclear/${userId}`).pipe(
+      tap(() => this.refreshCartCount()) // Refresh after quantity update
+  );
+  }
+
+  clearUserCartFromCheckout(userId:string):Observable<any>{
+    return this.httpClient.delete(`http://localhost:8000/clear2/${userId}`).pipe(
       tap(() => this.refreshCartCount()) // Refresh after quantity update
   );
   }

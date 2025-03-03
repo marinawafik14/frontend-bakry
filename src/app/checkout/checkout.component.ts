@@ -281,7 +281,7 @@ export class CheckoutComponent implements AfterViewInit,OnInit {
   // after saving data to do a order must to clear user cart
 
   clearUserCart(userId: string): void {
-    this.cartservice.clearCart(userId).subscribe({
+    this.cartservice.clearUserCartFromCheckout(userId).subscribe({
       next: () => {
         console.log('Cart cleared successfully');
         this.router.navigateByUrl('/home');

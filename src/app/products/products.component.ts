@@ -128,7 +128,7 @@ export class ProductsComponent implements OnInit {
     const token = sessionStorage.getItem('tokenkey');
     const quantity = 1;
     if (token) {
-      this.CartService.addToCart(product._id, quantity, product.price)
+      this.CartService.addTohomeCart(product._id, quantity, product.price)
         .subscribe({
           next: (response) => {
             console.log("Product added successfully:", response);
