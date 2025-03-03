@@ -4,12 +4,13 @@ import { User } from '../../_models/user';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.css'],
-  imports: [RouterOutlet, RouterLink, CommonModule, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, CommonModule, RouterLinkActive, FormsModule],
 })
 export class AdminUsersComponent implements OnInit {
   users: User[] = [];
@@ -17,6 +18,8 @@ export class AdminUsersComponent implements OnInit {
   pageSize: number = 10;
   selectedRole: string = 'Users';
   availableRoles: string[] = ['All Users', 'Customer', 'Admin', 'Cashier', 'Seller', 'Clerk', 'Supplier'];
+  filterText: string = '';
+  filteredUsers: User[] = [];
 
   constructor(private adminUserApi: AdminUserApiService) {}
 
@@ -30,6 +33,7 @@ export class AdminUsersComponent implements OnInit {
         console.log('Users fetched:', res);
         if (res && res.users) {
           this.users = res.users;
+          this.filteredUsers = res.users; // Initialize filteredUsers
         } else {
           console.error('Unexpected API response format:', res);
         }
@@ -39,7 +43,7 @@ export class AdminUsersComponent implements OnInit {
       },
     });
   }
-
+  
   getUserRole(role: string): void {
     if (role === 'All Users') {
       this.loadUsers();
@@ -49,6 +53,7 @@ export class AdminUsersComponent implements OnInit {
           console.log('Filtered users:', res);
           if (res && res.users) {
             this.users = res.users;
+            this.filteredUsers = res.users; // Update filteredUsers
             this.selectedRole = role;
           } else {
             console.error('Unexpected API response format:', res);
@@ -107,11 +112,10 @@ export class AdminUsersComponent implements OnInit {
   // Pagination methods
   get pagedUsers(): User[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.users.slice(startIndex, startIndex + this.pageSize);
+    return this.filteredUsers.slice(startIndex, startIndex + this.pageSize);
   }
-
   totalPages(): number {
-    return Math.ceil(this.users.length / this.pageSize);
+    return Math.ceil(this.filteredUsers.length / this.pageSize);
   }
 
   nextPage(): void {
@@ -165,5 +169,25 @@ export class AdminUsersComponent implements OnInit {
   getNestedValue(obj: any, path: string): any {
     return path.split('.').reduce((acc, key) => acc && acc[key], obj);
   }
+
+  applyFilter(): void {
+    const filterValue = this.filterText.toLowerCase().trim();
+    if (!filterValue) {
+      this.filteredUsers = [...this.users]; // Reset to all users if search is empty
+    } else {
+      this.filteredUsers = this.users.filter(
+        (user) =>
+          user.email.toLowerCase().includes(filterValue) || // Filter by email
+          (user.profile?.firstName + ' ' + user.profile?.lastName).toLowerCase().includes(filterValue) || // Filter by full name
+          user.role.toLowerCase().includes(filterValue) // Filter by role
+      );
+    }
+    this.currentPage = 1; // Reset to the first page after filtering
+  }
+
+  clearSearch(): void {
+    this.filterText = '';
+    this.applyFilter();
+  }  
   
 }

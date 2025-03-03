@@ -11,6 +11,22 @@
       </select>
     </div> -->
 
+    <div class="mb-3 input-group">
+      <input 
+        type="text" 
+        placeholder="Search...." 
+        [(ngModel)]="filterText" 
+        (input)="applyFilter()" 
+        class="form-control"
+      />
+      <button 
+        class="btn btn-outline-success" 
+        (click)="clearSearch()" 
+        title="Clear Search"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
 
   <!-- Users Table -->
   <table class="table table-bordered mt-3">

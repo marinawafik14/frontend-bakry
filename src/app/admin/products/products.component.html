@@ -1,38 +1,47 @@
-<h2>Inventory Management</h2>
-<div class="container my-5">
+<div class="container mt-4">
+  <h2>Inventory Management</h2>
+
   <!-- Search Bar -->
-  <input
-    type="text"
-    placeholder="Search Products"
-    [(ngModel)]="filterText"
-    (input)="applyFilter()"
-    class="form-control mb-3"
-  />
+  <div class="mb-3 input-group">
+    <input
+      type="text"
+      placeholder="Search Products..."
+      [(ngModel)]="filterText"
+      (input)="applyFilter()"
+      class="form-control"
+    />
+    <button
+      class="btn btn-outline-success"
+      (click)="clearSearch()"
+      title="Clear Search"
+    >
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
 
   <!-- Products Table -->
-  <div class="table-responsive table-bordered">
-    <table class="table table-hover">
-      <thead class="table-danger text-white">
-        <tr>
-          <th class="sortable" (click)="sortTable('_id')">ID</th>
-          <th class="sortable" (click)="sortTable('name')">Name</th>
-          <th class="sortable" (click)="sortTable('price')">Price</th>
-          <th class="sortable" (click)="sortTable('status')">Status</th>
-          <th class="sortable" (click)="sortTable('sales')">Sales</th>
-          <th class="sortable" (click)="sortTable('stock')">Stock</th>
-          <th class="sortable" (click)="sortTable('flavor')">Flavor</th>
-          <th class="sortable" (click)="sortTable('discounted')">Discounted</th>
-          <th class="sortable" (click)="sortTable('createdAt')">Created At</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of pagedProducts; let i = index">
-          <td>{{ product._id?.slice(-4) }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price | currency }}</td>
-          <td>
-            <span
+  <table class="table table-bordered mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th (click)="sortTable('_id')">ID <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('name')">Name <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('price')">Price <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('status')">Status <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('sales')">Sales <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('stock')">Stock <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('flavor')">Flavor <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('discounted')">Discounted <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('createdAt')">Created At <i class="fas fa-sort"></i></th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of pagedProducts">
+        <td>{{ product._id?.slice(-4) }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <span
             [ngClass]="{
               'bg-warning text-dark': product.status === 'Pending',
               'bg-success text-white': product.status === 'Approved',
@@ -44,56 +53,54 @@
             }"
             class="p-1 rounded d-inline-block"
           >
+            {{ product.status }}
+          </span>
+        </td>
+        <td>{{ product.sales }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.flavor }}</td>
+        <td>{{ product.discounted ? 'Yes' : 'No' }}</td>
+        <td>{{ product.createdAt | date: 'short' }}</td>
+        <td>
+          <!-- Approve Button -->
+          <button
+            (click)="approve(product)"
+            class="btn btn-sm btn-success me-2"
+            title="Approve"
+          >
+            <i class="bi bi-check-circle-fill"></i>
+          </button>
 
-              {{ product.status }}
-            </span>
-          </td>
-          <td>{{ product.sales }}</td>
-          <td>{{ product.stock }}</td>
-          <td>{{ product.flavor }}</td>
-          <td>{{ product.discounted ? 'Yes' : 'No' }}</td>
-          <td>{{ product.createdAt | date: 'short' }}</td>
-          <td>
-            <!-- Approve Button -->
-            <button
-              (click)="approve(product)"
-              class="btn btn-sm btn-success me-2"
-              title="Approve"
-            >
-              <i class="bi bi-check-circle-fill"></i>
-            </button>
-
-            <!-- Delete Button -->
-            <button
-              (click)="deleteProduct(product._id)"
-              class="btn btn-sm btn-danger"
-              title="Delete"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <!-- Delete Button -->
+          <button
+            (click)="deleteProduct(product._id)"
+            class="btn btn-sm btn-danger"
+            title="Delete"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- Pagination Controls -->
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="firstPage()">First</a>
+        <button class="page-link" (click)="firstPage()">First</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="prevPage()">&laquo;</a>
+        <button class="page-link" (click)="prevPage()">&laquo;</button>
       </li>
       <li class="page-item disabled">
         <span class="page-link">{{ currentPage }} of {{ totalPages() }}</span>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages()">
-        <a class="page-link" (click)="nextPage()">&raquo;</a>
+        <button class="page-link" (click)="nextPage()">&raquo;</button>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages()">
-        <a class="page-link" (click)="lastPage()">Last</a>
+        <button class="page-link" (click)="lastPage()">Last</button>
       </li>
     </ul>
   </nav>

@@ -199,4 +199,10 @@ export class ProductosComponent implements OnInit {
       }
     });
   }
+
+  clearSearch(): void {
+    this.filterText = '';
+    this.applyFilter();
+  }
+
 }
