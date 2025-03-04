@@ -26,6 +26,7 @@
         <th (click)="sortTable('_id')">ID <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('name')">Name <i class="fas fa-sort"></i></th>
         <th>Description</th>
+        <th>Category</th>
         <th (click)="sortTable('price')">Price <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('stock')">Stock <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('status')">Status <i class="fas fa-sort"></i></th>
@@ -44,6 +45,7 @@
         <td>${{ product.price }}</td>
         <td>{{ product.category }}</td>
         <td>{{ product.stockIn }}</td>
+
           <span class="badge" [ngClass]="{
             'bg-success': product.status === 'Approved',
             'bg-danger': product.status === 'Rejected',

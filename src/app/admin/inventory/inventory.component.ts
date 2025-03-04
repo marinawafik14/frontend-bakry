@@ -45,7 +45,7 @@ export class InventoryComponent implements OnInit {
   //   });
   // }
   loadProducts(): void {
-    this.productService.getAllProducts().subscribe({ 
+    this.productService.getAllProductsToadmin().subscribe({
       next: (data) => {
         console.log('Products fetched:', data);
 
