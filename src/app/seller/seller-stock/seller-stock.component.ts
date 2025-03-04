@@ -3,10 +3,11 @@ import { SellerServicesService } from '../../services/seller-services.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-seller-stock',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
   templateUrl: './seller-stock.component.html',
   styleUrl: './seller-stock.component.css'
 })

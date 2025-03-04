@@ -52,6 +52,16 @@ overflow: hidden;
 i:active{
   background-color: goldenrod;
 }
+
+.navbar {
+  padding: 10px 0;
+  /* margin-left: 10px; */
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+  width: 100%;
+}
+
 /* Responsive Navbar *//*
 @media (max-width: 992px) {
   .navbar-collapse {

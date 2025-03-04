@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CartApiService } from '../services/cart-api.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
@@ -9,7 +9,7 @@ import 'notyf/notyf.min.css';
 
 @Component({
   selector: 'app-cart',
-  imports:[FormsModule],
+  imports:[FormsModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
@@ -35,22 +35,32 @@ export class CartComponent implements OnInit{
   }
 
   //functions
-  updateQuantity(item:any, productId:string, quantityCase:number){
-
-    if(quantityCase == -1){
-      item.quantity += quantityCase;
-      if(item.quantity == 0) item.quantity = 1;
-    }
-    else{
-        item.quantity += quantityCase;
-    }
-    this.checkQuantity(item.quantity, productId);
-
-      this.updateCartQuantities();
-      // this.getCartData();
-      this.updateTotal();
-
+  updateQuantity(item: any, productId: string, delta: number): void {
+    const newQuantity = item.quantity + delta;
+    
+    // Call API to get the current stock
+    this.cartServiceApi.getProuctById(productId).subscribe({
+      next: (res) => {
+        const stock = res.stock; // assuming your API returns the product's stock in res.stock
+        if (newQuantity > stock) {
+          // Show error and do not update the quantity
+          this.notyf.error('Not enough stock available');
+          this.quantityErrorMessage = true;
+        } else if (newQuantity < 1) {
+          // Optionally enforce a minimum of 1
+          this.notyf.error('Quantity must be at least 1');
+        } else {
+          // Update quantity only if it is valid
+          this.quantityErrorMessage = false;
+          item.quantity = newQuantity;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
+  
 
   updateTotal(){
       this.cartServiceApi.getCartForUser(this.userId).subscribe({
@@ -62,24 +72,6 @@ export class CartComponent implements OnInit{
         }
       });
     
-  }
-  checkQuantity(quantity:number ,productId:string){
-    this.cartServiceApi.getProuctById(productId).subscribe({
-      next: (res)=>{
-       const stock = res.stock;
-       if(quantity > stock)
-       {
-        this.notyf.error('Not enough stock available');
-        this.quantityErrorMessage = true;
-       }
-       else{
-        this.quantityErrorMessage = false;
-       }
-      },
-      error: (err)=>{
-        console.log(err);
-      }
-    })
   }
 
   removeCartItem(productId:string){
@@ -104,20 +96,50 @@ export class CartComponent implements OnInit{
     }
   }
 
-  updateCartQuantities(){
-      for(let item of this.cartItems){
-          this.cartServiceApi.updatehomeCartItemQuantity(this.userId, item.productId, Number(item.quantity))
-          .subscribe({
-            next: (res)=>{
-                console.log(res);
-                // this.calculateTotal(); 
-            },
-            error: (err)=>{
-              console.log(err);
-            }
-          })
+  checkQuantity(quantity:number ,productId:string){
+    this.cartServiceApi.getProuctById(productId).subscribe({
+      next: (res)=>{
+       const stock = res.stock;
+       if(quantity > stock)
+       {
+        this.notyf.error('Not enough stock available');
+        this.quantityErrorMessage = true;
+       }
+       else{
+        this.quantityErrorMessage = false;
+       }
+      },
+      error: (err)=>{
+        console.log(err);
       }
+    })
   }
+  // updateQuantity(item: any, productId: string, delta: number): void {
+  //   const newQuantity = item.quantity + delta;
+  
+  //   // Call the API to get the current stock of the product.
+  //   this.cartServiceApi.getProuctById(productId).subscribe({
+  //     next: (res) => {
+  //       const stock = res.stock; // assuming your API returns the product's stock in res.stock
+  //       if (newQuantity > stock) {
+  //         // If the new quantity exceeds stock, show an error and do not update the quantity.
+  //         this.notyf.error('Not enough stock available');
+  //         this.quantityErrorMessage = true;
+  //       } else if (newQuantity < 1) {
+  //         // Optionally, prevent the quantity from going below 1.
+  //         this.notyf.error('Quantity must be at least 1');
+  //       } else {
+  //         // Otherwise, update the quantity.
+  //         this.quantityErrorMessage = false;
+  //         item.quantity = newQuantity;
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //     }
+  //   });
+  // }
+  
 //************ */
   // onQuantityChange() {
   //   this.calculateTotal();

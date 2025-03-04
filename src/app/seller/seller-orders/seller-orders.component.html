@@ -1,7 +1,10 @@
 <div class="orders-container mt-5">
   <h2 style="text-align: center; color: rgb(117, 108, 24);">Recent Orders</h2>
+  <div class=" col-6 col-md-3 col-sm-12">
+    <a [routerLink]="['/dashboard']"   id="add-Product" class="form-control btn btndash w-75"
+      data-bs-toggle="modal" data-bs-target="#addProductModal">go to dashboard</a>
+  </div>
   <div *ngFor="let order of orders; let i = index" class="order-table-container">
-    
 
     <div class="table-responsive">
       <table class="table table-striped">
@@ -50,3 +53,5 @@
     </div>
   </div>
 </div>
+
+

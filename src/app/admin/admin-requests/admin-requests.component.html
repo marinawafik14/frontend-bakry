@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let request of requests">
+    <tr *ngFor="let request of pagedRequests">
       <td>{{ request._id?.slice(-4) }}</td>
       <td>{{ request.branchName }}</td>
       <td>{{ request.productName }}</td>
@@ -30,19 +30,28 @@
         <button 
           class="btn btn-success btn-sm me-2"
           (click)="changeRequestStatus(request, 'approved')"
-          [disabled]="request.status === 'approved'"
-        >
+          [disabled]="request.status === 'approved'">
           <i class="fas fa-check"></i> Accept
         </button>
 
         <button 
           class="btn btn-danger btn-sm"
           (click)="changeRequestStatus(request, 'rejected')"
-          [disabled]="request.status !== 'pending'"
-        >
+          [disabled]="request.status !== 'pending'">
           <i class="fas fa-times"></i> Reject
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls text-center mt-3">
+  <button class="btn btn-outline-primary me-2" (click)="prevPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+  <button class="btn btn-outline-primary ms-2" (click)="nextPage()" [disabled]="currentPage === totalPages()">
+    Next
+  </button>
+</div>
