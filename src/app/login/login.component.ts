@@ -83,6 +83,8 @@ export class LoginComponent {
               this.router.navigateByUrl("/cashier");
             }else if(this._authservice.getDecodedToken()?.role === 'Clerk') {
               this.router.navigateByUrl("admin");
+
+
             }
             else {  
               this.router.navigateByUrl("/home");
