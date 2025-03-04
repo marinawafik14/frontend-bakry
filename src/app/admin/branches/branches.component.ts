@@ -100,7 +100,9 @@ export class BranchesComponent implements OnInit {
     if (this.branchId) {
       this.branchesservice.getRequestsForBranch(this.branchId).subscribe({
         next: (data) => {
-          console.log("Restock Requests:", data);
+         
+          this.requests = data.requests.requests;
+          console.log("Restock Requests:", this.requests);          
         },
         error: (err) => {
           console.error("Error fetching restock requests:", err);

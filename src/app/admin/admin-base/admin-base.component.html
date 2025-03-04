@@ -9,10 +9,10 @@
         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
         >
           @if(loggedRole == 'Admin'){
-            <span class="fs-5 d-none d-sm-inline"> Bakery Admin</span>
+            <h1 class="fs-5 d-none d-sm-inline text-success"> Bakery Admin</h1>
           }
           @else {
-            <span class="fs-5 d-none d-sm-inline"> Branch Admin</span>
+            <h1 class="fs-5 d-none d-sm-inline"> Branch Admin</h1>
           }
         </a>
         <ul
@@ -27,10 +27,10 @@
           </li>
           <li>
             @if(loggedRole == 'Admin'){
-              <a
+              <a 
               href="#submenu1"
               data-bs-toggle="collapse"
-              class="nav-link px-0 align-middle">
+              class="nav-link px-2 align-middle w-100" routerLink="/admin/dashboard" routerLinkActive="active-menu">
               <i class="fs-4 bi-speedometer2"></i>
               <span class="ms-1 d-none d-sm-inline">Dashboard</span>
               </a>
@@ -59,36 +59,44 @@
 
           </li>
           @if(loggedRole == 'Admin'){
-            <li>
-              <a [routerLink]="'/admin/orders'" href="#"  class="nav-link px-0 align-middle">
+            <li class="w-100">
+              <a [routerLink]="'/admin/orders'" 
+                 class="nav-link px-2 align-middle w-100" 
+                 routerLinkActive="active-menu">
                 <i class="fs-4 bi-table"></i>
-                <span class="ms-1 d-none d-sm-inline ">Orders</span></a>
+                <span class="ms-1 d-none d-sm-inline">Orders</span>
+              </a>
             </li>
+            
             
           <li>
             <a [routerLink]="'/admin/products'"
               href="#submenu3"
               data-bs-toggle="collapse"
-              class="nav-link px-0 align-middle">
+              class="nav-link px-2 align-middle w-100"  routerLinkActive="active-menu">
               <i class="fs-4 bi-grid"></i>
               <span class="ms-1 d-none d-sm-inline">inventory</span>
             </a>
           </li>
-          <a class="nav-link px-0 align-middle" [routerLink]="'/admin/users'">
+          <a class="nav-link px-2 align-middle" [routerLink]="'/admin/users'"  routerLinkActive="active-menu">
             <i class="fs-4 bi-people"></i>
             <span class="ms-1 d-none d-sm-inline">Customers</span>
           </a>
-          <a class="nav-link px-0 align-middle" [routerLink]="'/admin/productstoadmin'">
+          <a class="nav-link px-2 align-middle" [routerLink]="'/admin/productstoadmin'"  routerLinkActive="active-menu">
             <i class="fs-4 bi-grid"></i>
             <span class="ms-1 d-none d-sm-inline">Products</span>
           </a>
-          <a class="nav-link px-0 align-middle" [routerLink]="'/admin/requests'">
+          <a class="nav-link px-2 align-middle" [routerLink]="'/admin/requests'"  routerLinkActive="active-menu">
             <i class="fs-4 bi-grid"></i>
             <span class="ms-1 d-none d-sm-inline">Requests</span>
           </a>
-          <a class="nav-link px-0 align-middle" [routerLink]="'/admin/comments'">
+          <a class="nav-link px-2 align-middle" [routerLink]="'/admin/comments'"  routerLinkActive="active-menu">
             <i class="fs-4 bi-people"></i>
             <span class="ms-1 d-none d-sm-inline">Comments</span>
+          </a>
+          <a class="nav-link px-2 align-middle" [routerLink]="'/admin/branch/manage'"  routerLinkActive="active-menu">
+            <i class="fs-4 bi-people"></i>
+            <span class="ms-1 d-none d-sm-inline">Branch Managment</span>
           </a>
           }
         </ul>
