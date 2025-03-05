@@ -1,80 +1,7 @@
-<<<<<<< HEAD
 <div class="container mt-4">
   <h2>Inventory Management</h2>
-=======
-<!-- <h2>Products</h2>
-<div class="container my-5">
-  <input
-    type="text"
-    placeholder="Search Products"
-    [(ngModel)]="filterText"
-    (input)="applyFilter()"
-    class="form-control mb-3"
-  />
 
-  <ngx-datatable
-    [rows]="filteredProducts"
-    [columns]="columns"
-    class="bootstrap"
-    [headerHeight]="50"
-    [footerHeight]="50"
-    [rowHeight]="50"
-  ></ngx-datatable> -->
-    
-<div class="container my-5">
-  <div class="table-responsive table-bordered">
-    <table class="table table-hover">
-      <thead class="table-danger text-white">
-         <tr>
-          <th class="sortable" (click)="sortTable('_id')">Id</th>
-          <th class="sortable" (click)="sortTable('name')">Name</th>
-          <th class="sortable" (click)="sortTable('price')">Price</th>
-          <th class="sortable" (click)="sortTable('stockOut')">stockout</th>
-          <th class="sortable" (click)="sortTable('stockIn')">StockIn</th>
-          <th class="sortable" (click)="sortTable('flavor')">Flavor</th>
-          <th class="sortable" (click)="sortTable('createdAt')">Created At</th>
-          <th>action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of filteredmainProducts; let i = index">
-          <td>{{ product.productId._id?.slice(-3) }}</td>
-          <td>{{ product.productId.name }}</td>
-          <td>{{ product.price }}</td>
-          <!-- <td>
-             <span [ngClass]="{
-    'bg-warning text-dark': product.status === 'Pending',
-    'bg-success text-white': product.status === 'Approved',
-    'bg-danger text-white': product.status === 'Rejected',
-    'bg-secondary text-white': product.status === 'Out of Stock'
-  }" class="p-.5 rounded">
-    {{ product.status }}
-  </span>
-          </td> -->
-          <td>{{ product.stockOut }}</td>
-          <td>{{ product.stockIn }}</td>
-          <td>{{ product.productId.flavor }}</td>
-          <td>{{ product.productId.createdAt }}</td>
-           <td>
-            <!-- Update Button -->
-<!-- (click)="approve(product._id)" -->
-            <!-- (click)="reject(product._id)" -->
-          <button
-  (click)="approve(product)"
-  class="btn btn-sm btn-success me-2"
->
-  <i class="bi bi-check-circle-fill"></i>
-</button>
-<!--  
- <button
-  (click)="reject(product._id)"
-  class="btn btn-sm btn-danger me-2"
->
-  <i class="bi bi-x-circle-fill"></i>
-</button>  -->
->>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a
-
-  <!-- Search Bar -->
+  <!-- Search Input -->
   <div class="mb-3 input-group">
     <input
       type="text"
@@ -91,66 +18,35 @@
       <i class="bi bi-x-lg"></i>
     </button>
   </div>
-<<<<<<< HEAD
 
-  <!-- Products Table -->
+  <!-- Product Table -->
   <table class="table table-bordered mt-3">
     <thead class="table-dark">
       <tr>
         <th (click)="sortTable('_id')">ID <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('name')">Name <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('price')">Price <i class="fas fa-sort"></i></th>
-        <th (click)="sortTable('status')">Status <i class="fas fa-sort"></i></th>
-        <th (click)="sortTable('sales')">Sales <i class="fas fa-sort"></i></th>
-        <th (click)="sortTable('stock')">Stock <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('stockOut')">Stock Out <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('stockIn')">Stock In <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('flavor')">Flavor <i class="fas fa-sort"></i></th>
-        <th (click)="sortTable('discounted')">Discounted <i class="fas fa-sort"></i></th>
         <th (click)="sortTable('createdAt')">Created At <i class="fas fa-sort"></i></th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of pagedProducts">
-        <td>{{ product._id?.slice(-4) }}</td>
-        <td>{{ product.name }}</td>
+        <td>{{ product.productId?._id?.slice(-3) }}</td>
+        <td>{{ product.productId?.name }}</td>
         <td>{{ product.price | currency }}</td>
+        <td>{{ product.stockOut }}</td>
+        <td>{{ product.stockIn }}</td>
+        <td>{{ product.productId?.flavor }}</td>
+        <td>{{ product.productId?.createdAt | date: 'medium' }}</td>
         <td>
-          <span
-            [ngClass]="{
-              'bg-warning text-dark': product.status === 'Pending',
-              'bg-success text-white': product.status === 'Approved',
-              'bg-danger text-white': product.status === 'Rejected',
-              'bg-secondary text-white': product.status === 'Out of Stock',
-              'bg-info text-white': product.status === 'Processing',
-              'bg-primary text-white': product.status === 'Shipped',
-              'bg-dark text-white': product.status === 'Delivered'
-            }"
-            class="p-1 rounded d-inline-block"
-          >
-            {{ product.status }}
-          </span>
-        </td>
-        <td>{{ product.sales }}</td>
-        <td>{{ product.stock }}</td>
-        <td>{{ product.flavor }}</td>
-        <td>{{ product.discounted ? 'Yes' : 'No' }}</td>
-        <td>{{ product.createdAt | date: 'short' }}</td>
-        <td>
-          <!-- Approve Button -->
-          <button
-            (click)="approve(product)"
-            class="btn btn-sm btn-success me-2"
-            title="Approve"
-          >
+          <button (click)="approve(product)" class="btn btn-sm btn-success me-2">
             <i class="bi bi-check-circle-fill"></i>
           </button>
-
-          <!-- Delete Button -->
-          <button
-            (click)="deleteProduct(product._id)"
-            class="btn btn-sm btn-danger"
-            title="Delete"
-          >
+          <button (click)="deleteProduct(product._id)" class="btn btn-sm btn-danger">
             <i class="bi bi-trash"></i>
           </button>
         </td>
@@ -168,17 +64,14 @@
         <button class="page-link" (click)="prevPage()">&laquo;</button>
       </li>
       <li class="page-item disabled">
-        <span class="page-link">{{ currentPage }} of {{ totalPages() }}</span>
+        <span class="page-link">{{ currentPage }} of {{ totalPages }}</span>
       </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="nextPage()">&raquo;</button>
       </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="lastPage()">Last</button>
       </li>
     </ul>
   </nav>
 </div>
-=======
-</div> 
->>>>>>> eeb1229f1cac5a0597a01d22a820740593b3e56a

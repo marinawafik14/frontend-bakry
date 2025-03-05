@@ -44,33 +44,116 @@ export class InventoryComponent implements OnInit {
   //     },
   //   });
   // }
+  // loadProducts(): void {
+  //   this.productService.getallallproducts().subscribe({
+  //     next: (data) => {
+  //       console.log('Products fetched:', data);
+
+  //       // Transform API data to match ProductToAdmin structure
+  //       this.products = data.map(
+  //         (item: any) =>
+  //           new ProductToAdmin(
+  //             item.productId?._id || item._id, // Handle nested productId
+  //             item.productId?.name || item.name,
+  //             item.productId?.description || item.description,
+  //             item.productId?.price || item.price,
+  //             item.productId?.categoryName || item.categoryName,
+  //             item.productId?.category || item.category,
+  //             item.productId?.previousprice || item.previousprice,
+  //             item.stockOut, // Inventory related
+  //             item.stockIn, // Inventory related
+  //             item.productId?.flavor || item.flavor,
+  //             item.productId?.discounted || item.discounted,
+  //             item.productId?.status || item.status,
+  //             new Date(item.productId?.createdAt || item.createdAt), // Ensure date type
+  //             new Date(item.productId?.updatedAt || item.updatedAt),
+  //             item.productId?.images || item.images || [], // Ensure images array
+  //             item.productId?.accentColor || item.accentColor
+  //           )
+  //       );
+
+  //       console.log('Transformed Products:', this.products);
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching products:', err);
+  //     },
+  //   });
+  // }
+  //   loadProducts(): void {
+  //     this.productService.getallallproducts().subscribe({
+  //       next: (data) => {
+  //         console.log('Products fetched:', data);
+
+  //         // Ensure data is an array before mapping
+  //         if (!Array.isArray(data)) {
+  //           console.error('Invalid data format', data);
+  //           return;
+  //         }
+
+  //         this.products = data.map((item: any) => {
+  //           return new ProductToAdmin(
+  //             item._id, // Directly using _id
+  //             item.name,
+  //             item.description,
+  //             item.price,
+  //             item.categoryid?.name || 'Unknown Category', // Category name
+  //             item.categoryid?._id || '', // Category ID
+  //             item.previousprice || 0,
+  //             item.stockOut || 0, // Handle undefined stockOut
+  //             item.stock || 0, // Handle undefined stockIn
+  //             item.flavor || 'N/A',
+  //             item.discounted || false,
+  //             item.status || 'Pending',
+  //             new Date(item.createdAt), // Ensure date conversion
+  //             new Date(item.updatedAt),
+  //             item.images || [], // Ensure images are an array
+  //             item.accentColor || '#FFFFFF'
+  //           );
+  //         });
+  // //this.pagedProducts = this.products;
+  // //console.log(this.pagedProducts);
+  //         console.log('Transformed Products:', this.products);
+  //       },
+  //       error: (err) => {
+  //         console.error('Error fetching products:', err);
+  //       },
+  //     });
+  //   }
+
   loadProducts(): void {
-    this.productService.getAllProductsToadmin().subscribe({
+    this.productService.getallallproducts().subscribe({
       next: (data) => {
         console.log('Products fetched:', data);
 
-        // Transform API data to match ProductToAdmin structure
-        this.products = data.map(
-          (item: any) =>
-            new ProductToAdmin(
-              item.productId?._id || item._id, // Handle nested productId
-              item.productId?.name || item.name,
-              item.productId?.description || item.description,
-              item.productId?.price || item.price,
-              item.productId?.categoryName || item.categoryName,
-              item.productId?.category || item.category,
-              item.productId?.previousprice || item.previousprice,
-              item.stockOut, // Inventory related
-              item.stockIn, // Inventory related
-              item.productId?.flavor || item.flavor,
-              item.productId?.discounted || item.discounted,
-              item.productId?.status || item.status,
-              new Date(item.productId?.createdAt || item.createdAt), // Ensure date type
-              new Date(item.productId?.updatedAt || item.updatedAt),
-              item.productId?.images || item.images || [], // Ensure images array
-              item.productId?.accentColor || item.accentColor
-            )
-        );
+        if (!Array.isArray(data)) {
+          console.error('Invalid data format', data);
+          return;
+        }
+
+        this.products = data.map((item: any) => {
+          return new ProductToAdmin(
+            item._id,
+            item.name,
+            item.description,
+            item.price,
+            item.categoryid?.name || 'Unknown Category', // Fix category
+            item.categoryid?._id || '',
+            item.previousprice || 0,
+            item.stock || 0, // Fix stock property
+            item.stock || 0,
+            item.flavor || 'N/A',
+            item.discounted || false,
+            item.status || 'Pending',
+            new Date(item.createdAt),
+            new Date(item.updatedAt),
+            item.images || [],
+            item.accentColor || '#FFFFFF'
+          );
+        });
+
+        // 🔹 Update the filtered and paginated lists
+        this.filteredProducts = [...this.products];
+        this.updatePagedProducts();
 
         console.log('Transformed Products:', this.products);
       },
@@ -82,7 +165,11 @@ export class InventoryComponent implements OnInit {
 
   approveProduct(product: ProductToAdmin): void {
     if (product.status === 'Approved') {
-      Swal.fire('Already Approved', 'This product is already approved.', 'info');
+      Swal.fire(
+        'Already Approved',
+        'This product is already approved.',
+        'info'
+      );
       return;
     }
 
@@ -106,17 +193,19 @@ export class InventoryComponent implements OnInit {
         return; // If canceled, do nothing
       }
 
-      this.productService.changeproductStatus(product._id, newStatus).subscribe({
-        next: (updatedProduct) => {
-          Swal.fire('Success!', `Product has been ${newStatus}.`, 'success');
-          product.status = newStatus; // Update local product list
-          this.applyFilter(); // Reapply filter to reflect changes
-        },
-        error: (err) => {
-          console.error('Error updating product status:', err);
-          Swal.fire('Error', 'Failed to update the product status.', 'error');
-        },
-      });
+      this.productService
+        .changeproductStatus(product._id, newStatus)
+        .subscribe({
+          next: (updatedProduct) => {
+            Swal.fire('Success!', `Product has been ${newStatus}.`, 'success');
+            product.status = newStatus; // Update local product list
+            this.applyFilter(); // Reapply filter to reflect changes
+          },
+          error: (err) => {
+            console.error('Error updating product status:', err);
+            Swal.fire('Error', 'Failed to update the product status.', 'error');
+          },
+        });
     });
   }
 
@@ -162,7 +251,9 @@ export class InventoryComponent implements OnInit {
               this.productService.Deleteproductbyid(product._id).subscribe({
                 next: () => {
                   Swal.fire('Deleted!', 'Product has been deleted.', 'success');
-                  this.products = this.products.filter((p) => p._id !== product._id);
+                  this.products = this.products.filter(
+                    (p) => p._id !== product._id
+                  );
                   this.applyFilter(); // Reapply filter to reflect changes
                 },
                 error: (err) => {
@@ -217,7 +308,10 @@ export class InventoryComponent implements OnInit {
 
   updatePagedProducts(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    this.pagedProducts = this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
+    this.pagedProducts = this.filteredProducts.slice(
+      startIndex,
+      startIndex + this.itemsPerPage
+    );
   }
 
   totalPages(): number {
