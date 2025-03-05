@@ -1,30 +1,47 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">Product List</h2>
+  <h2>Product Management</h2>
 
-  <table class="table table-bordered table-striped text-center">
+  <!-- Search Bar -->
+  <div class="mb-3 input-group">
+    <input 
+      type="text" 
+      placeholder="Search..." 
+      [(ngModel)]="filterText" 
+      (input)="applyFilter()" 
+      class="form-control"
+    />
+    <button 
+      class="btn btn-outline-secondary" 
+      (click)="clearSearch()" 
+      title="Clear Search"
+    >
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <!-- Product Table -->
+  <table class="table table-bordered mt-3 text-center">
     <thead class="table-dark">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th (click)="sortTable('_id')">ID <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('name')">Name <i class="fas fa-sort"></i></th>
         <th>Description</th>
-        <th>Price</th>
-        <th>Category</th>
-        <th>Stock</th>
-        <th>Status</th>
+        <th (click)="sortTable('category')">Category <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('price')">Price <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('stock')">Stock <i class="fas fa-sort"></i></th>
+        <th (click)="sortTable('status')">Status <i class="fas fa-sort"></i></th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of pagedProducts">
         <td>{{ product._id?.slice(-3) }}</td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>${{ product.price }}</td>
         <td>{{ product.category }}</td>
+        <td>${{ product.price }}</td>
         <td>{{ product.stockIn }}</td>
         <td>
-
-
           <span class="badge" [ngClass]="{
             'bg-success': product.status === 'Approved',
             'bg-danger': product.status === 'Rejected',
@@ -33,22 +50,41 @@
             {{ product.status }}
           </span>
         </td>
-       <td class="d-inline-flex gap-2">
-  <button 
-    class="btn btn-success btn-sm" 
-    (click)="approveProduct(product)" 
-    [disabled]="product.status === 'approved'">
-    Change
-  </button>
-
-  <button 
-    class="btn btn-danger btn-sm" 
-    (click)="deleteProduct(product)">
-    Delete
-  </button>
-</td>
-
+        <td>
+          <button 
+            class="btn btn-sm btn-success me-2" 
+            (click)="approveProduct(product)" 
+            [disabled]="product.status === 'Approved'">
+            <i class="bi bi-check-lg"></i> Change
+          </button>
+          <button 
+            class="btn btn-sm btn-danger" 
+            (click)="deleteProduct(product)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="firstPage()">First</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="prevPage()">&laquo;</a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">{{ currentPage }} of {{ totalPages() }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+        <a class="page-link" (click)="nextPage()">&raquo;</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages()">
+        <a class="page-link" (click)="lastPage()">Last</a>
+      </li>
+    </ul>
+  </nav>
 </div>
